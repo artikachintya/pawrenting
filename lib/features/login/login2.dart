@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../navigationMenu.dart';
 
 class Login2 extends StatelessWidget {
   const Login2({super.key});
@@ -173,7 +176,9 @@ class _LoginForm extends StatelessWidget {
           const SizedBox(height: 30),
           Center(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(NavigationMenu());
+              },
               style: _elevatedButtonStyle(),
               child: const Text(
                 'Login',
