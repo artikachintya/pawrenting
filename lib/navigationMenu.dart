@@ -12,7 +12,7 @@ class NavigationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NavigationController());
+    NavigationController controller = Get.find();
     return Scaffold(
       floatingActionButton: FloatingActionButton.large(
         backgroundColor: TColors.accent,

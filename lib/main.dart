@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/petController.dart';
 import 'package:pawrentingreborn/firebase_options.dart';
+import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/theme/theme.dart';
 import '';
 import 'app.dart';
@@ -13,5 +14,6 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Get.lazyPut(()=>NavBarController());
   Get.lazyPut(()=>PetController());
+  Get.lazyPut(()=>NavigationController());
   runApp(const MainApp());
 }

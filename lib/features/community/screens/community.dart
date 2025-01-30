@@ -13,7 +13,51 @@ class Community extends StatelessWidget {
         child: Column(
           children: [
             TAppBar(onMain: true, onPetDetails: false),
-            Text('Ini Community')
+            Container(
+              color: Colors.red.withAlpha(100),
+              height: 2000,
+              width: double.maxFinite,
+              child: Column(
+                children: [
+                  Container(
+                    color: Colors.amber,
+                    width: 400,
+                    height: 50,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Icons.search),
+                        Text('Search')
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  Container(
+                    width: 400,
+                    height: 50,
+                    color: Colors.amber,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.white,
+                          child: Text('anjay'),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.white,
+                          child: Text('tred'),
+                          alignment: Alignment.center,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
