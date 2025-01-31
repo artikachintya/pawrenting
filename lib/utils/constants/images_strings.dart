@@ -17,4 +17,5 @@ class TImages{
   static const String picIcon = 'assets/icons/pic.png';
   static const String petCard = 'assets/images/petcard.png';
   static const String whiskey = 'assets/images/whiskey.jpg';
+  static const String userProfilePic = 'assets/images/fotoProfileUser.png'; 
 }
