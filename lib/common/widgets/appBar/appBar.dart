@@ -25,7 +25,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget{
         elevation: onPetDetails
         ? 0
         : 5,
-        shadowColor: Colors.white,
+
         backgroundColor: onPetDetails
         ? Colors.transparent
         : Colors.white,
@@ -96,7 +96,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget{
             ),
           ),
         ]
-        : null
+        : [ImageIcon(AssetImage(TImages.more), size: 32,)]
       ),
       );
   }

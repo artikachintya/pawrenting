@@ -8,6 +8,7 @@ class TImages{
   static const String translateIcon = 'assets/icons/icon-translate2.png';
   static const String pawrentingLogo = 'assets/logos/pawrenting.png';
   static const String arrowBackIcon = 'assets/icons/arrow-back.png';
+  static const String arrowForwardIcon = 'assets/icons/arrow-forward.png';
   static const String cartIcon = 'assets/icons/icon-cart.png';
   static const String notifIcon = 'assets/icons/icon-notif.png';
   static const String dogIcon = 'assets/icons/dog.png';
@@ -17,5 +18,10 @@ class TImages{
   static const String picIcon = 'assets/icons/pic.png';
   static const String petCard = 'assets/images/petcard.png';
   static const String whiskey = 'assets/images/whiskey.jpg';
+
   static const String userProfilePic = 'assets/images/fotoProfileUser.png'; 
+  static const String exercise = 'assets/icons/exercise.png';
+  static const String food = 'assets/icons/food.png';
+  static const String vaccine = 'assets/icons/vaccine.png';
+  static const String more = 'assets/icons/more.png';
 }
