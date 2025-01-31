@@ -5,6 +5,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet.dart';
+import 'package:pawrentingreborn/features/mypets/screens/petdetails/petdetails.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petlist/widgets/petCard.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -49,7 +50,12 @@ class PetList extends StatelessWidget {
               mainAxisSpacing: 10,
               mainAxisExtent: 210,
               ),
-             itemBuilder: (_, index) => PetCard(isCat: true, imgstr: TImages.whiskey) 
+             itemBuilder: (_, index) => GestureDetector(
+              child: PetCard(isCat: true, imgstr: TImages.whiskey) ,
+              onTap: (){
+                Get.to(()=>PetDetails());
+              }
+             ) 
              )
           ],
         ),

@@ -16,28 +16,8 @@ class Home extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TAppBar2(title: TTexts.appBarFoodTitle, subtitle: TTexts.appBarFoodSub,),
-            SizedBox(
-                          height: 125,
-                          child: DropdownButtonFormField(
-                            value: selectedBreed,
-                            items: catBreeds.map((String breed) {
-                              return DropdownMenuItem(
-                                value: breed,
-                                child: Text(breed),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              selectedBreed = value;
-                              print(selectedBreed);
-                            },
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              filled: true,
-                              fillColor: TColors.gray
-                            ),
-                          ),
-                        )
+            TAppBar(onMain: true, onPetDetails: false),
+            Text('Ini Home')
           ],
         ),
       ),

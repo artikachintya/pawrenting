@@ -13,7 +13,9 @@ class Profile extends StatelessWidget {
         child: Column(
           children: [
             TAppBar(onMain: true, onPetDetails: false),
-            Text('Ini Profile')
+            Text('Ini Profile'),
+            Container(              
+            )
           ],
         ),
       ),
