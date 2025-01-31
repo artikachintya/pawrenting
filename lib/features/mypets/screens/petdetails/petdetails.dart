@@ -63,7 +63,7 @@ class PetDetails extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
