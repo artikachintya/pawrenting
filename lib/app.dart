@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: TAppTheme.lightTheme,
-      home: Signup(),
+      home: Landingpage(),
     );
   }
 }
