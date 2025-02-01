@@ -44,12 +44,15 @@ class _SignupState extends State<Signup> {
     }
   }
 
+// masih bermasalah
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Center(
           child: Container(
+            width: double.maxFinite,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/login/wallpaper-login.png'),
@@ -58,14 +61,6 @@ class _SignupState extends State<Signup> {
             ),
             child: Column(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/login/wallpaper-login.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
                 Container(
                   height: 180,
                   width: 350,
