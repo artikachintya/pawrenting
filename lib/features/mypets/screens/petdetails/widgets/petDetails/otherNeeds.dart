@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/needs.dart';
+import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/mypets/screens/petdetails/petVaccine.dart';
+import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petDetails/needs.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class OtherNeeds extends StatelessWidget {
@@ -35,7 +37,12 @@ class OtherNeeds extends StatelessWidget {
         SizedBox(height: 10),
         Needs(icon: TImages.food, needs: 'Foodies',),
         SizedBox(height: 10),
-        Needs(icon: TImages.vaccine, needs: 'Vaccine',),       
+        GestureDetector(
+          child: Needs(icon: TImages.vaccine, needs: 'Vaccine',),
+          onTap: () {
+            Get.to(()=>PetVaccine());
+          }
+          ),       
       ]
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pawrentingreborn/navigationMenu.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -219,7 +221,10 @@ class _SignupState extends State<Signup> {
                                 borderRadius: BorderRadius.circular(31),
                               ),
                             ),
-                            onPressed: _submitForm,
+                            onPressed: (){
+                              _submitForm;
+                              Get.to(()=>NavigationMenu());
+                            },
                             child: const Text(
                               'Register',
                               style:

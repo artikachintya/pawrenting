@@ -17,7 +17,7 @@ class TTextTheme{
     bodySmall: const TextStyle().copyWith(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black.withOpacity(0.5)),
 
     labelLarge: const TextStyle().copyWith(fontSize: 12, fontWeight: FontWeight.normal, color: Colors.black),
-    labelMedium: const TextStyle().copyWith(fontSize: 12, fontWeight: FontWeight.normal, color: Colors.white),
-    labelSmall: const TextStyle().copyWith(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.white),
+    labelMedium: const TextStyle().copyWith(fontSize: 12, fontWeight: FontWeight.normal, color: Colors.black),
+    labelSmall: const TextStyle().copyWith(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.black),
   );
 }

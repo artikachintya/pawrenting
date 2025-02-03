@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/otherNeeds.dart';
-import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petDiary.dart';
-import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petInfo.dart';
+import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petDetails/otherNeeds.dart';
+import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petDetails/petDiary.dart';
+import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petDetails/petInfo.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -63,7 +63,7 @@ class PetDetails extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 30),
+                        SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

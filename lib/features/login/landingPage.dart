@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/login/login2.dart';
+import 'package:pawrentingreborn/features/signup/signup.dart';
 
 class Landingpage extends StatelessWidget {
   const Landingpage({super.key});
@@ -88,7 +91,7 @@ class Landingpage extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/login2');
+                          Get.to(()=>Login2());
                         },
                         child: const Text(
                           'Login',
@@ -112,7 +115,7 @@ class Landingpage extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/login2');
+                          Get.to(()=>Signup());
                         },
                         child: const Text(
                           'Register',

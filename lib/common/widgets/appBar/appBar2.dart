@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
+import 'package:pawrentingreborn/utils/device/device_utility.dart';
 
-class TAppBar2 extends StatelessWidget {
+class TAppBar2 extends StatelessWidget implements PreferredSizeWidget{
   const TAppBar2({
     super.key, required this.title, required this.subtitle,
   });
@@ -29,4 +30,8 @@ class TAppBar2 extends StatelessWidget {
       )
     );
   }
+  
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size.fromHeight(TDeviceUtil.getAppBarHeight());
 }
