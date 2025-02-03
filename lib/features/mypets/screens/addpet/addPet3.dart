@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/petGender.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/widgets/petGenderButton.dart';
-import 'package:pawrentingreborn/utils/constants/colors.dart';
-import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class addPet3 extends StatelessWidget {
   const addPet3({
@@ -15,18 +13,18 @@ class addPet3 extends StatelessWidget {
   Widget build(BuildContext context) {
     PetGenderButtonController controller = Get.find();
     return Padding(
-       padding: EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
+       padding: const EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
        child: Column(
          crossAxisAlignment: CrossAxisAlignment.center,
          mainAxisAlignment: MainAxisAlignment.start,
          children: [
-           Container(
+           SizedBox(
              // color: Colors.red.withAlpha(100),
              height: 250,
              child: Column(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                 Container(
+                 SizedBox(
                    // color: Colors.red.withAlpha(100),
                    width: 250,
                    child: Text(
@@ -35,10 +33,10 @@ class addPet3 extends StatelessWidget {
                      textAlign: TextAlign.center,
                      ),
                  ),
-                 Form(
+                 const Form(
                    child: PetGenderButton(),
                  ),
-                 SizedBox(height: 10,)
+                 const SizedBox(height: 10,)
                ],
              ),
            ),

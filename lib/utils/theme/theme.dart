@@ -9,7 +9,7 @@ class TAppTheme{
     fontFamily:'AlbertSans',
     brightness: Brightness.light,
     primaryColor: Colors.blue,
-    scaffoldBackgroundColor: Color(0xffF8F8F8),
+    scaffoldBackgroundColor: const Color(0xffF8F8F8),
     textTheme: TTextTheme.lightTextTheme
    );
 }

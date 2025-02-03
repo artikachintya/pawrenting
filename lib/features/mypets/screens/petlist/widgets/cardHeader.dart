@@ -13,7 +13,7 @@ class cardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-            child: Container(
+            child: SizedBox(
     height: 45,
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -22,7 +22,7 @@ class cardHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Container(
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children:[

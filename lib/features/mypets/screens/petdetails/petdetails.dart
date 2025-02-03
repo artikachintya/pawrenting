@@ -23,12 +23,12 @@ class PetDetails extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: TAppBar(onMain: false, onPetDetails: true),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: 1200,
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              Container(
+              SizedBox(
                 height: 350,
                 width: 420,
                 child: Image.asset(TImages.whiskey, fit: BoxFit.cover,)
@@ -51,7 +51,7 @@ class PetDetails extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
+                            children: const [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -66,7 +66,7 @@ class PetDetails extends StatelessWidget {
                         SizedBox(height: 30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: const [
                             PetInfo(type: 'Gender', value: 'Female', color: Color(0xffFEF1A3),),
                             PetInfo(type: 'Height', value: '20 cm', color: Color(0xffE5FC95),),
                             PetInfo(type: 'Weight', value: '5 kg', color: Color(0xffFEF1A3),),

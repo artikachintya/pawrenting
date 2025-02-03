@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
-import 'package:pawrentingreborn/utils/constants/texts.dart';
 
 class TAppBar2 extends StatelessWidget {
   const TAppBar2({

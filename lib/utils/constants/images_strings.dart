@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class TImages{
   static const String homeIcon = 'assets/icons/homeIcon.png';
@@ -20,8 +19,11 @@ class TImages{
   static const String whiskey = 'assets/images/whiskey.jpg';
 
   static const String userProfilePic = 'assets/images/fotoProfileUser.png'; 
+  static const String personalDataIcon = 'assets/icons/personalDataICon.png'; 
+
   static const String exercise = 'assets/icons/exercise.png';
   static const String food = 'assets/icons/food.png';
   static const String vaccine = 'assets/icons/vaccine.png';
   static const String more = 'assets/icons/more.png';
+
 }

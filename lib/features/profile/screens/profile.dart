@@ -15,14 +15,14 @@ class Profile extends StatelessWidget {
         color: TColors.primary,
         child: Column(
           children: [
-            TAppBar(onMain: true, onPetDetails: false),
+            const TAppBar(onMain: true, onPetDetails: false),
             Stack(
               children: [
                 Container(
                   width: 120,
                   height: 120,
-                  margin: EdgeInsets.fromLTRB(0, 45, 0, 10),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.fromLTRB(0, 45, 0, 10),
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: TColors.gray,
                   ),
@@ -40,7 +40,7 @@ class Profile extends StatelessWidget {
               ],
             ),
 
-            Center(
+            const Center(
               child: Text(
                 'Kim Kardashian',
                 style: TextStyle(
@@ -51,7 +51,7 @@ class Profile extends StatelessWidget {
               ),
             ),
 
-            Center(
+            const Center(
               child: Text(
                 '@kimdash',
                 style: TextStyle(
@@ -63,7 +63,62 @@ class Profile extends StatelessWidget {
               ),
             ),
 
-            
+            Container(
+              margin: const EdgeInsets.only(top: 20),
+              width: 365, 
+              height: 455,
+              decoration: BoxDecoration(
+                color: TColors.gray,  
+                borderRadius:BorderRadius.circular(15) //ini gtw knp ga muncul di screen 
+              ),
+
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 250, top: 15, bottom: 10),
+                    child: Text(
+                      "Your account", 
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'Albert Sans',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Image.asset(
+                          TImages.personalDataIcon,
+                          width: 19,
+                          height: 19,
+                          matchTextDirection: true,
+                       ),
+                      ),
+
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        child: Text(
+                        "Personal Data", 
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Alata',
+                            fontWeight: FontWeight.bold, 
+                            color: TColors.grayFont
+                          ),
+                        )
+                        
+                      )
+                     
+                    ],
+                  ), 
+                ],
+
+
+              ),
+            ),
 
           ] 
         ), 

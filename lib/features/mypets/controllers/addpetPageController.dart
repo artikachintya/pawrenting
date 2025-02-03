@@ -1,8 +1,6 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/screens/petlist/petlist.dart';
 
 class addpetPageController extends GetxController{
   static addpetPageController get instance => Get.find();
@@ -17,7 +15,7 @@ class addpetPageController extends GetxController{
     if(_curIndex == 5){
       confirmation = true;
     }
-    pagecontroller.animateToPage(_curIndex, duration: Duration(milliseconds: 500), curve: Curves.ease);    
+    pagecontroller.animateToPage(_curIndex, duration: const Duration(milliseconds: 500), curve: Curves.ease);    
     update();
   }
   void prevPage(){
@@ -28,7 +26,7 @@ class addpetPageController extends GetxController{
     else{
       _curIndex = _curIndex-1;
       confirmation = false;
-      pagecontroller.animateToPage(_curIndex, duration: Duration(milliseconds: 500), curve: Curves.ease);
+      pagecontroller.animateToPage(_curIndex, duration: const Duration(milliseconds: 500), curve: Curves.ease);
       update();
     }
   }

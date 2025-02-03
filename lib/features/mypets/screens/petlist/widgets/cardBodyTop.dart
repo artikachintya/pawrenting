@@ -11,19 +11,19 @@ class cardBodyTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 32,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
             // color: Colors.red,
             width: 110,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'AlbertSans',
                     fontSize: 18,
                     fontWeight: FontWeight.w900,
@@ -31,7 +31,7 @@ class cardBodyTop extends StatelessWidget {
                   ),
                 ),
                 Text(breed,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'AlbertSans',
                     fontSize: 11,
                     fontWeight: FontWeight.w300,
@@ -41,16 +41,16 @@ class cardBodyTop extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 30,
           ),
-          Container(
+          SizedBox(
             // color: Colors.red,
             width: 90,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Age',
+                const Text('Age',
                   style: TextStyle(
                     fontFamily: 'AlbertSans',
                     fontSize: 11,
@@ -58,7 +58,7 @@ class cardBodyTop extends StatelessWidget {
                   ),
                 ),
                 Text(age,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'AlbertSans',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
