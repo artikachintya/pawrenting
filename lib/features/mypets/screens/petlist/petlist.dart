@@ -31,7 +31,11 @@ class PetList extends StatelessWidget {
           backgroundColor: TColors.accent,
           foregroundColor: Colors.white,
           child: Text('+ Add',
-          style: Theme.of(context).textTheme.labelMedium,
+          style: TextStyle(
+            fontSize: 12,
+            fontFamily: 'Alata',
+            color: Colors.white
+          )
           ),
         ),
       )
