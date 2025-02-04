@@ -15,8 +15,8 @@ class OtherNeeds extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

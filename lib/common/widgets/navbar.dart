@@ -28,10 +28,10 @@ class InsideNavBar extends StatelessWidget {
           backgroundColor: Colors.white,
           onDestinationSelected: (index) => {
             navcontroller.selectedIndex.value = index,
-            Get.to(()=>NavigationMenu())
+            Get.to(()=>const NavigationMenu())
           },
           height: 80,
-          destinations: [
+          destinations: const [
             NavigationDestination(icon: ImageIcon(AssetImage(TImages.homeIcon), color: TColors.accent, size: 28,), label: 'Home' ),
             NavigationDestination(icon: ImageIcon(AssetImage(TImages.myPetIcon), color: TColors.accent, size: 28), label: 'My Pets'),
             SizedBox(width: 100,),
@@ -47,10 +47,10 @@ class InsideNavBar extends StatelessWidget {
             child: Container(
               width: 100,
               height: 100,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: TColors.accent
               ),
-              child: Image(image: AssetImage(TImages.translateIcon), color: TColors.secondary,),
+              child: const Image(image: AssetImage(TImages.translateIcon), color: TColors.secondary,),
             ),
           )
         )

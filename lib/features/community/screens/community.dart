@@ -12,7 +12,7 @@ class Community extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TAppBar(onMain: true, onPetDetails: false),
+            const TAppBar(onMain: true, onPetDetails: false),
             Container(
               color: Colors.red.withAlpha(100),
               height: 2000,
@@ -23,7 +23,7 @@ class Community extends StatelessWidget {
                     color: Colors.amber,
                     width: 400,
                     height: 50,
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Icon(Icons.search),
@@ -31,7 +31,7 @@ class Community extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Container(
                     width: 400,
                     height: 50,
@@ -43,14 +43,14 @@ class Community extends StatelessWidget {
                           width: 100,
                           height: 40,
                           color: Colors.white,
-                          child: Text('anjay'),
+                          child: const Text('anjay'),
                         ),
                         Container(
                           width: 100,
                           height: 40,
                           color: Colors.white,
-                          child: Text('tred'),
                           alignment: Alignment.center,
+                          child: const Text('tred'),
                         ),
                       ],
                     ),

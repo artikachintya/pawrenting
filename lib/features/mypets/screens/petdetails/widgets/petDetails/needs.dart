@@ -25,11 +25,11 @@ class Needs extends StatelessWidget {
             Row(
               children: [
                 Image.asset(icon, height: 55, width: 55),
-                SizedBox(width: 15,),
-                Text(needs, style: TextStyle(fontFamily: 'Alata', fontSize: 18),)
+                const SizedBox(width: 15,),
+                Text(needs, style: const TextStyle(fontFamily: 'Alata', fontSize: 18),)
               ],
             ),
-            ImageIcon(AssetImage(TImages.arrowForwardIcon), size: 16,)
+            const ImageIcon(AssetImage(TImages.arrowForwardIcon), size: 16,)
           ]
         ),
       ),

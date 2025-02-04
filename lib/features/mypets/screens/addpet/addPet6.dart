@@ -1,8 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
-import 'package:pawrentingreborn/utils/device/device_utility.dart';
 
 class addPet6 extends StatelessWidget {
   const addPet6({
@@ -12,19 +10,19 @@ class addPet6 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-       padding: EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
+       padding: const EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
        child: Column(
          crossAxisAlignment: CrossAxisAlignment.center,
          mainAxisAlignment: MainAxisAlignment.start,
          children: [
-           Container(
+           SizedBox(
             //  color: Colors.red.withAlpha(100),
              height: 400,
              child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                 Container(
+                 SizedBox(
                    // color: Colors.red.withAlpha(100),
                    width: 250,
                    child: Text(
@@ -34,7 +32,7 @@ class addPet6 extends StatelessWidget {
                      ),
                  ),
                  
-                 Container(
+                 SizedBox(
                   height: 295,
                   width: 340,
                   // color: Colors.amber,
@@ -55,9 +53,9 @@ class addPet6 extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(height: 60),
+                              const SizedBox(height: 60),
                               Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   // color: Colors.red.withAlpha(100),
                                   border: Border(
                                     bottom: BorderSide(
@@ -66,8 +64,8 @@ class addPet6 extends StatelessWidget {
                                   )
                                 ),
                                 height: 25,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -90,7 +88,7 @@ class addPet6 extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   // color: Colors.red.withAlpha(100),
                                   border: Border(
                                     bottom: BorderSide(
@@ -99,8 +97,8 @@ class addPet6 extends StatelessWidget {
                                   )
                                 ),
                                 height: 25,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -123,7 +121,7 @@ class addPet6 extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   // color: Colors.red.withAlpha(100),
                                   border: Border(
                                     bottom: BorderSide(
@@ -132,8 +130,8 @@ class addPet6 extends StatelessWidget {
                                   )
                                 ),
                                 height: 25,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -156,7 +154,7 @@ class addPet6 extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   // color: Colors.red.withAlpha(100),
                                   border: Border(
                                     bottom: BorderSide(
@@ -165,8 +163,8 @@ class addPet6 extends StatelessWidget {
                                   )
                                 ),
                                 height: 25,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -189,7 +187,7 @@ class addPet6 extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   // color: Colors.red.withAlpha(100),
                                   border: Border(
                                     bottom: BorderSide(
@@ -198,8 +196,8 @@ class addPet6 extends StatelessWidget {
                                   )
                                 ),
                                 height: 25,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
                                   child: Row(
                                     children: [
                                       Expanded(
@@ -267,7 +265,7 @@ class addPet6 extends StatelessWidget {
                                 width: 1
                               )
                             ),
-                            child: Image(
+                            child: const Image(
                               image: AssetImage(TImages.whiskey),
                               fit: BoxFit.cover,
                               ),

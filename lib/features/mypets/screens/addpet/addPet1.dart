@@ -15,18 +15,18 @@ class addPet1 extends StatelessWidget {
   Widget build(BuildContext context) {
     PetController petController = Get.find();
     return Padding(
-       padding: EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
+       padding: const EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
        child: Column(
          crossAxisAlignment: CrossAxisAlignment.center,
          mainAxisAlignment: MainAxisAlignment.start,
          children: [
-           Container(
+           SizedBox(
              // color: Colors.red.withAlpha(100),
              height: 250,
              child: Column(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                 Container(
+                 SizedBox(
                    // color: Colors.red.withAlpha(100),
                    width: 200,
                    child: Text(
@@ -48,7 +48,7 @@ class addPet1 extends StatelessWidget {
                       }
                     },
                      textAlign: TextAlign.center,
-                     decoration: InputDecoration(
+                     decoration: const InputDecoration(
                        label: Center(
                          child: Text(
                            'Enter your pet name',
@@ -57,7 +57,7 @@ class addPet1 extends StatelessWidget {
                      )
                    )
                  ),
-                 SizedBox(height: 10,)
+                 const SizedBox(height: 10,)
                ],
              ),
            ),

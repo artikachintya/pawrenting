@@ -11,18 +11,18 @@ class addPet5 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-       padding: EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
+       padding: const EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
        child: Column(
          crossAxisAlignment: CrossAxisAlignment.center,
          mainAxisAlignment: MainAxisAlignment.start,
          children: [
-           Container(
+           SizedBox(
              // color: Colors.red.withAlpha(100),
              height: 250,
              child: Column(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                 Container(
+                 SizedBox(
                    // color: Colors.red.withAlpha(100),
                    width: 250,
                    child: Text(
@@ -36,19 +36,19 @@ class addPet5 extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Container(
+                        SizedBox(
                           height: 100,
                           width: 100,
                             child: ElevatedButton(
                               style: ButtonStyle(
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)
                                   )
                                 )
                               ),
                               onPressed: (){}, 
-                              child: Padding(
+                              child: const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 12),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -70,7 +70,7 @@ class addPet5 extends StatelessWidget {
                     ),
                    ),
                  ),
-                 SizedBox(height: 10,)
+                 const SizedBox(height: 10,)
                ],
              ),
            ),

@@ -17,8 +17,8 @@ class NavigationMenu extends StatelessWidget {
       floatingActionButton: FloatingActionButton.large(
         backgroundColor: TColors.accent,
         onPressed: (){},
-        shape: CircleBorder(),
-        child: ImageIcon(
+        shape: const CircleBorder(),
+        child: const ImageIcon(
           AssetImage(TImages.translateIcon),
           color: TColors.secondary,
           size: 72,
@@ -31,7 +31,7 @@ class NavigationMenu extends StatelessWidget {
           onDestinationSelected: (index) => controller.selectedIndex.value = index,
           backgroundColor: Colors.white,
           height: 80,
-          destinations: [
+          destinations: const [
             NavigationDestination(icon: ImageIcon(AssetImage(TImages.homeIcon), color: TColors.accent, size: 28,), label: 'Home' ),
             NavigationDestination(icon: ImageIcon(AssetImage(TImages.myPetIcon), color: TColors.accent, size: 28), label: 'My Pets'),
             SizedBox(width: 100,),
@@ -50,10 +50,10 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
   final screens = [
-    Home(),
-    PetList(),
+    const Home(),
+    const PetList(),
     Container(color: Colors.yellow,),
-    Community(),
-    Profile(),
+    const Community(),
+    const Profile(),
   ];
 }
