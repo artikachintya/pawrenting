@@ -1,5 +1,5 @@
 
-class TImages{
+class TImages {
   static const String homeIcon = 'assets/icons/homeIcon.png';
   static const String communityIcon = 'assets/icons/icon-community.png';
   static const String myPetIcon = 'assets/icons/icon-mypet.png';
@@ -37,5 +37,6 @@ class TImages{
   static const String tipsVaccine = 'assets/images/tipsVaccine.png';
   static const String taken = 'assets/images/taken.png';
   static const String nottaken = 'assets/images/nottaken.png';
-
+  static const String banner = 'assets/myCart/Banner1.png';
 }
+
