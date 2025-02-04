@@ -1,17 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/screens/petdetails/vaccineDetails.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
-class VaccineList extends StatelessWidget {
-  const VaccineList({super.key, this.date, required this.name, required this.taken});
+class FoodCard extends StatelessWidget {
+  const FoodCard({super.key, required this.food, required this.time, required this.amount});
 
-  final String name;
-  final String? date;
-  final bool taken;
+  final String food;
+  final int amount;
+  final String time;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +18,6 @@ class VaccineList extends StatelessWidget {
       decoration: BoxDecoration(
         color: TColors.gray,
         border: Border.all(
-          width: 0.5,
           color: TColors.accent
         ),
         borderRadius: BorderRadius.circular(10)        
@@ -35,52 +32,36 @@ class VaccineList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  food,
                   style: TextStyle(
                     height: 1,
                     fontSize: 18,
                     fontWeight: FontWeight.bold
                   ),
                 ),
-                taken
-                ?
                 Text(
-                  'Taken on: ' + date!,
+                  'Added at ' + time,
                     style: TextStyle(
+                    height: 1,
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                     color: Color(0xff797272)
                   ),
-                )
-                :
-                Text(
-                  'Not taken yet...',
-                    style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                    color: Color(0xff797272)
-                  ),
-                )
-                ,
-                taken
-                ?
-                Image(image: AssetImage(TImages.taken), height: 20,)
-                :
-                Image(image: AssetImage(TImages.nottaken), height: 20,)
-              ],
-            ),
-            GestureDetector(
-              onTap: (){
-                Get.to(()=>VaccineDetails(taken: taken, name: name, date: date,));
-              },
-              child: ImageIcon(
-                AssetImage(TImages.arrowForwardIcon),
-                size: 14,
                 ),
+                Text(
+                  'Amount: ' + amount.toString() + ' gr',
+                    style: TextStyle(
+                    height: 1,
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    color: Color(0xff797272)
+                  ),
+                ),
+            ],
             )
-          ],
-        )
+          ]
         ),
+      )
     );
   
   }

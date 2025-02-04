@@ -35,8 +35,11 @@ class TImages {
   static const String vaccine = 'assets/icons/vaccine.png';
   static const String more = 'assets/icons/more.png';
   static const String tipsVaccine = 'assets/images/tipsVaccine.png';
+  static const String tipsFood = 'assets/images/tipsFood.png';
   static const String taken = 'assets/images/taken.png';
   static const String nottaken = 'assets/images/nottaken.png';
   static const String banner = 'assets/myCart/Banner1.png';
+  static const String calendar = 'assets/icons/calendar.png';
+  static const String check = 'assets/icons/check.png';
 }
 

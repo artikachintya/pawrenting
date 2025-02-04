@@ -64,7 +64,11 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget{
                   ),
                   child: Text(
                     '12',
-                    style: Theme.of(context).textTheme.labelSmall,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Alata',
+                      fontSize: 10
+                    ),
                   ),
                 ),
               )
@@ -88,7 +92,11 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget{
                     ),
                     child: Text(
                       '1',
-                      style: Theme.of(context).textTheme.labelSmall,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Alata',
+                      fontSize: 10
+                    ),
                     ),
                   ),
                 )
