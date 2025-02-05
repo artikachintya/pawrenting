@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/addpetPageController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/petGender.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/petTypeButtonCont.dart';
@@ -30,7 +29,7 @@ class AddPetButton extends StatelessWidget {
     return Positioned(
       bottom: 100,
       left: TDeviceUtil.getViewWidth(context)/2 - 150,
-      child: Container(
+      child: SizedBox(
        // color: Colors.red.withAlpha(100),
        height: 40,
        width: 300,
@@ -40,7 +39,7 @@ class AddPetButton extends StatelessWidget {
            Expanded(
              child: ElevatedButton(
                style: ButtonStyle(
-                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                    RoundedRectangleBorder(
                    borderRadius: BorderRadius.circular(10)
                    )
@@ -49,14 +48,14 @@ class AddPetButton extends StatelessWidget {
                onPressed: () {
                 pcontroller.prevPage();
                }, 
-               child: Text('Back', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Colors.black),), 
+               child: const Text('Back', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Colors.black),), 
                )
            ),
-           SizedBox(width: 15,),
+           const SizedBox(width: 15,),
            Expanded(
              child: ElevatedButton(
                style: ButtonStyle(
-                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                    RoundedRectangleBorder(
                    borderRadius: BorderRadius.circular(10)
                    )
@@ -65,7 +64,7 @@ class AddPetButton extends StatelessWidget {
                onPressed: () {
                 pcontroller.nextPage();
                }, 
-               child: Text('Add Pet', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Colors.black),), 
+               child: const Text('Add Pet', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Colors.black),), 
                )
            ),
          ],
@@ -75,7 +74,7 @@ class AddPetButton extends StatelessWidget {
            Expanded(
              child: ElevatedButton(
                style: ButtonStyle(
-                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                    RoundedRectangleBorder(
                    borderRadius: BorderRadius.circular(10)
                    )
@@ -84,14 +83,14 @@ class AddPetButton extends StatelessWidget {
                onPressed: () {
                 pcontroller.prevPage();
                }, 
-               child: Text('Back', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Colors.black),), 
+               child: const Text('Back', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Colors.black),), 
                )
            ),
-           SizedBox(width: 15,),
+           const SizedBox(width: 15,),
            Expanded(
              child: ElevatedButton(
                style: ButtonStyle(
-                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                    RoundedRectangleBorder(
                    borderRadius: BorderRadius.circular(10)
                    )
@@ -135,7 +134,7 @@ class AddPetButton extends StatelessWidget {
                   }
                 }
                }, 
-               child: Text('Next', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Colors.black),), 
+               child: const Text('Next', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Colors.black),), 
                )
            ),
          ],

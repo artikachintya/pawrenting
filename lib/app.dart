@@ -13,7 +13,6 @@ import 'package:pawrentingreborn/features/mypets/screens/petlist/petlist.dart';
 import 'package:pawrentingreborn/features/signup/signup.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/theme/theme.dart';
-import 'package:pawrentingreborn/features/community/screens/community.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});

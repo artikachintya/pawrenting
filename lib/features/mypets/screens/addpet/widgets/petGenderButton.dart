@@ -19,16 +19,16 @@ class PetGenderButton extends StatelessWidget {
          return Row(
            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
            children: [
-             Container(
+             SizedBox(
                height: 100,
                width: 100,
                  child: ElevatedButton(
                    style: ButtonStyle(
-                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                     shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                        RoundedRectangleBorder(
                          borderRadius: BorderRadius.circular(15),
                         side: controller.male
-                         ? BorderSide(
+                         ? const BorderSide(
                           color: TColors.accent,
                          )
                          : BorderSide.none
@@ -38,7 +38,7 @@ class PetGenderButton extends StatelessWidget {
                    onPressed: (){
                     controller.selectmale();
                    }, 
-                   child: Padding(
+                   child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),
                      child: Column(
                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -64,16 +64,16 @@ class PetGenderButton extends StatelessWidget {
                    ),
                  ),
                ),
-             Container(
+             SizedBox(
                height: 100,
                width: 100,
                  child: ElevatedButton(
                    style: ButtonStyle(
-                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                     shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                        RoundedRectangleBorder(
                          borderRadius: BorderRadius.circular(15),
                         side: controller.female
-                         ? BorderSide(
+                         ? const BorderSide(
                           color: TColors.accent,
                          )
                          : BorderSide.none
@@ -83,7 +83,7 @@ class PetGenderButton extends StatelessWidget {
                    onPressed: (){
                     controller.selectfemale();
                    }, 
-                   child: Padding(
+                   child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),
                      child: Column(
                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,

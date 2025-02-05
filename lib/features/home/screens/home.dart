@@ -1,8 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
-import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
-import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet4.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/classes/catBreeds.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';

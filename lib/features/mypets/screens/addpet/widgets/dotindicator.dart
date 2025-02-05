@@ -18,7 +18,7 @@ class DotIndicator extends StatelessWidget {
     return Positioned(
       top: 30,
       left: TDeviceUtil.getViewWidth(context)/2 - 70,
-      child: Container(
+      child: SizedBox(
         // color: TColors.accent.withAlpha(100),
         width: 140,
         child: Row(
@@ -27,7 +27,7 @@ class DotIndicator extends StatelessWidget {
             SmoothPageIndicator(
               controller: pcontroller.pagecontroller, 
               count: 6,
-              effect: ScaleEffect(
+              effect: const ScaleEffect(
                 spacing: 16,
                 dotWidth: 8,
                 dotHeight: 8,

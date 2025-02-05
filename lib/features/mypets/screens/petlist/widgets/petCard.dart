@@ -16,16 +16,16 @@ class PetCard extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 195,
       width: 360,
       child: Stack(
         children: [
-          Image(image: AssetImage(TImages.petCard)),
+          const Image(image: AssetImage(TImages.petCard)),
           cardHeader(isCat: isCat),
           Positioned(
             top: 55,
-            child: Container(
+            child: SizedBox(
               // color: Colors.red.withAlpha(100),
               height: 126,
               width: 370,
@@ -37,14 +37,14 @@ class PetCard extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Container(
+                      child: SizedBox(
                         height: 100,
                         width: 75,
                         child: Image(image: AssetImage(imgstr), fit: BoxFit.fill,),
                       ),
                     ),
 
-                    Container(
+                    const SizedBox(
                       height: 100,
                       width: 250,
                       // color: Colors.red.withAlpha(100),

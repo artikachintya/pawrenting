@@ -11,7 +11,7 @@ class Login2 extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/login/wallpaper-login.png'),
               fit: BoxFit.cover,
@@ -20,7 +20,7 @@ class Login2 extends StatelessWidget {
           child: Column(
             children: [
               // Header Section
-              Container(
+              SizedBox(
                 height: 300,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,17 +58,17 @@ class Login2 extends StatelessWidget {
                 ),
               ),
               // Welcome Text Section
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(top: 0),
                       ),
-                      const Text(
+                      Text(
                         'Welcome',
                         style: TextStyle(
                           fontSize: 40,
@@ -77,10 +77,10 @@ class Login2 extends StatelessWidget {
                           color: Color(0xFF4749AE),
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(top: 0),
                       ),
-                      const Text(
+                      Text(
                         'Back',
                         style: TextStyle(
                           height: 0.8,
@@ -90,8 +90,8 @@ class Login2 extends StatelessWidget {
                           color: Color(0xFF4749AE),
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      const Text(
+                      SizedBox(height: 10),
+                      Text(
                         'Login to your account',
                         style: TextStyle(
                           height: 0.6,
@@ -107,8 +107,8 @@ class Login2 extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               // Login Form Section
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: _LoginForm(),
               ),
             ],
@@ -177,7 +177,7 @@ class _LoginForm extends StatelessWidget {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                Get.to(NavigationMenu());
+                Get.to(const NavigationMenu());
               },
               style: _elevatedButtonStyle(),
               child: const Text(
