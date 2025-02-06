@@ -19,12 +19,12 @@ class PetInfo extends StatelessWidget {
         color: color,
       ),
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(type, 
-            style: TextStyle(
+            style: const TextStyle(
                 color: Color(0xff6A5E5E),
                 fontSize: 18,
                 fontWeight: FontWeight.normal,
@@ -32,7 +32,7 @@ class PetInfo extends StatelessWidget {
               ),
             ),
             Text(value, 
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.normal,
                 fontFamily: 'Alata'

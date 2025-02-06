@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/petController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/classes/catBreeds.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
-import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:get/get.dart';
 
 class addPet4 extends StatelessWidget {
@@ -20,12 +19,12 @@ class addPet4 extends StatelessWidget {
     PetController petController = Get.find();
     String? selectedBreed = catBreeds.first;
     return Padding(
-       padding: EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
+       padding: const EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
        child: Column(
          crossAxisAlignment: CrossAxisAlignment.center,
          mainAxisAlignment: MainAxisAlignment.start,
          children: [
-           Container(
+           SizedBox(
             // color: TColors.accent.withAlpha(100),
             height: 300,
             width: double.maxFinite,
@@ -35,21 +34,21 @@ class addPet4 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.maxFinite,
                     height: 70,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('When was your pet born?', style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),),
-                        Text('Date of Birth',style: TextStyle(fontSize: 12, color: const Color.fromARGB(255, 138, 138, 138), fontWeight: FontWeight.bold) ),
+                        const Text('When was your pet born?', style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),),
+                        const Text('Date of Birth',style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 138, 138, 138), fontWeight: FontWeight.bold) ),
                         SizedBox(
                           height: 25,
                           child: TextFormField(
-                            textAlignVertical: TextAlignVertical(y: -0.5),
+                            textAlignVertical: const TextAlignVertical(y: -0.5),
                             controller: date,
                             readOnly: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.calendar_month,
                                   size: 18,
@@ -83,31 +82,31 @@ class addPet4 extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: double.maxFinite,
                     height: 70,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('How\'s your pet now?', style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),),
+                        const Text('How\'s your pet now?', style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
+                            SizedBox(
                               width: 160,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Weight',style: TextStyle(fontSize: 12, color: const Color.fromARGB(255, 138, 138, 138), fontWeight: FontWeight.bold) ),
+                                  const Text('Weight',style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 138, 138, 138), fontWeight: FontWeight.bold) ),
                                   SizedBox(
                                     height: 25,
                                     child: TextFormField(
-                                      keyboardType: TextInputType.numberWithOptions(),
-                                      textAlignVertical: TextAlignVertical(y: -0.5),
-                                      decoration: InputDecoration(
+                                      keyboardType: const TextInputType.numberWithOptions(),
+                                      textAlignVertical: const TextAlignVertical(y: -0.5),
+                                      decoration: const InputDecoration(
                                         suffixIconConstraints: BoxConstraints(),
                                         suffixIcon: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                                          padding: EdgeInsets.symmetric(horizontal: 12),
                                           child: Text(
                                             'kg',
                                             style: TextStyle(
@@ -138,23 +137,23 @@ class addPet4 extends StatelessWidget {
                                 ]
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               width: 160,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Height',style: TextStyle(fontSize: 12, color: const Color.fromARGB(255, 138, 138, 138), fontWeight: FontWeight.bold) ),
+                                  const Text('Height',style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 138, 138, 138), fontWeight: FontWeight.bold) ),
                                   SizedBox(
                                     height: 25,
                                     child: TextFormField(
-                                      keyboardType: TextInputType.numberWithOptions(),
-                                      textAlignVertical: TextAlignVertical(y: -0.5),
-                                      decoration: InputDecoration(
+                                      keyboardType: const TextInputType.numberWithOptions(),
+                                      textAlignVertical: const TextAlignVertical(y: -0.5),
+                                      decoration: const InputDecoration(
                                         border: OutlineInputBorder(),
                                         filled: true,
                                         suffixIconConstraints: BoxConstraints(),
                                         suffixIcon: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                                          padding: EdgeInsets.symmetric(horizontal: 12),
                                           child: Text(
                                             'cm',
                                             style: TextStyle(
@@ -188,14 +187,14 @@ class addPet4 extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: double.maxFinite,
                     height: 85,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('What is your pet\'s breed?', style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),),
-                        Text('Breed',style: TextStyle(fontSize: 12, color: const Color.fromARGB(255, 138, 138, 138), fontWeight: FontWeight.bold) ),
+                        const Text('What is your pet\'s breed?', style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),),
+                        const Text('Breed',style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 138, 138, 138), fontWeight: FontWeight.bold) ),
                         SizedBox(
                           height: 40,
                           child: DropdownButtonFormField(
@@ -211,7 +210,7 @@ class addPet4 extends StatelessWidget {
                               selectedBreed = value;
                               petController.updatePet(breed: selectedBreed);
                             },
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               filled: true,
                               fillColor: TColors.gray
@@ -221,19 +220,19 @@ class addPet4 extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: double.maxFinite,
                     height: 70,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Any allergies?', style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),),
-                        Text('Allergies',style: TextStyle(fontSize: 12, color: const Color.fromARGB(255, 138, 138, 138), fontWeight: FontWeight.bold) ),
+                        const Text('Any allergies?', style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),),
+                        const Text('Allergies',style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 138, 138, 138), fontWeight: FontWeight.bold) ),
                         SizedBox(
                           height: 25,
                           child: TextFormField(
-                            textAlignVertical: TextAlignVertical(y: -0.5),
-                            decoration: InputDecoration(
+                            textAlignVertical: const TextAlignVertical(y: -0.5),
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               filled: true,
                               fillColor: TColors.gray

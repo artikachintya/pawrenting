@@ -10,7 +10,7 @@ class homePage extends StatelessWidget {
         child: Container(
           height: 200,
           width: 200,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.red,
           ),
           child: Text(

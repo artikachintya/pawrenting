@@ -5,8 +5,6 @@ import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.da
 import 'package:pawrentingreborn/features/mypets/controllers/petController.dart';
 import 'package:pawrentingreborn/firebase_options.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
-import 'package:pawrentingreborn/utils/theme/theme.dart';
-import '';
 import 'app.dart';
 
 Future<void> main() async {

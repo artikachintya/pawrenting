@@ -1,9 +1,7 @@
 
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/petTypeButtonCont.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -23,17 +21,17 @@ class PetTypeButton extends StatelessWidget {
          return Row(
            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
            children: [
-             Container(
+             SizedBox(
                height: 100,
                width: 100,
                  child: ElevatedButton(
                    style: ButtonStyle(
-                     elevation: MaterialStateProperty.all<double>(1),
-                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                     elevation: WidgetStateProperty.all<double>(1),
+                     shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                        RoundedRectangleBorder(
                          borderRadius: BorderRadius.circular(15),
                          side: controller.dog
-                         ? BorderSide(
+                         ? const BorderSide(
                           color: TColors.accent,
                          )
                          : BorderSide.none
@@ -43,7 +41,7 @@ class PetTypeButton extends StatelessWidget {
                    onPressed: (){
                     controller.selectDog();
                    }, 
-                   child: Padding(
+                   child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),
                      child: Column(
                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -69,16 +67,16 @@ class PetTypeButton extends StatelessWidget {
                    ),
                  ),
                ),
-             Container(
+             SizedBox(
                height: 100,
                width: 100,
                  child: ElevatedButton(
                    style: ButtonStyle(
-                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                     shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                        RoundedRectangleBorder(
                          borderRadius: BorderRadius.circular(15),
                         side: controller.cat
-                         ? BorderSide(
+                         ? const BorderSide(
                           color: TColors.accent,
                          )
                          : BorderSide.none
@@ -88,7 +86,7 @@ class PetTypeButton extends StatelessWidget {
                    onPressed: (){
                     controller.selectCat();
                    }, 
-                   child: Padding(
+                   child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),
                      child: Column(
                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,

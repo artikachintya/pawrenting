@@ -9,11 +9,11 @@ class TNavBarTheme{
   static NavigationBarTheme NavBarTheme = NavigationBarTheme(
      data: NavigationBarThemeData(
       labelTextStyle: WidgetStateProperty.all(
-        TextStyle(color: TColors.accent)
+        const TextStyle(color: TColors.accent)
      )
      ),
      child: NavigationBar(
-      destinations: [
+      destinations: const [
         NavigationDestination(icon: ImageIcon(AssetImage(TImages.homeIcon), color: TColors.accent,), label: 'Home' ),
         NavigationDestination(icon: ImageIcon(AssetImage(TImages.myPetIcon), color: TColors.accent,), label: 'My Pets'),
         SizedBox(width: 100,),

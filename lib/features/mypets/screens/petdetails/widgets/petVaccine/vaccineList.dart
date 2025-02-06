@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/mypets/screens/petdetails/vaccineDetails.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
@@ -18,6 +20,7 @@ class VaccineList extends StatelessWidget {
       decoration: BoxDecoration(
         color: TColors.gray,
         border: Border.all(
+          width: 0.5,
           color: TColors.accent
         ),
         borderRadius: BorderRadius.circular(10)        
@@ -66,10 +69,15 @@ class VaccineList extends StatelessWidget {
                 Image(image: AssetImage(TImages.nottaken), height: 20,)
               ],
             ),
-            ImageIcon(
-              AssetImage(TImages.arrowForwardIcon),
-              size: 14,
-              )
+            GestureDetector(
+              onTap: (){
+                Get.to(()=>VaccineDetails(taken: taken, name: name, date: date,));
+              },
+              child: ImageIcon(
+                AssetImage(TImages.arrowForwardIcon),
+                size: 14,
+                ),
+            )
           ],
         )
         ),

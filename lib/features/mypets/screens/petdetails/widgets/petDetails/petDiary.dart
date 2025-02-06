@@ -10,7 +10,7 @@ class PetDiary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(horizontal: 5),
           // color: Colors.red,
           child: Row(
@@ -30,7 +30,7 @@ class PetDiary extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
@@ -40,8 +40,8 @@ class PetDiary extends StatelessWidget {
           ),
           height: 250,
           width: 375,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text('There is no entry today.'),
           ),
         ),

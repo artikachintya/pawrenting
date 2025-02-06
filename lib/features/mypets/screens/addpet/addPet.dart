@@ -14,9 +14,6 @@ import 'package:pawrentingreborn/features/mypets/screens/addpet/widgets/addpetbu
 import 'package:pawrentingreborn/features/mypets/screens/addpet/widgets/dotindicator.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
-import 'package:pawrentingreborn/utils/constants/images_strings.dart';
-import 'package:pawrentingreborn/utils/device/device_utility.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AddPet extends StatelessWidget {
   const AddPet({super.key});
@@ -26,8 +23,8 @@ class AddPet extends StatelessWidget {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     final pcontroller = Get.put(addpetPageController());
-    final _formGlobalKey1 = GlobalKey<FormState>();
-    final _formGlobalKey2 = GlobalKey<FormState>();
+    final formGlobalKey1 = GlobalKey<FormState>();
+    final formGlobalKey2 = GlobalKey<FormState>();
     final dobController = TextEditingController();
     final weightController = TextEditingController();
     final heightController = TextEditingController();
@@ -35,21 +32,21 @@ class AddPet extends StatelessWidget {
     final allergiesController = TextEditingController();
     return Scaffold(
       backgroundColor: TColors.primary,
-      appBar: TAppBar(onMain: true, onPetDetails: false),
+      appBar: const TAppBar(onMain: true, onPetDetails: false),
       bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
       body: Stack(  
         children: [
           DotIndicator(pcontroller: pcontroller),
           PageView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: pcontroller.pagecontroller,
             children: [
-               addPet1(formGlobalKey: _formGlobalKey1),
-               addPet2(),
-               addPet3(),
-               addPet4(formGlobalKey: _formGlobalKey2),
-               addPet5(),
-               addPet6()
+               addPet1(formGlobalKey: formGlobalKey1),
+               const addPet2(),
+               const addPet3(),
+               addPet4(formGlobalKey: formGlobalKey2),
+               const addPet5(),
+               const addPet6()
             ],
           ),
           GetBuilder<addpetPageController>(builder: (_)
@@ -57,8 +54,8 @@ class AddPet extends StatelessWidget {
             return AddPetButton(
               pcontroller: pcontroller, 
               confirmation: pcontroller.confirmation, 
-              formGlobalKey1: _formGlobalKey1,
-              formGlobalKey2: _formGlobalKey2,
+              formGlobalKey1: formGlobalKey1,
+              formGlobalKey2: formGlobalKey2,
               );
           })
         ],

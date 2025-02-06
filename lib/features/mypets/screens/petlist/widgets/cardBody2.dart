@@ -15,26 +15,26 @@ class CardBody2 extends StatelessWidget {
   final String val2;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 32,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
             // color: Colors.red,
             width: 110,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(field1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'AlbertSans',
                     fontSize: 11,
                     fontWeight: FontWeight.w300
                   ),
                 ),
                 Text(val1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'AlbertSans',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -44,24 +44,24 @@ class CardBody2 extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 30,
           ),
-          Container(
+          SizedBox(
             // color: Colors.red,
             width: 100,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(field2,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'AlbertSans',
                     fontSize: 11,
                     fontWeight: FontWeight.w300
                   ),
                 ),
                 Text(val2,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'AlbertSans',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
