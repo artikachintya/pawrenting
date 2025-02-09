@@ -47,21 +47,30 @@ class PetFood extends StatelessWidget {
                   height: 190,
                   )
               ),
-              SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ImageIcon(AssetImage(TImages.calendar)),
-                  SizedBox(width: 5),
-                  Text(
-                    'Today',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Alata',
-                      fontWeight: FontWeight.bold
-                    ),
-                    )
-                ],
+              SizedBox(height: 20),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Colors.white
+                ),
+                width: 120,
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ImageIcon(AssetImage(TImages.calendar)),
+                    SizedBox(width: 5),
+                    Text(
+                      'Today',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'Alata',
+                        fontWeight: FontWeight.bold
+                      ),
+                      )
+                  ],
+                ),
               ),
               SizedBox(height: 20,),
               FoodSection()

@@ -59,7 +59,7 @@ class VaccineDetails extends StatelessWidget {
               SizedBox(height: 20,),
               Container(
                 width: 350,
-                height: 120,
+                height: 80,
                 decoration: BoxDecoration(
                   color: TColors.gray,
                   borderRadius: BorderRadius.circular(10),
@@ -71,17 +71,10 @@ class VaccineDetails extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Status',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      SizedBox(height: 20,),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
@@ -117,12 +110,55 @@ class VaccineDetails extends StatelessWidget {
                               color: Color(0XFF555050)
                             ),
                           ),
-                          ImageIcon(
-                            AssetImage(TImages.check),
-                            color: taken? Colors.transparent : TColors.accent,
-                            size: 16,
-                          )
+                          Text(
+                            '18:15',
+                             style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Alata',
+                              color: TColors.accent
+                            ),
+                          ),
                         ],
+                      ),
+                    ],
+                  ),
+                  )
+              ),
+              SizedBox(height: 20,),
+              Container(
+                width: 350,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: TColors.gray,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: TColors.accent,
+                    width: 0.5
+                  )
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Post Vaccination Symptoms',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Text(
+                        'Add your pet\'s symptoms after the vaccination here.',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: 'Alata',
+                          color: Color(0XFFAFADAD)
+                        ),
                       ),
                     ],
                   ),
