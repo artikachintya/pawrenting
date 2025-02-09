@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
+import 'package:pawrentingreborn/features/home/product.dart';
 import 'package:pawrentingreborn/features/home/screens/category_model.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/classes/catBreeds.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -21,13 +23,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<CategoryModel> categories = CategoryModel.getcategories();
+  List<Product> products = Product.getProduct();
 
   final myitems = [
     TImages.banner1,
     TImages.banner2,
     TImages.banner3,
-    TImages.banner4,
-    TImages.banner5
+    TImages.banner3,
+    TImages.banner3,
   ];
 
   int myCurrentIndex = 0;
@@ -56,13 +59,7 @@ class _HomeState extends State<Home> {
             SizedBox(height: 20),
             _textProduct(),
             SizedBox(height: 20),
-            Column(
-              children: [
-                Row(
-                  
-                )
-              ],
-            )
+            _product(products: products),
           ],
         ),
       ),
@@ -73,20 +70,20 @@ class _HomeState extends State<Home> {
 
   Padding _textProduct() {
     return Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'PRODUCT',
-                  style: TextStyle(
-                      fontFamily: 'AlbertSans',
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          );
+      padding: const EdgeInsets.only(left: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            'PRODUCT',
+            style: TextStyle(
+                fontFamily: 'AlbertSans',
+                fontSize: 15,
+                fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
   }
 
   Column _popularCategory() {
@@ -330,6 +327,136 @@ class _HomeState extends State<Home> {
                 activeDotColor: Color(0xff4749AE),
                 paintStyle: PaintingStyle.fill)),
       ],
+    );
+  }
+}
+
+class _product extends StatelessWidget {
+  const _product({
+    super.key,
+    required this.products,
+  });
+
+  final List<Product> products;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: products.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 13,
+              childAspectRatio: 0.77),
+          itemBuilder: (context, index) {
+            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              elevation: 4,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      ClipRRect(
+                        child: Container(
+                          width: 170,
+                          height: 130,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 10),
+                            child: Image.asset(
+                              products[index].Image,
+                              width: products[index].width,
+                              height: products[index].height,
+                              fit: BoxFit.contain,
+                              alignment: Alignment.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 8,
+                        right: 170,
+                        child: Container(
+                          width: 10,
+                          height: 25,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(50),
+                                bottomLeft: Radius.circular(50)),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 8,
+                        right: 114,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Text(
+                            "${products[index].discount}% OFF",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          products[index].name,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                              fontFamily: 'AlbertSans'),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "Rp ${products[index].price.toString().replaceAllMapped(
+                                RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                (Match m) => "${m[1]}.",
+                              )}",
+                          style: TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              color: Colors.grey,
+                              fontSize: 12),
+                        ),
+                        Text(
+                          "Rp ${products[index].discountedPrice.toString().replaceAllMapped(
+                                RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                (Match m) => "${m[1]}.",
+                              )}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Colors.black),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          }),
     );
   }
 }

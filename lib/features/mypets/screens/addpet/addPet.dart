@@ -4,6 +4,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/addpetPageController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/petController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet1.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet2.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet3.dart';
@@ -30,6 +31,7 @@ class AddPet extends StatelessWidget {
     final heightController = TextEditingController();
     final breedController = TextEditingController();
     final allergiesController = TextEditingController();
+        final petController = Get.put(PetController());
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: const TAppBar(onMain: true, onPetDetails: false),

@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/signup/signup.dart';
 
 import '../../navigationMenu.dart';
 
 class Login2 extends StatelessWidget {
-  const Login2({super.key});
+  Login2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +109,7 @@ class Login2 extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               // Login Form Section
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: _LoginForm(),
               ),
@@ -120,7 +122,24 @@ class Login2 extends StatelessWidget {
 }
 
 class _LoginForm extends StatelessWidget {
-  const _LoginForm();
+  _LoginForm();
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        print('Successfully Login');
+        Get.to(() => NavigationMenu());
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,74 +156,102 @@ class _LoginForm extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        children: [
-          TextField(
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.email),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              labelText: 'Email',
-            ),
-          ),
-          const SizedBox(height: 20),
-          TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.lock),
-              suffixIcon: const Icon(Icons.visibility),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              labelText: 'Password',
-            ),
-          ),
-          const SizedBox(height: 10),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Forgot Password ?',
-                style: TextStyle(
-                  color: Color(0xFF4749AE),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.email),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                labelText: 'Email',
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 7),
+                errorStyle: const TextStyle(height: 0.8, fontSize: 12),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red.shade700),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red.shade700),
                 ),
               ),
+              validator: (value) => value!.isEmpty ? 'Email is required' : null,
             ),
-          ),
-          const SizedBox(height: 30),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Get.to(const NavigationMenu());
-              },
-              style: _elevatedButtonStyle(),
-              child: const Text(
-                'Login',
-                style: TextStyle(fontSize: 20),
+            const SizedBox(height: 20),
+            TextFormField(
+              obscureText: true,
+              controller: _passwordController,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: const Icon(Icons.visibility),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                labelText: 'Password',
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 7),
+                errorStyle: const TextStyle(height: 0.8, fontSize: 12),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red.shade700),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red.shade700),
+                ),
               ),
+              validator: (value) =>
+                  value!.isEmpty ? 'Password is required' : null,
             ),
-          ),
-          const SizedBox(height: 20),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("Don’t have an account ?"),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Register',
-                    style: TextStyle(
-                      color: Color(0xFF4749AE),
-                    ),
+            const SizedBox(height: 10),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Forgot Password ?',
+                  style: TextStyle(
+                    color: Color(0xFF4749AE),
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 30),
+            Center(
+              child: ElevatedButton(
+                onPressed: () async {
+                  await _login();
+                },
+                style: _elevatedButtonStyle(),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Don’t have an account ?"),
+                  TextButton(
+                    onPressed: () {
+                      Get.to(() => Signup());
+                    },
+                    child: const Text(
+                      'Register',
+                      style: TextStyle(
+                        color: Color(0xFF4749AE),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
