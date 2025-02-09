@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
         themeMode: ThemeMode.system,
         theme: TAppTheme.lightTheme,
         home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
+          stream: FirebaseAuth.instance.authStateChanges(), 
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -36,6 +36,7 @@ class MainApp extends StatelessWidget {
               return Landingpage();
             }
           },
-        ));
+          )
+          );
   }
 }

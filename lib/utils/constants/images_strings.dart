@@ -38,6 +38,7 @@ class TImages {
   static const String taken = 'assets/images/taken.png';
   static const String nottaken = 'assets/images/nottaken.png';
   static const String kucingkabur = 'assets/images/kucingkabur.png';
+  static const String banner = 'assets/myCart/Banner1.png';
   static const String calendar = 'assets/icons/calendar.png';
   static const String check = 'assets/icons/check.png';
 
