@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:pawrentingreborn/features/home.dart';
@@ -21,10 +22,23 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
-      theme: TAppTheme.lightTheme,
-      home: const Landingpage(),
-    );
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.system,
+        theme: TAppTheme.lightTheme,
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(), 
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasData) {
+              return const NavigationMenu();
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Something went wrong!'));
+            } else {
+              return Landingpage();
+            }
+          },
+          )
+          );
   }
 }

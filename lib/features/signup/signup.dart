@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -39,10 +40,21 @@ class _SignupState extends State<Signup> {
     }
   }
 
-  void _submitForm() {
+  Future<void> _submitForm() async{
     if (_formKey.currentState!.validate()) {
+      try{
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text.trim(), password: _passwordController.text.trim());
+        Get.to(()=>NavigationMenu());
+        print('Form submitted successfully');
+
+      }
+      catch(e){
+        print(e);
+      }
       // Implement your registration logic here
-      print('Form submitted successfully');
+    }
+    else{
+      print('Salah dodol');
     }
   }
 
@@ -221,9 +233,9 @@ class _SignupState extends State<Signup> {
                                 borderRadius: BorderRadius.circular(31),
                               ),
                             ),
-                            onPressed: (){
-                              _submitForm;
-                              Get.to(()=>NavigationMenu());
+                            onPressed: () async {
+                              await _submitForm();
+                              
                             },
                             child: const Text(
                               'Register',
