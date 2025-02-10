@@ -63,8 +63,6 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
     );
   }
 
