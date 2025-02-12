@@ -42,5 +42,12 @@ class TImages {
   static const String banner = 'assets/myCart/Banner1.png';
   static const String calendar = 'assets/icons/calendar.png';
   static const String check = 'assets/icons/check.png';
+
+  static const String braveryCatFood = 'assets/images/braverycatfood.png';
+  static const String addItem = 'assets/icons/add.png';
+  static const String removeItem = 'assets/icons/remove.png';
+  
+  static const String voucher = 'assets/images/voucher.png'; 
+  static const String editIcon = 'assets/icons/iconEdit.png';
 }
 

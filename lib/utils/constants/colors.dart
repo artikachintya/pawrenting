@@ -17,5 +17,8 @@ class TColors{
   static const Color gray = Color(0xffF8F6FD);
   static const Color grayFont = Color(0xff797272);
   static const Color redLogout = Color(0xffC33232);
+  static const Color grayPrice = Color(0xff797272);
+  static const Color lightPurple = Color(0xff8B68CC);
+  static const Color greenFont = Color(0xff067D17); 
 
 } 

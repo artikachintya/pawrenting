@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/shoppingCart/mycart.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/device/device_utility.dart';
@@ -78,7 +79,9 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget{
             margin: const EdgeInsets.only(right: 16),
             child: Stack(
               children: [
-                IconButton(onPressed: () {}, icon: const ImageIcon(AssetImage(TImages.cartIcon), size: 28, color: TColors.accent,)),
+                IconButton(onPressed: () {
+                  Get.to(()=>MyCart());
+                }, icon: const ImageIcon(AssetImage(TImages.cartIcon), size: 28, color: TColors.accent,)),
                 Positioned(
                   top: 5,
                   right: 5,

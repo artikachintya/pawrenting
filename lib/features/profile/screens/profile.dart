@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/profile/screens/personalData.dart';
 import 'package:pawrentingreborn/features/profile/screens/voucher.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profileOption.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profilePictandUsername.dart';
@@ -54,24 +55,21 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                   // section 1.1
-                  ProfileOption(
-                    text: "Personal Data" , 
-                    imagePath: TImages.personalDataIcon,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalData()));
+                    },
+                    child: ProfileOption(
+                      text: "Personal Data" , 
+                      imagePath: TImages.personalDataIcon,
+                    ),
                   ),
                   //section 1.2
                   ProfileOption(
                     text: "Location", 
                     imagePath: TImages.locationIcon, 
                   ),
-                  //section 1.3
-                  // ProfileOption(
-                  //   text: "My Voucher", 
-                  //   imagePath: TImages.voucherIcon,
-                  //   onTap: () {
-                  //     Navigator.push(context, MaterialPageRoute(builder:(context) => Voucher()));
-                  //   }  
-                  // ),
-
+                
                   GestureDetector(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => Voucher()));
