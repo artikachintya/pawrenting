@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:pawrentingreborn/features/home.dart';
 import 'package:pawrentingreborn/features/home/screens/home.dart';
 import 'package:pawrentingreborn/features/login/landingPage.dart';
 import 'package:pawrentingreborn/features/login/login2.dart';
