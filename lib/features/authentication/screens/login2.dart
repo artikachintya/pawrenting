@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/signup/signup.dart';
+import 'package:pawrentingreborn/features/authentication/screens/signup.dart';
 
-import '../../navigationMenu.dart';
+import '../../../navigationMenu.dart';
 
 class Login2 extends StatelessWidget {
   Login2({super.key});

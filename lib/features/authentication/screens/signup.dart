@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
+import 'package:pawrentingreborn/data/services/AuthenticationService.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -44,6 +45,7 @@ class _SignupState extends State<Signup> {
     if (_formKey.currentState!.validate()) {
       try{
         await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text.trim(), password: _passwordController.text.trim());
+        // await AuthenticationService(  FirebaseFirestore.instance).addUserDetail s(_firstNameController.text.trim(), _lastNameController.text.trim(), _phoneController.text.trim(), _usernameController.text.trim(), _emailController.text.trim(), _passwordController.text.trim(), _dobController.text.trim());
         Get.to(()=>NavigationMenu());
         print('Form submitted successfully');
 
@@ -320,8 +322,10 @@ class _SignupState extends State<Signup> {
         errorStyle: const TextStyle(height: 0.8, fontSize: 12),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red.shade700),
+          borderRadius: BorderRadius.circular(8),
         ),
         focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: Colors.red.shade700),
         ),
       ),

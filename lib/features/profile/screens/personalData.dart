@@ -5,7 +5,7 @@ import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
-import 'package:pawrentingreborn/features/signup/signup.dart';
+
  
 class PersonalData extends StatelessWidget {
   const PersonalData({super.key});
