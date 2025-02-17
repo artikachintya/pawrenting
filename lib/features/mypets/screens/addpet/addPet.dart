@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/addpetPageController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/addpetPageController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet1.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet2.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet3.dart';
@@ -24,21 +24,19 @@ class AddPet extends StatelessWidget {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     final pcontroller = Get.put(addpetPageController());
+    PetController petcontroller = Get.find();
     final formGlobalKey1 = GlobalKey<FormState>();
-    final formGlobalKey2 = GlobalKey<FormState>();
-    final dobController = TextEditingController();
-    final weightController = TextEditingController();
-    final heightController = TextEditingController();
-    final breedController = TextEditingController();
-    final allergiesController = TextEditingController();
-        final petController = Get.put(PetController());
+    final formGlobalKey2 = GlobalKey<FormState>();  
+            
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: const TAppBar(onMain: true, onPetDetails: false),
       bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
       body: Stack(  
         children: [
-          DotIndicator(pcontroller: pcontroller),
+          GetBuilder<addpetPageController>(builder: (controller) {
+            return DotIndicator(pcontroller: controller);
+          }),
           PageView(
             physics: const NeverScrollableScrollPhysics(),
             controller: pcontroller.pagecontroller,

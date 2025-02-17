@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petTypeButtonCont.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petTypeButtonCont.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/widgets/petTypeButton.dart';
 
 class addPet2 extends StatelessWidget {
@@ -12,6 +13,7 @@ class addPet2 extends StatelessWidget {
   @override
 
   Widget build(BuildContext context) {
+  PetController petController = Get.find();
   PetTypeButtonController controller = Get.find();
     return Padding(
        padding: const EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),

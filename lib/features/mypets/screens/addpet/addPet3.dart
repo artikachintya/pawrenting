@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petGender.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petGender.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/widgets/petGenderButton.dart';
 
 class addPet3 extends StatelessWidget {

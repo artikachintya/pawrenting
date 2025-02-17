@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/login/login2.dart';
-import 'package:pawrentingreborn/features/signup/signup.dart';
+import 'package:pawrentingreborn/features/authentication/screens/login2.dart';
+import 'package:pawrentingreborn/features/authentication/screens/signup.dart';
 
 class Landingpage extends StatelessWidget {
   const Landingpage({super.key});

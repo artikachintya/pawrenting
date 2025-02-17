@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/addpetPageController.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petGender.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petTypeButtonCont.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/addpetPageController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petGender.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petTypeButtonCont.dart';
 import 'package:pawrentingreborn/utils/device/device_utility.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
 
 class AddPetButton extends StatelessWidget {
   const AddPetButton({

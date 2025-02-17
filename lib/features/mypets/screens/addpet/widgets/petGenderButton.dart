@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petGender.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petGender.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
@@ -13,6 +14,7 @@ class PetGenderButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PetGenderButtonController controller = Get.find();
+    final PetController petController = Get.find();
     return Container(
      child: GetBuilder<PetGenderButtonController>(
        builder: (context) {
@@ -37,6 +39,7 @@ class PetGenderButton extends StatelessWidget {
                    ),
                    onPressed: (){
                     controller.selectmale();
+                    petController.genderController.text = 'Male';
                    }, 
                    child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),
@@ -82,6 +85,7 @@ class PetGenderButton extends StatelessWidget {
                    ),
                    onPressed: (){
                     controller.selectfemale();
+                    petController.genderController.text = 'Female';
                    }, 
                    child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),
