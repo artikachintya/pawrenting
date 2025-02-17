@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/petActivity/petActivityController.dart';
+import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petActivity/activityCategories.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petActivity/activityCategory.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petActivity/activitySection.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
@@ -17,6 +19,7 @@ class PetActivity extends StatelessWidget {
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+    PetActivityController activityController = Get.put(PetActivityController());
     return Scaffold(
       floatingActionButton: Container(
           width: 90,
@@ -45,22 +48,8 @@ class PetActivity extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ActivityCategory(
-                  category: "Grooming",
-                  selected: true,
-                ),
-                ActivityCategory(
-                  category: 'Exercise',
-                  selected: false,
-                ),
-                ActivityCategory(
-                  category: 'Other',
-                  selected: false,
-                ),
-              ],
+            Obx(
+              ()=> ActivityCategories(category: activityController.category.value,),
             ),
             SizedBox(
               height: 20,

@@ -1,8 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/features/mypets/models/pet.dart';
 
 class PetController extends GetxController {
   // Observable variable to hold pet data
+  final nameController = TextEditingController();
+  final typeController = TextEditingController();
+  final genderController = TextEditingController();
+  final breedController = TextEditingController();
+  final dateOfBirthController = TextEditingController();
+  final heightController = TextEditingController();
+  final weightController = TextEditingController();
+  
   var pet = Pet(
     name: '',
     type: '',

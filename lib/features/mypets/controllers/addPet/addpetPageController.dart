@@ -16,6 +16,7 @@ class addpetPageController extends GetxController{
       confirmation = true;
     }
     pagecontroller.animateToPage(_curIndex, duration: const Duration(milliseconds: 500), curve: Curves.ease);    
+    print(_curIndex);
     update();
   }
   void prevPage(){
@@ -29,5 +30,22 @@ class addpetPageController extends GetxController{
       pagecontroller.animateToPage(_curIndex, duration: const Duration(milliseconds: 500), curve: Curves.ease);
       update();
     }
+  }
+
+    void reset() {
+    _curIndex = 0;
+    confirmation = false;
+    print('reset');
+    pagecontroller.jumpToPage(0);
+    update();
+  }
+
+@override
+  void onClose() {
+    // Reset the controller state when it is closed
+    print('closed');
+    reset();
+    pagecontroller.dispose();
+    super.onClose();
   }
 }

@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petTypeButtonCont.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petTypeButtonCont.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
@@ -15,6 +16,7 @@ class PetTypeButton extends StatelessWidget {
   final controller;
   @override
   Widget build(BuildContext context) {
+    final PetController petController = Get.find();
     return Container(
      child: GetBuilder<PetTypeButtonController>(
        builder: (context) {
@@ -40,6 +42,7 @@ class PetTypeButton extends StatelessWidget {
                    ),
                    onPressed: (){
                     controller.selectDog();
+                    petController.typeController.text = 'Dog';
                    }, 
                    child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),
@@ -85,6 +88,7 @@ class PetTypeButton extends StatelessWidget {
                    ),
                    onPressed: (){
                     controller.selectCat();
+                    petController.typeController.text = 'Cat';
                    }, 
                    child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),

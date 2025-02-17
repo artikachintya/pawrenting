@@ -51,6 +51,8 @@ class TImages {
   static const String shopIcon = 'assets/icons/shopIcon.png';
   static const String discountIcon = 'assets/icons/discountIcon.png';
   static const String forumIcon = 'assets/icons/forumIcon.png';
+  static const String pencil = 'assets/icons/pencil.png';
+  static const String trash = 'assets/icons/trash.png';
   static const String translatePetIcon = 'assets/icons/translatePetIcon.png';
   static const String petIdIcon = 'assets/icons/petId.png';
   static const String dogFood = 'assets/images/dogFood.png';
@@ -64,4 +66,5 @@ class TImages {
   static const String homeSpray = 'assets/images/homeSprayForPet.png';
   static const String ultraSoftBed = 'assets/images/ultraSoftBed.png';
   static const String pikachuJacket = 'assets/images/pikachuJacket.png';
+  static const String whiskeyVaccine = 'assets/images/whiskeyVaccine.png';
 }
