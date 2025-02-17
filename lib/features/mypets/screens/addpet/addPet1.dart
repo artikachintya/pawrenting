@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
 
 class addPet1 extends StatelessWidget {
   const addPet1({
@@ -43,7 +43,7 @@ class addPet1 extends StatelessWidget {
                         return 'Please enter your pet name';
                       }
                       else{
-                        petController.updatePet(name: value);
+                        petController.nameController.text = value;
                         return null;
                       }
                     },

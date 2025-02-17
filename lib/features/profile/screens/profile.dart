@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
@@ -14,11 +15,11 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // background and App Bar
+      appBar: const TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: TColors.primary, 
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const TAppBar(onMain: true, onPetDetails: false),
             //profile account section 
             
             Profilepictandusername(
@@ -131,15 +132,20 @@ class Profile extends StatelessWidget {
                           matchTextDirection: true,
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.only(left: 8),
-                        child: Text(
-                          'Logout',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Alata',
-                            fontWeight: FontWeight.bold,
-                            color: TColors.redLogout, // Assuming TColors.grayFont is a gray color
+                      GestureDetector(
+                        onTap: () {
+                          FirebaseAuth.instance.signOut();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(left: 8),
+                          child: Text(
+                            'Logout',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Alata',
+                              fontWeight: FontWeight.bold,
+                              color: TColors.redLogout, // Assuming TColors.grayFont is a gray color
+                            ),
                           ),
                         ),
                       ),
