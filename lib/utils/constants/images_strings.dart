@@ -33,8 +33,9 @@ class TImages {
   static const String termsIcon = 'assets/icons/T&CIcon.png';
   static const String voucherIcon = 'assets/icons/voucherIcon.png';
   static const String profilePicDefault = 'assets/icons/profilePicDefault.png'; 
-
+  static const String Plus = 'assets/icons/Plus.png';
   static const String exercise = 'assets/icons/exercise.png';
+  static const String forwardarrow2 = 'assets/icons/forwardarrow2.png';
   static const String food = 'assets/icons/food.png';
   static const String vaccine = 'assets/icons/vaccine.png';
   static const String more = 'assets/icons/more.png';
@@ -43,13 +44,9 @@ class TImages {
   static const String tipsFood = 'assets/images/tipsFood.png';
   static const String taken = 'assets/images/taken.png';
   static const String nottaken = 'assets/images/nottaken.png';
-<<<<<<< HEAD
   static const String comm = 'assets/images/kucingkabur.jpg';
-}
-=======
   static const String banner = 'assets/myCart/Banner1.png';
   static const String calendar = 'assets/icons/calendar.png';
   static const String check = 'assets/icons/check.png';
 }
 
->>>>>>> 413a751eda724a8d6f3b17e51338131952d64c17

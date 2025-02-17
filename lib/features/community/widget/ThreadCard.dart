@@ -1,6 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/community/screens/threadDetail.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
+
 
 class Thread extends StatelessWidget {
   const Thread({
@@ -9,9 +11,11 @@ class Thread extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () => Get.to(()=>threadDetail()),
+      child: Container(
       width: 355,
-      height: 170,
+      // height: 170,
       padding: const EdgeInsets.all(10),
     
       decoration: BoxDecoration(
@@ -80,10 +84,13 @@ class Thread extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Image(image: AssetImage(TImages.lopek), height: 15, ),
-                            Text('10', style: TextStyle(fontSize: 10, fontFamily: 'albertsans', fontWeight: FontWeight.bold, color: Color(0xff4E4E4E)),),
-                            Image(image: AssetImage(TImages.cett), height: 15,),
-                            Text('10', style: TextStyle(fontSize: 10, fontFamily: 'albertsans', fontWeight: FontWeight.bold, color: Color(0xff4E4E4E)),)
+                            Image(image: AssetImage(TImages.lopek), height: 20, ),
+                            SizedBox(width: 7,),
+                            Text('10', style: TextStyle(fontSize: 16, fontFamily: 'albertsans', color: Color(0xff4E4E4E)),),
+                            SizedBox(width: 15,),
+                            Image(image: AssetImage(TImages.cett), height: 20,),
+                            SizedBox(width: 7,),
+                            Text('5', style: TextStyle(fontSize: 16, fontFamily: 'albertsans', color: Color(0xff4E4E4E)),)
                           ],
                       ),
                     )
@@ -100,6 +107,8 @@ class Thread extends StatelessWidget {
     
         ]
       ),
+    ),
     );
+    
   }
 }

@@ -9,21 +9,17 @@ import 'package:pawrentingreborn/features/community/widget/optionArticleThread.d
 import 'package:pawrentingreborn/features/community/widget/searchbar.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 
-class Community extends StatelessWidget {
-  const Community({super.key});
+class article extends StatelessWidget {
+  const article({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TAppBar(onMain: true, onPetDetails: false),
      
-      floatingActionButton: Container(
-        width: 100,
-        height: 50,
-        child: FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Addthreads()));}, backgroundColor: Color(0xff4749AE),
-        child: 
-        Text('+ Add', style: TextStyle(fontFamily: 'Alata', fontSize: 15, color: Colors.white,),),),
-      ),
+      floatingActionButton: FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Addthreads()));}, backgroundColor: Color(0xff4749AE),
+      child: 
+      Text('+ Add', style: TextStyle(fontFamily: 'Alata', fontSize: 15, color: Colors.white,),),),
       
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
@@ -38,7 +34,7 @@ class Community extends StatelessWidget {
                   children: [
                     searchbar(title: '',),
                     SizedBox(height: 10,),
-                    optionArticleThread(article: false,),
+                    optionArticleThread(article: true,),
                       SizedBox(height: 10,),         
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,   
@@ -56,7 +52,7 @@ class Community extends StatelessWidget {
                             ),
                             alignment: Alignment.center,
                             child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
-                          ), 
+                          ),
 
                           Container(
                             width: 89,
@@ -124,15 +120,7 @@ class Community extends StatelessWidget {
                         
                       ),
                         SizedBox(height: 10,),
-                        Thread(),
-                        SizedBox(height: 10,),
-                        Thread(),
-                        SizedBox(height: 10,),
-                        Thread(),
-                        SizedBox(height: 10,),
-                        Thread()
-                              
-                              
+                        Thread(), 
                             ],         
                             ),
                             
