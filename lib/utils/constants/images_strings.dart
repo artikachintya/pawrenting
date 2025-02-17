@@ -12,6 +12,10 @@ class TImages {
   static const String dogIcon = 'assets/icons/dog.png';
   static const String catIcon = 'assets/icons/cat.png';
   static const String maleIcon = 'assets/icons/male.png';
+  static const String love = 'assets/icons/love.png.png';
+  static const String lopek = 'assets/icons/lopek.png';
+    static const String cett = 'assets/icons/Cett.png';
+  static const String comment = 'assets/icons/comment.png';
   static const String femaleIcon = 'assets/icons/female.png';
   static const String picIcon = 'assets/icons/pic.png';
   static const String petCard = 'assets/images/petcard.png';
@@ -33,14 +37,22 @@ class TImages {
   static const String food = 'assets/icons/food.png';
   static const String vaccine = 'assets/icons/vaccine.png';
   static const String more = 'assets/icons/more.png';
+  static const String user = 'assets/icons/user.png';
   static const String tipsVaccine = 'assets/images/tipsVaccine.png';
   static const String tipsFood = 'assets/images/tipsFood.png';
   static const String taken = 'assets/images/taken.png';
   static const String nottaken = 'assets/images/nottaken.png';
+
+  static const String comm = 'assets/images/kucingkabur.jpg';
+}
+=======
+=======
   static const String kucingkabur = 'assets/images/kucingkabur.png';
+
   static const String banner = 'assets/myCart/Banner1.png';
   static const String calendar = 'assets/icons/calendar.png';
   static const String check = 'assets/icons/check.png';
+
 
   static const String banner1 = 'assets/images/banner1.png';
   static const String banner2 = 'assets/images/banner2.png';
