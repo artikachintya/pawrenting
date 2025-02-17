@@ -71,4 +71,6 @@ class TImages {
   static const String homeSpray = 'assets/images/homeSprayForPet.png';
   static const String ultraSoftBed = 'assets/images/ultraSoftBed.png';
   static const String pikachuJacket = 'assets/images/pikachuJacket.png';
+  static const String shippingIcon = 'assets/icons/shipping.png'; 
+  static const String copyIcon = 'assets/icons/copyIcon.png'; 
 }

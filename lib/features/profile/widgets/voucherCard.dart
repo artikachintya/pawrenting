@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pawrentingreborn/features/profile/screens/voucherDetail.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
@@ -45,28 +46,35 @@ class VoucherCard extends StatelessWidget {
                     style: TextStyle(
                         fontFamily: "Alata",
                         fontSize: 12,
-                        color: TColors.greenFont),
+                        color: TColors.greenFont
+                    ),
                   ),
-                  Stack(
-                    children: [
-                      Container(
-                        width: 95,
-                        height: 23,
-                        decoration: BoxDecoration(
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => (VoucherDetail())));
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: 95,
+                          height: 23,
+                          decoration: BoxDecoration(
                             color: TColors.accent,
                             borderRadius: BorderRadius.circular(5)),
-                      ),
-                      Positioned(
-                        top: 4,
-                        left: 22,
-                        child: Text("Use Now",
-                          style: TextStyle(
-                          fontFamily: "Albert Sans",
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 255, 255, 255))),
-                      )
-                    ],
+                        ),
+                        Positioned(
+                          top: 4,
+                          left: 22,
+                          child: Text("Use Now",
+                            style: TextStyle(
+                              fontFamily: "Albert Sans",
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 255, 255, 255))
+                            ),
+                        )
+                      ],
+                    )
                   )
                 ],
               ),

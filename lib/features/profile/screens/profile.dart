@@ -34,7 +34,7 @@ class Profile extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 20, bottom: 30),
               width: 365, 
-              height: 500,
+              height: 550,
               decoration: BoxDecoration(
                 color: TColors.gray,  
                 borderRadius:BorderRadius.circular(15) //ini gtw knp ga muncul di screen 
@@ -69,7 +69,12 @@ class Profile extends StatelessWidget {
                     text: "Location", 
                     imagePath: TImages.locationIcon, 
                   ),
-                
+                  //section 1.3 
+                  ProfileOption(
+                    text: "My Order",
+                    imagePath: TImages.shippingIcon,
+                  ),
+                  //section 1.4
                   GestureDetector(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => Voucher()));
