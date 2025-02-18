@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/mypets/screens/petdetails/petDiary.dart';
 
 class PetDiary extends StatelessWidget {
   const PetDiary({
@@ -10,23 +12,28 @@ class PetDiary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           // color: Colors.red,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text('Diary', style: TextStyle(
+              const Text('Diary', style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'Alata',
                 letterSpacing: 1.5,
                 fontWeight: FontWeight.bold
               ),),
-              Text('More', style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'Alata'
-              ),)
+              GestureDetector(
+                onTap: (){
+                  Get.to(()=>PetDiaryPage());
+                },
+                child: Text('More', style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Alata'
+                ),),
+              )
             ],
           ),
         ),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pawrentingreborn/features/community/screens/article.dart';
+import 'package:pawrentingreborn/features/community/screens/community.dart';
 import 'package:pawrentingreborn/features/community/widget/ThreadCard.dart';
+import 'package:pawrentingreborn/navigationMenu.dart';
 
 class optionArticleThread extends StatelessWidget {
   final dynamic article;
@@ -19,7 +21,9 @@ class optionArticleThread extends StatelessWidget {
       
         children: [
            GestureDetector(
-                onTap: () => Get.to(()=>article()),
+                onTap: (){
+                  Get.to(()=>Article());
+                },
                 child: 
                 Container(
             width: 161.81,
@@ -40,8 +44,8 @@ class optionArticleThread extends StatelessWidget {
           
             
 
-                    GestureDetector(
-                onTap: () => Get.to(()=>article()),
+                  GestureDetector(
+                onTap: () => Get.to(()=>NavigationMenu()),
                 child: 
                 Container(
             width: 161.81,

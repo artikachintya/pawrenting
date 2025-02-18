@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
+import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/community/screens/Post.dart';
 import 'package:pawrentingreborn/features/community/screens/Replies.dart';
 import 'package:pawrentingreborn/features/community/screens/addThreads.dart';
 import 'package:pawrentingreborn/features/community/widget/ThreadCard.dart';
 import 'package:pawrentingreborn/features/community/widget/optionArticleThread.dart';
 import 'package:pawrentingreborn/features/community/widget/searchbar.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 
 class Community extends StatelessWidget {
@@ -14,6 +17,9 @@ class Community extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NavBarController controller = Get.find();
+    NavigationController navcontroller = Get.find();
+    
     return Scaffold(
       appBar: TAppBar(onMain: true, onPetDetails: false),
      
@@ -24,7 +30,7 @@ class Community extends StatelessWidget {
         child: 
         Text('+ Add', style: TextStyle(fontFamily: 'Alata', fontSize: 15, color: Colors.white,),),),
       ),
-      
+      // bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
         child: Padding(
@@ -32,7 +38,7 @@ class Community extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                height: 2000,
+                // height: 2000,
                 width: double.maxFinite,
                 child: Column(
                   children: [

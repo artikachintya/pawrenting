@@ -18,59 +18,74 @@ class PetFood extends StatelessWidget {
     NavigationController navcontroller = Get.find();
     return Scaffold(
       backgroundColor: TColors.primary,
-      appBar: TAppBar2(title: TTexts.appBarFoodTitle, subtitle: TTexts.appBarFoodSub),
+      appBar: TAppBar2(
+          title: TTexts.appBarFoodTitle, subtitle: TTexts.appBarFoodSub),
       floatingActionButton: Container(
         width: 90,
         child: FloatingActionButton(
-          onPressed: () {
-          },
+          onPressed: () {},
           backgroundColor: TColors.accent,
           foregroundColor: Colors.white,
           child: Text('+ Add',
-          style: TextStyle(
-            fontSize: 12,
-            fontFamily: 'Alata',
-            color: Colors.white
-          )
-          ),
+              style: TextStyle(
+                  fontSize: 12, fontFamily: 'Alata', color: Colors.white)),
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
                 child: Image(
-                  image: AssetImage(TImages.tipsFood),
-                  height: 190,
-                  )
-              ),
-              SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ImageIcon(AssetImage(TImages.calendar)),
-                  SizedBox(width: 5),
-                  Text(
-                    'Today',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Alata',
-                      fontWeight: FontWeight.bold
-                    ),
+              image: AssetImage(TImages.tipsFood),
+              height: 190,
+            )),
+            SizedBox(height: 20),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40), color: Colors.white),
+              width: 120,
+              height: 40,
+              child: GestureDetector(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ImageIcon(AssetImage(TImages.calendar)),
+                    SizedBox(width: 5),
+                    Text(
+                      'Today',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Alata',
+                          fontWeight: FontWeight.bold),
                     )
-                ],
-              ),
-              SizedBox(height: 20,),
-              FoodSection()
-            ],
-          ),
-        )
-      ),
-      bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
+                  ],
+                ),
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2101),
+                  );
+                  if (pickedDate != null) {
 
+                  }
+                },
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            FoodSection()
+          ],
+        ),
+      )),
+      bottomNavigationBar:
+          InsideNavBar(controller: controller, navcontroller: navcontroller),
     );
   }
 }

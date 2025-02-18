@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/community/widget/chooseTopic.dart';
+import 'package:pawrentingreborn/features/community/widget/selectedSpecies.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
@@ -55,11 +57,13 @@ class Addthreads extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Topic', style: TextStyle(fontFamily: 'albertsans', fontSize: 16, fontWeight: FontWeight.bold),),
-                        Text('sfbhdfugvs')
+                        Text('sfbhdfugvs'),
+                        Text('whbfw'),
+                        // SpeciesSelection()
                       ]
                       
+                      
                     )
-                   
                   ],
                 )
                 

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/community/screens/Post.dart';
+import 'package:pawrentingreborn/features/community/widget/optionArticleThread.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -32,7 +33,7 @@ class Replies extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                height: 2000,
+                // height: 2000,
                 width: double.maxFinite,
                 child: Column(
                   children: [
@@ -64,45 +65,8 @@ class Replies extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10,),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      
-                        children: [
-                          Container(
-                            width: 161.81,
-                            height: 26.35,
-                           decoration: BoxDecoration(
-                              color: Color(0XFF766CAA),
-                              borderRadius: BorderRadius.all(
-                              Radius.circular(40)
-                            )
-                           ),
-                            alignment: Alignment.center,
-                            child: Text('Article', style: TextStyle(
-                              fontFamily: 'alata', fontSize: 16, color: Colors.white
-                            ),),
-                           
-                          ),
-          
-                          Container(
-                            width:161.81,
-                            height: 26.35,
-                           decoration: BoxDecoration(
-                              color: Color(0XFF21165A),
-                              borderRadius: BorderRadius.all(
-                              Radius.circular(40)
-                            )
-                           ),
-                            alignment: Alignment.center,
-                            child: Text('Thread', style: TextStyle(
-                              fontFamily: 'alata', fontSize: 16, color: Colors.white
-                            ),),
-                           
-                          ),
-                          
-                        ],
-                      ),
-                      SizedBox(height: 10,),         
+                    optionArticleThread(article: false,),
+                    SizedBox(height: 10,),         
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,   
                         children: [

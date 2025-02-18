@@ -15,4 +15,6 @@ class TTexts{
   static const appBarThreadsSub = 'Stay connected, stay informed.';
    static const appBarAddThreadTitle = 'New Thread';
   static const appBarAddThreadSub = 'What’s the hottest topic today?';
+  static const appBarArticleTitle = 'Article';
+  static const appBarArticleSub = 'Explore Today’s Trending Topics';
 }

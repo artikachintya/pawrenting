@@ -1,43 +1,85 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
+import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/community/screens/Post.dart';
 import 'package:pawrentingreborn/features/community/screens/Replies.dart';
 import 'package:pawrentingreborn/features/community/screens/addThreads.dart';
 import 'package:pawrentingreborn/features/community/widget/ThreadCard.dart';
+import 'package:pawrentingreborn/features/community/widget/articleHome.dart';
 import 'package:pawrentingreborn/features/community/widget/optionArticleThread.dart';
 import 'package:pawrentingreborn/features/community/widget/searchbar.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
+import 'package:pawrentingreborn/utils/constants/images_strings.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class article extends StatelessWidget {
-  const article({super.key});
+class Article extends StatefulWidget {
+  const Article({super.key});
 
   @override
+  State<Article> createState() => _ArticleState();
+}
+    int myCurrentIndex = 0;
+     final myitems = [
+    TImages.articleBanner1,
+    TImages.articleBanner2,
+    TImages.articleBanner3,
+  ];
+
+class _ArticleState extends State<Article> {
+  @override
   Widget build(BuildContext context) {
+  
+    NavBarController controller = Get.find();
+    NavigationController navcontroller = Get.find();
+    
     return Scaffold(
       appBar: TAppBar(onMain: true, onPetDetails: false),
-     
-      floatingActionButton: FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Addthreads()));}, backgroundColor: Color(0xff4749AE),
-      child: 
-      Text('+ Add', style: TextStyle(fontFamily: 'Alata', fontSize: 15, color: Colors.white,),),),
-      
+       bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
-        child: Padding(
+          child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                height: 2000,
                 width: double.maxFinite,
                 child: Column(
                   children: [
                     searchbar(title: '',),
                     SizedBox(height: 10,),
                     optionArticleThread(article: true,),
-                      SizedBox(height: 10,),         
+                      SizedBox(height:  15,),        
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,   
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,  
+                        children: [
+                           Text('Most Read', style: TextStyle(fontFamily: 'albertsans', fontSize: 16, fontWeight: FontWeight.bold),),
+                           Text('View More')
+                        ],
+                      ),
+                      SizedBox(height: 5,),
+
+                       _carouselSlider(),
+
+                      SizedBox(height: 10,),
+                      Row(
+                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('Explore', style: TextStyle(fontFamily: 'albertsans', fontSize: 16, fontWeight: FontWeight.bold),)
+                          ],
+                        )
+                       ],
+                      ),
+
+                    SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
                             width: 50,
@@ -52,7 +94,7 @@ class article extends StatelessWidget {
                             ),
                             alignment: Alignment.center,
                             child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
-                          ),
+                          ), 
 
                           Container(
                             width: 89,
@@ -85,7 +127,7 @@ class article extends StatelessWidget {
                               )
                             ),
                             alignment: Alignment.center,
-                            child: Text('Post', style: TextStyle(
+                            child: Text('Dog', style: TextStyle(
                               fontFamily: 'albertsans',
                               fontSize: 16,
                               color: Color(0xff535050)
@@ -93,7 +135,7 @@ class article extends StatelessWidget {
                           ),
                           ),
                            
-                          
+
                           GestureDetector(
                             onTap: () => Get.to(()=>Replies()),
                             child: Container(
@@ -107,21 +149,32 @@ class article extends StatelessWidget {
                               )
                             ),
                             alignment: Alignment.center,
-                            child: Text('Replies', style: TextStyle(
+                            child: Text('Cat', style: TextStyle(
                                 fontFamily: 'albertsans',
                                 fontSize: 16,
                                color: Color(0xff535050)
                              ),),
                             ),
                           )
-                          
                         ],
-
-                        
                       ),
-                        SizedBox(height: 10,),
-                        Thread(), 
-                            ],         
+                      SizedBox(height: 20,),
+                      Container(
+                        color: Colors.white.withOpacity(0.6),
+                        // height: 300,
+                        width: 350,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            articleHome(),
+                            articleHome(),
+                            articleHome(),
+                            articleHome()
+                          ],
+                        ),
+                      )
+
+                      ],         
                             ),
                             
  
@@ -132,6 +185,43 @@ class article extends StatelessWidget {
               )
           ),
         );
+
+
+  }
+Column _carouselSlider() {
+    return Column(
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(
+              autoPlay: true,
+              height: 200,
+              autoPlayCurve: Curves.fastOutSlowIn,
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              autoPlayInterval: const Duration(seconds: 2),
+              enlargeCenterPage: true,
+              aspectRatio: 2.0,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  myCurrentIndex = index;
+                });
+              },
+              pauseAutoPlayOnTouch: true,
+              pauseAutoPlayOnManualNavigate: true),
+          items: myitems.map((item) => Image.asset(item)).toList(),
+        ),
+        AnimatedSmoothIndicator(
+            activeIndex: myCurrentIndex,
+            count: myitems.length,
+            effect: const WormEffect(
+                dotHeight: 8,
+                dotWidth: 8,
+                spacing: 5,
+                dotColor: Color(0xff9B9BA0),
+                activeDotColor: Color(0xff4749AE),
+                paintStyle: PaintingStyle.fill)),
+      ],
+    );
   }
 }
 
+        
