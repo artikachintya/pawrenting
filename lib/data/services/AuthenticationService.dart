@@ -1,44 +1,40 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:pawrentingreborn/data/repositories/AuthenticationRepo.dart';
+import 'package:pawrentingreborn/features/authentication/model/UserModel.dart';
 
-class AuthenticationService {
-  final FirebaseAuth _firebaseAuth;
+class AuthenticationService extends GetxController {
+  static AuthenticationService get instance => Get.find();
 
-  AuthenticationService(this._firebaseAuth);
+  final _authRepo = AuthenticationRepo.instance;
+  final _auth = FirebaseAuth.instance;
 
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
-
-  Future<void> signOut() async {
-    await _firebaseAuth.signOut();
-  }
-
-  Future<String?> signInWithEmailAndPassword(String email, String password) async {
-    try {
-      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      return "Signed in";
-    } on FirebaseAuthException catch (e) {
-      return e.message;
+  Future<void> signUp(
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+    String phone,
+    String username,
+    String dob,
+  ) async {
+    print('signup service');
+    final user = await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    if (user != null) {
+      final newUser = UserModel(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phoneNum: phone,
+        username: username,
+        dob: dob,
+        password: password
+      );
+      await _authRepo.createUser(newUser);
     }
-  }
-
-  Future<String?> signUpWithEmailAndPassword(String email, String password) async {
-    try {
-      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      return "Signed up";
-    } on FirebaseAuthException catch (e) {
-      return e.message;
-    }
-  }
-  
-  Future addUserDetails(String firstName, String lastName, String phoneNum, String username, String email, String password, String dob) async{
-    await FirebaseFirestore.instance.collection('users').add({
-      'firstName': firstName,
-      'lastName': lastName,
-      'phoneNum': phoneNum,
-      'username': username,
-      'email': email,
-      'password': password,
-      'dob': dob,
-    });
   }
 }

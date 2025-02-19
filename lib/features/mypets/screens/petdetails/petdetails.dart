@@ -14,7 +14,7 @@ import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class PetDetails extends StatelessWidget {
   const PetDetails({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
@@ -29,19 +29,24 @@ class PetDetails extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               SizedBox(
-                height: 350,
-                width: 420,
-                child: Image.asset(TImages.whiskey, fit: BoxFit.cover,)
-              ),
+                  height: 350,
+                  width: 420,
+                  child: Image.asset(
+                    TImages.whiskey,
+                    fit: BoxFit.cover,
+                  )),
               Positioned(
                 top: 290,
                 child: Container(
                   height: 1000,
                   width: 412,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: TColors.primary,
-                  ),
+                      borderRadius: BorderRadius.circular(50),
+                      color: TColors.primary,
+                      image: DecorationImage(
+                          fit: BoxFit.contain,
+                          image:
+                              AssetImage('assets/login/wallpaper-login.png'))),
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
                     child: Column(
@@ -53,13 +58,33 @@ class PetDetails extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: const [
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Whiskey', style: TextStyle(fontSize: 40, color: Colors.black, fontWeight: FontWeight.w600, fontFamily: 'Alata', letterSpacing: 1.75)),
-                                  Text(' Persian', style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.normal, fontFamily: 'Alata', height: 0.9),)
-                                ]
-                              ),
-                              Text('5 Months', style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.normal, fontFamily: 'Alata'),)
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Whiskey',
+                                        style: TextStyle(
+                                            fontSize: 40,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: 'Alata',
+                                            letterSpacing: 1.75)),
+                                    Text(
+                                      ' Persian',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                          fontFamily: 'Alata',
+                                          height: 0.9),
+                                    )
+                                  ]),
+                              Text(
+                                '5 Months',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'Alata'),
+                              )
                             ],
                           ),
                         ),
@@ -67,9 +92,21 @@ class PetDetails extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
-                            PetInfo(type: 'Gender', value: 'Female', color: Color(0xffFEF1A3),),
-                            PetInfo(type: 'Height', value: '20 cm', color: Color(0xffE5FC95),),
-                            PetInfo(type: 'Weight', value: '5 kg', color: Color(0xffFEF1A3),),
+                            PetInfo(
+                              type: 'Gender',
+                              value: 'Female',
+                              color: Color(0xffFEF1A3),
+                            ),
+                            PetInfo(
+                              type: 'Height',
+                              value: '20 cm',
+                              color: Color(0xffE5FC95),
+                            ),
+                            PetInfo(
+                              type: 'Weight',
+                              value: '5 kg',
+                              color: Color(0xffFEF1A3),
+                            ),
                           ],
                         ),
                         SizedBox(height: 15),
@@ -85,7 +122,8 @@ class PetDetails extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar:
+          InsideNavBar(controller: controller, navcontroller: navcontroller),
     );
   }
 }

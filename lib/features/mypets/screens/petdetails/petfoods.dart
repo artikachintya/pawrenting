@@ -32,56 +32,61 @@ class PetFood extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
-                child: Image(
-              image: AssetImage(TImages.tipsFood),
-              height: 190,
-            )),
-            SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40), color: Colors.white),
-              width: 120,
-              height: 40,
-              child: GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ImageIcon(AssetImage(TImages.calendar)),
-                    SizedBox(width: 5),
-                    Text(
-                      'Today',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Alata',
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
+          child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/login/wallpaper-login.png'))),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                  child: Image(
+                image: AssetImage(TImages.tipsFood),
+                height: 190,
+              )),
+              SizedBox(height: 20),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.white),
+                width: 120,
+                height: 40,
+                child: GestureDetector(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ImageIcon(AssetImage(TImages.calendar)),
+                      SizedBox(width: 5),
+                      Text(
+                        'Today',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Alata',
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2101),
+                    );
+                    if (pickedDate != null) {}
+                  },
                 ),
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101),
-                  );
-                  if (pickedDate != null) {
-
-                  }
-                },
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            FoodSection()
-          ],
+              SizedBox(
+                height: 20,
+              ),
+              FoodSection()
+            ],
+          ),
         ),
       )),
       bottomNavigationBar:
