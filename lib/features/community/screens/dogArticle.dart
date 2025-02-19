@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/community/screens/Post.dart';
 import 'package:pawrentingreborn/features/community/screens/Replies.dart';
+import 'package:pawrentingreborn/features/community/screens/article.dart';
 import 'package:pawrentingreborn/features/community/screens/catArticle.dart';
 import 'package:pawrentingreborn/features/community/screens/dogArticle.dart';
 import 'package:pawrentingreborn/features/community/screens/viewMoreArticle.dart';
@@ -18,11 +18,11 @@ import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class Article extends StatefulWidget {
-  const Article({super.key});
+class dogArticle extends StatefulWidget {
+  const dogArticle({super.key});
 
   @override
-  State<Article> createState() => _ArticleState();
+  State<dogArticle> createState() => _dogArticle();
 }
     int myCurrentIndex = 0;
      final myitems = [
@@ -31,7 +31,7 @@ class Article extends StatefulWidget {
     TImages.articleBanner3,
   ];
 
-class _ArticleState extends State<Article> {
+class _dogArticle extends State<dogArticle> {
   @override
   Widget build(BuildContext context) {
   
@@ -91,27 +91,14 @@ class _ArticleState extends State<Article> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // Container(
-                          //   width: 50,
-                          //   height: 25,
-                            
-                          //   decoration: BoxDecoration(
-                          //     color: TColors.filter.withOpacity(0.3),
-                          //     borderRadius: BorderRadius.all(
-                          //       Radius.circular(10)
-                          //     )
-                              
-                          //   ),
-                          //   alignment: Alignment.center,
-                          //   child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
-                          // ), 
-
-                          Container(
+                         GestureDetector(
+                            onTap: () => Get.to(() => Article()),
+                            child:  Container(
                             width: 110,
                             height: 30,
                            
                             decoration: BoxDecoration(
-                              color: Color(0xff21165A),
+                              color: TColors.filter.withOpacity(0.3),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(15)
                               )
@@ -120,9 +107,10 @@ class _ArticleState extends State<Article> {
                             child: Text('All', style: TextStyle(
                               fontFamily: 'albertsans',
                               fontSize: 16,
-                              color: Colors.white
+                              color: Color(0xff535050)
                             ),),
                           ),
+                         ),
 
                           GestureDetector(
                              onTap: () => Get.to(()=>dogArticle()),
@@ -131,7 +119,7 @@ class _ArticleState extends State<Article> {
                             height: 30,
                             
                             decoration: BoxDecoration(
-                              color: TColors.filter.withOpacity(0.3),
+                              color: Color(0xff21165A),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(15)
                               )
@@ -140,7 +128,7 @@ class _ArticleState extends State<Article> {
                             child: Text('Dog', style: TextStyle(
                               fontFamily: 'albertsans',
                               fontSize: 16,
-                              color: Color(0xff535050)
+                              color: Colors.white
                             ),),
                           ),
                           ),
@@ -176,11 +164,7 @@ class _ArticleState extends State<Article> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            articleHome(
-                              imagePath: TImages.article1,
-                              title: 'First-Year Kitten Vaccination Schedule Chart to Follow',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
+                           
                             articleHome(
                               imagePath: TImages.article2,
                               title: 'How Much Water Should a Dog Drink?',
@@ -191,11 +175,7 @@ class _ArticleState extends State<Article> {
                               title: 'How Many Calories Should My Dog Eat?',
                               subtitle: 'By Pawrenting Teams',
                             ),
-                            articleHome(
-                              imagePath: TImages.article4,
-                              title: 'How to Clean Pet Urine From the Carpet',
-                              subtitle: 'By Pawrenting Teams',
-                            )
+                            
                           ],
                         ),
                       )

@@ -4,6 +4,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/community/screens/Post.dart';
 import 'package:pawrentingreborn/features/community/widget/optionArticleThread.dart';
+import 'package:pawrentingreborn/features/community/widget/searchbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -37,64 +38,38 @@ class Replies extends StatelessWidget {
                 width: double.maxFinite,
                 child: Column(
                   children: [
-                    Container( 
-                      width: 500,
-                      height: 55,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF8F6FD),
-                        borderRadius:BorderRadius.all(
-                          Radius.circular(15)
-                        )
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          children: [
-                            Icon(Icons.search),
-                            SizedBox(width: 10,),
-                            Text('Search "how to play with cat"', 
-                            style: TextStyle(
-                              fontFamily: 'alata',
-                              fontSize: 16
-                              
-                            )),
-                            
-                            
-                          ],
-                        ),
-                      ),
-                    ),
+                    searchbar(title: 'search ‘how to play with cat’',),
                     SizedBox(height: 10,),
                     optionArticleThread(article: false,),
                     SizedBox(height: 10,),         
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,   
                         children: [
-                          Container(
-                            width: 50,
-                            height: 25,
+                          // Container(
+                          //   width: 50,
+                          //   height: 25,
                             
-                            decoration: BoxDecoration(
-                              color: TColors.filter.withOpacity(0.3),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10)
-                              )
+                          //   decoration: BoxDecoration(
+                          //     color: TColors.filter.withOpacity(0.3),
+                          //     borderRadius: BorderRadius.all(
+                          //       Radius.circular(10)
+                          //     )
                               
-                            ),
-                            alignment: Alignment.center,
-                            child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
-                          ),
+                          //   ),
+                          //   alignment: Alignment.center,
+                          //   child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
+                          // ),
 
                           GestureDetector(
                             onTap: () => Get.to(()=>NavigationMenu()),
                           child: Container(
-                            width: 89,
-                            height: 25,
+                            width: 110,
+                            height: 30,
                            
                             decoration: BoxDecoration(
                               color: TColors.filter.withOpacity(0.3),
                               borderRadius: BorderRadius.all(
-                                Radius.circular(10)
+                                Radius.circular(15)
                               )
                             ),
                             alignment: Alignment.center,
@@ -109,13 +84,13 @@ class Replies extends StatelessWidget {
                         GestureDetector(
                           onTap: () => Get.to(()=> Post()),
                           child:Container(
-                            width: 89,
-                            height: 25,
+                            width: 110,
+                            height: 30,
                             
                             decoration: BoxDecoration(
                               color: TColors.filter.withOpacity(0.3),
                               borderRadius: BorderRadius.all(
-                                Radius.circular(10)
+                                Radius.circular(15)
                               )
                             ),
                             alignment: Alignment.center,
@@ -131,13 +106,13 @@ class Replies extends StatelessWidget {
                         GestureDetector(
                           onTap: () => Get.to(()=> Replies()),
                           child: Container(
-                            width: 89,
-                            height: 25,
+                            width: 110,
+                            height: 30,
                             
                             decoration: BoxDecoration(
                               color: Color(0xff21165A),
                               borderRadius: BorderRadius.all(
-                                Radius.circular(10)
+                                Radius.circular(15)
                               )
                             ),
                             alignment: Alignment.center,

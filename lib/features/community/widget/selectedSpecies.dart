@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: SpeciesSelection(),
-  ));
-}
-
 class SpeciesSelection extends StatefulWidget {
   @override
   _SpeciesSelectionState createState() => _SpeciesSelectionState();
@@ -17,14 +11,12 @@ class _SpeciesSelectionState extends State<SpeciesSelection> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-     
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+    return Container(
+        // padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            // SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -36,9 +28,10 @@ class _SpeciesSelectionState extends State<SpeciesSelection> {
                     });
                   },
                   child: Container(
-                    width: 140,
+                    width: 90,
+                    height: 36,
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     decoration: BoxDecoration(
                       color: selectedSpecies == 'Cat'
                           ? Color(0xff4749AE).withOpacity(0.7)
@@ -72,9 +65,10 @@ class _SpeciesSelectionState extends State<SpeciesSelection> {
                     });
                   },
                   child: Container(
-                    width: 140,
+                    width: 90,
+                    height: 36,
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     decoration: BoxDecoration(
                       color: selectedSpecies == 'Dog'
                            ? Color(0xff4749AE).withOpacity(0.7)
@@ -104,8 +98,7 @@ class _SpeciesSelectionState extends State<SpeciesSelection> {
           ]
             
         ),
-      ),
-    );
+      );
   }
 }
 

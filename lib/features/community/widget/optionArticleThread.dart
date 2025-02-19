@@ -26,8 +26,8 @@ class optionArticleThread extends StatelessWidget {
                 },
                 child: 
                 Container(
-            width: 161.81,
-            height: 26.35,
+            width: 165,
+            height: 35,
            decoration: BoxDecoration(
               color: article? Color(0xff21165A) : Color(0XFF766CAA),
               borderRadius: BorderRadius.all(
@@ -48,8 +48,8 @@ class optionArticleThread extends StatelessWidget {
                 onTap: () => Get.to(()=>NavigationMenu()),
                 child: 
                 Container(
-            width: 161.81,
-            height: 26.35,
+            width: 165,
+            height: 35,
            decoration: BoxDecoration(
               color: !article? Color(0xff21165A) : Color(0XFF766CAA),
               borderRadius: BorderRadius.all(

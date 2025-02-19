@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
-import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/community/screens/Post.dart';
 import 'package:pawrentingreborn/features/community/screens/Replies.dart';
 import 'package:pawrentingreborn/features/community/screens/addThreads.dart';
@@ -42,36 +41,36 @@ class Community extends StatelessWidget {
                 width: double.maxFinite,
                 child: Column(
                   children: [
-                    searchbar(title: '',),
+                    searchbar(title: 'search ‘how to play with cat’',),
                     SizedBox(height: 10,),
                     optionArticleThread(article: false,),
                       SizedBox(height: 10,),         
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,   
                         children: [
-                          Container(
-                            width: 50,
-                            height: 25,
+                          // Container(
+                          //   width: 50,
+                          //   height: 25,
                             
-                            decoration: BoxDecoration(
-                              color: TColors.filter.withOpacity(0.3),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10)
-                              )
+                          //   decoration: BoxDecoration(
+                          //     color: TColors.filter.withOpacity(0.3),
+                          //     borderRadius: BorderRadius.all(
+                          //       Radius.circular(10)
+                          //     )
                               
-                            ),
-                            alignment: Alignment.center,
-                            child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
-                          ), 
+                          //   ),
+                          //   alignment: Alignment.center,
+                          //   child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
+                          // ), 
 
                           Container(
-                            width: 89,
-                            height: 25,
+                            width: 110,
+                            height: 30,
                            
                             decoration: BoxDecoration(
                               color: Color(0xff21165A),
                               borderRadius: BorderRadius.all(
-                                Radius.circular(10)
+                                Radius.circular(15)
                               )
                             ),
                             alignment: Alignment.center,
@@ -85,13 +84,13 @@ class Community extends StatelessWidget {
                           GestureDetector(
                              onTap: () => Get.to(()=>Post()),
                              child: Container(
-                            width: 89,
-                            height: 25,
+                            width: 110,
+                            height: 30,
                             
                             decoration: BoxDecoration(
                               color: TColors.filter.withOpacity(0.3),
                               borderRadius: BorderRadius.all(
-                                Radius.circular(10)
+                                Radius.circular(15)
                               )
                             ),
                             alignment: Alignment.center,
@@ -107,12 +106,12 @@ class Community extends StatelessWidget {
                           GestureDetector(
                             onTap: () => Get.to(()=>Replies()),
                             child: Container(
-                            width: 89,
-                            height: 25,
+                            width: 110,
+                            height: 30,
                             decoration: BoxDecoration(
                               color: TColors.filter.withOpacity(0.3),
                               borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                                Radius.circular(15),
                                 
                               )
                             ),

@@ -79,6 +79,9 @@ class TImages {
   static const String whiskeyVaccine = 'assets/images/whiskeyVaccine.png';
 
   static const String article1 = 'assets/images/article1.png';
+  static const String article2 = 'assets/images/article2.png';
+  static const String article3 = 'assets/images/article3.png';
+  static const String article4 = 'assets/images/article4.png';
   static const String articleBanner1 = 'assets/images/articleBanner1.png';
   static const String articleBanner2 = 'assets/images/articleBanner2.png';
   static const String articleBanner3 = 'assets/images/articleBanner3.png';

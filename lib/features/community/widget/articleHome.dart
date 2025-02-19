@@ -5,8 +5,15 @@ import 'package:pawrentingreborn/features/community/screens/articleDetail.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class articleHome extends StatelessWidget {
+  final String imagePath;
+  final String title;
+  final String subtitle;
+
   const articleHome({
-    super.key,
+    super.key, 
+    required this.imagePath,
+    required this.title,
+    required this.subtitle,
   });
 
   @override
@@ -22,22 +29,20 @@ class articleHome extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image(image: AssetImage(TImages.article1), height: 75, fit: BoxFit.fill),
+          Image(image: AssetImage(imagePath), height: 75, fit: BoxFit.fill),
           SizedBox(width: 5,),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('First-Year Kitten Vaccination Schedule Chart to Follow',
-                
-                style: TextStyle(
+                Text(title, style: TextStyle(
                   fontFamily: 'albertsans',
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                   
                 ),),
                 SizedBox(height: 5,),
-               Text('By Pawrenting Teams', style: TextStyle(
+               Text(subtitle, style: TextStyle(
                   fontFamily: 'alata',
                   fontSize: 14,
                   color: Color(0xff4E4E4E)
