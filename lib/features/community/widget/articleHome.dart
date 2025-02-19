@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pawrentingreborn/features/community/screens/articleDetail.dart';
-import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class articleHome extends StatelessWidget {
   final String imagePath;

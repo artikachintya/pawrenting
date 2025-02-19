@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pawrentingreborn/features/community/screens/article.dart';
-import 'package:pawrentingreborn/features/community/screens/community.dart';
-import 'package:pawrentingreborn/features/community/widget/ThreadCard.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 
 class optionArticleThread extends StatelessWidget {

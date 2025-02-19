@@ -1,22 +1,13 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
-import 'package:pawrentingreborn/features/community/screens/Post.dart';
-import 'package:pawrentingreborn/features/community/screens/Replies.dart';
-import 'package:pawrentingreborn/features/community/screens/catArticle.dart';
-import 'package:pawrentingreborn/features/community/screens/dogArticle.dart';
 import 'package:pawrentingreborn/features/community/widget/articleHome.dart';
-import 'package:pawrentingreborn/features/community/widget/optionArticleThread.dart';
 import 'package:pawrentingreborn/features/community/widget/searchbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class viewMoreArticle extends StatefulWidget {
   const viewMoreArticle({super.key});

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
-import 'package:pawrentingreborn/features/community/screens/Post.dart';
-import 'package:pawrentingreborn/features/community/screens/Replies.dart';
 import 'package:pawrentingreborn/features/community/screens/article.dart';
 import 'package:pawrentingreborn/features/community/screens/dogArticle.dart';
 import 'package:pawrentingreborn/features/community/screens/viewMoreArticle.dart';
