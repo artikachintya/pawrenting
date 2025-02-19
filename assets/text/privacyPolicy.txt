@@ -1,0 +1,50 @@
+Effective Date: January 02, 2025
+
+Introduction
+Welcome to Pawrenting! Your privacy is important to us. This Privacy Policy outlines how we collect, use, disclose, and safeguard your information when you use our application. By using Pawrenting, you agree to the collection and use of information in accordance with this policy.
+
+Information We Collect
+We may collect the following types of information:
+1. Personal Information
+Account Information: When you create an account, we may collect personal information such as your name, email address, phone number, and password.
+Pet Information: You may provide information about your pets, including their names, breeds, ages, medical history, and any other relevant details.
+
+2. Usage Data
+We may collect information about how you access and use the app, including your device information, IP address, browser type, and operating system.
+
+3. Cookies and Tracking Technologies
+We may use cookies and similar tracking technologies to monitor activity on our app and store certain information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.
+
+How We Use Your Information
+We use the information we collect for various purposes, including:
+To provide and maintain our app
+To notify you about changes to our app
+To allow you to participate in interactive features of our app when you choose to do so
+To provide customer support
+To gather analysis or valuable information so that we can improve our app
+To monitor the usage of our app
+To detect, prevent, and address technical issues
+To send you newsletters, marketing or promotional materials, and other information that may be of interest to you
+Disclosure of Your Information
+We may share your information in the following situations:
+With Service Providers: We may share your information with third-party service providers to facilitate our app, provide the service on our behalf, perform app-related services, or assist us in analyzing how our app is used.
+For Business Transfers: If we are involved in a merger, acquisition, or asset sale, your personal information may be transferred. We will provide notice before your personal information is transferred and becomes subject to a different Privacy Policy.
+With Your Consent: We may disclose your personal information for any other purpose with your consent.
+
+Security of Your Information
+The security of your personal information is important to us, but remember that no method of transmission over the internet or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your personal information, we cannot guarantee its absolute security.
+
+Your Data Protection Rights
+Depending on your location, you may have the following data protection rights:
+The right to access, update, or delete the information we have on you.
+The right to rectification.
+The right to object.
+The right of restriction.
+The right to data portability.
+The right to withdraw consent.
+If you wish to exercise any of these rights, please contact us using the contact information provided below.
+
+Changes to This Privacy Policy
+We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+
+Thank you for using Pawrenting! Your trust is important to us, and we are committed to protecting your privacy.

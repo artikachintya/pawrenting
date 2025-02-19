@@ -2,6 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/profile/screens/faqPage.dart';
+import 'package:pawrentingreborn/features/profile/screens/listOrderPage.dart';
+import 'package:pawrentingreborn/features/profile/screens/location.dart';
+import 'package:pawrentingreborn/features/profile/screens/personalData.dart';
+import 'package:pawrentingreborn/features/profile/screens/privacyPolicy.dart';
+import 'package:pawrentingreborn/features/profile/screens/termAndCondition.dart';
+import 'package:pawrentingreborn/features/profile/screens/voucher.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profileOption.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profilePictandUsername.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -32,7 +39,7 @@ class Profile extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 20, bottom: 30),
               width: 365, 
-              height: 1000,
+              height: 550,
               decoration: BoxDecoration(
                 color: TColors.gray,  
                 borderRadius:BorderRadius.circular(15) //ini gtw knp ga muncul di screen 
@@ -53,19 +60,45 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                   // section 1.1
-                  ProfileOption(
-                    text: "Personal Data" , 
-                    imagePath: TImages.personalDataIcon,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalData()));
+                    },
+                    child: ProfileOption(
+                      text: "Personal Data" , 
+                      imagePath: TImages.personalDataIcon,
+                    ),
                   ),
                   //section 1.2
-                  ProfileOption(
-                    text: "Location", 
-                    imagePath: TImages.locationIcon,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Location()));
+                    },
+                    child: ProfileOption(
+                      text: "Location", 
+                      imagePath: TImages.locationIcon, 
+                   ),
+                  ), 
+                
+                  //section 1.3 
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ListOrderPage()));
+                    },
+                    child: ProfileOption(
+                        text: "My Order",
+                        imagePath: TImages.shippingIcon,
+                      ),
                   ),
-                  //section 1.3
-                  ProfileOption(
-                    text: "My Voucher", 
-                    imagePath: TImages.voucherIcon,
+                  //section 1.4
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Voucher()));
+                    },
+                    child: ProfileOption(
+                      text: "My Voucher",
+                      imagePath: TImages.voucherIcon, 
+                    ),
                   ),
 
                   // Profile section 2 
@@ -82,19 +115,39 @@ class Profile extends StatelessWidget {
                   ),
 
                   // section 2.1
-                  ProfileOption(
-                    text: "FAQ", 
-                    imagePath: TImages.faqIcon,
-                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => FAQPage()));
+                    },
+                    child: ProfileOption(
+                      text: "FAQ", 
+                      imagePath: TImages.faqIcon,
+         
+                    ),
+                  ), 
+                 
                   // section 2.2
-                  ProfileOption(
-                    text: "Terms and Conditions",  
-                    imagePath: TImages.termsIcon,
-                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => TermsAndConditions()));
+                    },
+                    child: ProfileOption(
+                      text: "Terms and Conditions",  
+                      imagePath: TImages.termsIcon,
+                    ),
+                  ), 
+
+                
                   // section 2.3
-                  ProfileOption(
-                    text: "Privacy Policy", 
-                    imagePath: TImages.privacyIcon,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PrivacyPolicyPage()));
+                    },
+                    child: ProfileOption(
+                      text: "Privacy Policy", 
+                      imagePath: TImages.privacyIcon,
+
+                    ),
                   ),
 
                   //Section 3 
@@ -114,11 +167,13 @@ class Profile extends StatelessWidget {
                   ProfileOption(
                     text: "+6281234356789", 
                     imagePath: TImages.phoneIcon,
+
                   ),
                   // section 3.2
                   ProfileOption(
                     text: "pawrenting@gmail.com",  
                     imagePath: TImages.emailIcon,
+
                   ),
                   //section 3.3
                   Row(

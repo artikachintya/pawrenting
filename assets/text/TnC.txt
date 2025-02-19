@@ -1,0 +1,37 @@
+Last Updated: January 02, 2025
+
+Welcome to Pawrenting! These Terms and Conditions ("Terms") govern your use of our mobile application and services (collectively, the "App"). By accessing or using the App, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, please do not use the App.
+
+1. Acceptance of Terms
+By creating an account or using the App, you confirm that you are at least 18 years old or have the consent of a parent or guardian. If you are using the App on behalf of an organization, you represent that you have the authority to bind that organization to these Terms.
+2. Changes to Terms
+We reserve the right to modify these Terms at any time. We will notify you of any changes by posting the new Terms on this page. Your continued use of the App after any changes constitutes your acceptance of the new Terms.
+3. User Accounts
+To access certain features of the App, you may be required to create an account. You agree to:
+Provide accurate, current, and complete information during the registration process.
+Maintain the security of your password and account.
+Notify us immediately of any unauthorized use of your account or any other breach of security.
+Be responsible for all activities that occur under your account.
+4. User Conduct
+You agree not to use the App for any unlawful or prohibited purpose. You agree not to:
+Harass, threaten, or intimidate other users.
+Post or transmit any content that is defamatory, obscene, abusive, or otherwise objectionable.
+Impersonate any person or entity or misrepresent your affiliation with any person or entity.
+Use the App to collect personal information from other users without their consent.
+5. Content Ownership
+All content, features, and functionality on the App, including but not limited to text, graphics, logos, and software, are the exclusive property of [Pet App Name] or its licensors. You may not reproduce, distribute, modify, or create derivative works of any content without our prior written consent.
+6. User-Generated Content
+You may have the opportunity to submit, post, or otherwise make available content through the App ("User Content"). By submitting User Content, you grant us a non-exclusive, royalty-free, perpetual, and worldwide license to use, reproduce, modify, publish, and distribute such content in any media.
+You represent and warrant that you own or have the necessary rights to the User Content and that it does not violate any third-party rights.
+7. Third-Party Links
+The App may contain links to third-party websites or services that are not owned or controlled by Pawrenting. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You acknowledge and agree that Pawrenting shall not be responsible or liable, directly or indirectly, for any damage or loss caused by or in connection with the use of any such content, goods, or services available on or through any such websites or services.
+8. Disclaimers
+The App is provided on an "as-is" and "as-available" basis. We make no representations or warranties of any kind, express or implied, regarding the operation of the App or the information, content, materials, or products included in the App. To the fullest extent permitted by law, we disclaim all warranties, express or implied, including, but not limited to, implied warranties of merchantability and fitness for a particular purpose.
+9. Limitation of Liability
+In no event shall Pawrenting, its directors, employees, partners, agents, suppliers, or affiliates be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from 
+(i) your use of or inability to use the App; (ii) any unauthorized access to or use of our servers and/or any personal information stored therein; 
+(iii) any interruption or cessation of transmission to or from the App; 
+(iv) any bugs, viruses, or the like that may be transmitted to or through the App by any third party; and/or 
+(v) any errors or omissions in any content or for any loss or damage of any kind incurred as a result of your use of any content posted, emailed, transmitted, or otherwise made available via the App.
+10. Indemnification
+You agree to indemnify, defend, and hold harmless Pawrenting and its affiliates, licensors, and service providers, and its and their respective officers, directors, employees, contractors, agents, licensors, suppliers, successors, and assigns from and against any

@@ -11,4 +11,6 @@ class TTexts{
   static const appBarLogVaccineSub = 'Track vaccination for your pet';
   static const appBarActivitesTitle = 'Activites';
   static const appBarActivitesSub = 'Check your pet activities here';
+  static const appBarMyCartTitle = 'My Cart';
+  static const appBarMyCartSub= 'Check your cart';
 }

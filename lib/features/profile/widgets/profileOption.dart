@@ -37,7 +37,7 @@ class ProfileOption extends StatelessWidget {
                   fontSize: 14,
                   fontFamily: 'Alata',
                   fontWeight: FontWeight.bold,
-                  color: TColors.grayFont, // Assuming TColors.grayFont is a gray color
+                  color: TColors.grayFont, 
                 ),
               ),
             ),
