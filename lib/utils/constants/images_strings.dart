@@ -32,6 +32,7 @@ class TImages {
   static const String termsIcon = 'assets/icons/T&CIcon.png';
   static const String voucherIcon = 'assets/icons/voucherIcon.png';
   static const String profilePicDefault = 'assets/icons/profilePicDefault.png';
+  static const String addressIcon = 'assets/icons/addressIcon.png'; 
 
   static const String exercise = 'assets/icons/exercise.png';
   static const String food = 'assets/icons/food.png';

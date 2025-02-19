@@ -26,5 +26,7 @@ class TColors{
 
   static const Color blueFill = Color(0xff4749AE);
   static const Color gray2 = Color(0xff9E9E9E);
+  static const Color yellow = Color(0xffEEE6BF);
+  static const Color oliveFont = Color(0xff5F4E02); 
 
 } 

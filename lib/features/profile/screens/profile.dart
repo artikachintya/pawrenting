@@ -2,7 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/profile/screens/faqPage.dart';
+import 'package:pawrentingreborn/features/profile/screens/listOrderPage.dart';
+import 'package:pawrentingreborn/features/profile/screens/location.dart';
 import 'package:pawrentingreborn/features/profile/screens/personalData.dart';
+import 'package:pawrentingreborn/features/profile/screens/privacyPolicy.dart';
+import 'package:pawrentingreborn/features/profile/screens/termAndCondition.dart';
 import 'package:pawrentingreborn/features/profile/screens/voucher.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profileOption.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profilePictandUsername.dart';
@@ -65,14 +70,25 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                   //section 1.2
-                  ProfileOption(
-                    text: "Location", 
-                    imagePath: TImages.locationIcon, 
-                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Location()));
+                    },
+                    child: ProfileOption(
+                      text: "Location", 
+                      imagePath: TImages.locationIcon, 
+                   ),
+                  ), 
+                
                   //section 1.3 
-                  ProfileOption(
-                    text: "My Order",
-                    imagePath: TImages.shippingIcon,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ListOrderPage()));
+                    },
+                    child: ProfileOption(
+                        text: "My Order",
+                        imagePath: TImages.shippingIcon,
+                      ),
                   ),
                   //section 1.4
                   GestureDetector(
@@ -99,22 +115,39 @@ class Profile extends StatelessWidget {
                   ),
 
                   // section 2.1
-                  ProfileOption(
-                    text: "FAQ", 
-                    imagePath: TImages.faqIcon,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => FAQPage()));
+                    },
+                    child: ProfileOption(
+                      text: "FAQ", 
+                      imagePath: TImages.faqIcon,
          
-                  ),
+                    ),
+                  ), 
+                 
                   // section 2.2
-                  ProfileOption(
-                    text: "Terms and Conditions",  
-                    imagePath: TImages.termsIcon,
-           
-                  ),
-                  // section 2.3
-                  ProfileOption(
-                    text: "Privacy Policy", 
-                    imagePath: TImages.privacyIcon,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => TermsAndConditions()));
+                    },
+                    child: ProfileOption(
+                      text: "Terms and Conditions",  
+                      imagePath: TImages.termsIcon,
+                    ),
+                  ), 
 
+                
+                  // section 2.3
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PrivacyPolicyPage()));
+                    },
+                    child: ProfileOption(
+                      text: "Privacy Policy", 
+                      imagePath: TImages.privacyIcon,
+
+                    ),
                   ),
 
                   //Section 3 
