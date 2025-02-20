@@ -29,4 +29,5 @@ class TColors{
   static const Color yellow = Color(0xffEEE6BF);
   static const Color oliveFont = Color(0xff5F4E02); 
 
+  static const Color purplebutton = Color(0xff6953DA);
 } 

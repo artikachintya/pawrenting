@@ -13,7 +13,7 @@ class ProductCard extends StatelessWidget {
       Container(
         width: 400,
         height: 120,
-        margin: EdgeInsets.only(left: 10, right: 10, top: 20),
+        margin: EdgeInsets.only(left: 10, right: 10, top: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: TColors.gray,
@@ -37,7 +37,7 @@ class ProductCard extends StatelessWidget {
             Column(children: [
               // product name
               Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 10),
                 child: Text(
                   'Bravery Cat Adult Herring',
                   style: TextStyle(
@@ -72,21 +72,23 @@ class ProductCard extends StatelessWidget {
       Positioned(
         child: Row(children: [
           Container(
-            child: Image.asset(TImages.addItem),
+            child: Image.asset(TImages.removeItem),
             margin: EdgeInsets.only(right: 10),
           ),
           Text('1',
               style: TextStyle(
                 fontSize: 15,
                 fontFamily: 'Albert Sans',
-                fontWeight: FontWeight.w800,
-              )),
+                fontWeight: FontWeight.w800
+              ),
+               
+              ),
           Container(
-            child: Image.asset(TImages.removeItem),
+            child: Image.asset(TImages.addItem),
             margin: EdgeInsets.only(left: 10),
           )
         ]),
-        top: 100,
+        top: 85,
         left: 330,
       ),
     ]);

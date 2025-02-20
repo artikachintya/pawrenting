@@ -41,7 +41,7 @@ class Profile extends StatelessWidget {
               width: 365, 
               height: 550,
               decoration: BoxDecoration(
-                color: TColors.gray,  
+                color: TColors.secondary,  
                 borderRadius:BorderRadius.circular(15) //ini gtw knp ga muncul di screen 
               ),
 
