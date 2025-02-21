@@ -136,34 +136,35 @@ class Community extends StatelessWidget {
                             style: TextStyle(
                                 fontFamily: 'albertsans',
                                 fontSize: 16,
-                                color: Color(0xff535050)),
-                          ),
+                               color: Color(0xff535050)
+                             ),),
+                            ),
+                          )
+                          
+                        ],
+
+                        
+                      ),
+                        SizedBox(height: 10,),
+                        Thread(),
+                        SizedBox(height: 10,),
+                        Thread(),
+                        SizedBox(height: 10,),
+                        Thread(),
+                        SizedBox(height: 10,),
+                        Thread()
+                              
+                              
+                            ],         
+                            ),
+                            
+ 
                         ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Thread(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Thread(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Thread(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Thread()
-                ],
-              ),
-            ),
-          ],
-        ),
-      )),
-    );
+                      
+                  ],
+                ),
+              )
+          ),
+        );
   }
 }
