@@ -21,12 +21,17 @@ class PetVaccine extends StatelessWidget {
     NavigationController navcontroller = Get.find();
     return Scaffold(
       backgroundColor: TColors.primary,
-      appBar: TAppBar2(title: TTexts.appBarVaccineTitle, subtitle: TTexts.appBarVaccineSub),
+      appBar: TAppBar2(
+          title: TTexts.appBarVaccineTitle, subtitle: TTexts.appBarVaccineSub),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-          child: Column(
-            children: [
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.contain,
+                  image: AssetImage('assets/login/wallpaper-login.png'))),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+            child: Column(children: [
               Center(
                 child: Image(
                   image: AssetImage(TImages.tipsVaccine),
@@ -37,11 +42,12 @@ class PetVaccine extends StatelessWidget {
               CoreVaccine(),
               SizedBox(height: 20),
               NonCoreVaccine()
-            ]
+            ]),
           ),
         ),
       ),
-      bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar:
+          InsideNavBar(controller: controller, navcontroller: navcontroller),
     );
   }
 }

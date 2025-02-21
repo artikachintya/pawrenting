@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pawrentingreborn/features/authentication/controllers/SignUpController.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/data/services/AuthenticationService.dart';
 
@@ -22,6 +23,7 @@ class _SignupState extends State<Signup> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final SignUpController _signUpController = Get.find();
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
@@ -41,21 +43,25 @@ class _SignupState extends State<Signup> {
     }
   }
 
-  Future<void> _submitForm() async{
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      try{
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text.trim(), password: _passwordController.text.trim());
-        // await AuthenticationService(  FirebaseFirestore.instance).addUserDetail s(_firstNameController.text.trim(), _lastNameController.text.trim(), _phoneController.text.trim(), _usernameController.text.trim(), _emailController.text.trim(), _passwordController.text.trim(), _dobController.text.trim());
-        Get.to(()=>NavigationMenu());
+      try {
+        _signUpController.signUp(
+          _emailController.text.trim(),
+          _passwordController.text.trim(),
+          _firstNameController.text,
+          _lastNameController.text,
+          _phoneController.text,
+          _dobController.text,
+          _usernameController.text,
+        );
+        Get.to(() => NavigationMenu());
         print('Form submitted successfully');
-
-      }
-      catch(e){
+      } catch (e) {
         print(e);
       }
       // Implement your registration logic here
-    }
-    else{
+    } else {
       print('Salah dodol');
     }
   }
@@ -237,7 +243,6 @@ class _SignupState extends State<Signup> {
                             ),
                             onPressed: () async {
                               await _submitForm();
-                              
                             },
                             child: const Text(
                               'Register',

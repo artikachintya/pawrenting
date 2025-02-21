@@ -38,24 +38,32 @@ class PetActivity extends StatelessWidget {
       bottomNavigationBar:
           InsideNavBar(controller: controller, navcontroller: navcontroller),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-          child: Column(children: [
-            Center(
-              child: Image(
-                image: AssetImage(TImages.tipsVaccine),
-                height: 190,
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage('assets/login/wallpaper-login.png'))),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+            child: Column(children: [
+              Center(
+                child: Image(
+                  image: AssetImage(TImages.tipsVaccine),
+                  height: 190,
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Obx(
-              ()=> ActivityCategories(category: activityController.category.value,),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ActivitySection()
-          ]),
+              SizedBox(height: 20),
+              Obx(
+                () => ActivityCategories(
+                  category: activityController.category.value,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ActivitySection()
+            ]),
+          ),
         ),
       ),
     );

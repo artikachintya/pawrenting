@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/authentication/screens/ForgotPassword/forgotPassword.dart';
 import 'package:pawrentingreborn/features/authentication/screens/signup.dart';
 
 import '../../../navigationMenu.dart';
@@ -208,7 +209,9 @@ class _LoginForm extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => ForgotPassword());
+                },
                 child: const Text(
                   'Forgot Password ?',
                   style: TextStyle(

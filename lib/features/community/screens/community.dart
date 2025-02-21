@@ -21,7 +21,6 @@ class Community extends StatelessWidget {
     
     return Scaffold(
       appBar: TAppBar(onMain: true, onPetDetails: false),
-     
       floatingActionButton: Container(
         width: 100,
         height: 50,
@@ -140,15 +139,33 @@ class Community extends StatelessWidget {
                               
                             ],         
                             ),
-                            
- 
+                       
                         ),
-                      
-                  ],
-                ),
-              )
-          ),
-        );
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Thread(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Thread(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Thread(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Thread()
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
+    );
   }
 }
-
