@@ -18,137 +18,152 @@ class Community extends StatelessWidget {
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
-    
+
     return Scaffold(
       appBar: TAppBar(onMain: true, onPetDetails: false),
-     
+
       floatingActionButton: Container(
         width: 100,
         height: 50,
-        child: FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Addthreads()));}, backgroundColor: Color(0xff4749AE),
-        child: 
-        Text('+ Add', style: TextStyle(fontFamily: 'Alata', fontSize: 15, color: Colors.white,),),),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Addthreads()));
+          },
+          backgroundColor: Color(0xff4749AE),
+          child: Text(
+            '+ Add',
+            style: TextStyle(
+              fontFamily: 'Alata',
+              fontSize: 15,
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
       // bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-          child: Column(
-            children: [
-              Container(
-                // height: 2000,
-                width: double.maxFinite,
-                child: Column(
-                  children: [
-                    searchbar(title: 'search ‘how to play with cat’',),
-                    SizedBox(height: 10,),
-                    optionArticleThread(article: false,),
-                      SizedBox(height: 10,),         
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,   
-                        children: [
-                          // Container(
-                          //   width: 50,
-                          //   height: 25,
-                            
-                          //   decoration: BoxDecoration(
-                          //     color: TColors.filter.withOpacity(0.3),
-                          //     borderRadius: BorderRadius.all(
-                          //       Radius.circular(10)
-                          //     )
-                              
-                          //   ),
-                          //   alignment: Alignment.center,
-                          //   child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
-                          // ), 
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+        child: Column(
+          children: [
+            Container(
+              // height: 2000,
+              width: double.maxFinite,
+              child: Column(
+                children: [
+                  searchbar(
+                    title: 'search ‘how to play with cat’',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  optionArticleThread(
+                    article: false,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Container(
+                      //   width: 50,
+                      //   height: 25,
 
-                          Container(
-                            width: 110,
-                            height: 30,
-                           
-                            decoration: BoxDecoration(
-                              color: Color(0xff21165A),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15)
-                              )
-                            ),
-                            alignment: Alignment.center,
-                            child: Text('All', style: TextStyle(
+                      //   decoration: BoxDecoration(
+                      //     color: TColors.filter.withOpacity(0.3),
+                      //     borderRadius: BorderRadius.all(
+                      //       Radius.circular(10)
+                      //     )
+
+                      //   ),
+                      //   alignment: Alignment.center,
+                      //   child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
+                      // ),
+
+                      Container(
+                        width: 110,
+                        height: 30,
+                        decoration: BoxDecoration(
+                            color: Color(0xff21165A),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                        alignment: Alignment.center,
+                        child: Text(
+                          'All',
+                          style: TextStyle(
                               fontFamily: 'albertsans',
                               fontSize: 16,
-                              color: Colors.white
-                            ),),
-                          ),
+                              color: Colors.white),
+                        ),
+                      ),
 
-                          GestureDetector(
-                             onTap: () => Get.to(()=>Post()),
-                             child: Container(
-                            width: 110,
-                            height: 30,
-                            
-                            decoration: BoxDecoration(
+                      GestureDetector(
+                        onTap: () => Get.to(() => Post()),
+                        child: Container(
+                          width: 110,
+                          height: 30,
+                          decoration: BoxDecoration(
                               color: TColors.filter.withOpacity(0.3),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15)
-                              )
-                            ),
-                            alignment: Alignment.center,
-                            child: Text('Post', style: TextStyle(
-                              fontFamily: 'albertsans',
-                              fontSize: 16,
-                              color: Color(0xff535050)
-                            ),),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Post',
+                            style: TextStyle(
+                                fontFamily: 'albertsans',
+                                fontSize: 16,
+                                color: Color(0xff535050)),
                           ),
-                          ),
-                           
-                          
-                          GestureDetector(
-                            onTap: () => Get.to(()=>Replies()),
-                            child: Container(
-                            width: 110,
-                            height: 30,
-                            decoration: BoxDecoration(
+                        ),
+                      ),
+
+                      GestureDetector(
+                        onTap: () => Get.to(() => Replies()),
+                        child: Container(
+                          width: 110,
+                          height: 30,
+                          decoration: BoxDecoration(
                               color: TColors.filter.withOpacity(0.3),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(15),
-                                
-                              )
-                            ),
-                            alignment: Alignment.center,
-                            child: Text('Replies', style: TextStyle(
+                              )),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Replies',
+                            style: TextStyle(
                                 fontFamily: 'albertsans',
                                 fontSize: 16,
-                               color: Color(0xff535050)
-                             ),),
-                            ),
-                          )
-                          
-                        ],
-
-                        
-                      ),
-                        SizedBox(height: 10,),
-                        Thread(),
-                        SizedBox(height: 10,),
-                        Thread(),
-                        SizedBox(height: 10,),
-                        Thread(),
-                        SizedBox(height: 10,),
-                        Thread()
-                              
-                              
-                            ],         
-                            ),
-                            
- 
+                                color: Color(0xff535050)),
+                          ),
                         ),
-                      
-                  ],
-                ),
-              )
-          ),
-        );
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Thread(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Thread(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Thread(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Thread()
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
+    );
   }
 }
-
