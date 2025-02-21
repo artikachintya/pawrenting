@@ -3,18 +3,14 @@ import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
 
-
 class ProfileOption extends StatelessWidget {
-  final String text; 
-  final String imagePath; 
+  final String text;
+  final String imagePath;
 
-  ProfileOption(
-    {Key? key, 
-    required this.text, 
-    required this.imagePath}
-  ): super(key: key);
+  ProfileOption({Key? key, required this.text, required this.imagePath})
+      : super(key: key);
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -27,6 +23,7 @@ class ProfileOption extends StatelessWidget {
                 width: 19,
                 height: 19,
                 matchTextDirection: true,
+                color: TColors.grayFont,
               ),
             ),
             Container(
@@ -38,6 +35,7 @@ class ProfileOption extends StatelessWidget {
                   fontFamily: 'Alata',
                   fontWeight: FontWeight.bold,
                   color: TColors.grayFont, 
+
                 ),
               ),
             ),
@@ -52,6 +50,4 @@ class ProfileOption extends StatelessWidget {
       ],
     );
   }
-
 }
-

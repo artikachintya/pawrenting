@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/profile/screens/orderDetail.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -171,21 +172,27 @@ class ListOrderPage extends StatelessWidget {
               SizedBox(height: 15), // Spacing
 
               // 🔹 Button
-              Container(
-                width: 80,
-                height: 30,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: TColors.accent,
-                ),
-                child: Text(
-                  "View Detail", 
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => OrderDetail()));
+                },
+                child: Container(
+                  width: 80,
+                  height: 30,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: TColors.accent,
                   ),
-                )
+                  child: Text(
+                    "View Detail", 
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  )
+                ),
               ),
             ],
           ),

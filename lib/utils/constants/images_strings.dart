@@ -14,7 +14,7 @@ class TImages {
   static const String maleIcon = 'assets/icons/male.png';
   static const String love = 'assets/icons/love.png.png';
   static const String lopek = 'assets/icons/lopek.png';
-    static const String cett = 'assets/icons/Cett.png';
+  static const String cett = 'assets/icons/Cett.png';
   static const String comment = 'assets/icons/comment.png';
   static const String femaleIcon = 'assets/icons/female.png';
   static const String picIcon = 'assets/icons/pic.png';
@@ -51,7 +51,6 @@ class TImages {
   static const String calendar = 'assets/icons/calendar.png';
   static const String check = 'assets/icons/check.png';
 
-
   static const String braveryCatFood = 'assets/images/braverycatfood.png';
   static const String addItem = 'assets/icons/add.png';
   static const String removeItem = 'assets/icons/remove.png';
@@ -59,16 +58,21 @@ class TImages {
   static const String voucher = 'assets/images/voucher.png'; 
   static const String editIcon = 'assets/icons/iconEdit.png';
 
+
   static const String banner1 = 'assets/images/banner1.png';
   static const String banner2 = 'assets/images/banner2.png';
   static const String banner3 = 'assets/images/banner3.png';
   static const String banner4 = 'assets/images/banner4.png';
   static const String banner5 = 'assets/images/banner5.png';
 
+  static const String voucher2 = 'assets/icons/voucher.png';
   static const String shopIcon = 'assets/icons/shopIcon.png';
+  static const String truck = 'assets/icons/truck.png';
+  static const String cart2 = 'assets/icons/cart.png';
   static const String discountIcon = 'assets/icons/discountIcon.png';
   static const String forumIcon = 'assets/icons/forumIcon.png';
   static const String pencil = 'assets/icons/pencil.png';
+  static const String forgotPass = 'assets/icons/forgotPass.png';
   static const String trash = 'assets/icons/trash.png';
   static const String translatePetIcon = 'assets/icons/translatePetIcon.png';
   static const String petIdIcon = 'assets/icons/petId.png';

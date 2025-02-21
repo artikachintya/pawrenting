@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/home/screens/Cart/Cart.dart';
 import 'package:pawrentingreborn/features/mypets/screens/editpet/editPet.dart';
-import 'package:pawrentingreborn/features/shoppingCart/mycart.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/device/device_utility.dart';
@@ -74,9 +74,8 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                     margin: const EdgeInsets.only(right: 16),
                     child: Stack(children: [
                       IconButton(
-                          onPressed: ()
-                          {
-                            Get.to(()=>MyCart());
+                          onPressed: () {
+                            Get.to(() => MyCart());
                           },
                           icon: const ImageIcon(
                             AssetImage(TImages.cartIcon),
@@ -145,7 +144,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                             ],
                           ),
                           onTap: () {
-                            Get.to(()=>EditPet());
+                            Get.to(() => EditPet());
                           },
                           height: 25,
                         ),
