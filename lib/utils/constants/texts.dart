@@ -11,6 +11,12 @@ class TTexts{
   static const appBarLogVaccineSub = 'Track vaccination for your pet';
   static const appBarActivitesTitle = 'Activites';
   static const appBarActivitesSub = 'Check your pet activities here';
+  static const appBarThreadsTitle = 'Threads';
+  static const appBarThreadsSub = 'Stay connected, stay informed.';
+  static const appBarAddThreadTitle = 'New Thread';
+  static const appBarAddThreadSub = 'What’s the hottest topic today?';
+  static const appBarArticleTitle = 'Article';
+  static const appBarArticleSub = 'Explore Today’s Trending Topics';
   static const appBarMyCartTitle = 'My Cart';
   static const appBarMyCartSub= 'Check your cart';
 }

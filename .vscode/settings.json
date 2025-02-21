@@ -1,4 +1,5 @@
 {
+    "cmake.sourceDirectory": "C:/pawrenting/linux"
     "files.associations": {
         "ANJAY.C": "cpp"
     }

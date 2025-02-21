@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
-import 'package:pawrentingreborn/features/community/screens/Post.dart';
+import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/community/screens/Replies.dart';
 import 'package:pawrentingreborn/features/community/screens/addThreads.dart';
 import 'package:pawrentingreborn/features/community/widget/ThreadCard.dart';
@@ -11,16 +11,17 @@ import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.da
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 
-class Community extends StatelessWidget {
-  const Community({super.key});
+class Post extends StatelessWidget {
+  const Post({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
-    
     return Scaffold(
       appBar: TAppBar(onMain: true, onPetDetails: false),
+     
       floatingActionButton: Container(
         width: 100,
         height: 50,
@@ -28,7 +29,7 @@ class Community extends StatelessWidget {
         child: 
         Text('+ Add', style: TextStyle(fontFamily: 'Alata', fontSize: 15, color: Colors.white,),),),
       ),
-      // bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
         child: Padding(
@@ -43,7 +44,7 @@ class Community extends StatelessWidget {
                     searchbar(title: 'search ‘how to play with cat’',),
                     SizedBox(height: 10,),
                     optionArticleThread(article: false,),
-                      SizedBox(height: 10,),         
+                    SizedBox(height: 10,),         
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,   
                         children: [
@@ -60,14 +61,16 @@ class Community extends StatelessWidget {
                           //   ),
                           //   alignment: Alignment.center,
                           //   child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
-                          // ), 
+                          // ),
 
+                        GestureDetector(
+                          onTap: () => Get.to(()=>NavigationMenu()),
+                          child: 
                           Container(
                             width: 110,
                             height: 30,
-                           
                             decoration: BoxDecoration(
-                              color: Color(0xff21165A),
+                              color: TColors.filter.withOpacity(0.3),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(15)
                               )
@@ -76,18 +79,18 @@ class Community extends StatelessWidget {
                             child: Text('All', style: TextStyle(
                               fontFamily: 'albertsans',
                               fontSize: 16,
-                              color: Colors.white
+                              color: Color(0xff535050)
                             ),),
                           ),
+                        ),
+                          
 
-                          GestureDetector(
-                             onTap: () => Get.to(()=>Post()),
-                             child: Container(
+                         Container(
                             width: 110,
                             height: 30,
                             
                             decoration: BoxDecoration(
-                              color: TColors.filter.withOpacity(0.3),
+                              color: Color(0xff21165A),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(15)
                               )
@@ -96,10 +99,10 @@ class Community extends StatelessWidget {
                             child: Text('Post', style: TextStyle(
                               fontFamily: 'albertsans',
                               fontSize: 16,
-                              color: Color(0xff535050)
+                              color: Colors.white
                             ),),
                           ),
-                          ),
+
                            
                           
                           GestureDetector(
@@ -131,41 +134,19 @@ class Community extends StatelessWidget {
                         Thread(),
                         SizedBox(height: 10,),
                         Thread(),
-                        SizedBox(height: 10,),
-                        Thread(),
-                        SizedBox(height: 10,),
-                        Thread()
-                              
+                       
                               
                             ],         
                             ),
-                       
+                            
+ 
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Thread(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Thread(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Thread(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Thread()
-                ],
-              ),
-            ),
-          ],
-        ),
-      )),
-    );
+                      
+                  ],
+                ),
+              )
+          ),
+        );
   }
 }
+

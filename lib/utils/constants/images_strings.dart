@@ -32,9 +32,10 @@ class TImages {
   static const String termsIcon = 'assets/icons/T&CIcon.png';
   static const String voucherIcon = 'assets/icons/voucherIcon.png';
   static const String profilePicDefault = 'assets/icons/profilePicDefault.png';
+  static const String Plus = 'assets/icons/Plus.png';
   static const String addressIcon = 'assets/icons/addressIcon.png'; 
-
   static const String exercise = 'assets/icons/exercise.png';
+  static const String forwardarrow2 = 'assets/icons/forwardarrow2.png';
   static const String food = 'assets/icons/food.png';
   static const String vaccine = 'assets/icons/vaccine.png';
   static const String more = 'assets/icons/more.png';
@@ -91,4 +92,12 @@ class TImages {
   static const String shippingIcon = 'assets/icons/shipping.png'; 
   static const String copyIcon = 'assets/icons/copyIcon.png'; 
   static const String whiskeyVaccine = 'assets/images/whiskeyVaccine.png';
+
+  static const String article1 = 'assets/images/article1.png';
+  static const String article2 = 'assets/images/article2.png';
+  static const String article3 = 'assets/images/article3.png';
+  static const String article4 = 'assets/images/article4.png';
+  static const String articleBanner1 = 'assets/images/articleBanner1.png';
+  static const String articleBanner2 = 'assets/images/articleBanner2.png';
+  static const String articleBanner3 = 'assets/images/articleBanner3.png';
 }
