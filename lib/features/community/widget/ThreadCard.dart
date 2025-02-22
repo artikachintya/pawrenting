@@ -1,14 +1,19 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/features/community/screens/threadDetail.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 
 class Thread extends StatelessWidget {
   const Thread({
-    super.key, 
+    super.key, required this.message, 
   });
 
+  final ThreadMessage message;
+  
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -23,7 +28,7 @@ class Thread extends StatelessWidget {
         color: Colors.white.withOpacity(0.5),
         border: Border.all(color: Color(0xff8B68CC).withOpacity(0.6))
       ),
-    
+
       child: 
         Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,21 +98,26 @@ class Thread extends StatelessWidget {
                             Text('5', style: TextStyle(fontSize: 16, fontFamily: 'albertsans', color: Color(0xff4E4E4E)),)
                           ],
                       ),
+                      
                     )
                     
                   ]
                   
                 ),
+                
               )
             ],
             
           ),
+         
           
-    
-    
         ]
+        
       ),
     ),
+
+    
+    
     );
     
   }

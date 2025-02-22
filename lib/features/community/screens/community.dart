@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
+import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/features/community/screens/Post.dart';
 import 'package:pawrentingreborn/features/community/screens/Replies.dart';
 import 'package:pawrentingreborn/features/community/screens/addThreads.dart';
+import 'package:pawrentingreborn/features/community/screens/threadDetail.dart';
 import 'package:pawrentingreborn/features/community/widget/ThreadCard.dart';
 import 'package:pawrentingreborn/features/community/widget/optionArticleThread.dart';
 import 'package:pawrentingreborn/features/community/widget/searchbar.dart';
@@ -145,19 +147,13 @@ class Community extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Thread(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Thread(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Thread(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Thread()
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: threadMessages.length,
+                      itemBuilder: (context, index) {
+                        return Thread(message: threadMessages[index],);
+                      },
+                      )
                   ],
                 ),
               ),

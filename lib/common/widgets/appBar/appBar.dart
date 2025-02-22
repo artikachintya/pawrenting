@@ -81,7 +81,8 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                             AssetImage(TImages.cartIcon),
                             size: 28,
                             color: TColors.accent,
-                          )),
+                          )
+                          ),
                       Positioned(
                         top: 5,
                         right: 5,
