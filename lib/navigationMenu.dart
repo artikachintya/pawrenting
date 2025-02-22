@@ -72,7 +72,7 @@ class NavigationController extends GetxController {
       color: Colors.yellow,
     ),
     const Community(),
-    const Profile(),
+    Profile(),
   ];
   @override
   void onClose() {

@@ -19,6 +19,6 @@ Future<void> main() async {
   Get.lazyPut(() => NavigationController());
   Get.lazyPut(() => SignUpController());
   Get.lazyPut(() => AuthenticationService());
-  Get.lazyPut(() => AuthenticationRepo());
+  Get.lazyPut(() => AuthenticationRepo());                                                                            
   runApp(const MainApp());
 }

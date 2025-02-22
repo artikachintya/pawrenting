@@ -35,7 +35,6 @@ class MyCart extends StatelessWidget {
                 ),
               ),
               Container(
-                color: Colors.red,
                 child: const Text(
                   'Select All',
                   style: TextStyle(fontFamily: 'Alata', fontSize: 16),
@@ -57,12 +56,68 @@ class MyCart extends StatelessWidget {
               },
             ),
           ),
+          Container(
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: TColors.bluePrim, width: 1),
+                ),
+              ),
+              child: Row(children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 25, top: 8, ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Total Price',
+                          style: TextStyle(
+                            fontFamily: 'Albert Sans',
+                            fontSize: 12,
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ),
+                        Text(
+                          'Rp 143.000',
+                          style: TextStyle(
+                            fontFamily: 'Albert Sans',
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ),
+                      ]),
+                ),
+                Padding(
+                    padding: EdgeInsets.only(left: 200),
+                    child: 
+                    Container(
+                      width:100,
+                      height:30,
+    
+                      decoration: BoxDecoration(
+                        color: TColors.purplebutton,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Center(
+                        child: Text('Checkout',
+                          style: TextStyle(
+                            fontFamily: 'Alata',
+                            fontSize: 13,
+                            fontWeight: FontWeight.w200,
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                          ),
+                          textAlign: TextAlign.center),
+                      ))
+                )
+          ]))
         ],
       ),
-      bottomNavigationBar: InsideNavBar(
-        controller: controller,
-        navcontroller: navcontroller,
-      ),
+      // bottomNavigationBar: InsideNavBar(
+      //   controller: controller,
+      //   navcontroller: navcontroller,
+      // ),
     );
   }
 }
