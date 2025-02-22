@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pawrentingreborn/features/profile/screens/locationDetail.dart';
 import 'package:pawrentingreborn/features/profile/screens/voucherDetail.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -9,8 +10,8 @@ class AddressCard extends StatelessWidget {
   final String receiverName;
   final String addressDetail;
   final String phoneNumber;
-
-  const AddressCard({
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  AddressCard({
     super.key, 
     required this.labelAddress, 
     required this.receiverName, 
@@ -18,7 +19,7 @@ class AddressCard extends StatelessWidget {
     required this.phoneNumber
   }); 
   @override
-  Widget build(Object context) {
+  Widget build(BuildContext context) {
     return 
       Container(
         width: 355,
@@ -65,10 +66,16 @@ class AddressCard extends StatelessWidget {
               ), 
             ), 
            
-            Image.asset(
-              TImages.arrowForwardIcon, 
-              width: 7,
-              height: 12,
+            GestureDetector(
+             onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LocationDetail(formGlobalKey: _formKey)));
+              },
+              child: Image.asset(
+                TImages.arrowForwardIcon, 
+                width: 7,
+                height: 12,
+              ),
             )
 
           ],

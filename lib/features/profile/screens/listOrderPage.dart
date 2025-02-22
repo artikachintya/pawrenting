@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/features/profile/screens/orderDetail.dart';
+import 'package:pawrentingreborn/features/profile/widgets/productDisplay.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -20,7 +21,8 @@ class ListOrderPage extends StatelessWidget {
         title: "My Order",
         subtitle: "Woof! Meow! Your Order is on Its Way!",
       ),
-      bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar:
+          InsideNavBar(controller: controller, navcontroller: navcontroller),
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
         child: Container(
@@ -66,132 +68,60 @@ class ListOrderPage extends StatelessWidget {
                   ),
                 ],
               ),
-
               SizedBox(height: 10), // Spacing
-
-              // 🔹 Product Details
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // 🖼 Product Image
-                    Container(
-                      width: 100,
-                      height: 90,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(11),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            blurRadius: 10,
-                            spreadRadius: 2,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(11),
-                        child: Image.asset(
-                          TImages.catMilk,
-                          width: 100,
-                          height: 90,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(width: 10), // Spacing
-
-                    // 📄 Product Name & Quantity
-                    Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Product Name
-                          Expanded(
-                            child: Text(
-                              "Whiskas KatzenMilch 6 Pcs X 125 mL (Vanilla Flavor)",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                          ),
-                          SizedBox(width: 8), // Space between name & quantity
-                          
-                          // Quantity
-                          Text(
-                            "x1",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+              ProductDisplay(
+                productImage: TImages.catMilk,
+                productName:
+                    "Whiskas KatzenMilch 6 Pcs X 125 mL (Vanilla Flavor)",
+                productQuantity: 1,
+                price: 125400,
               ),
-
-              SizedBox(height: 15), // Spacing
+              SizedBox(height: 15),
+              Divider(
+                color: const Color.fromARGB(255, 124, 120, 120),
+                thickness: 1,
+              ),
+              SizedBox(height: 5), // Spacing
 
               // 🔹 Prices
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Rp. 125.400",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      "Total Price: Rp. 140.400",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
+              Container(
+                width: 370,
+                child: Text(
+                  "Total Price: Rp. 140.400",
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-
-              SizedBox(height: 15), // Spacing
+              SizedBox(height: 10), //
 
               // 🔹 Button
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => OrderDetail()));
-                },
-                child: Container(
-                  width: 80,
-                  height: 30,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: TColors.accent,
-                  ),
-                  child: Text(
-                    "View Detail", 
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  )
+              Container(
+                width: 375,
+                alignment: Alignment.bottomRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => OrderDetail()));
+                  },
+                  child: Container(
+                      width: 80,
+                      height: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: TColors.accent,
+                      ),
+                      child: Text(
+                        "View Detail",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      )),
                 ),
               ),
             ],

@@ -18,8 +18,8 @@ import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
-
+  Profile({super.key});
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +65,7 @@ class Profile extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PersonalData()));
+                            builder: (context) => PersonalData(formGlobalKey: _formKey)));
                   },
                   child: ProfileOption(
                     text: "Personal Data",
