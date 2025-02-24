@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editDataController.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profilePictandUsername.dart';
+import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
-import 'package:pawrentingreborn/navigationMenu.dart';
 
 class PersonalData extends StatelessWidget {
   final GlobalKey<FormState> formGlobalKey;
@@ -19,8 +20,10 @@ class PersonalData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final editDataController = Get.put(EditDataController());
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+
     return Scaffold(
       appBar: const TAppBar2(
         title: "Personal Data",
@@ -74,14 +77,20 @@ class PersonalData extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildTextField("First Name", "Kim"),
-                      buildTextField("Last Name", "Kardashian"),
-                      buildTextField("Username", "@kimdash"),
+                      buildTextField("First Name", "Kim",
+                          controller: editDataController.firstNameController),
+                      buildTextField("Last Name", "Kardashian",
+                          controller: editDataController.lastNameController),
+                      buildTextField("Username", "@kimdash",
+                          controller: editDataController.usernameController),
                       buildTextField("Date Of Birth", "20/05/2005",
-                          suffixIcon: Icons.calendar_today),
+                          suffixIcon: Icons.calendar_today,
+                          controller: editDataController.dobController),
                       buildTextField("Phone Number", "89123456789",
-                          prefixText: "+62 "),
-                      buildTextField("Email", "kimdashian@gmail.com"),
+                          prefixText: "+62 ",
+                          controller: editDataController.phonenumController),
+                      buildTextField("Email", "kimdashian@gmail.com",
+                          controller: editDataController.emailController),
                       const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +111,9 @@ class PersonalData extends StatelessWidget {
                           const SizedBox(width: 10),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                editDataController.printUserData();
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: TColors.accent,
                                 foregroundColor: Colors.white,
@@ -127,7 +138,9 @@ class PersonalData extends StatelessWidget {
   }
 
   Widget buildTextField(String label, String hintText,
-      {String? prefixText, IconData? suffixIcon}) {
+      {String? prefixText,
+      IconData? suffixIcon,
+      required TextEditingController controller}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -144,6 +157,7 @@ class PersonalData extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           TextFormField(
+            controller: controller, // ✅ Now properly linked
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: const TextStyle(
