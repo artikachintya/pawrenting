@@ -7,6 +7,8 @@ import 'package:pawrentingreborn/features/profile/screens/profile.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
+import 'features/home/translatePet/translatePet.dart';
+
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
 
@@ -16,7 +18,9 @@ class NavigationMenu extends StatelessWidget {
     return Scaffold(
         floatingActionButton: FloatingActionButton.large(
           backgroundColor: TColors.accent,
-          onPressed: () {},
+          onPressed: () {
+            Get.to(() => TranslatePet());
+          },
           shape: const CircleBorder(),
           child: const ImageIcon(
             AssetImage(TImages.translateIcon),
