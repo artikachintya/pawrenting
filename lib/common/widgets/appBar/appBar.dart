@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Cart.dart';
+import 'package:pawrentingreborn/features/home/screens/Notification/notification.dart';
 import 'package:pawrentingreborn/features/mypets/screens/editpet/editPet.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -46,7 +47,9 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
               ? [
                   Stack(children: [
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(() => NotificationPage());
+                        },
                         icon: const ImageIcon(AssetImage(TImages.notifIcon),
                             size: 28, color: TColors.accent)),
                     Positioned(
@@ -81,8 +84,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                             AssetImage(TImages.cartIcon),
                             size: 28,
                             color: TColors.accent,
-                          )
-                          ),
+                          )),
                       Positioned(
                         top: 5,
                         right: 5,

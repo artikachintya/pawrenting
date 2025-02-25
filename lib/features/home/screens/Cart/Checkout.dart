@@ -8,6 +8,7 @@ import 'package:pawrentingreborn/features/home/screens/widgets/DeliveryCard.dart
 import 'package:pawrentingreborn/features/home/screens/widgets/ItemSection.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/PriceDetails.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/VoucherCard.dart';
+import 'package:pawrentingreborn/features/home/screens/widgets/Vouchers.dart';
 import 'package:pawrentingreborn/features/profile/screens/location.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -136,64 +137,84 @@ void _showBottomSheet(BuildContext context) {
     ),
     builder: (context) {
       final controller = Get.put(VoucherExpansionController());
-      return Container(
-        height: 360,
-        width: double.maxFinite,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Icon(
-                    Icons.close,
-                    size: 30,
+      return Wrap(children: [
+        Container(
+          width: double.maxFinite,
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Icon(
+                      Icons.close,
+                      size: 32,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'Voucher',
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
-                )
-              ],
-            ),
-            Obx(() => ExpansionPanelList(
-                  expansionCallback: (panelIndex, isExpanded) {
-                    controller.togglePanel(panelIndex);
-                  },
-                  children:
-                      List.generate(controller.isExpanded.length, (index) {
-                    return ExpansionPanel(
-                        headerBuilder: (context, isExpanded) {
-                          return ListTile(
-                            title: Text('Panel $index'),
-                          );
-                        },
-                        body: ListTile(
-                          title: Text('Content for Panel $index'),
-                        ),
-                        isExpanded: controller.isExpanded[index]);
-                  }),
-                )),
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: TColors.grayFont, width: 1.25)),
-              child: TextFormField(
-                decoration: InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    border: InputBorder.none,
-                    hintText: 'Enter voucher code here!',
-                    contentPadding: EdgeInsets.all(8)),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    'Voucher',
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),
+                  )
+                ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              Obx(() => ExpansionPanelList(
+                    dividerColor: Colors.transparent,
+                    elevation: 0,
+                    expansionCallback: (panelIndex, isExpanded) {
+                      controller.togglePanel(panelIndex);
+                    },
+                    children:
+                        List.generate(controller.isExpanded.length, (index) {
+                      return ExpansionPanel(
+                          backgroundColor: Colors.transparent,
+                          headerBuilder: (context, isExpanded) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  index == 0
+                                      ? 'Usable Vouchers'
+                                      : 'Unusable Vouchers',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                              ],
+                            );
+                          },
+                          body: Vouchers(),
+                          isExpanded: controller.isExpanded[index]);
+                    }),
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: TColors.grayFont, width: 1.25)),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      border: InputBorder.none,
+                      hintText: 'Enter voucher code here!',
+                      contentPadding: EdgeInsets.all(8)),
+                ),
+              ),
+            ],
+          ),
         ),
-      );
+      ]);
     },
   );
 }

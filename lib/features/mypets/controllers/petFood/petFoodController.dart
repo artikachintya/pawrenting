@@ -1,31 +1,15 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class PetFoodController extends GetxController {
-  var foodList = <String>[].obs;
-  var isLoading = false.obs;
+  final nameController = TextEditingController();
+  final amountController = TextEditingController();
+  final timeController = TextEditingController();
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchFoodList();
-  }
-
-  void fetchFoodList() async {
-    isLoading(true);
-    try {
-      // Simulate a network request
-      await Future.delayed(Duration(seconds: 2));
-      foodList.value = ['Dog Food', 'Cat Food', 'Bird Food'];
-    } finally {
-      isLoading(false);
-    }
-  }
-
-  void addFood(String food) {
-    foodList.add(food);
-  }
-
-  void removeFood(String food) {
-    foodList.remove(food);
+  void resetControllers() {
+    nameController.clear();
+    amountController.clear();
+    timeController.clear();
   }
 }
+

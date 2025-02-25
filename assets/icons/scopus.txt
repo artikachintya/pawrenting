@@ -1,0 +1,15 @@
+﻿Scopus
+EXPORT DATE: 23 February 2025
+
+Wei S., Yang W., Wang E., Wang S., Li Y.
+AUTHOR FULL NAMES: Wei, Shicheng (57937066800); Yang, Wencheng (55441398100); Wang, Eugene (57740806900); Wang, Song (55913304800); Li, Yan (57294903300)
+57937066800; 55441398100; 57740806900; 55913304800; 57294903300
+A 3D decoupling Alzheimer’s disease prediction network based on structural MRI
+(2025) Health Information Science and Systems, 13 (1), art. no. 17, Cited 0 times.
+DOI: 10.1007/s13755-024-00333-3
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-85217523186&doi=10.1007%2fs13755-024-00333-3&partnerID=40&md5=5a249fe275eae1511bd7b4bac8a104ff
+
+DOCUMENT TYPE: Article
+PUBLICATION STAGE: Final
+SOURCE: Scopus
+
