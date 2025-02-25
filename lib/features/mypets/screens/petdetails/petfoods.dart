@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/petFood/petFoodController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petFoods/foodSection.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -14,6 +15,7 @@ class PetFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PetFoodController foodController = Get.put(PetFoodController());
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     return Scaffold(
@@ -23,7 +25,97 @@ class PetFood extends StatelessWidget {
       floatingActionButton: Container(
         width: 90,
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  backgroundColor: TColors.gray,
+                  title: Text('What did your pet eat?'),
+                  content: Container(
+                    width: double.maxFinite,
+                    height: 180,
+                    child: Column(
+                      spacing: 5,
+                      children: [
+                        TextFormField(
+                          controller: foodController.nameController,
+                          decoration: InputDecoration(hintText: 'Food'),
+                        ),
+                        TextFormField(
+                          controller: foodController.nameController,
+                          decoration: InputDecoration(
+                              suffixText: 'gr', hintText: 'Amount'),
+                        ),
+                        TextFormField(
+                          controller: foodController.timeController,
+                          readOnly: true,
+                          onTap: () async {
+                            TimeOfDay? pickedTime = await showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay.now(),
+                            );
+                            if (pickedTime != null) {
+                              foodController.timeController.text =
+                                  pickedTime.format(context);
+                            }
+                          },
+                          decoration: InputDecoration(hintText: 'Time'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                            width: 75,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                color: Color(0xffAE4747),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Center(
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).pop(),
+                          child: Container(
+                            width: 75,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                color: TColors.accent,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Center(
+                              child: Text(
+                                'Add',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              },
+            );
+          },
           backgroundColor: TColors.accent,
           foregroundColor: Colors.white,
           child: Text('+ Add',

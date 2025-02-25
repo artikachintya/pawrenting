@@ -2,10 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
+import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
+import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
 import 'package:pawrentingreborn/features/home/models/product.dart';
+import 'package:pawrentingreborn/features/home/models/productModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Category/ProductCategory.dart';
 import 'package:pawrentingreborn/features/home/screens/Product/ProductDetail.dart';
-import 'package:pawrentingreborn/features/home/models/category_model.dart';
+import 'package:pawrentingreborn/features/home/models/categoryModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/classes/catBreeds.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -24,9 +27,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<CategoryModel> categories = CategoryModel.getcategories();
-  List<Product> products = Product.getProduct();
-
   final myitems = [
     TImages.banner1,
     TImages.banner2,
@@ -39,10 +39,14 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    ProductController pController = Get.put(ProductController());
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     String? selectedBreed = catBreeds.first;
+    CategoryController categoryController = Get.put(CategoryController());
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => print(categoryController.productsList.length)),
       appBar: TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: Color(0xffE7DFF6),
       body: SingleChildScrollView(
@@ -61,7 +65,7 @@ class _HomeState extends State<Home> {
             SizedBox(height: 20),
             _textProduct(),
             SizedBox(height: 20),
-            _product(products: products),
+            _product(products: pController.productsList),
           ],
         ),
       ),
@@ -87,13 +91,14 @@ class _HomeState extends State<Home> {
   }
 
   Column _popularCategory() {
+    CategoryController categoryController = Get.find();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           height: 150,
           child: ListView.separated(
-              itemCount: categories.length,
+              itemCount: categoryController.categoryList.length,
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.only(
                 left: 20,
@@ -103,9 +108,9 @@ class _HomeState extends State<Home> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
+                    categoryController.onSelect(index + 1);
                     Get.to(() => ProductCategory(
-                          category: categories[index].name,
-                        ));
+                        category: categoryController.categoryList[index]));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -119,11 +124,12 @@ class _HomeState extends State<Home> {
                           height: 125,
                           child: Padding(
                             padding: const EdgeInsets.all(8),
-                            child: Image.asset(categories[index].iconPath),
+                            child: Image.asset(
+                                categoryController.categoryList[index].image),
                           ),
                         ),
                         Text(
-                          categories[index].name,
+                          categoryController.categoryList[index].name,
                           style: const TextStyle(
                               fontWeight: FontWeight.normal,
                               color: Colors.black,
@@ -340,133 +346,130 @@ class _HomeState extends State<Home> {
 
 class _product extends StatelessWidget {
   const _product({
-    super.key,
     required this.products,
   });
 
-  final List<Product> products;
+  final RxList<ProductModel> products;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: products.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 4,
-              mainAxisSpacing: 13,
-              childAspectRatio: 0.77),
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () => Get.to(()=>ProductDetail(image: products[index].Image, name: products[index].name)),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                elevation: 4,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        ClipRRect(
-                          child: Container(
-                            width: 170,
-                            height: 130,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, top: 10),
-                              child: Image.asset(
-                                products[index].Image,
-                                width: products[index].width,
-                                height: products[index].height,
-                                fit: BoxFit.contain,
-                                alignment: Alignment.center,
+    return Obx(() {
+      if (products.isEmpty) {
+        Center(child: CircularProgressIndicator()); // Show loading spinner
+      }
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: products.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 13,
+                childAspectRatio: 0.77),
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () =>
+                    Get.to(() => ProductDetail(product: products[index])),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  elevation: 4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          ClipRRect(
+                            child: Container(
+                              width: 170,
+                              height: 130,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, top: 10),
+                                child: Image.asset(
+                                  products[index].image,
+                                  fit: BoxFit.contain,
+                                  alignment: Alignment.center,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          top: 8,
-                          right: 170,
-                          child: Container(
-                            width: 10,
-                            height: 25,
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  bottomLeft: Radius.circular(50)),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 8,
-                          right: 114,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 2),
-                            decoration: BoxDecoration(
+                          Positioned(
+                            top: 8,
+                            right: 170,
+                            child: Container(
+                              width: 10,
+                              height: 25,
+                              decoration: BoxDecoration(
                                 color: Colors.red,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Text(
-                              "${products[index].discount}% OFF",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    bottomLeft: Radius.circular(50)),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            products[index].name,
-                            style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                                fontFamily: 'AlbertSans'),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          Positioned(
+                            top: 8,
+                            right: 114,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Text(
+                                "${products[index].discount.toStringAsFixed(0)}% OFF",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
-                          SizedBox(height: 4),
-                          Text(
-                            "Rp ${products[index].price.toString().replaceAllMapped(
-                                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  (Match m) => "${m[1]}.",
-                                )}",
-                            style: TextStyle(
-                                decoration: TextDecoration.lineThrough,
-                                color: Colors.grey,
-                                fontSize: 12),
-                          ),
-                          Text(
-                            "Rp ${products[index].discountedPrice.toString().replaceAllMapped(
-                                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  (Match m) => "${m[1]}.",
-                                )}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.black),
-                          )
                         ],
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              products[index].name,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                  fontFamily: 'AlbertSans'),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'Rp${products[index].price.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                              style: TextStyle(
+                                  decoration: TextDecoration.lineThrough,
+                                  color: Colors.grey,
+                                  fontSize: 12),
+                            ),
+                            Text(
+                              'Rp${products[index].salePrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.black),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }),
-    );
+              );
+            }),
+      );
+    });
   }
 }
