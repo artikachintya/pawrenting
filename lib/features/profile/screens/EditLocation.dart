@@ -3,26 +3,26 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editLocationController.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 
-class LocationDetail extends StatelessWidget {
-  final GlobalKey<FormState> formGlobalKey;
+class EditLocationDetail extends StatelessWidget {
+  // Controller for managing edit location state
+  final EditLocationController editLocationController = Get.put(EditLocationController());
 
-  const LocationDetail({
-    super.key,
-    required this.formGlobalKey,
-  });
+  EditLocationDetail({super.key, required GlobalKey<FormState> formGlobalKey});
 
   @override
   Widget build(BuildContext context) {
+    // Finding existing controllers for navigation
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
 
     return Scaffold(
       appBar: const TAppBar2(
-        title: "Edit/Add Address",
+        title: "Edit Location",
         subtitle: "Enter your address details",
       ),
       bottomNavigationBar:
@@ -34,41 +34,48 @@ class LocationDetail extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: TColors.secondary,
-            borderRadius: BorderRadius.circular(15), // Adjusts the box rounding
+            borderRadius: BorderRadius.circular(15),
           ),
           child: Form(
-            key: formGlobalKey,
+            key: editLocationController.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildTextField("Label", "Mansion 1"),
-                buildTextField("Receiver’s Name", "Kardashian"),
+                buildTextField("Label", "Mansion 1", controller: editLocationController.labelController),
+                buildTextField("Receiver’s Name", "Kardashian", controller: editLocationController.receiverNameController),
                 buildPhoneNumberField(),
-                buildTextField("Full Address", "123 Street, 11x", maxLines: 3),
+                buildTextField("Full Address", "123 Street, 11x", maxLines: 3, controller: editLocationController.fullAddressController),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Cancel",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {}, // Cancel button action
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text("Cancel"),
                       ),
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: TColors.accent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          editLocationController.saveLocation(); // Save action triggered
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: TColors.accent,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 20),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        "Save",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        child: const Text("Save"),
                       ),
                     ),
                   ],
@@ -81,8 +88,8 @@ class LocationDetail extends StatelessWidget {
     );
   }
 
-  // Text field widget
-  Widget buildTextField(String label, String hint, {int maxLines = 1}) {
+  // Generalized text field widget for form input
+  Widget buildTextField(String label, String hint, {int maxLines = 1, TextEditingController? controller}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -96,12 +103,13 @@ class LocationDetail extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         TextFormField(
+          controller: controller,
           maxLines: maxLines,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(fontSize: 14, color: TColors.grayFont),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10), // Adjust border rounding
+              borderRadius: BorderRadius.circular(10),
             ),
             filled: true,
             fillColor: Colors.white,
@@ -112,7 +120,7 @@ class LocationDetail extends StatelessWidget {
     );
   }
 
-  // Phone number field with country code
+  // Phone number field widget with predefined country code
   Widget buildPhoneNumberField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,6 +136,7 @@ class LocationDetail extends StatelessWidget {
         const SizedBox(height: 5),
         Row(
           children: [
+            // Country code box
             Container(
               width: 60,
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -144,8 +153,10 @@ class LocationDetail extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
+            // Phone number input field
             Expanded(
               child: TextFormField(
+                controller: editLocationController.phoneNumberController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: "89123456789",
