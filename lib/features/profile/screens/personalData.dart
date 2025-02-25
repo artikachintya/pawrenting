@@ -4,12 +4,12 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/editPet/editPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/features/profile/controllers/EditDataController.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editDataController.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profilePictandUsername.dart';
+import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
-import 'package:pawrentingreborn/navigationMenu.dart';
 
 class PersonalData extends StatelessWidget {
   final GlobalKey<FormState> formGlobalKey;
@@ -24,6 +24,7 @@ class PersonalData extends StatelessWidget {
     final editDataController = Get.put(EditDataController());
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+
     return Scaffold(
       appBar: const TAppBar2(
         title: "Personal Data",
@@ -82,7 +83,7 @@ class PersonalData extends StatelessWidget {
                       buildTextField("Last Name", "Kardashian",
                           controller: editDataController.lastNameController),
                       buildTextField("Username", "@kimdash",
-                          controller: editDataController.emailController),
+                          controller: editDataController.usernameController),
                       buildTextField("Date Of Birth", "20/05/2005",
                           suffixIcon: Icons.calendar_today,
                           controller: editDataController.dobController),
@@ -112,7 +113,7 @@ class PersonalData extends StatelessWidget {
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
-                                editDataController.printName();
+                                editDataController.printUserData();
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: TColors.accent,
@@ -140,7 +141,7 @@ class PersonalData extends StatelessWidget {
   Widget buildTextField(String label, String hintText,
       {String? prefixText,
       IconData? suffixIcon,
-      TextEditingController? controller}) {
+      required TextEditingController controller}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -157,6 +158,7 @@ class PersonalData extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           TextFormField(
+            controller: controller, // ✅ Now properly linked
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: const TextStyle(
