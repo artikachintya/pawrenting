@@ -3,16 +3,15 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/home/models/productModel.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class ProductDetail extends StatelessWidget {
-  final String image;
-  final String name;
-  const ProductDetail({super.key, required this.image, required this.name});
-
+  const ProductDetail({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,7 +107,7 @@ class ProductDetail extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 50, vertical: 30),
                       child: Image(
-                        image: AssetImage(image),
+                        image: AssetImage(product.image),
                         fit: BoxFit.contain,
                       ),
                     )),
@@ -122,7 +121,7 @@ class ProductDetail extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(name,
+                    Text(product.name,
                         style: TextStyle(
                             fontSize: 20,
                             color: Colors.black,
@@ -139,7 +138,8 @@ class ProductDetail extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Text('Rp 50.000',
+                    Text(
+                        'Rp${product.price.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                         style: TextStyle(
                             fontSize: 16,
                             color: TColors.accent.withOpacity(0.5),
@@ -147,7 +147,8 @@ class ProductDetail extends StatelessWidget {
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1,
                             decoration: TextDecoration.lineThrough)),
-                    Text('Rp 20.000',
+                    Text(
+                        'Rp${product.salePrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                         style: TextStyle(
                           fontSize: 20,
                           color: TColors.accent,
@@ -166,8 +167,7 @@ class ProductDetail extends StatelessWidget {
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1,
                             decoration: TextDecoration.underline)),
-                    Text(
-                        'Give your cat the best nutrition with Whiskas KatzenMilch, specially formulated to be lactose-free and gentle on their digestion. Enriched with calcium, protein, vitamins, and minerals to support your cat\'s health and happiness. Key Features: Safe for kittens and adult cats. Delicious taste loved by cats. Easy to serve and nutritionally complete.',
+                    Text(product.description,
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.black,

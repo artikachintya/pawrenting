@@ -131,16 +131,17 @@ class addPet4 extends StatelessWidget {
                                         filled: true,
                                         fillColor: TColors.gray),
                                     validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Must not be empty';
-                                    }
-                                    double? weight = double.tryParse(value);
-                                    if (weight == null) {
-                                      return 'Must be a number';
-                                    } else {
-                                      petController.weightController.text = weight.toString();
-                                      return null;
-                                    }
+                                      if (value == null || value.isEmpty) {
+                                        return 'Must not be empty';
+                                      }
+                                      double? weight = double.tryParse(value);
+                                      if (weight == null) {
+                                        return 'Must be a number';
+                                      } else {
+                                        petController.weightController.text =
+                                            weight.toString();
+                                        return null;
+                                      }
                                     },
                                   ),
                                 ),
@@ -165,26 +166,27 @@ class addPet4 extends StatelessWidget {
                                   child: TextFormField(
                                     controller: petController.heightController,
                                     decoration: const InputDecoration(
-                                      suffix: Text('cm'),
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.symmetric(
-                                        vertical: 4,
-                                        horizontal:
-                                          8), // Adjust the vertical padding here
-                                      border: OutlineInputBorder(),
-                                      filled: true,
-                                      fillColor: TColors.gray),
+                                        suffix: Text('cm'),
+                                        isDense: true,
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 4,
+                                            horizontal:
+                                                8), // Adjust the vertical padding here
+                                        border: OutlineInputBorder(),
+                                        filled: true,
+                                        fillColor: TColors.gray),
                                     validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Must not be empty';
-                                    }
-                                    double? height = double.tryParse(value);
-                                    if (height == null) {
-                                      return 'Must be a number';
-                                    } else {
-                                      petController.heightController.text = height.toString();
-                                      return null;
-                                    }
+                                      if (value == null || value.isEmpty) {
+                                        return 'Must not be empty';
+                                      }
+                                      double? height = double.tryParse(value);
+                                      if (height == null) {
+                                        return 'Must be a number';
+                                      } else {
+                                        petController.heightController.text =
+                                            height.toString();
+                                        return null;
+                                      }
                                     },
                                   ),
                                 ),
@@ -209,28 +211,29 @@ class addPet4 extends StatelessWidget {
                                     fontSize: 12,
                                     color: Color.fromARGB(255, 138, 138, 138),
                                     fontWeight: FontWeight.bold)),
-                                               Container(
-                      height: 70,
-                      width: 400,
-                      child: DropdownButtonFormField(
-                        isDense: true,
-                        value: selectedBreed,
-                        items: catBreeds.map((String breed) {
-                          return DropdownMenuItem(
-                            value: breed,
-                            child: Text(breed),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          selectedBreed = value;
-                          petController.breedController.text = selectedBreed!;
-                        },
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            filled: true,
-                            fillColor: TColors.gray),
-                      ),
-                    )
+                            Container(
+                              height: 70,
+                              width: 400,
+                              child: DropdownButtonFormField(
+                                isDense: true,
+                                value: selectedBreed,
+                                items: catBreeds.map((String breed) {
+                                  return DropdownMenuItem(
+                                    value: breed,
+                                    child: Text(breed),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  selectedBreed = value;
+                                  petController.breedController.text =
+                                      selectedBreed!;
+                                },
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    filled: true,
+                                    fillColor: TColors.gray),
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -488,28 +491,28 @@ class addPet4 extends StatelessWidget {
                 //             fontSize: 12,
                 //             color: Color.fromARGB(255, 138, 138, 138),
                 //             fontWeight: FontWeight.bold)),
-                    // Container(
-                    //   height: 70,
-                    //   width: 400,
-                    //   child: DropdownButtonFormField(
-                    //     isDense: true,
-                    //     value: selectedBreed,
-                    //     items: catBreeds.map((String breed) {
-                    //       return DropdownMenuItem(
-                    //         value: breed,
-                    //         child: Text(breed),
-                    //       );
-                    //     }).toList(),
-                    //     onChanged: (value) {
-                    //       selectedBreed = value;
-                    //       petController.updatePet(breed: selectedBreed);
-                    //     },
-                    //     decoration: const InputDecoration(
-                    //         border: OutlineInputBorder(),
-                    //         filled: true,
-                    //         fillColor: TColors.gray),
-                    //   ),
-                    // )
+                // Container(
+                //   height: 70,
+                //   width: 400,
+                //   child: DropdownButtonFormField(
+                //     isDense: true,
+                //     value: selectedBreed,
+                //     items: catBreeds.map((String breed) {
+                //       return DropdownMenuItem(
+                //         value: breed,
+                //         child: Text(breed),
+                //       );
+                //     }).toList(),
+                //     onChanged: (value) {
+                //       selectedBreed = value;
+                //       petController.updatePet(breed: selectedBreed);
+                //     },
+                //     decoration: const InputDecoration(
+                //         border: OutlineInputBorder(),
+                //         filled: true,
+                //         fillColor: TColors.gray),
+                //   ),
+                // )
                 //   ],
                 // ),
                 // SizedBox(
