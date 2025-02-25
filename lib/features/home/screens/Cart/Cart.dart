@@ -80,7 +80,7 @@ class MyCart extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 30),
+                margin: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
                     Container(
@@ -107,10 +107,12 @@ class MyCart extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
               GridView.builder(
                   itemCount: 4,
                   shrinkWrap: true,
-                  padding: const EdgeInsets.all(20),
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
@@ -136,7 +138,6 @@ class CartItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 125,
-      width: 360,
       decoration: BoxDecoration(
           border: Border.all(width: 0.8, color: TColors.accent),
           color: TColors.gray,
