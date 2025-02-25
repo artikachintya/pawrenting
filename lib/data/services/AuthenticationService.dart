@@ -32,7 +32,8 @@ class AuthenticationService extends GetxController {
         phoneNum: phone,
         username: username,
         dob: dob,
-        password: password
+        password: password, 
+        locations: [],
       );
       await _authRepo.createUser(newUser);
     }

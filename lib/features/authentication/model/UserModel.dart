@@ -1,3 +1,5 @@
+import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
+
 class UserModel {
   final String firstName;
   final String lastName;
@@ -6,6 +8,7 @@ class UserModel {
   final String dob;
   final String password;
   final String username;
+  final List<LocationModel> locations;
 
   UserModel(
     {
@@ -16,6 +19,7 @@ class UserModel {
     required this.password,
     required this.phoneNum,
     required this.username,
+    this.locations = const [],
   });
 
   toJson() {
@@ -27,6 +31,7 @@ class UserModel {
       'dob': dob,
       'password': password,
       'username': username,
+      'locations': locations.map((e) => e.toJson()).toList(),
     };
   }
 }
