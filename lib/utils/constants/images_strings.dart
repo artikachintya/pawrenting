@@ -93,7 +93,7 @@ class TImages {
   static const String shippingIcon = 'assets/icons/shipping.png';
   static const String copyIcon = 'assets/icons/copyIcon.png';
   static const String whiskeyVaccine = 'assets/images/whiskeyVaccine.png';
-
+  static const String unbuttonIcon = 'assets/icons/radbuttonun.png';
   static const String article1 = 'assets/images/article1.png';
   static const String article2 = 'assets/images/article2.png';
   static const String article3 = 'assets/images/article3.png';

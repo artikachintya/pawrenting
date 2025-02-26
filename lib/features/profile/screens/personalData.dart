@@ -4,12 +4,12 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/editPet/editPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/features/profile/controllers/EditDataController.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editDataController.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profilePictandUsername.dart';
+import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
-import 'package:pawrentingreborn/navigationMenu.dart';
 
 class PersonalData extends StatelessWidget {
   final GlobalKey<FormState> formGlobalKey;
@@ -24,6 +24,9 @@ class PersonalData extends StatelessWidget {
     final editDataController = Get.put(EditDataController());
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+
+    // Ensure data is fetched after the widget is built
+    Future.delayed(Duration.zero, () => editDataController.fetchUserData());
     return Scaffold(
       appBar: const TAppBar2(
         title: "Personal Data",
@@ -42,94 +45,98 @@ class PersonalData extends StatelessWidget {
               color: TColors.secondary,
               borderRadius: BorderRadius.circular(15),
             ),
-            child: Column(
-              children: [
-                Stack(
-                  clipBehavior: Clip.none,
+            child: GetBuilder<EditDataController>(
+              builder: (controller) {
+                return Column(
                   children: [
-                    Profilepictandusername(
-                      profilePicture: TImages.userProfilePic,
-                    ),
-                    Positioned(
-                      top: 122,
-                      left: 85,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: TColors.accent,
-                          shape: BoxShape.circle,
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Profilepictandusername(
+                          profilePicture: TImages.userProfilePic,
                         ),
-                        child: Center(
-                          child: Image.asset(
-                            TImages.editIcon,
-                            height: 20,
-                            width: 20,
+                        Positioned(
+                          top: 122,
+                          left: 85,
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: TColors.accent,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Image.asset(
+                                TImages.editIcon,
+                                height: 20,
+                                width: 20,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Form(
-                  // key: formGlobalKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildTextField("First Name", "Kim",
-                          controller: editDataController.firstNameController),
-                      buildTextField("Last Name", "Kardashian",
-                          controller: editDataController.lastNameController),
-                      buildTextField("Username", "@kimdash",
-                          controller: editDataController.emailController),
-                      buildTextField("Date Of Birth", "20/05/2005",
-                          suffixIcon: Icons.calendar_today,
-                          controller: editDataController.dobController),
-                      buildTextField("Phone Number", "89123456789",
-                          prefixText: "+62 ",
-                          controller: editDataController.phonenumController),
-                      buildTextField("Email", "kimdashian@gmail.com",
-                          controller: editDataController.emailController),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    const SizedBox(height: 20),
+                    Form(
+                      key: formGlobalKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: Colors.black,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                          buildTextField(
+                              "First Name", controller.firstNameController),
+                          buildTextField(
+                              "Last Name", controller.lastNameController),
+                          buildTextField(
+                              "Username", controller.usernameController),
+                          buildTextField(
+                              "Date Of Birth", controller.dobController,
+                              suffixIcon: Icons.calendar_today),
+                          buildTextField(
+                              "Phone Number", controller.phonenumController,
+                              prefixText: "+62 "),
+                          buildTextField("Email", controller.emailController,
+                              enabled: false), // Email should not be editable
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: () => Get.back(),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: Colors.black,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  child: const Text("Cancel"),
                                 ),
                               ),
-                              child: const Text("Cancel"),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                editDataController.printName();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: TColors.accent,
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    controller.updateUserData();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: TColors.accent,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  child: const Text("Save"),
                                 ),
                               ),
-                              child: const Text("Save"),
-                            ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-              ],
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),
@@ -137,10 +144,8 @@ class PersonalData extends StatelessWidget {
     );
   }
 
-  Widget buildTextField(String label, String hintText,
-      {String? prefixText,
-      IconData? suffixIcon,
-      TextEditingController? controller}) {
+  Widget buildTextField(String label, TextEditingController controller,
+      {String? prefixText, IconData? suffixIcon, bool enabled = true}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -157,13 +162,9 @@ class PersonalData extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           TextFormField(
-            decoration: InputDecoration(
-              hintText: hintText,
-              hintStyle: const TextStyle(
-                fontFamily: "Alata",
-                fontSize: 14,
-                color: Colors.grey,
-              ),
+            controller: controller,
+            enabled: enabled,
+               decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
