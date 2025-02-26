@@ -194,8 +194,8 @@ class Profile extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
+                        
                         FirebaseAuth.instance.signOut();
-                        Get.to(() => Landingpage());
                       },
                       child: Container(
                         padding: EdgeInsets.only(left: 8),

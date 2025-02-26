@@ -34,4 +34,19 @@ class UserModel {
       'locations': locations.map((e) => e.toJson()).toList(),
     };
   }
+
+  factory UserModel.fromSnapshot(Map<String, dynamic> snapshot) {
+    return UserModel(
+      firstName: snapshot['firstName'],
+      lastName: snapshot['lastName'],
+      phoneNum: snapshot['phoneNum'],
+      email: snapshot['email'],
+      dob: snapshot['dob'],
+      password: snapshot['password'],
+      username: snapshot['username'],
+      locations: (snapshot['locations'] as List)
+          .map((location) => LocationModel.fromJson(location))
+          .toList(),
+    );
+  }
 }
