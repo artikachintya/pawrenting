@@ -4,7 +4,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/editPet/editPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/features/profile/controllers/editDataController.dart';
+import 'package:pawrentingreborn/features/profile/controllers/EditDataController.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profilePictandUsername.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
