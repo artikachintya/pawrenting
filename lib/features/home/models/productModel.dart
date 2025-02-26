@@ -36,9 +36,7 @@ class ProductModel {
       'stock': stock,
     };
   }
-<<<<<<< HEAD
 
-=======
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       id: json['id'] ?? 0,
@@ -53,7 +51,6 @@ class ProductModel {
     );
   }
   
->>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
   factory ProductModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data();

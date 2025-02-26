@@ -11,7 +11,6 @@ class LocationRepo extends GetxController {
     DocumentReference userRef = _db.collection('users').doc(email);
 
     try {
-<<<<<<< HEAD
       // 🔍 Debugging: Check if user document exists
       DocumentSnapshot userSnapshot = await userRef.get();
       List<dynamic> existingLocations = [];
@@ -34,32 +33,14 @@ class LocationRepo extends GetxController {
       print("✅ Location added successfully!");
     } catch (e) {
       print("❌ Error adding location: $e");
-=======
-      // Retrieve existing locations
-      DocumentSnapshot userSnapshot = await userRef.get();
-      List<dynamic> existingLocations = userSnapshot.exists ? userSnapshot.get('locations') ?? [] : [];
-
-      // Add new location to the list
-      existingLocations.add(newLocation.toJson());
-
-      // Update Firestore
-      await userRef.update({'locations': existingLocations});
-      print("Location added successfully!");
-    } catch (e) {
-      print("Error adding location: $e");
->>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
     }
   }
 
   /// Get all locations for a user
   Future<List<LocationModel>> getUserLocations(String email) async {
     try {
-<<<<<<< HEAD
       DocumentSnapshot userSnapshot =
           await _db.collection('users').doc(email).get();
-=======
-      DocumentSnapshot userSnapshot = await _db.collection('users').doc(email).get();
->>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
 
       if (userSnapshot.exists) {
         List<dynamic> locationData = userSnapshot.get('locations') ?? [];
@@ -77,12 +58,9 @@ class LocationRepo extends GetxController {
 
     try {
       DocumentSnapshot userSnapshot = await userRef.get();
-<<<<<<< HEAD
+
       List<dynamic> existingLocations =
           userSnapshot.exists ? userSnapshot.get('locations') ?? [] : [];
-=======
-      List<dynamic> existingLocations = userSnapshot.exists ? userSnapshot.get('locations') ?? [] : [];
->>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
 
       if (index >= 0 && index < existingLocations.length) {
         existingLocations.removeAt(index);

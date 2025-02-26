@@ -22,7 +22,3 @@ class ProductRepo extends GetxController {
     }).toList();
   }
 }
-<<<<<<< HEAD
- 
-=======
->>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
