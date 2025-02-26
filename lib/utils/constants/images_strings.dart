@@ -33,20 +33,22 @@ class TImages {
   static const String voucherIcon = 'assets/icons/voucherIcon.png';
   static const String profilePicDefault = 'assets/icons/profilePicDefault.png';
   static const String Plus = 'assets/icons/Plus.png';
-  static const String addressIcon = 'assets/icons/addressIcon.png'; 
+  static const String addressIcon = 'assets/icons/addressIcon.png';
   static const String exercise = 'assets/icons/exercise.png';
   static const String forwardarrow2 = 'assets/icons/forwardarrow2.png';
   static const String food = 'assets/icons/food.png';
   static const String vaccine = 'assets/icons/vaccine.png';
   static const String more = 'assets/icons/more.png';
   static const String user = 'assets/icons/user.png';
+  static const String deliverytruck = 'assets/icons/deliverytruck.png';
   static const String tipsVaccine = 'assets/images/tipsVaccine.png';
   static const String tipsFood = 'assets/images/tipsFood.png';
+  static const String welcomeNotif = 'assets/images/welcomeNotif.png';
   static const String taken = 'assets/images/taken.png';
   static const String nottaken = 'assets/images/nottaken.png';
 
   static const String comm = 'assets/images/kucingkabur.jpg';
-  static const String paws = 'assets/images/wallpaper-login.jpg';
+  static const String paws = 'assets/login/wallpaper-login.png';
   static const String kucingkabur = 'assets/images/kucingkabur.png';
 
   static const String banner = 'assets/myCart/Banner1.png';
@@ -56,10 +58,9 @@ class TImages {
   static const String braveryCatFood = 'assets/images/braverycatfood.png';
   static const String addItem = 'assets/icons/add.png';
   static const String removeItem = 'assets/icons/remove.png';
-  
-  static const String voucher = 'assets/images/voucher.png'; 
-  static const String editIcon = 'assets/icons/iconEdit.png';
 
+  static const String voucher = 'assets/images/voucher.png';
+  static const String editIcon = 'assets/icons/iconEdit.png';
 
   static const String banner1 = 'assets/images/banner1.png';
   static const String banner2 = 'assets/images/banner2.png';
@@ -89,8 +90,8 @@ class TImages {
   static const String homeSpray = 'assets/images/homeSprayForPet.png';
   static const String ultraSoftBed = 'assets/images/ultraSoftBed.png';
   static const String pikachuJacket = 'assets/images/pikachuJacket.png';
-  static const String shippingIcon = 'assets/icons/shipping.png'; 
-  static const String copyIcon = 'assets/icons/copyIcon.png'; 
+  static const String shippingIcon = 'assets/icons/shipping.png';
+  static const String copyIcon = 'assets/icons/copyIcon.png';
   static const String whiskeyVaccine = 'assets/images/whiskeyVaccine.png';
 
   static const String unbuttonIcon = 'assets/icons/radbuttonun.png';

@@ -14,15 +14,18 @@ class NavigationMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     NavigationController controller = Get.find();
     return Scaffold(
-        floatingActionButton: FloatingActionButton.large(
-          backgroundColor: TColors.accent,
-          onPressed: () {},
-          shape: const CircleBorder(),
-          child: const ImageIcon(
-            AssetImage(TImages.translateIcon),
-            color: TColors.secondary,
-            size: 72,
-          ),
+        floatingActionButton: ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          child: Container(
+              padding: EdgeInsets.all(12),
+              width: 100,
+              height: 100,
+              decoration: const BoxDecoration(color: TColors.accent),
+              child: ImageIcon(
+                AssetImage(TImages.translateIcon),
+                size: 72,
+                color: Colors.white,
+              )),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: Obx(

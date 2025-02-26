@@ -65,18 +65,19 @@ class InsideNavBar extends StatelessWidget {
           ]),
       Positioned(
           left: TDeviceUtil.getViewWidth(context) / 2 - 50,
-          bottom: TDeviceUtil.getAppBarHeight() / 2,
+          bottom: TDeviceUtil.getAppBarHeight(),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: Container(
-              width: 100,
-              height: 100,
-              decoration: const BoxDecoration(color: TColors.accent),
-              child: const Image(
-                image: AssetImage(TImages.translateIcon),
-                color: TColors.secondary,
-              ),
-            ),
+                padding: EdgeInsets.all(12),
+                width: 100,
+                height: 100,
+                decoration: const BoxDecoration(color: TColors.accent),
+                child: ImageIcon(
+                  AssetImage(TImages.translateIcon),
+                  size: 72,
+                  color: Colors.white,
+                )),
           ))
     ]);
   }
