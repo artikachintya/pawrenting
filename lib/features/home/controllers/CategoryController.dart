@@ -40,4 +40,9 @@ class CategoryController extends GetxController {
     final categories = await categoryRepo.fetchCategory();
     categoryList.assignAll(categories);
   }
+
+
+  String getCategoryName(int index) {
+    return categoryList[index - 1].name;
+  }
 }

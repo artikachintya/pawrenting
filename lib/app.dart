@@ -24,11 +24,9 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
         theme: TAppTheme.lightTheme,
-        home: 
-        // NavigationMenu(),
-        
-        StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(), 
+
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
