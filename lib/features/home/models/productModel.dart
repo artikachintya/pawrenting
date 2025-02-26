@@ -36,7 +36,24 @@ class ProductModel {
       'stock': stock,
     };
   }
+<<<<<<< HEAD
 
+=======
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      price: json['price'] ?? 0.0,
+      categoryId: json['categoryId'] ?? 0,
+      description: json['description'] ?? '',
+      image: json['image'] ?? '',
+      salePrice: json['salePrice'] ?? 0.0,
+      discount: json['discount'] ?? 0.0,
+      stock: json['stock'] ?? 0,
+    );
+  }
+  
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
   factory ProductModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data();

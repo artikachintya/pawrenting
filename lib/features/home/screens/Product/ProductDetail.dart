@@ -3,6 +3,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+<<<<<<< HEAD
+=======
+import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
+import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
 import 'package:pawrentingreborn/features/home/models/productModel.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
@@ -14,6 +19,10 @@ class ProductDetail extends StatelessWidget {
   final ProductModel product;
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
+=======
+    CategoryController categoryController = Get.find();
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
     return Scaffold(
       appBar: TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: TColors.primary,
@@ -27,7 +36,11 @@ class ProductDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
+<<<<<<< HEAD
                 onTap: () => _showBottomSheet(context, "cart"),
+=======
+                onTap: () => _showBottomSheet(context, "cart", product),
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                 child: Container(
                   width: 70,
                   height: 45,
@@ -49,7 +62,11 @@ class ProductDetail extends StatelessWidget {
                 width: 10,
               ),
               GestureDetector(
+<<<<<<< HEAD
                 onTap: () => _showBottomSheet(context, "buy"),
+=======
+                onTap: () => _showBottomSheet(context, "buy", product),
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                 child: Container(
                   height: 45,
                   width: 185,
@@ -128,7 +145,11 @@ class ProductDetail extends StatelessWidget {
                             fontWeight: FontWeight.w900,
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1)),
+<<<<<<< HEAD
                     Text('Cat Food',
+=======
+                    Text(categoryController.getCategoryName(product.categoryId),
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                             fontSize: 14,
                             color: TColors.grayFont,
@@ -186,7 +207,11 @@ class ProductDetail extends StatelessWidget {
   }
 }
 
+<<<<<<< HEAD
 void _showBottomSheet(BuildContext context, String type) {
+=======
+void _showBottomSheet(BuildContext context, String type, ProductModel product) {
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -195,15 +220,26 @@ void _showBottomSheet(BuildContext context, String type) {
     ),
     builder: (context) {
       if (type == "buy") {
+<<<<<<< HEAD
         return _buildBuyNowSheet(context);
       } else {
         return _buildCartSheet(context);
+=======
+        return _buildBuyNowSheet(context, product);
+      } else {
+        return _buildCartSheet(context, product);
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
       }
     },
   );
 }
 
+<<<<<<< HEAD
 Widget _buildBuyNowSheet(BuildContext context) {
+=======
+Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
+  CategoryController categoryController = Get.find();
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
   return Padding(
     padding: EdgeInsets.only(
       bottom: MediaQuery.of(context).viewInsets.bottom, // Adjusts for keyboard
@@ -232,7 +268,11 @@ Widget _buildBuyNowSheet(BuildContext context) {
                 width: 150,
                 height: 100,
                 child: Image(
+<<<<<<< HEAD
                   image: AssetImage(TImages.vitamin),
+=======
+                  image: AssetImage(product.image),
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                   fit: BoxFit.contain,
                 ),
               ),
@@ -243,14 +283,22 @@ Widget _buildBuyNowSheet(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+<<<<<<< HEAD
                     Text('Whiskas Purrfectly Chicken',
+=======
+                    Text(product.name,
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
                             fontWeight: FontWeight.w900,
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1)),
+<<<<<<< HEAD
                     Text('Cat Food',
+=======
+                    Text(categoryController.getCategoryName(product.categoryId),
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                             fontSize: 10,
                             color: TColors.grayFont,
@@ -260,7 +308,12 @@ Widget _buildBuyNowSheet(BuildContext context) {
                     SizedBox(
                       height: 10,
                     ),
+<<<<<<< HEAD
                     Text('Rp 50.000',
+=======
+                    Text(
+                        'Rp${product.price.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                             fontSize: 14,
                             color: TColors.accent.withOpacity(0.5),
@@ -268,7 +321,12 @@ Widget _buildBuyNowSheet(BuildContext context) {
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1,
                             decoration: TextDecoration.lineThrough)),
+<<<<<<< HEAD
                     Text('Rp 20.000',
+=======
+                    Text(
+                        'Rp${product.salePrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                           fontSize: 16,
                           color: TColors.accent,
@@ -276,7 +334,11 @@ Widget _buildBuyNowSheet(BuildContext context) {
                           fontFamily: 'AlbertSans',
                           letterSpacing: 1,
                         )),
+<<<<<<< HEAD
                     Text('Stock: 541',
+=======
+                    Text('Stock: ${product.stock}',
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                           fontSize: 12,
                           color: TColors.grayFont,
@@ -367,7 +429,13 @@ Widget _buildBuyNowSheet(BuildContext context) {
   );
 }
 
+<<<<<<< HEAD
 Widget _buildCartSheet(BuildContext context) {
+=======
+Widget _buildCartSheet(BuildContext context, ProductModel product) {
+  CartController cartController = Get.find();
+  CategoryController categoryController = Get.find();
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
   return Padding(
     padding: EdgeInsets.only(
       bottom: MediaQuery.of(context).viewInsets.bottom, // Adjusts for keyboard
@@ -383,7 +451,14 @@ Widget _buildCartSheet(BuildContext context) {
             children: [
               IconButton(
                 icon: Icon(Icons.close),
+<<<<<<< HEAD
                 onPressed: () => Navigator.pop(context),
+=======
+                onPressed: () {
+                  Navigator.pop(context);
+                  cartController.resetQty();
+                },
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
               ),
             ],
           ),
@@ -396,7 +471,11 @@ Widget _buildCartSheet(BuildContext context) {
                 width: 150,
                 height: 100,
                 child: Image(
+<<<<<<< HEAD
                   image: AssetImage(TImages.vitamin),
+=======
+                  image: AssetImage(product.image),
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                   fit: BoxFit.contain,
                 ),
               ),
@@ -407,14 +486,22 @@ Widget _buildCartSheet(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+<<<<<<< HEAD
                     Text('Whiskas Purrfectly Chicken',
+=======
+                    Text(product.name,
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
                             fontWeight: FontWeight.w900,
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1)),
+<<<<<<< HEAD
                     Text('Cat Food',
+=======
+                    Text(categoryController.getCategoryName(product.categoryId),
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                             fontSize: 10,
                             color: TColors.grayFont,
@@ -424,7 +511,12 @@ Widget _buildCartSheet(BuildContext context) {
                     SizedBox(
                       height: 10,
                     ),
+<<<<<<< HEAD
                     Text('Rp 50.000',
+=======
+                    Text(
+                        'Rp${product.price.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                             fontSize: 14,
                             color: TColors.accent.withOpacity(0.5),
@@ -432,7 +524,12 @@ Widget _buildCartSheet(BuildContext context) {
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1,
                             decoration: TextDecoration.lineThrough)),
+<<<<<<< HEAD
                     Text('Rp 20.000',
+=======
+                    Text(
+                        'Rp${product.salePrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                           fontSize: 16,
                           color: TColors.accent,
@@ -440,7 +537,11 @@ Widget _buildCartSheet(BuildContext context) {
                           fontFamily: 'AlbertSans',
                           letterSpacing: 1,
                         )),
+<<<<<<< HEAD
                     Text('Stock: 541',
+=======
+                    Text('Stock: ${product.stock}',
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         style: TextStyle(
                           fontSize: 12,
                           color: TColors.grayFont,
@@ -473,6 +574,7 @@ Widget _buildCartSheet(BuildContext context) {
                   width: 100,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+<<<<<<< HEAD
                     children: [
                       Container(
                         width: 26,
@@ -495,13 +597,58 @@ Widget _buildCartSheet(BuildContext context) {
                         child: Icon(
                           Icons.add,
                           color: TColors.accent,
+=======
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () => cartController.subQty(),
+                        child: Container(
+                          width: 26,
+                          height: 23,
+                          decoration: BoxDecoration(
+                              color: TColors.primary,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Icon(
+                            Icons.remove,
+                            color: TColors.accent,
+                          ),
+                        ),
+                      ),
+                      Obx(() => Container(
+                          width: 40,
+                          height: 30,
+                          child: Center(
+                            child: Text(
+                              cartController.quantity.value.toString(),
+                            ),
+                          ))),
+                      GestureDetector(
+                        onTap: () => cartController.addQty(),
+                        child: Container(
+                          width: 26,
+                          height: 23,
+                          decoration: BoxDecoration(
+                              color: TColors.primary,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Icon(
+                            Icons.add,
+                            color: TColors.accent,
+                          ),
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                         ),
                       ),
                     ],
                   ),
                 ),
                 GestureDetector(
+<<<<<<< HEAD
                   // onTap: () => _showBottomSheet(context, "buy"),
+=======
+                  onTap: () {
+                    Navigator.pop(context);
+                    cartController.addToCart(product, cartController.quantity);
+                  },
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
                   child: Container(
                     height: 35,
                     width: 150,

@@ -24,11 +24,16 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
         theme: TAppTheme.lightTheme,
+<<<<<<< HEAD
         home: 
         // NavigationMenu(),
         
         StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(), 
+=======
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -40,7 +45,11 @@ class MainApp extends StatelessWidget {
               return Landingpage();
             }
           },
+<<<<<<< HEAD
           )
           );
+=======
+        ));
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
   }
 }

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/data/repositories/UserRepo.dart';
 import 'package:pawrentingreborn/features/authentication/model/UserModel.dart';
 
-
 class EditDataController extends GetxController {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();

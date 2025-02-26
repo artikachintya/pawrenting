@@ -1,6 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+<<<<<<< HEAD
+=======
+import 'package:get_storage/get_storage.dart';
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
 import 'package:pawrentingreborn/data/repositories/AuthenticationRepo.dart';
 import 'package:pawrentingreborn/data/repositories/CategoryRepo.dart';
 import 'package:pawrentingreborn/data/repositories/ProductRepository.dart';
@@ -24,5 +28,9 @@ Future<void> main() async {
   Get.lazyPut(() => AuthenticationRepo());
   Get.lazyPut(() => ProductRepo());
   Get.lazyPut(() => CategoryRepo());
+<<<<<<< HEAD
+=======
+  await GetStorage.init();
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
   runApp(const MainApp());
 }

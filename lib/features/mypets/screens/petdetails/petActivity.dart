@@ -12,7 +12,10 @@ import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
+<<<<<<< HEAD
 import 'package:popover/popover.dart';
+=======
+>>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
 
 class PetActivity extends StatelessWidget {
   const PetActivity({super.key});
