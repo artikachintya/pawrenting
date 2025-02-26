@@ -2,7 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
+import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
+import 'package:pawrentingreborn/features/home/models/cartItemModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Checkout.dart';
+import 'package:pawrentingreborn/features/home/screens/Product/ProductDetail.dart';
+
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
@@ -11,6 +16,9 @@ class MyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    CartController cartController = Get.find();
+
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: TAppBar2(title: 'My Cart', subtitle: 'Check your cart here!'),
@@ -36,13 +44,15 @@ class MyCart extends StatelessWidget {
                     SizedBox(
                       width: 10,
                     ),
-                    Text(
-                      'Rp320.000',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: TColors.accent),
-                    )
+
+                    Obx(() => Text(
+                          'Rp${cartController.totalCartPrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: TColors.accent),
+                        ))
+
                   ],
                 ),
               ),
@@ -111,16 +121,20 @@ class MyCart extends StatelessWidget {
                 height: 10,
               ),
               GridView.builder(
-                  itemCount: 4,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisSpacing: 10,
-                    mainAxisExtent: 125,
-                  ),
-                  itemBuilder: (_, index) =>
-                      GestureDetector(child: CartItem(), onTap: () {}))
+
+                itemCount: cartController.cartItems.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisSpacing: 10,
+                  mainAxisExtent: 125,
+                ),
+                itemBuilder: (_, index) => CartItem(
+                  item: cartController.cartItems[index],
+                  index: index,
+                ),
+              )
             ]),
           ),
         ),
@@ -130,12 +144,18 @@ class MyCart extends StatelessWidget {
 }
 
 class CartItem extends StatelessWidget {
+  final CartItemModel item;
+  final int index;
   const CartItem({
     super.key,
+    required this.item,
+    required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
+    CartController cartController = Get.find();
+    CategoryController categoryController = Get.find();
     return Container(
       height: 125,
       decoration: BoxDecoration(
@@ -146,28 +166,35 @@ class CartItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
         child: Row(
           children: [
-            Container(
-              height: 17.5,
-              width: 17.5,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3),
-                  border: Border.all(width: 1.5, color: TColors.grayFont)),
-              child: Icon(
-                Icons.check,
-                size: 16,
-                color: TColors.accent,
+            GestureDetector(
+              // onTap: () => Get.to(ProductDetail(product: item.productModel)),
+              child: Container(
+                height: 17.5,
+                width: 17.5,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    border: Border.all(width: 1.5, color: TColors.grayFont)),
+                child: Icon(
+                  Icons.check,
+                  size: 16,
+                  color: TColors.accent,
+                ),
               ),
             ),
             SizedBox(
               width: 12,
             ),
-            Container(
-              width: 90,
-              height: 90,
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(15)),
-              child: Image.asset(TImages.catFood),
+            GestureDetector(
+              onTap: () => Get.to(ProductDetail(product: item.productModel)),
+              child: Container(
+                width: 90,
+                height: 90,
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15)),
+                child: Image.asset(item.productModel.image),
+              ),
             ),
             SizedBox(
               width: 12,
@@ -178,13 +205,14 @@ class CartItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Rawrawr Beef & Mackerel Freeze Dried Raw Diet',
+                    item.productModel.name,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '7 kg',
+                    categoryController
+                        .getCategoryName(item.productModel.categoryId),
                     style: TextStyle(
                         fontFamily: 'Alata',
                         color: TColors.grayFont,
@@ -194,7 +222,7 @@ class CartItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Rp80.000',
+                        'Rp${item.productModel.salePrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                         style: TextStyle(
                             fontFamily: 'Alata',
                             color: Colors.black,
@@ -205,18 +233,27 @@ class CartItem extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.remove,
-                              color: TColors.accent,
+                            GestureDetector(
+                              onTap: () => cartController.subItemQty(index),
+                              child: Icon(
+                                Icons.remove,
+                                color: TColors.accent,
+                              ),
                             ),
-                            Text(
-                              '1',
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            Obx(
+                              () => Text(
+                                cartController.cartItems[index].quantity.value
+                                    .toString(),
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            Icon(
-                              Icons.add,
-                              color: TColors.accent,
+                            GestureDetector(
+                              onTap: () => cartController.addItemQty(index),
+                              child: Icon(
+                                Icons.add,
+                                color: TColors.accent,
+                              ),
                             )
                           ],
                         ),
