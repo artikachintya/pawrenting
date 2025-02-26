@@ -131,6 +131,7 @@ class ProductDetail extends StatelessWidget {
                             fontWeight: FontWeight.w900,
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1)),
+
                     Text(categoryController.getCategoryName(product.categoryId),
                         style: TextStyle(
                             fontSize: 14,
@@ -206,6 +207,7 @@ void _showBottomSheet(BuildContext context, String type, ProductModel product) {
   );
 }
 
+
 Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
   CategoryController categoryController = Get.find();
   return Padding(
@@ -236,6 +238,7 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                 width: 150,
                 height: 100,
                 child: Image(
+
                   image: AssetImage(product.image),
                   fit: BoxFit.contain,
                 ),
@@ -247,14 +250,18 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     Text(product.name,
+
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
                             fontWeight: FontWeight.w900,
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1)),
+
                     Text(categoryController.getCategoryName(product.categoryId),
+
                         style: TextStyle(
                             fontSize: 10,
                             color: TColors.grayFont,
@@ -264,8 +271,10 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                     SizedBox(
                       height: 10,
                     ),
+
                     Text(
                         'Rp${product.price.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+
                         style: TextStyle(
                             fontSize: 14,
                             color: TColors.accent.withOpacity(0.5),
@@ -273,8 +282,10 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1,
                             decoration: TextDecoration.lineThrough)),
+
                     Text(
                         'Rp${product.salePrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+
                         style: TextStyle(
                           fontSize: 16,
                           color: TColors.accent,
@@ -373,6 +384,7 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
   );
 }
 
+
 Widget _buildCartSheet(BuildContext context, ProductModel product) {
   CartController cartController = Get.find();
   CategoryController categoryController = Get.find();
@@ -391,10 +403,12 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
             children: [
               IconButton(
                 icon: Icon(Icons.close),
+
                 onPressed: () {
                   Navigator.pop(context);
                   cartController.resetQty();
                 },
+
               ),
             ],
           ),
@@ -407,7 +421,9 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                 width: 150,
                 height: 100,
                 child: Image(
+
                   image: AssetImage(product.image),
+
                   fit: BoxFit.contain,
                 ),
               ),
@@ -418,14 +434,18 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     Text(product.name,
+
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
                             fontWeight: FontWeight.w900,
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1)),
+
                     Text(categoryController.getCategoryName(product.categoryId),
+
                         style: TextStyle(
                             fontSize: 10,
                             color: TColors.grayFont,
@@ -435,8 +455,10 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                     SizedBox(
                       height: 10,
                     ),
+
                     Text(
                         'Rp${product.price.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+
                         style: TextStyle(
                             fontSize: 14,
                             color: TColors.accent.withOpacity(0.5),
@@ -444,8 +466,10 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1,
                             decoration: TextDecoration.lineThrough)),
+
                     Text(
                         'Rp${product.salePrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+
                         style: TextStyle(
                           fontSize: 16,
                           color: TColors.accent,
@@ -454,6 +478,7 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                           letterSpacing: 1,
                         )),
                     Text('Stock: ${product.stock}',
+
                         style: TextStyle(
                           fontSize: 12,
                           color: TColors.grayFont,

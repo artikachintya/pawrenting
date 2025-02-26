@@ -24,6 +24,7 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
         theme: TAppTheme.lightTheme,
+
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
@@ -37,6 +38,7 @@ class MainApp extends StatelessWidget {
               return Landingpage();
             }
           },
-        ));
+          )
+          );
   }
 }

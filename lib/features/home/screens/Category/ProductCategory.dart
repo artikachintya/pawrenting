@@ -181,5 +181,6 @@ class _product extends StatelessWidget {
             );
           }),
     );
+
   }
 }

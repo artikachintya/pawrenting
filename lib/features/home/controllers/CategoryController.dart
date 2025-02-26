@@ -41,6 +41,7 @@ class CategoryController extends GetxController {
     categoryList.assignAll(categories);
   }
 
+
   String getCategoryName(int index) {
     return categoryList[index - 1].name;
   }

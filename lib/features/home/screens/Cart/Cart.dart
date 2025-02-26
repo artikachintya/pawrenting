@@ -7,6 +7,7 @@ import 'package:pawrentingreborn/features/home/controllers/CategoryController.da
 import 'package:pawrentingreborn/features/home/models/cartItemModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Checkout.dart';
 import 'package:pawrentingreborn/features/home/screens/Product/ProductDetail.dart';
+
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
@@ -15,7 +16,9 @@ class MyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     CartController cartController = Get.find();
+
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: TAppBar2(title: 'My Cart', subtitle: 'Check your cart here!'),
@@ -41,6 +44,7 @@ class MyCart extends StatelessWidget {
                     SizedBox(
                       width: 10,
                     ),
+
                     Obx(() => Text(
                           'Rp${cartController.totalCartPrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                           style: TextStyle(
@@ -48,6 +52,7 @@ class MyCart extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: TColors.accent),
                         ))
+
                   ],
                 ),
               ),
@@ -116,6 +121,7 @@ class MyCart extends StatelessWidget {
                 height: 10,
               ),
               GridView.builder(
+
                 itemCount: cartController.cartItems.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

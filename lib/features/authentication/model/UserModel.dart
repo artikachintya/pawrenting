@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
 
 class UserModel {
@@ -10,8 +11,7 @@ class UserModel {
   final String username;
   final List<LocationModel> locations;
 
-  UserModel(
-    {
+  UserModel({
     required this.dob,
     required this.email,
     required this.firstName,
@@ -22,7 +22,7 @@ class UserModel {
     this.locations = const [],
   });
 
-  toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'firstName': firstName,
       'lastName': lastName,
@@ -35,17 +35,30 @@ class UserModel {
     };
   }
 
-  factory UserModel.fromSnapshot(Map<String, dynamic> snapshot) {
+  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final data = snapshot.data();
+    if (data == null) {
+      print('User data is null');
+      return UserModel(
+        firstName: '',
+        lastName: '',
+        phoneNum: '',
+        email: '',
+        dob: '',
+        password: '',
+        username: '',
+      );
+    }
     return UserModel(
-      firstName: snapshot['firstName'],
-      lastName: snapshot['lastName'],
-      phoneNum: snapshot['phoneNum'],
-      email: snapshot['email'],
-      dob: snapshot['dob'],
-      password: snapshot['password'],
-      username: snapshot['username'],
-      locations: (snapshot['locations'] as List)
-          .map((location) => LocationModel.fromJson(location))
+      firstName: data['firstName'] ?? '',
+      lastName: data['lastName'] ?? '',
+      phoneNum: data['phoneNum'] ?? '',
+      email: data['email'] ?? '',
+      dob: data['dob'] ?? '',
+      password: data['password'] ?? '',
+      username: data['username'] ?? '',
+      locations: (data['locations'] as List<dynamic>? ?? [])
+          .map((e) => LocationModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
   }

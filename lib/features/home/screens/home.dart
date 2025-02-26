@@ -40,6 +40,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     CartController cartController = Get.put(CartController());
     ProductController pController = Get.put(ProductController());
     NavBarController controller = Get.find();

@@ -36,6 +36,7 @@ class ProductModel {
       'stock': stock,
     };
   }
+
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       id: json['id'] ?? 0,
