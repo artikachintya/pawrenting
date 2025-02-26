@@ -39,6 +39,50 @@ class EditDataController extends GetxController {
     }
   }
 
+ Future<void> updateUserData() async {
+  try {
+    String email = FirebaseAuth.instance.currentUser!.email!;
+    UserModel? user = await _userRepo.fetchUserByEmail(email);
+
+    if (user == null) {
+      Get.snackbar("Error", "User not found", snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
+
+    // Use fetched data and only update modified fields
+    Map<String, dynamic> updatedData = {};
+
+    if (firstNameController.text != user.firstName) {
+      updatedData["firstName"] = firstNameController.text;
+    }
+    if (lastNameController.text != user.lastName) {
+      updatedData["lastName"] = lastNameController.text;
+    }
+    if (usernameController.text != user.username) {
+      updatedData["username"] = usernameController.text;
+    }
+    if (dobController.text != user.dob) {
+      updatedData["dob"] = dobController.text;
+    }
+    if (phonenumController.text != user.phoneNum) {
+      updatedData["phoneNum"] = phonenumController.text;
+    }
+
+    if (updatedData.isNotEmpty) {
+      await _userRepo.updateUserByEmail(email, updatedData);
+      Get.snackbar("Success", "Your data has been updated!", snackPosition: SnackPosition.BOTTOM);
+    } else {
+      Get.snackbar("No Changes", "No changes detected.", snackPosition: SnackPosition.BOTTOM);
+    }
+  } catch (e) {
+    Get.snackbar("Error", "Failed to update data: $e", snackPosition: SnackPosition.BOTTOM);
+  }
+}
+
+
+
+
+
   void printUserData() {
     print("First Name: ${firstNameController.text}");
     print("Last Name: ${lastNameController.text}");

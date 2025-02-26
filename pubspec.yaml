@@ -9,10 +9,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-<<<<<<< HEAD
-
-=======
->>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
   popover: ^0.3.1
   http: ^1.1.0
   intl: ^0.18.1
@@ -25,11 +21,7 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.1.1
   firebase_core: ^3.9.0
-<<<<<<< HEAD
-  firebase_auth: ^5.3.4
-=======
   firebase_auth: ^5.5.0
->>>>>>> c460ae616d91ff4b9bd64bef72fa9de18f34120a
   
   image_picker: ^1.0.4
   carousel_slider: ^5.0.0

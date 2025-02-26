@@ -31,4 +31,27 @@ class UserRepo extends GetxController {
       return null;
     }
   }
+Future<void> updateUserByEmail(String email, Map<String, dynamic> updatedData) async {
+  try {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await _db
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .limit(1)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      String docId = querySnapshot.docs.first.id;
+
+      await _db.collection('users').doc(docId).update(updatedData);
+      print("User data updated successfully.");
+    } else {
+      print("User not found.");
+    }
+  } catch (e) {
+    print("Error updating user data: $e");
+  }
+}
+
+
+
 }

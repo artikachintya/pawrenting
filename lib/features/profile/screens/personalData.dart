@@ -117,7 +117,7 @@ class PersonalData extends StatelessWidget {
                               Expanded(
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    controller.printUserData();
+                                    controller.updateUserData();
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: TColors.accent,
