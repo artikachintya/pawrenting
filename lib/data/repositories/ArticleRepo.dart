@@ -7,16 +7,11 @@ class ArticleRepo extends GetxController {
 
   final _db = FirebaseFirestore.instance;
 
-  Future<List<Article>> fetchArticles() async {
-    final snapshot = await _db.collection('articles').get();
+  Future<List<ArticleModels>> fetchArticles() async {
+    final snapshot = await _db.collection('article').get();
     return snapshot.docs.map((e) {
       print("Article Data: ${e.data()}");  // Debugging
-      return Article.fromSnapshot(e);
+      return ArticleModels.fromSnapshot(e);
     }).toList();
-  }
-
-  createArticle(Article article) {
-    print('Creating article');
-    _db.collection('articles').add(article.toJson());
   }
 }

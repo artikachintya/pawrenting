@@ -162,16 +162,16 @@ class _dogArticle extends State<dogArticle> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                            
-                            articleHome(
-                              imagePath: TImages.article2,
-                              title: 'How Much Water Should a Dog Drink?',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
-                            articleHome(
-                              imagePath: TImages.article3,
-                              title: 'How Many Calories Should My Dog Eat?',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
+                            // articleHome(
+                            //   imagePath: TImages.article2,
+                            //   title: 'How Much Water Should a Dog Drink?',
+                            //   subtitle: 'By Pawrenting Teams',
+                            // ),
+                            // articleHome(
+                            //   imagePath: TImages.article3,
+                            //   title: 'How Many Calories Should My Dog Eat?',
+                            //   subtitle: 'By Pawrenting Teams',
+                            // ),
                             
                           ],
                         ),

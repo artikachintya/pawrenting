@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Article {
+class ArticleModels {
   final String id;
   final String title;
   final String subtitle;
@@ -10,7 +10,7 @@ class Article {
   final String imageUrl;
 
 
-  Article({
+  ArticleModels({
     required this.id,
     required this.title,
     required this.subtitle,
@@ -28,8 +28,8 @@ class Article {
     };
   }
 
-  factory Article.fromMap(Map<String, dynamic> map) {
-    return Article(
+  factory ArticleModels.fromMap(Map<String, dynamic> map) {
+    return ArticleModels(
       id: map['id'] as String,
       title: map['title'] as String,
       subtitle: map['subtitle'] as String,
@@ -38,9 +38,9 @@ class Article {
     );
   }
 
-  factory Article.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
+  factory ArticleModels.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data();
-    return Article(
+    return ArticleModels(
       id: doc.id,
       title: data?['title'] ?? '',
       subtitle: data?['subtitle'] ?? '',
@@ -50,5 +50,5 @@ class Article {
     );
   }
 
-  factory Article.fromJson(String source) => Article.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ArticleModels.fromJson(String source) => ArticleModels.fromMap(json.decode(source) as Map<String, dynamic>);
 }
