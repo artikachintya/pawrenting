@@ -1,0 +1,2 @@
+C:/Pawrenting/android/app/.cxx/Debug/p4cm1p60/x86_64/CMakeFiles/edit_cache.dir
+C:/Pawrenting/android/app/.cxx/Debug/p4cm1p60/x86_64/CMakeFiles/rebuild_cache.dir

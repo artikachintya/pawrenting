@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "10990923664",
+    "project_id": "pawrenting-75a8e",
+    "storage_bucket": "pawrenting-75a8e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10990923664:android:4a9d33b2c960f619634d15",
+        "android_client_info": {
+          "package_name": "com.example.pawrentingreborn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5fx5XgUHTGoERLOOoHF1lE41kkRikuUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
