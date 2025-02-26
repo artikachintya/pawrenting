@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/data/repositories/AuthenticationRepo.dart';
 import 'package:pawrentingreborn/data/repositories/CategoryRepo.dart';
 import 'package:pawrentingreborn/data/repositories/ProductRepository.dart';
+import 'package:pawrentingreborn/data/repositories/ThreadRepo.dart';
 import 'package:pawrentingreborn/data/services/AuthenticationService.dart';
 import 'package:pawrentingreborn/features/authentication/controllers/SignUpController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
@@ -24,5 +25,6 @@ Future<void> main() async {
   Get.lazyPut(() => AuthenticationRepo());
   Get.lazyPut(() => ProductRepo());
   Get.lazyPut(() => CategoryRepo());
+  Get.lazyPut(() => ThreadRepo());
   runApp(const MainApp());
 }

@@ -132,13 +132,13 @@ class Post extends StatelessWidget {
                         
                       ),
                         SizedBox(height: 10,),
-                        ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: threadMessages.length,
-                      itemBuilder: (context, index) {
-                        return Thread(message: threadMessages[index],);
-                      },
-                      )
+                      //   ListView.builder(
+                      // shrinkWrap: true,
+                      // itemCount: threadMessages.length,
+                      // itemBuilder: (context, index) {
+                      //   return Thread(message: threadMessages[index],);
+                      // },
+                      // )
                               
                             ],         
                             ),

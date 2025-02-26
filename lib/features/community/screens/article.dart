@@ -88,21 +88,6 @@ class _ArticleState extends State<Article> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // Container(
-                          //   width: 50,
-                          //   height: 25,
-                            
-                          //   decoration: BoxDecoration(
-                          //     color: TColors.filter.withOpacity(0.3),
-                          //     borderRadius: BorderRadius.all(
-                          //       Radius.circular(10)
-                          //     )
-                              
-                          //   ),
-                          //   alignment: Alignment.center,
-                          //   child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
-                          // ), 
-
                           Container(
                             width: 110,
                             height: 30,
