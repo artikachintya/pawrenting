@@ -11,25 +11,36 @@ class LocationRepo extends GetxController {
     DocumentReference userRef = _db.collection('users').doc(email);
 
     try {
-      // Retrieve existing locations
+      // 🔍 Debugging: Check if user document exists
       DocumentSnapshot userSnapshot = await userRef.get();
-      List<dynamic> existingLocations = userSnapshot.exists ? userSnapshot.get('locations') ?? [] : [];
+      List<dynamic> existingLocations = [];
 
-      // Add new location to the list
+      if (userSnapshot.exists && userSnapshot.data() != null) {
+        // 🔍 Debugging: Print existing data
+        print("User document exists. Retrieving locations...");
+        existingLocations = userSnapshot.get('locations') ?? [];
+      } else {
+        print("User document does not exist. Creating new user document...");
+      }
+
+      // ✅ Append new location
       existingLocations.add(newLocation.toJson());
 
-      // Update Firestore
-      await userRef.update({'locations': existingLocations});
-      print("Location added successfully!");
+      // ✅ Update Firestore with the modified list
+      await userRef
+          .set({'locations': existingLocations}, SetOptions(merge: true));
+
+      print("✅ Location added successfully!");
     } catch (e) {
-      print("Error adding location: $e");
+      print("❌ Error adding location: $e");
     }
   }
 
   /// Get all locations for a user
   Future<List<LocationModel>> getUserLocations(String email) async {
     try {
-      DocumentSnapshot userSnapshot = await _db.collection('users').doc(email).get();
+      DocumentSnapshot userSnapshot =
+          await _db.collection('users').doc(email).get();
 
       if (userSnapshot.exists) {
         List<dynamic> locationData = userSnapshot.get('locations') ?? [];
@@ -47,7 +58,9 @@ class LocationRepo extends GetxController {
 
     try {
       DocumentSnapshot userSnapshot = await userRef.get();
-      List<dynamic> existingLocations = userSnapshot.exists ? userSnapshot.get('locations') ?? [] : [];
+
+      List<dynamic> existingLocations =
+          userSnapshot.exists ? userSnapshot.get('locations') ?? [] : [];
 
       if (index >= 0 && index < existingLocations.length) {
         existingLocations.removeAt(index);

@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Address.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Delivery.dart';
+
 import 'package:pawrentingreborn/features/home/screens/Cart/Payment.dart';
+
 import 'package:pawrentingreborn/features/home/screens/widgets/AddressSection.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/DeliveryCard.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/ItemSection.dart';
@@ -55,7 +57,9 @@ class OrderDetails extends StatelessWidget {
                 ),
               ),
               GestureDetector(
+
                 onTap: ()=> Get.to(()=>Payment()),
+
                 child: Container(
                   height: 40,
                   width: 150,

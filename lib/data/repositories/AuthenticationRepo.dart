@@ -11,6 +11,4 @@ class AuthenticationRepo extends GetxController {
     print('create user');
     _db.collection('users').add(user.toJson());
   }
-  
-  
 }
