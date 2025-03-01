@@ -1,5 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
+import 'package:pawrentingreborn/features/home/controllers/DeliveryController.dart';
+import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 
 class PriceDetails extends StatelessWidget {
@@ -9,6 +12,10 @@ class PriceDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeliveryController deliveryController = Get.find();
+    CartController cartController = Get.find();
+    OrderController orderController = Get.find();
+    1000;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       width: double.maxFinite,
@@ -35,7 +42,7 @@ class PriceDetails extends StatelessWidget {
                     color: TColors.grayFont),
               ),
               Text(
-                'Rp320.000',
+                'Rp${cartController.totalCartPrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: TColors.grayFont),
               )
@@ -51,11 +58,11 @@ class PriceDetails extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: TColors.grayFont),
               ),
-              Text(
-                'Rp63.000',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: TColors.grayFont),
-              )
+              Obx(() => Text(
+                    'Rp${orderController.deliveryPrice.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: TColors.grayFont),
+                  ))
             ],
           ),
           Row(
@@ -88,13 +95,13 @@ class PriceDetails extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                'Rp384.000',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900,
-                    color: TColors.accent),
-              )
+              Obx(() => Text(
+                    'Rp${orderController.totalPrice.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                        color: TColors.accent),
+                  ))
             ],
           ),
         ],

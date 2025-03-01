@@ -1,2 +1,0 @@
-C:/PPTI/CAWU 4/PROJECTSEML/pawrenting/android/app/.cxx/Debug/61331q5h/x86_64/CMakeFiles/edit_cache.dir
-C:/PPTI/CAWU 4/PROJECTSEML/pawrenting/android/app/.cxx/Debug/61331q5h/x86_64/CMakeFiles/rebuild_cache.dir

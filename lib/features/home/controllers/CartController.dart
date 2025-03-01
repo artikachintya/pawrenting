@@ -7,12 +7,13 @@ import 'package:pawrentingreborn/features/home/models/productModel.dart';
 
 class CartController extends GetxController {
   static CartController get instance => Get.find();
-
   RxInt quantity = 1.obs;
   RxInt noOfCartItems = 0.obs;
   RxDouble totalCartPrice = 0.0.obs;
   RxInt productQuantityInCart = 0.obs;
   RxList<CartItemModel> cartItems = <CartItemModel>[].obs;
+  RxBool get isAllChecked => RxBool(
+      cartItems.isNotEmpty && cartItems.every((item) => item.isChecked.value));
 
   final storage = LocalStorage.instance();
 
@@ -29,14 +30,29 @@ class CartController extends GetxController {
           .quantity
           .value += quantity.value;
     }
-    print('terakhir: ${cartItems.last.quantity.value}');
+    cartItems.forEach((item) {
+      print(
+          'Product: ${item.productModel.name}, Quantity: ${item.quantity.value}');
+    });
     updateCartTotal();
     resetQty();
   }
 
+  void toggleSelectAll() {
+    bool newValue = !isAllChecked.value;
+    for (var item in cartItems) {
+      item.isChecked.value = newValue;
+    }
+    updateCartTotal();
+  }
+
+  void toggleCheck(int index) {
+    cartItems[index].isChecked.value = !cartItems[index].isChecked.value;
+    updateCartTotal();
+  }
+
   void addItemQty(int index) {
-    print('anjay');
-    cartItems[index].quantity += 1;
+    cartItems[index].quantity.value += 1;
     updateCartTotal();
   }
 
@@ -44,7 +60,7 @@ class CartController extends GetxController {
     if (cartItems[index].quantity.value == 1) {
       return;
     }
-    cartItems[index].quantity -= 1;
+    cartItems[index].quantity.value -= 1;
     updateCartTotal();
   }
 
@@ -63,7 +79,9 @@ class CartController extends GetxController {
 
   CartItemModel convertToCartItem(ProductModel product, RxInt quantity) {
     return CartItemModel(
-        productModel: product, quantity: quantity, isChecked: true);
+        productModel: product,
+        quantity: RxInt(quantity.value),
+        isChecked: RxBool(true));
   }
 
   void updateCartTotal() {
@@ -71,7 +89,7 @@ class CartController extends GetxController {
     int calculateNoOfItems = 0;
 
     for (var item in cartItems) {
-      if (item.isChecked) {
+      if (item.isChecked.value) {
         calculatedTotalPrice +=
             (item.productModel.salePrice) * item.quantity.value;
       }
@@ -95,5 +113,9 @@ class CartController extends GetxController {
           .map((item) => CartItemModel.fromJson(item as Map<String, dynamic>)));
       updateCartTotal();
     }
+  }
+
+  List<CartItemModel> getCheckedItems() {
+    return cartItems.where((item) => item.isChecked.value).toList();
   }
 }

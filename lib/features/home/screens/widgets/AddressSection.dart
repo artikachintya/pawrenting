@@ -1,18 +1,21 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Address.dart';
+import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class AddressSection extends StatelessWidget {
+  final LocationModel location;
   const AddressSection({
     super.key,
+    required this.location,
   });
 
   @override
   Widget build(BuildContext context) {
+    LocationController locationController = Get.find();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       height: 80,
@@ -35,11 +38,11 @@ class AddressSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Home',
+                  location.label,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'Rumah Talenta BCA, Jalan Pakuan No.3, Sumur Batu, Bogor, Babakan Madang, Anjay mabarrrrrr',
+                  location.fullAddress,
                   style: TextStyle(
                     fontSize: 14,
                   ),

@@ -1,11 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
+import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
-import 'package:pawrentingreborn/features/home/models/product.dart';
 import 'package:pawrentingreborn/features/home/models/productModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Category/ProductCategory.dart';
 import 'package:pawrentingreborn/features/home/screens/Product/ProductDetail.dart';
@@ -40,7 +41,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
+    LocationController locationController = Get.put(LocationController());
     CartController cartController = Get.put(CartController());
     ProductController pController = Get.put(ProductController());
     NavBarController controller = Get.find();
@@ -49,7 +50,7 @@ class _HomeState extends State<Home> {
     CategoryController categoryController = Get.put(CategoryController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () => print(categoryController.productsList.length)),
+          onPressed: () => print(locationController.locationsList.length)),
       appBar: TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: Color(0xffE7DFF6),
       body: SingleChildScrollView(
@@ -361,7 +362,7 @@ class _product extends StatelessWidget {
       child: GridView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: products.length,
+          itemCount: 12,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 4,
