@@ -25,5 +25,6 @@ class DeliveryController extends GetxController {
 
   void selectDelivery(int index) {
     selectedIndex.value = index;
+    print(deliveryList[selectedIndex.value]);
   }
 }

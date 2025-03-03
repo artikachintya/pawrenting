@@ -15,11 +15,11 @@ class OrderRepo extends GetxController {
 
   Future<List<OrderModel>> getOrdersForUser(String userId) async {
     final snapshot =
-        await _db.collection('orders').where('userId', isEqualTo: userId).get();
-    // print(
-    //     "Fetched ${snapshot.docs.length} orders for user $userId"); // Debugging
+        await _db.collection('orders').where('uid', isEqualTo: userId).get();
+    print(
+        "Fetched ${snapshot.docs.length} orders for user $userId"); // Debugging
     return snapshot.docs.map((e) {
-      // print("Order Data: ${e.data()}"); // Debugging
+      print("Order Data: ${e.data()}"); // Debugging
       return OrderModel.fromSnapshot(e);
     }).toList();
   }

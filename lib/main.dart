@@ -9,6 +9,13 @@ import 'package:pawrentingreborn/data/repositories/OrderRepo.dart';
 import 'package:pawrentingreborn/data/repositories/ProductRepository.dart';
 import 'package:pawrentingreborn/data/services/AuthenticationService.dart';
 import 'package:pawrentingreborn/features/authentication/controllers/SignUpController.dart';
+import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
+import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
+import 'package:pawrentingreborn/features/home/controllers/DeliveryController.dart';
+import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
+import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
+import 'package:pawrentingreborn/features/home/controllers/PaymentController.dart';
+import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/petActivity/petActivityController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
@@ -19,16 +26,40 @@ import 'app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  initializeDependencies();
+  await GetStorage.init();
+  runApp(const MainApp());
+}
+
+void lazyPutControllers() {
   Get.lazyPut(() => NavBarController());
   Get.lazyPut(() => PetController());
   Get.lazyPut(() => NavigationController());
   Get.lazyPut(() => SignUpController());
-  Get.lazyPut(() => AuthenticationService());
+  Get.lazyPut(() => PetActivityController());
+  Get.lazyPut(() => ProductController());
+  Get.lazyPut(() => CategoryController());
+  Get.lazyPut(() => LocationController());
+  Get.lazyPut(() => DeliveryController());
+  Get.lazyPut(() => PaymentController());
+  Get.lazyPut(() => CartController());
+  Get.lazyPut(() => OrderController());
+}
+
+void lazyPutRepositories() {
   Get.lazyPut(() => AuthenticationRepo());
   Get.lazyPut(() => ProductRepo());
   Get.lazyPut(() => CategoryRepo());
   Get.lazyPut(() => LocationRepo());
   Get.lazyPut(() => OrderRepo());
-  await GetStorage.init();
-  runApp(const MainApp());
+}
+
+void lazyPutServices() {
+  Get.lazyPut(() => AuthenticationService());
+}
+
+void initializeDependencies() {
+  lazyPutRepositories();
+  lazyPutControllers();
+  lazyPutServices();
 }

@@ -6,6 +6,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
 import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
+import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
 import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
 import 'package:pawrentingreborn/features/home/models/productModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Category/ProductCategory.dart';
@@ -41,16 +42,17 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    LocationController locationController = Get.put(LocationController());
-    CartController cartController = Get.put(CartController());
-    ProductController pController = Get.put(ProductController());
+    LocationController locationController = Get.find();
+    CartController cartController = Get.find();
+    OrderController orderController = Get.find();
+    ProductController pController = Get.find();
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     String? selectedBreed = catBreeds.first;
     CategoryController categoryController = Get.put(CategoryController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () => print(locationController.locationsList.length)),
+          onPressed: () => print(orderController.orderList.length)),
       appBar: TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: Color(0xffE7DFF6),
       body: SingleChildScrollView(

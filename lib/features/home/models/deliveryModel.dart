@@ -18,10 +18,20 @@ class DeliveryModel {
     DateTime now = DateTime.now(); // Get current date
 
     return [
-      DeliveryModel(name: 'Regular', eta: now.add(Duration(days: 5)), price: 15000),
-      DeliveryModel(name: 'Cargo', eta: now.add(Duration(days: 3)), price: 30000),
-      DeliveryModel(name: 'Next Day', eta: now.add(Duration(days: 1)), price: 50000),
+      DeliveryModel(
+          name: 'Regular', eta: now.add(Duration(days: 5)), price: 15000),
+      DeliveryModel(
+          name: 'Cargo', eta: now.add(Duration(days: 3)), price: 30000),
+      DeliveryModel(
+          name: 'Next Day', eta: now.add(Duration(days: 1)), price: 50000),
     ];
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'eta': Timestamp.fromDate(eta),
+      'price': price,
+    };
   }
   factory DeliveryModel.fromJson(Map<String, dynamic> json) {
     return DeliveryModel(

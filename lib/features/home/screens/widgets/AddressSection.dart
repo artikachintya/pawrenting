@@ -15,7 +15,6 @@ class AddressSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LocationController locationController = Get.find();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       height: 80,

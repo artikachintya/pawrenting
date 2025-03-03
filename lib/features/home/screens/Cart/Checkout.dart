@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/DeliveryController.dart';
@@ -24,14 +25,14 @@ import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class OrderDetails extends StatelessWidget {
   final List<CartItemModel> items;
-  const OrderDetails({super.key, required this.items});
+  final bool buyNow;
+  const OrderDetails({super.key, required this.items, required this.buyNow});
 
   @override
   Widget build(BuildContext context) {
-    CartController cartController = Get.find();
-    LocationController locationController = Get.put(LocationController());
-    DeliveryController deliveryController = Get.put(DeliveryController());
-    OrderController orderController = Get.put(OrderController());
+    LocationController locationController = Get.find();
+    DeliveryController deliveryController = Get.find();
+    OrderController orderController = Get.find();
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: TAppBar2(title: 'Order Details', subtitle: 'Check your order'),
@@ -68,7 +69,7 @@ class OrderDetails extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () => Get.to(() => Payment()),
+                onTap: () => Get.to(() => Payment(buyNow: buyNow, items: items,)),
                 child: Container(
                   height: 40,
                   width: 150,
@@ -152,7 +153,7 @@ class OrderDetails extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  PriceDetails()
+                  PriceDetails(buyNow: buyNow, items: items,),
                 ],
               ),
             ),

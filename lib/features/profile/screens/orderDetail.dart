@@ -1,7 +1,12 @@
 import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/home/models/cartItemModel.dart';
+import 'package:pawrentingreborn/features/home/models/orderModel.dart';
+import 'package:pawrentingreborn/features/home/screens/widgets/cartItem.dart';
+import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
 import 'package:pawrentingreborn/features/profile/widgets/productDisplay.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -10,10 +15,13 @@ import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 
 class OrderDetail extends StatelessWidget {
-  const OrderDetail({super.key});
+  final OrderModel order;
+  const OrderDetail({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {
+    LocationModel location = order.location;
+    List<CartItemModel> items = order.items;
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     return Scaffold(
@@ -52,7 +60,7 @@ class OrderDetail extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Mansion 1",
+                          location.label,
                           style: TextStyle(
                             fontFamily: "Albert Sans",
                             fontSize: 12,
@@ -61,7 +69,7 @@ class OrderDetail extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Rumah Talenta BCA, Jalan Pakuan No 3, Kelurahan Sumur batu, Kecamatan Babakan Madang, Kabupaten Bogor",
+                          location.fullAddress,
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
@@ -76,8 +84,9 @@ class OrderDetail extends StatelessWidget {
                 ],
               ),
             ),
-            _orderIdDateTemplate("ID","250112AJPWE8HNT1"),
-            _orderIdDateTemplate("Date","January 12, 2025"),
+            _orderIdDateTemplate("ID", "${order.id}"),
+            _orderIdDateTemplate("Date",
+                "${DateFormat('EEEE, MMMM d, yyyy').format(order.date)}"),
             Container(
               width: 370,
               margin: EdgeInsets.all(16),
@@ -122,7 +131,7 @@ class OrderDetail extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   GridView.builder(
-                      itemCount: 4,
+                      itemCount: items.length,
                       shrinkWrap: true,
                       // padding: const EdgeInsets.all(20),
                       physics: const NeverScrollableScrollPhysics(),
@@ -132,11 +141,10 @@ class OrderDetail extends StatelessWidget {
                           mainAxisExtent: 90),
                       itemBuilder: (BuildContext context, int index) {
                         return ProductDisplay(
-                          productImage: TImages.catMilk,
-                          productName:
-                              "Whiskas KatzenMilch 6 Pcs X 125 mL (Vanilla Flavor)",
-                          productQuantity: 1,
-                          price: 125400,
+                          productImage: items[index].productModel.image,
+                          productName: items[index].productModel.name,
+                          productQuantity: items[index].quantity.value,
+                          price: items[index].productModel.salePrice,
                         );
                       }),
                   SizedBox(height: 15),
@@ -148,7 +156,7 @@ class OrderDetail extends StatelessWidget {
                   Container(
                     width: 370,
                     child: Text(
-                      "Total Price: Rp. 140.400",
+                      'Total Price: Rp${order.totalPrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         fontSize: 14,
@@ -167,31 +175,31 @@ class OrderDetail extends StatelessWidget {
 
   Container _orderIdDateTemplate(String info, String detail) {
     return Container(
-            width: 369,
-            margin: EdgeInsets.only(top: 10, left: 20, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Order " + info + ":",
-                  style: TextStyle(
-                    fontFamily: "Albert Sans",
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  detail,
-                  style: TextStyle(
-                    fontFamily: "Albert Sans",
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
+      width: 369,
+      margin: EdgeInsets.only(top: 10, left: 20, right: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Order " + info + ":",
+            style: TextStyle(
+              fontFamily: "Albert Sans",
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
-          );
+          ),
+          Text(
+            detail,
+            style: TextStyle(
+              fontFamily: "Albert Sans",
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

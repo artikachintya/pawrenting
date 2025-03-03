@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pawrentingreborn/data/services/StorageService.dart';
+import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
 import 'package:pawrentingreborn/features/home/models/cartItemModel.dart';
 import 'package:pawrentingreborn/features/home/models/productModel.dart';
 
@@ -9,6 +10,7 @@ class CartController extends GetxController {
   static CartController get instance => Get.find();
   RxInt quantity = 1.obs;
   RxInt noOfCartItems = 0.obs;
+  RxInt noOfCheckedItems = 0.obs;
   RxDouble totalCartPrice = 0.0.obs;
   RxInt productQuantityInCart = 0.obs;
   RxList<CartItemModel> cartItems = <CartItemModel>[].obs;
@@ -38,6 +40,11 @@ class CartController extends GetxController {
     resetQty();
   }
 
+  void countCheckedItems() {
+    noOfCheckedItems.value =
+        cartItems.where((item) => item.isChecked.value).length;
+  }
+
   void toggleSelectAll() {
     bool newValue = !isAllChecked.value;
     for (var item in cartItems) {
@@ -58,6 +65,8 @@ class CartController extends GetxController {
 
   void subItemQty(int index) {
     if (cartItems[index].quantity.value == 1) {
+      cartItems.removeAt(index);
+      updateCartTotal();
       return;
     }
     cartItems[index].quantity.value -= 1;
@@ -85,6 +94,7 @@ class CartController extends GetxController {
   }
 
   void updateCartTotal() {
+    OrderController orderController = Get.find();
     double calculatedTotalPrice = 0.0;
     int calculateNoOfItems = 0;
 
@@ -93,12 +103,14 @@ class CartController extends GetxController {
         calculatedTotalPrice +=
             (item.productModel.salePrice) * item.quantity.value;
       }
-      calculateNoOfItems += item.quantity.value;
+      calculateNoOfItems++;
     }
+    countCheckedItems();
     noOfCartItems.value = calculateNoOfItems;
     totalCartPrice.value = calculatedTotalPrice;
     print(totalCartPrice.toString());
     print(noOfCartItems.value.toInt());
+    orderController.updateTotalPrice();
   }
 
   void saveCartItems() {
@@ -117,5 +129,10 @@ class CartController extends GetxController {
 
   List<CartItemModel> getCheckedItems() {
     return cartItems.where((item) => item.isChecked.value).toList();
+  }
+
+  void removeCheckedItems() {
+    cartItems.removeWhere((item) => item.isChecked.value);
+    updateCartTotal();
   }
 }

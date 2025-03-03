@@ -16,6 +16,7 @@ class OrderModel {
 
   OrderModel({
     required this.delivery,
+    required this.location,
     required this.id,
     required this.uid,
     required this.items,
@@ -23,10 +24,9 @@ class OrderModel {
     required this.status,
     required this.totalPrice,
     required this.payment,
-    required this.location,
   });
 
-  toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'uid': uid,
@@ -35,6 +35,7 @@ class OrderModel {
       'status': status,
       'totalPrice': totalPrice,
       'payment': payment,
+      'delivery': delivery.toJson(),
       'location': location.toJson(),
     };
   }
@@ -55,9 +56,10 @@ class OrderModel {
     );
   }
 
-  factory OrderModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> document) {
-    final data = document.data();
+factory OrderModel.fromSnapshot(
+    DocumentSnapshot<Map<String, dynamic>> document) {
+  final data = document.data();
+  try {
     return OrderModel(
       id: data?['id'] ?? '',
       uid: data?['uid'] ?? '',
@@ -65,12 +67,30 @@ class OrderModel {
               ?.map((item) => CartItemModel.fromJson(item))
               .toList() ??
           [],
-      date: DateTime.parse(data?['date'] ?? DateTime.now().toIso8601String()),
+      date: _parseDate(data?['date']), // Use helper function
       status: data?['status'] ?? '',
       totalPrice: (data?['totalPrice'] ?? 0.0).toDouble(),
       payment: data?['payment'] ?? '',
       delivery: DeliveryModel.fromJson(data?['delivery'] ?? {}),
       location: LocationModel.fromJson(data?['location'] ?? {}),
     );
+  } catch (e) {
+    throw Exception('Error parsing order data: $e');
   }
+}
+
+// Helper function to handle different date formats
+static DateTime _parseDate(dynamic date) {
+  if (date == null) return DateTime.now(); // Default if null
+  try {
+    if (date is String) {
+      return DateTime.parse(date); // Parse from string
+    } else if (date is Timestamp) {
+      return date.toDate(); // Convert Firestore timestamp to DateTime
+    }
+  } catch (e) {
+    print("Failed to parse date: $date, Error: $e");
+  }
+  return DateTime.now(); // Fallback in case of error
+}
 }
