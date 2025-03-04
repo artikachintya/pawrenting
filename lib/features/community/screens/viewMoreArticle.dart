@@ -68,7 +68,7 @@ class _viewMoreArticle extends State<viewMoreArticle> {
                         ),
                       );
                       
-})
+                      })
 
                     
                       ],         

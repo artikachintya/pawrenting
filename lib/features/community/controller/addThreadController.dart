@@ -42,6 +42,7 @@ class AddThreadController extends GetxController {
       return;
     }
     
+    
 
     // Mengambil gambar profil terlebih dahulu
     await getSenderProfile();

@@ -24,7 +24,7 @@ class _threadDetailState extends State<threadDetail> {
   late int likeCount;
   bool isUpdating = false;
 
-  final CommentController commentController = Get.find();
+  final CommentController commentController = Get.put(CommentController());
   final TextEditingController commentTextController = TextEditingController();
   final FirebaseAuth auth = FirebaseAuth.instance;
   
@@ -249,6 +249,7 @@ class _threadDetailState extends State<threadDetail> {
                 ),
                 width: 370,
                 padding: EdgeInsets.only(left: 25),
+              
                 child: Row(
                   children: [
                     Image(
@@ -264,6 +265,8 @@ class _threadDetailState extends State<threadDetail> {
                         ),
                       ),
                     ),
+                    Image(image: AssetImage(TImages.sendLogos), width: 30,),
+
                   ],
                 ),
               ),

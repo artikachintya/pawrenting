@@ -46,5 +46,8 @@ class CommentController extends GetxController {
         .collection('comments')
         .doc(newComment.id)
         .set(newComment.toJson());
+
+    // commentTextController.clear();
+
   }
 }
