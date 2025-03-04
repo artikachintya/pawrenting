@@ -48,7 +48,9 @@ class NotificationPage extends StatelessWidget {
                         //     : Icon(Icons.notifications, size: 50),
                         title: Text(notif.title, style: TextStyle(fontFamily: 'Albert Sans',fontSize: 18 ,fontWeight:FontWeight
                         .bold)),
-                        subtitle: Text(notif.content, style: TextStyle(fontFamily: 'Alata',fontSize: 14)),
+                        subtitle: Text(
+                          maxLines: 2,
+                          notif.content, style: TextStyle(fontFamily: 'Alata',fontSize: 14)),
                         onTap:()=>Get.to(NotificationDetail(notif: notif)),
                         
                       ),

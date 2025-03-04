@@ -5,6 +5,7 @@ import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/editPet/editPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/features/profile/controllers/editDataController.dart';
+import 'package:pawrentingreborn/features/profile/screens/profile.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profilePictandUsername.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -116,8 +117,9 @@ class PersonalData extends StatelessWidget {
                               const SizedBox(width: 10),
                               Expanded(
                                 child: ElevatedButton(
-                                  onPressed: () {
+                                    onPressed: () {
                                     controller.updateUserData();
+                                    Get.back();
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: TColors.accent,

@@ -19,7 +19,6 @@ class NotificationDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
-    final NotifModel notif = Get.arguments;
 
     return Scaffold(
       bottomNavigationBar:
@@ -44,30 +43,20 @@ class NotificationDetail extends StatelessWidget {
                 children: [
                   Container(
                     child: notif.image != null && notif.image!.isNotEmpty
-                        ?Image.asset(notif.image!, width: 50, height: 50, fit: BoxFit.cover)
+                        ?Image.asset(notif.image!, width: 311, height: 126, fit: BoxFit.cover)
                         : Icon(Icons.notifications, size: 50),
                   ),
                   Text(
-                    'Hello Kimdash! Welcome to Pawrenting!',
+                    notif.title,
                     style: TextStyle(
-                        fontSize: TSize.fontSizeL, fontWeight: FontWeight.w900),
+                        fontSize: 18, fontWeight: FontWeight.bold, fontFamily:'Albert Sans' ),
                   ),
-                  FutureBuilder<String>(
-                    future:
-                        FileHelper.loadTextFile('assets/text/welcomeNotif.txt'),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text(
-                          'Error: ${snapshot.error}',
-                          style: TextStyle(color: TColors.grayFont),
-                        );
-                      } else {
-                        return Text(snapshot.data ?? '');
-                      }
-                    },
-                  )
+                 Text(
+                  notif.content,
+                  style: TextStyle(
+                    fontSize: 14, fontFamily: 'Alata', color: TColors.grayPrice
+                  ),
+                 )
                 ],
               ),
             )),
