@@ -44,4 +44,4 @@ app.*.map.json
 
 
 android/app/firebase-tools-instant-win.exe
-android/app/.cxx/Debug/
+android/app/.cxx/
