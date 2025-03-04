@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
+import 'package:pawrentingreborn/features/home/controllers/PaymentController.dart';
+import 'package:pawrentingreborn/features/home/models/cartItemModel.dart';
 import 'package:pawrentingreborn/features/home/models/paymentModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/afterpay.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/PriceDetails.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 
 class Payment extends StatefulWidget {
-  const Payment({super.key});
+  final bool buyNow;
+  final List<CartItemModel> items;
+  const Payment({super.key, required this.buyNow, required this.items});
 
   @override
   _PaymentState createState() => _PaymentState();
@@ -16,11 +21,9 @@ class Payment extends StatefulWidget {
 class _PaymentState extends State<Payment> {
   String? selectedPayment;
   String? expandedPayment;
-
   @override
   Widget build(BuildContext context) {
     List<Paymentmodel> payments = Paymentmodel.getpayment();
-
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: const TAppBar2(title: 'Payment', subtitle: 'Choose your payment'),
@@ -36,7 +39,10 @@ class _PaymentState extends State<Payment> {
             const SizedBox(height: 10),
             Expanded(child: _paymentMethod(payments)),
             const SizedBox(height: 20),
-            PriceDetails(),
+            PriceDetails(
+              buyNow: widget.buyNow,
+              items: widget.items,
+            ),
           ],
         ),
       ),
@@ -46,6 +52,7 @@ class _PaymentState extends State<Payment> {
 
   /// **Widget untuk List Metode Pembayaran**
   Widget _paymentMethod(List<Paymentmodel> payments) {
+    PaymentController paymentController = Get.find();
     return ListView.separated(
       itemBuilder: (context, index) {
         bool isSelected = selectedPayment == payments[index].name;
@@ -53,6 +60,7 @@ class _PaymentState extends State<Payment> {
 
         return GestureDetector(
           onTap: () {
+            paymentController.selectedIndex = index;
             setState(() {
               selectedPayment = payments[index].name;
               expandedPayment = isExpanded ? null : payments[index].name;
@@ -62,16 +70,20 @@ class _PaymentState extends State<Payment> {
             duration: const Duration(milliseconds: 300),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: isSelected ?TColors.primary: Colors.white.withOpacity(0.5),
+              color:
+                  isSelected ? TColors.primary : Colors.white.withOpacity(0.5),
               border: Border.all(
-                color: isSelected ? TColors.purplebutton : Colors.white.withOpacity(0.25),
+                color: isSelected
+                    ? TColors.purplebutton
+                    : Colors.white.withOpacity(0.25),
                 width: 1.5,
               ),
             ),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   child: Row(
                     children: [
                       Radio<String>(
@@ -146,6 +158,7 @@ class _PaymentState extends State<Payment> {
 
   /// **Bottom Navigation Bar untuk Tombol Bayar**
   Widget _bottomBar() {
+    OrderController orderController = Get.find();
     return Container(
       height: 80,
       decoration: const BoxDecoration(
@@ -167,7 +180,7 @@ class _PaymentState extends State<Payment> {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    'Rp384.000',
+                    'Rp${orderController.totalPrice.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -186,7 +199,10 @@ class _PaymentState extends State<Payment> {
                     colorText: Colors.white,
                   );
                 } else {
-                  Get.to(()=>AfterPay());
+                  print(
+                      'monyet ${orderController.deliveryController.deliveryList[orderController.deliveryController.selectedIndex.value].name}');
+                  orderController.createOrder();
+                  Get.to(() => AfterPay());
                 }
               },
               child: Container(

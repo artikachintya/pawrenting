@@ -8,7 +8,7 @@ class ProductDisplay extends StatelessWidget {
   final double price;
   final String productName;
   final String productImage;
-  final double productQuantity;
+  final int productQuantity;
 
   const ProductDisplay({
     Key? key,
@@ -72,7 +72,7 @@ class ProductDisplay extends StatelessWidget {
                 ),
               ),
               Text(
-                "Rp " + price.toString(),
+                'Rp${price.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/AddressCard2.dart';
 import 'package:pawrentingreborn/features/profile/widgets/addressCard.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -10,37 +12,31 @@ class ChooseAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LocationController locationController = Get.find();
     return Scaffold(
       bottomNavigationBar: Container(
         height: 80,
         decoration: BoxDecoration(color: Colors.white),
         child: Center(
-          child: Container(
-            width: 240,
-            height: 50,
-            decoration: BoxDecoration(
-                color: TColors.accent, borderRadius: BorderRadius.circular(10)),
-            child: Center(
-              child: Text(
-                'Confirm',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w900),
+          child: GestureDetector(
+            onTap: () => Get.back(),
+            child: Container(
+              width: 240,
+              height: 50,
+              decoration: BoxDecoration(
+                  color: TColors.accent,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Center(
+                child: Text(
+                  'Confirm',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w900),
+                ),
               ),
             ),
           ),
-        ),
-      ),
-      floatingActionButton: SizedBox(
-        width: 90,
-        child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: TColors.accent,
-          foregroundColor: Colors.white,
-          child: Text('+ Add',
-              style: TextStyle(
-                  fontSize: 12, fontFamily: 'Alata', color: Colors.white)),
         ),
       ),
       backgroundColor: TColors.primary,
@@ -67,33 +63,20 @@ class ChooseAddress extends StatelessWidget {
               SizedBox(
                 height: 5,
               ),
-              AddressCard2(
-                labelAddress: 'Mansion',
-                receiverName: 'Anjay',
-                addressDetail: 'Aawokawokaowkoawkoawk',
-                phoneNumber: '085377214287',
-                selected: true,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              AddressCard2(
-                labelAddress: 'Mansion',
-                receiverName: 'Anjay',
-                addressDetail: 'Aawokawokaowkoawkoawk',
-                phoneNumber: '085377214287',
-                selected: false,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              AddressCard2(
-                labelAddress: 'Mansion',
-                receiverName: 'Anjay',
-                addressDetail: 'Aawokawokaowkoawkoawk',
-                phoneNumber: '085377214287',
-                selected: false,
-              ),
+              ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return AddressCard2(
+                      location: locationController.locationsList[index],
+                      index: index,
+                    );
+                  },
+                  separatorBuilder: (contex, index) {
+                    return SizedBox(
+                      height: 10,
+                    );
+                  },
+                  itemCount: locationController.locationsList.length),
             ],
           ),
         ),
