@@ -10,3 +10,15 @@ final List<String> catBreeds = [
     'Sphynx',
     'Scottish Fold',
   ];
+final List<String> dogBreeds = [
+    'Beagle',
+    'Bulldog',
+    'Dachshund',
+    'German Shepherd',
+    'Golden Retriever',
+    'Labrador Retriever',
+    'Poodle',
+    'Pug',
+    'Rottweiler',
+    'Shih Tzu',
+  ];

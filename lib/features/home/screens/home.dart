@@ -12,7 +12,7 @@ import 'package:pawrentingreborn/features/home/models/productModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Category/ProductCategory.dart';
 import 'package:pawrentingreborn/features/home/screens/Product/ProductDetail.dart';
 import 'package:pawrentingreborn/features/home/models/categoryModel.dart';
-import 'package:pawrentingreborn/features/mypets/screens/addpet/classes/catBreeds.dart';
+import 'package:pawrentingreborn/features/mypets/screens/addpet/classes/breeds.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
