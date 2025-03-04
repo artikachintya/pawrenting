@@ -54,6 +54,8 @@ void lazyPutRepositories() {
   Get.lazyPut(() => CategoryRepo());
   Get.lazyPut(() => LocationRepo());
   Get.lazyPut(() => OrderRepo());
+  Get.lazyPut(() => NotifRepo());
+  Get.lazyPut(() => PetRepo());
 }
 
 void lazyPutServices() {

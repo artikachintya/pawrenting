@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/home/controllers/NotifController.dart';
+import 'package:pawrentingreborn/features/home/models/notifModel.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -10,12 +12,15 @@ import 'package:pawrentingreborn/utils/constants/size.dart';
 import 'package:pawrentingreborn/utils/helpers/file_helper.dart';
 
 class NotificationDetail extends StatelessWidget {
-  const NotificationDetail({super.key});
+  final NotifModel notif;
+  const NotificationDetail({super.key, required this.notif});
 
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+    final NotifModel notif = Get.arguments;
+
     return Scaffold(
       bottomNavigationBar:
           InsideNavBar(controller: controller, navcontroller: navcontroller),
@@ -37,9 +42,10 @@ class NotificationDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: TSize.verticalSpacing,
                 children: [
-                  Image(
-                    image: AssetImage(TImages.welcomeNotif),
-                    fit: BoxFit.fitWidth,
+                  Container(
+                    child: notif.image != null && notif.image!.isNotEmpty
+                        ?Image.asset(notif.image!, width: 50, height: 50, fit: BoxFit.cover)
+                        : Icon(Icons.notifications, size: 50),
                   ),
                   Text(
                     'Hello Kimdash! Welcome to Pawrenting!',

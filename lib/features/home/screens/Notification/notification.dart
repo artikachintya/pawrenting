@@ -4,6 +4,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/home/controllers/NotifController.dart';
 import 'package:pawrentingreborn/features/home/models/notifModel.dart';
+import 'package:pawrentingreborn/features/home/screens/Notification/notificationDetail.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/notificationCard.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
@@ -42,14 +43,14 @@ class NotificationPage extends StatelessWidget {
                     return Card(
                       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       child: ListTile(
-                        leading: notif.image != null && notif.image!.isNotEmpty
-                            ?Image.asset(notif.image!, width: 50, height: 50, fit: BoxFit.cover)
-                            : Icon(Icons.notifications, size: 50),
-                        title: Text(notif.title, style: TextStyle(fontWeight: FontWeight.bold)),
-                        subtitle: Text(notif.content),
-                        onTap: () {
-                          print('Tapped on: ${notif.title}');
-                        },
+                        // leading: notif.image != null && notif.image!.isNotEmpty
+                        //     ?Image.asset(notif.image!, width: 50, height: 50, fit: BoxFit.cover)
+                        //     : Icon(Icons.notifications, size: 50),
+                        title: Text(notif.title, style: TextStyle(fontFamily: 'Albert Sans',fontSize: 18 ,fontWeight:FontWeight
+                        .bold)),
+                        subtitle: Text(notif.content, style: TextStyle(fontFamily: 'Alata',fontSize: 14)),
+                        onTap:()=>Get.to(NotificationDetail(notif: notif)),
+                        
                       ),
                     );
                   },
