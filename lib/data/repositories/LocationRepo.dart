@@ -39,16 +39,25 @@ class LocationRepo extends GetxController {
   /// Get all locations for a user
   Future<List<LocationModel>> getUserLocations(String email) async {
     try {
-      DocumentSnapshot userSnapshot =
-          await _db.collection('users').doc(email).get();
+      print('sini');
+      DocumentSnapshot userSnapshot = await _db
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .limit(1) // Limit to 1 document since emails are unique
+          .get()
+          .then((querySnapshot) => querySnapshot.docs.isNotEmpty
+              ? querySnapshot.docs.first
+              : null as DocumentSnapshot<Object?>);
 
       if (userSnapshot.exists) {
+        print('user snapshot exist');
         List<dynamic> locationData = userSnapshot.get('locations') ?? [];
         return locationData.map((loc) => LocationModel.fromJson(loc)).toList();
       }
     } catch (e) {
       print("Error fetching locations: $e");
     }
+    print('kosong cuy');
     return [];
   }
 
@@ -70,5 +79,15 @@ class LocationRepo extends GetxController {
     } catch (e) {
       print("Error removing location: $e");
     }
+  }
+
+  /// Get all locations from the 'Locations' collection
+  Future<List<LocationModel>> getAllLocations() async {
+    final snapshot = await _db.collection('locations').get();
+    print("Fetched ${snapshot.docs.length} locations"); // Debugging
+    return snapshot.docs.map((e) {
+      print("Location Data: ${e.data()}"); // Debugging
+      return LocationModel.fromJson(e.data() as Map<String, dynamic>);
+    }).toList();
   }
 }

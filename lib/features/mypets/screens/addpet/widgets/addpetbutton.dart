@@ -5,7 +5,7 @@ import 'package:pawrentingreborn/features/mypets/controllers/addPet/addpetPageCo
 import 'package:pawrentingreborn/features/mypets/controllers/addPet/petGender.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/addPet/petTypeButtonCont.dart';
 import 'package:pawrentingreborn/utils/device/device_utility.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/AddPetController.dart';
 
 class AddPetButton extends StatelessWidget {
   const AddPetButton({

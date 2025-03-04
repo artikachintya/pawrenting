@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Cart.dart';
 import 'package:pawrentingreborn/features/home/screens/Notification/notification.dart';
 import 'package:pawrentingreborn/features/mypets/screens/editpet/editPet.dart';
@@ -20,6 +21,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartController cartController = Get.find();
     return Padding(
       padding: const EdgeInsets.all(0),
       child: AppBar(
@@ -89,21 +91,22 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                         top: 5,
                         right: 5,
                         child: Container(
-                          alignment: const Alignment(0, 0),
-                          width: 18,
-                          height: 18,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: TColors.accent,
-                          ),
-                          child: Text(
-                            '1',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Alata',
-                                fontSize: 10),
-                          ),
-                        ),
+                            alignment: const Alignment(0, 0),
+                            width: 18,
+                            height: 18,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: TColors.accent,
+                            ),
+                            child: Obx(
+                              () => Text(
+                                cartController.noOfCartItems.value.toString(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Alata',
+                                    fontSize: 10),
+                              ),
+                            )),
                       )
                     ]),
                   ),
