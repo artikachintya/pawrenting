@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
 
 class LocationRepo extends GetxController {
+  static LocationRepo get instance => Get.find();
   final _db = FirebaseFirestore.instance;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
@@ -44,7 +45,7 @@ class LocationRepo extends GetxController {
 
   /// Get all locations for a user
   Future<List<LocationModel>> getUserLocations() async {
-    User? currentUser = firebaseAuth.currentUser; 
+    User? currentUser = firebaseAuth.currentUser;
     if (currentUser == null) {
       print("No user is currently signed in.");
       return [];
@@ -59,7 +60,6 @@ class LocationRepo extends GetxController {
         DocumentSnapshot userSnapshot = querySnapshot.docs.first;
         List<dynamic> locations = userSnapshot.get('locations') ?? [];
         return locations.map((loc) => LocationModel.fromJson(loc)).toList();
-       
       }
     } catch (e) {
       print("Error fetching locations: $e");
@@ -108,14 +108,14 @@ class LocationRepo extends GetxController {
       print("Error updating location: $e");
     }
 
-  /// Get all locations from the 'Locations' collection
-  Future<List<LocationModel>> getAllLocations() async {
-    final snapshot = await _db.collection('locations').get();
-    print("Fetched ${snapshot.docs.length} locations"); // Debugging
-    return snapshot.docs.map((e) {
-      print("Location Data: ${e.data()}"); // Debugging
-      return LocationModel.fromJson(e.data() as Map<String, dynamic>);
-    }).toList();
-
+    /// Get all locations from the 'Locations' collection
+    Future<List<LocationModel>> getAllLocations() async {
+      final snapshot = await _db.collection('locations').get();
+      print("Fetched ${snapshot.docs.length} locations"); // Debugging
+      return snapshot.docs.map((e) {
+        print("Location Data: ${e.data()}"); // Debugging
+        return LocationModel.fromJson(e.data() as Map<String, dynamic>);
+      }).toList();
+    }
   }
 }

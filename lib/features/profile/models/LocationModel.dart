@@ -6,14 +6,11 @@ class LocationModel {
   final String phoneNum;
   final String fullAddress;
 
-
-  LocationModel(
-    {
+  LocationModel({
     required this.label,
     required this.receiverName,
     required this.phoneNum,
     required this.fullAddress,
-  
   });
 
   toJson() {
@@ -25,7 +22,7 @@ class LocationModel {
     };
   }
 
-    factory LocationModel.fromJson(Map<String, dynamic> json) {
+  factory LocationModel.fromJson(Map<String, dynamic> json) {
     return LocationModel(
       label: json['label'],
       receiverName: json['receiverName'],
@@ -34,7 +31,7 @@ class LocationModel {
     );
   }
 
-    Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() {
     return {
       "receiverName": receiverName,
       "fullAddress": fullAddress,
@@ -46,6 +43,7 @@ class LocationModel {
   @override
   String toString() {
     return "Location(label: $label, receiver: $receiverName, address: $fullAddress, phone: $phoneNum)";
+  }
 
   factory LocationModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
