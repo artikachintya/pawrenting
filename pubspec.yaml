@@ -46,7 +46,6 @@ flutter:
     - assets/logos/
     - assets/login/
     - assets/text/
-    - assets/models/
 
   fonts:
     - family: 'AlbertSans'
