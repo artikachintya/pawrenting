@@ -20,7 +20,7 @@ class LocationController extends GetxController {
   Future<void> fetchLocations() async {
     print('fetch location');
     final locations =
-        await locationRepo.getUserLocations(_auth.currentUser!.email!);
+        await locationRepo.getUserLocations();
     locationsList.assignAll(locations);
   }
 }
