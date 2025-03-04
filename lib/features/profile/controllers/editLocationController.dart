@@ -30,7 +30,7 @@ class EditLocationController extends GetxController {
     try {
       if (email != null) {
         print("🔹 Fetching locations for email: $email"); 
-        List<LocationModel> locations = await locationRepo.getUserLocations(email);
+        List<LocationModel> locations = await locationRepo.getUserLocations();
         print("📍 Fetched locations: $locations"); 
         userLocations.assignAll(locations);
       } else {
@@ -64,7 +64,7 @@ class EditLocationController extends GetxController {
       isLoading.value = false;
     }
   }
-
+ 
   /// 🔹 Remove a location by index
   Future<void> removeLocation(int index) async {
     String? email = getUserEmail();

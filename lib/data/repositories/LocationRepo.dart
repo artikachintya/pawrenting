@@ -43,16 +43,23 @@ class LocationRepo extends GetxController {
   }
 
   /// Get all locations for a user
-  Future<List<LocationModel>> getUserLocations(String email) async {
-    try {
-      DocumentSnapshot userSnapshot =
-          await _db.collection('users').doc(email).get();
+  Future<List<LocationModel>> getUserLocations() async {
+    User? currentUser = firebaseAuth.currentUser; 
+    if (currentUser == null) {
+      print("No user is currently signed in.");
+      return [];
+    }
+    String email = currentUser.email!;
+    CollectionReference usersRef = _db.collection('users');
 
-      if (userSnapshot.exists) {
-        List<dynamic> locationData = userSnapshot.get('locations') ?? [];
-        print(
-            "Locations fetched successfully! with user snapshot: $userSnapshot");
-        return locationData.map((loc) => LocationModel.fromJson(loc)).toList();
+    try {
+      QuerySnapshot querySnapshot =
+          await usersRef.where('email', isEqualTo: email).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot userSnapshot = querySnapshot.docs.first;
+        List<dynamic> locations = userSnapshot.get('locations') ?? [];
+        return locations.map((loc) => LocationModel.fromJson(loc)).toList();
+       
       }
     } catch (e) {
       print("Error fetching locations: $e");

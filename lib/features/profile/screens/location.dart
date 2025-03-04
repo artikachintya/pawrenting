@@ -23,9 +23,7 @@ class Location extends StatelessWidget {
     NavigationController navcontroller = Get.find();
 
     // 🔹 Fetch locations when widget is built
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      editLocationController.fetchUserLocations();
-    });
+    Future.delayed(Duration.zero, () => editLocationController.fetchUserLocations());
 
     return Scaffold(
       appBar: const TAppBar2(

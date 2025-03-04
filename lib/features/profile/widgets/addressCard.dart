@@ -53,11 +53,9 @@ class AddressCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  labelAddress +
+                      receiverName +
                       ", " +
                       addressDetail +
-                      ", " +
-                      receiverName +
                       "(" +
                       phoneNumber +
                       ")",
