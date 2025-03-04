@@ -8,6 +8,7 @@ class ArticleModels {
   final String subtitle;
   final String content;
   final String imageUrl;
+  final String category;
 
 
   ArticleModels({
@@ -16,6 +17,7 @@ class ArticleModels {
     required this.subtitle,
     required this.content,
     required this.imageUrl,
+    required this.category,
   });
 
   Map<String, dynamic> toJson() {
@@ -25,6 +27,7 @@ class ArticleModels {
       'subtitle': subtitle,
       'content': content,
       'imageUrl': imageUrl,
+      'category': category,
     };
   }
 
@@ -35,6 +38,7 @@ class ArticleModels {
       subtitle: map['subtitle'] as String,
       content: map['content'] as String,
       imageUrl: map['imageUrl'] as String,
+      category: map['category'] as String
     );
   }
 
@@ -45,7 +49,8 @@ class ArticleModels {
       title: data?['title'] ?? '',
       subtitle: data?['subtitle'] ?? '',
       content: data?['content'] ?? '',
-      imageUrl: data?['imageUrl'] ?? '',
+      imageUrl: data?['imageUrl'] ?? 'assets/images/articleBanner1.png',
+      category: data?['category'] ?? '',
 
     );
   }

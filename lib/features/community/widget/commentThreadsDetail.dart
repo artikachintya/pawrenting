@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:pawrentingreborn/features/community/controller/commentController.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class CommentThreadDetails extends StatelessWidget {
@@ -8,6 +10,8 @@ class CommentThreadDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+ 
+   
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

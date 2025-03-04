@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/community/controller/ArticleController.dart';
 import 'package:pawrentingreborn/features/community/screens/article.dart';
 import 'package:pawrentingreborn/features/community/screens/catArticle.dart';
 import 'package:pawrentingreborn/features/community/screens/viewMoreArticle.dart';
@@ -21,19 +22,24 @@ class dogArticle extends StatefulWidget {
   @override
   State<dogArticle> createState() => _dogArticle();
 }
-    int myCurrentIndex = 0;
+    
+
+class _dogArticle extends State<dogArticle> {
+
+  int myCurrentIndex = 0;
      final myitems = [
     TImages.articleBanner1,
     TImages.articleBanner2,
     TImages.articleBanner3,
   ];
 
-class _dogArticle extends State<dogArticle> {
+
   @override
   Widget build(BuildContext context) {
   
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+    ArticleController articlecontroller = Get.find();
     
     return Scaffold(
       appBar: TAppBar(onMain: true, onPetDetails: false),
@@ -49,7 +55,7 @@ class _dogArticle extends State<dogArticle> {
                 width: double.maxFinite,
                 child: Column(
                   children: [
-                    searchbar(title: 'search ‘how to play with cat’',),
+                    searchbar(title: 'search ‘how to play with cat',),
                     SizedBox(height: 10,),
                     optionArticleThread(article: true,),
                       SizedBox(height:  15,),        
@@ -57,15 +63,15 @@ class _dogArticle extends State<dogArticle> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,  
                         children: [
                            Text('Most Read', style: TextStyle(fontFamily: 'albertsans', fontSize: 16, fontWeight: FontWeight.bold),),
-                           GestureDetector(
-                            onTap: () => Get.to(()=>viewMoreArticle()),
-                            child: Text('View More >', style: TextStyle(
-                              fontFamily: 'albertsans', 
-                              fontSize: 16, 
-                              color: Color(0xff4749AE), 
-                              decoration: TextDecoration.underline
-                              ),)
-                           )
+                          //  GestureDetector(
+                          //   onTap: () => Get.to(()=>viewMoreArticle()),
+                          //   child: Text('View More >', style: TextStyle(
+                          //     fontFamily: 'albertsans', 
+                          //     fontSize: 16, 
+                          //     color: Color(0xff4749AE), 
+                          //     decoration: TextDecoration.underline
+                          //     ),)
+                          //  )
                         ],
                       ),
                       SizedBox(height: 5,),
@@ -154,28 +160,27 @@ class _dogArticle extends State<dogArticle> {
                         ],
                       ),
                       SizedBox(height: 20,),
-                      Container(
+                       ListView.builder(
+                         shrinkWrap: true,
+                         physics: NeverScrollableScrollPhysics(),
+                         itemCount: articlecontroller.articlesListDog.length,
+                        itemBuilder: (context, index) {
+                      return  
+                       Container(
                         color: Colors.white.withOpacity(0.6),
                         // height: 300,
                         width: 350,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                           
-                            // articleHome(
-                            //   imagePath: TImages.article2,
-                            //   title: 'How Much Water Should a Dog Drink?',
-                            //   subtitle: 'By Pawrenting Teams',
-                            // ),
-                            // articleHome(
-                            //   imagePath: TImages.article3,
-                            //   title: 'How Many Calories Should My Dog Eat?',
-                            //   subtitle: 'By Pawrenting Teams',
-                            // ),
+                             articleHome(article: articlecontroller.articlesListDog[index])
                             
                           ],
                         ),
-                      )
+                      );
+                      
+                    })  
+                    
 
                       ],         
                             ),

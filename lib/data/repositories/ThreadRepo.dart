@@ -1,25 +1,43 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/authentication/model/UserModel.dart';
 import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 
 class ThreadRepo extends GetxController {
   static ThreadRepo get instance => Get.find();
-
   final _db = FirebaseFirestore.instance;
 
-      Future<List<ThreadMessage>> fetchThread() async {
-    final snapshot = await _db.collection('threads').get();
-    return snapshot.docs.map((e) {
-      print("Product Data: ${e.data()}"); // Debuggin
-      return ThreadMessage.fromSnapshot(e);
-    }).toList();
+  /// Fetch thread dari Firestore
+  Future<List<ThreadMessage>> fetchThread() async {
+    try {
+      final snapshot = await _db.collection('threads').orderBy('createdAt', descending: true).get();
+      
+      if (snapshot.docs.isEmpty) {
+        print("No threads found"); // Debugging
+        return [];
+      }
+
+      return snapshot.docs.map((e) {
+        try {
+          return ThreadMessage.fromSnapshot(e);
+        } catch (error) {
+          print("Error parsing document: $error");
+          return null;
+        }
+      }).where((thread) => thread != null).cast<ThreadMessage>().toList();
+
+    } catch (e) {
+      print("Error fetching threads: $e");
+      return [];
+    }
   }
 
-      createThread(ThreadMessage thread){
-    print('create user');
-    _db.collection('threads').add(thread.toJson());
+  /// Menambahkan thread baru ke Firestore
+  Future<void> createThread(ThreadMessage thread) async {
+    try {
+      await _db.collection('threads').add(thread.toJson());
+      print("Thread berhasil ditambahkan!");
+    } catch (e) {
+      print("Error creating thread: $e");
+    }
   }
-
-  
 }

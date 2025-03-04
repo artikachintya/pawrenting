@@ -25,15 +25,16 @@ class AddThreadController extends GetxController {
           .collection('users')
           .doc(currentUser!.uid)
           .get();
-      senderProfile = userDoc['profilePicture'] ?? 'default_profile_picture.png';
+      senderProfile = userDoc['profilePicture'] ?? 'assets/icons/user.png';
     } catch (e) {
-      senderProfile = 'default_profile_picture.png'; 
+      senderProfile = 'assets/icons/user.png'; 
     }
   }
 
   void createThread() async {
     String title = titleController.text;
     String details = detailsController.text;
+  
 
     // Memastikan input tidak kosong
     if (title.isEmpty || details.isEmpty) {
@@ -48,7 +49,7 @@ class AddThreadController extends GetxController {
     ThreadMessage thread = ThreadMessage(
       id: FirebaseFirestore.instance.collection('threads').doc().id, // ID otomatis
       senderProfile: senderProfile, // Menggunakan gambar profil yang diambil dari Firestore
-      threadImage: 'threadImage', // Menyertakan gambar yang dipilih
+      threadImage: 'assets/images/articleBanner2.png', // Menyertakan gambar yang dipilih
       senderName: '@kejedot_panci', // Gunakan username atau data lain
       title: title,
       details: details,
@@ -61,14 +62,27 @@ class AddThreadController extends GetxController {
 
     try {
       await threadRepo.createThread(thread); // Menyimpan thread ke Firebase
-      Get.snackbar('Success', 'Thread created successfully');
-      titleController.clear();
-      detailsController.clear();
-      threadController.fetchThreads();
-      Get.back();
+        Future.delayed(Duration(milliseconds: 300), () {
+        if (!Get.isSnackbarOpen) {
+          print("Menampilkan Snackbar..");
+          Get.snackbar('Success', 'Thread created successfully',
+              snackPosition: SnackPosition.TOP);
+        } else {
+          print("Snackbar gagal ditampilkan karena sudah terbuka.");
+        }
+        });
+       threadController.fetchThreads();
+       titleController.clear();
+       detailsController.clear();
+
     } catch (e) {
       Get.snackbar('Error', 'Failed to create thread');
     }
+    
+    Get.back();
+
+     
+  
 
 
   }

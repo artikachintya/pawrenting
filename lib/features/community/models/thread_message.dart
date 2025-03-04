@@ -38,7 +38,7 @@ class ThreadMessage {
       'senderName': senderName,
       'title': title,
       'details': details,
-      'createdAt': createdAt.millisecondsSinceEpoch,
+      'createdAt': FieldValue.serverTimestamp(),
       'isLiked': isLiked,
       'topic': topic,
       'likeCount': likeCount,

@@ -100,7 +100,7 @@ class _AddthreadsState extends State<Addthreads> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Topic',
+                      'Topic: $selectedTopic',
                       style: TextStyle(
                         fontFamily: 'albertsans',
                         fontSize: 16,
@@ -108,7 +108,7 @@ class _AddthreadsState extends State<Addthreads> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    chooseTopic(
+                    ChooseTopic(
                       onTopicSelected: (newValue) {
                         setState(() {
                           selectedTopic = newValue;

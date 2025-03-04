@@ -37,6 +37,7 @@ class _ArticleState extends State<Article> {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     ArticleController articlecontroller = Get.put(ArticleController());
+    articlecontroller.fetchArticles('');
     
     return Scaffold(
       // floatingActionButton: FloatingActionButton(onPressed: ()=> print(articlecontroller.articlesList.length)),
@@ -61,15 +62,15 @@ class _ArticleState extends State<Article> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,  
                         children: [
                            Text('Most Read', style: TextStyle(fontFamily: 'albertsans', fontSize: 16, fontWeight: FontWeight.bold),),
-                           GestureDetector(
-                            onTap: () => Get.to(()=>viewMoreArticle()),
-                            child: Text('View More >', style: TextStyle(
-                              fontFamily: 'albertsans', 
-                              fontSize: 16, 
-                              color: Color(0xff4749AE), 
-                              decoration: TextDecoration.underline
-                              ),)
-                           )
+                          //  GestureDetector(
+                          //   onTap: () => Get.to(()=>viewMoreArticle()),
+                          //   child: Text('View More >', style: TextStyle(
+                          //     fontFamily: 'albertsans', 
+                          //     fontSize: 16, 
+                          //     color: Color(0xff4749AE), 
+                          //     decoration: TextDecoration.underline
+                          //     ),)
+                          //  )
                         ],
                       ),
                       SizedBox(height: 5,),
@@ -160,24 +161,23 @@ class _ArticleState extends State<Article> {
                          physics: NeverScrollableScrollPhysics(),
                          itemCount: articlecontroller.articlesList.length,
                         itemBuilder: (context, index) {
-                      return articleHome(article: articlecontroller.articlesList[index]);})
-
-                      // Container(
-                      //   color: Colors.white.withOpacity(0.6),
-                      //   // height: 300,
-                      //   width: 350,
-                      //   child: Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       articleHome(
-                      //         imagePath: articlecontroller.articlesList[index].imageUrl,
-                      //         title: articlecontroller.articlesList[index].title,
-                      //         subtitle: articlecontroller.articlesList[index].subtitle,
-                      //       ),
+                      return  
+                       Container(
+                        color: Colors.white.withOpacity(0.6),
+                        // height: 300,
+                        width: 350,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                             articleHome(article: articlecontroller.articlesList[index])
                             
-                      //     ],
-                      //   ),
-                      // )
+                          ],
+                        ),
+                      );
+                      
+})
+                     
+                    
 
                       ],         
                             ),

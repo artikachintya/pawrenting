@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/community/controller/commentController.dart';
 import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/features/community/widget/commentThreadsDetail.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
+import 'package:get/get.dart';
 
 class threadDetail extends StatefulWidget {
   final ThreadMessage message;
@@ -20,8 +23,12 @@ class _threadDetailState extends State<threadDetail> {
   late bool isLiked;
   late int likeCount;
   bool isUpdating = false;
-  
 
+  final CommentController commentController = Get.find();
+  final TextEditingController commentTextController = TextEditingController();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  
+  
   @override
   void initState() {
     super.initState();
