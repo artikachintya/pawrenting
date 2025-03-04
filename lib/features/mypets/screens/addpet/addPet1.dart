@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/addPet/AddPetController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/AddPetController.dart';
 
 class addPet1 extends StatelessWidget {
   const addPet1({
@@ -13,7 +13,7 @@ class addPet1 extends StatelessWidget {
   final formGlobalKey;
   @override
   Widget build(BuildContext context) {
-    PetController petController = Get.find();
+    AddPetController addPetController = Get.put(AddPetController());
     return Padding(
        padding: const EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
        child: Column(
@@ -38,13 +38,13 @@ class addPet1 extends StatelessWidget {
                  Form(
                   key: formGlobalKey,
                    child: TextFormField(
-                    controller: petController.nameController,
+                     controller: addPetController.nameController,
                     validator: (value){
                       if(value == null || value.isEmpty){
                         return 'Please enter your pet name';
                       }
                       else{
-                        petController.name = petController.nameController.text;
+                        addPetController.nameController.text = value;
                         return null;
                       }
                     },
