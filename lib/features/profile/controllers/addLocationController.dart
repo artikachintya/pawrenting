@@ -42,7 +42,7 @@ class AddLocationController extends GetxController {
       // ✅ Save location to Firestore
       try {
         LocationRepo locationRepo = LocationRepo();
-        await locationRepo.addLocation(userEmail, newLocation);
+        await locationRepo.addLocation(newLocation);
         Get.snackbar("Success", "Location added successfully!",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.green,

@@ -4,21 +4,37 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/features/profile/controllers/editLocationController.dart';
+import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 
 class EditLocationDetail extends StatelessWidget {
   // Controller for managing edit location state
-  final EditLocationController editLocationController = Get.put(EditLocationController());
+  final EditLocationController editLocationController =
+      Get.find<EditLocationController>(); // ✅ Use existing instance
 
-  EditLocationDetail({super.key, required GlobalKey<FormState> formGlobalKey});
+  final int index;
+  final GlobalKey<FormState> formGlobalKey;
+
+  EditLocationDetail(
+      {super.key, required this.index, required this.formGlobalKey});
 
   @override
   Widget build(BuildContext context) {
     // Finding existing controllers for navigation
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+    if (index >= editLocationController.userLocations.length) {
+      return Center(child: Text("Invalid location index")); // ✅ Prevent crash
+    }
+    var location = editLocationController.userLocations[index];
+
+    // Populate fields with existing data
+    editLocationController.labelController.text = location.label;
+    editLocationController.receiverNameController.text = location.receiverName;
+    editLocationController.phoneNumberController.text = location.phoneNum;
+    editLocationController.fullAddressController.text = location.fullAddress;
 
     return Scaffold(
       appBar: const TAppBar2(
@@ -37,21 +53,25 @@ class EditLocationDetail extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           child: Form(
-            key: editLocationController.formKey,
+            key: formGlobalKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildTextField("Label", "Mansion 1", controller: editLocationController.labelController),
-                buildTextField("Receiver’s Name", "Kardashian", controller: editLocationController.receiverNameController),
+                buildTextField("Label", "Mansion 1",
+                    controller: editLocationController.labelController),
+                buildTextField("Receiver’s Name", "Kardashian",
+                    controller: editLocationController.receiverNameController),
                 buildPhoneNumberField(),
-                buildTextField("Full Address", "123 Street, 11x", maxLines: 3, controller: editLocationController.fullAddressController),
+                buildTextField("Full Address", "123 Street, 11x",
+                    maxLines: 3,
+                    controller: editLocationController.fullAddressController),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {}, // Cancel button action
+                        onPressed: () => Get.back(), // Cancel button action
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.black,
@@ -66,7 +86,18 @@ class EditLocationDetail extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          editLocationController.saveLocation(); // Save action triggered
+                          LocationModel updatedLocation = LocationModel(
+                            label: editLocationController.labelController.text,
+                            receiverName: editLocationController
+                                .receiverNameController.text,
+                            phoneNum: editLocationController
+                                .phoneNumberController.text,
+                            fullAddress: editLocationController
+                                .fullAddressController.text,
+                          );
+
+                          editLocationController.updateLocation(
+                              index, updatedLocation); // Save action triggered
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: TColors.accent,
@@ -89,7 +120,8 @@ class EditLocationDetail extends StatelessWidget {
   }
 
   // Generalized text field widget for form input
-  Widget buildTextField(String label, String hint, {int maxLines = 1, TextEditingController? controller}) {
+  Widget buildTextField(String label, String hint,
+      {int maxLines = 1, TextEditingController? controller}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

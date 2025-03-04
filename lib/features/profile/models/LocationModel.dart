@@ -31,4 +31,18 @@ class LocationModel {
       fullAddress: json['fullAddress'],
     );
   }
+
+    Map<String, dynamic> toMap() {
+    return {
+      "receiverName": receiverName,
+      "fullAddress": fullAddress,
+      "phoneNum": phoneNum,
+      "label": label,
+    };
+  }
+
+  @override
+  String toString() {
+    return "Location(label: $label, receiver: $receiverName, address: $fullAddress, phone: $phoneNum)";
+  }
 }

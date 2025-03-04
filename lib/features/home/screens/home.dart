@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
@@ -49,7 +51,23 @@ class _HomeState extends State<Home> {
     CategoryController categoryController = Get.put(CategoryController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () => print(categoryController.productsList.length)),
+          onPressed: () async {
+        var userSnapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .where('email', isEqualTo: "addloc@gmail.com")
+            .get();
+            if (userSnapshot.docs.isNotEmpty) {
+              var userId = userSnapshot.docs.first.id;
+              await FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(userId)
+                  .set({'locations': 'New Location'}, SetOptions(merge: true));
+            }
+        var username = userSnapshot.docs.first['username'];
+        print(username);
+          },
+          child: Icon(Icons.search),
+      ),
       appBar: TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: Color(0xffE7DFF6),
       body: SingleChildScrollView(
