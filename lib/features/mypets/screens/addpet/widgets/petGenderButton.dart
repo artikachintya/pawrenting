@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/AddPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/addPet/petGender.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';

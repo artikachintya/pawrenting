@@ -18,7 +18,7 @@ import 'package:pawrentingreborn/features/home/controllers/PaymentController.dar
 import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/petActivity/petActivityController.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/AddPetController.dart';
 import 'package:pawrentingreborn/firebase_options.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'app.dart';

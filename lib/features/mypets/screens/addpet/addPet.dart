@@ -4,7 +4,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/addPet/addpetPageController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/AddPetController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet1.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet2.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet3.dart';
