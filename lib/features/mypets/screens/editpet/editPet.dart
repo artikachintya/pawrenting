@@ -5,7 +5,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/editPet/editPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/features/mypets/screens/addpet/classes/catBreeds.dart';
+import 'package:pawrentingreborn/features/mypets/screens/addpet/classes/breeds.dart';
 import 'package:pawrentingreborn/features/mypets/screens/editpet/widgets/genderSelector.dart';
 import 'package:pawrentingreborn/features/mypets/screens/editpet/widgets/speciesSelector.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';

@@ -23,6 +23,20 @@ class ProductModel {
     required this.stock,
   });
 
+  factory ProductModel.empty() {
+    return ProductModel(
+      id: 0,
+      name: '',
+      price: 0.0,
+      categoryId: 0,
+      description: '',
+      image: '',
+      salePrice: 0.0,
+      discount: 0.0,
+      stock: 0,
+    );
+  }
+
   toJson() {
     return {
       'id': id,

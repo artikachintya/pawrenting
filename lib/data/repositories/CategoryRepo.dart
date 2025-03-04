@@ -9,9 +9,9 @@ class CategoryRepo extends GetxController {
 
     Future<List<CategoryModel>> fetchCategory() async {
     final snapshot = await _db.collection('Categories').get();
-    print("Fetched ${snapshot.docs.length} Categories"); // Debugging
+    // print("Fetched ${snapshot.docs.length} Categories"); // Debugging
     return snapshot.docs.map((e) {
-      print("Category Data: ${e.data()}"); // Debugging
+      // print("Category Data: ${e.data()}"); // Debugging
       return CategoryModel.fromSnapshot(e);
     }).toList();
   }
