@@ -39,7 +39,7 @@ class PetGenderButton extends StatelessWidget {
                    ),
                    onPressed: (){
                     controller.selectmale();
-                    petController.genderController.text = 'Male';
+                    petController.genderController.text= 'Male';
                    }, 
                    child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),

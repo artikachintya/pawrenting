@@ -38,12 +38,13 @@ class addPet1 extends StatelessWidget {
                  Form(
                   key: formGlobalKey,
                    child: TextFormField(
+                    controller: petController.nameController,
                     validator: (value){
                       if(value == null || value.isEmpty){
                         return 'Please enter your pet name';
                       }
                       else{
-                        petController.nameController.text = value;
+                        petController.name = petController.nameController.text;
                         return null;
                       }
                     },

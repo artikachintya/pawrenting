@@ -105,21 +105,21 @@ class AddPetButton extends StatelessWidget {
                   }
                   case 1:{
                     if(typeController.dog){
-                      petController.updatePet(type: 'Dog');
+                      // petController.updatePet(type: 'Dog');
                       pcontroller.nextPage();
                     }
                     else if(typeController.cat){
-                      petController.updatePet(type: 'Cat');
+                      // petController.updatePet(type: 'Cat');
                       pcontroller.nextPage();
                     }
                   }
                   case 2:{
                     if(genderController.male){
-                      petController.updatePet(gender: 'Male');
+                      // petController.updatePet(gender: 'Male');
                       pcontroller.nextPage();
                     }
                     else if(genderController.female){
-                      petController.updatePet(gender: 'Female');
+                      // petController.updatePet(gender: 'Female');
                       pcontroller.nextPage();
                     }
                   }

@@ -42,7 +42,7 @@ class PetTypeButton extends StatelessWidget {
                    ),
                    onPressed: (){
                     controller.selectDog();
-                    petController.typeController.text = 'Dog';
+                    petController.type = 'Dog';
                    }, 
                    child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),
@@ -88,7 +88,7 @@ class PetTypeButton extends StatelessWidget {
                    ),
                    onPressed: (){
                     controller.selectCat();
-                    petController.typeController.text = 'Cat';
+                    petController.type = 'Cat';
                    }, 
                    child: const Padding(
                      padding: EdgeInsets.symmetric(vertical: 12),
