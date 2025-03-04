@@ -34,6 +34,19 @@ class LocationModel {
     );
   }
 
+    Map<String, dynamic> toMap() {
+    return {
+      "receiverName": receiverName,
+      "fullAddress": fullAddress,
+      "phoneNum": phoneNum,
+      "label": label,
+    };
+  }
+
+  @override
+  String toString() {
+    return "Location(label: $label, receiver: $receiverName, address: $fullAddress, phone: $phoneNum)";
+
   factory LocationModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
     return LocationModel(
