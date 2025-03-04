@@ -78,11 +78,6 @@ class EditDataController extends GetxController {
     Get.snackbar("Error", "Failed to update data: $e", snackPosition: SnackPosition.BOTTOM);
   }
 }
-
-
-
-
-
   void printUserData() {
     print("First Name: ${firstNameController.text}");
     print("Last Name: ${lastNameController.text}");

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
+class ChooseTopic extends StatefulWidget {
+  final Function(String) onTopicSelected;
 
-class chooseTopic extends StatefulWidget {
+  const ChooseTopic({Key? key, required this.onTopicSelected}) : super(key: key);
+
   @override
-  _chooseTopic createState() => _chooseTopic();
+  _ChooseTopicState createState() => _ChooseTopicState();
 }
 
-class _chooseTopic extends State<chooseTopic> {
-  List<String> items = [
+class _ChooseTopicState extends State<ChooseTopic> {
+  final List<String> items = [
     'Adoption',
     'Donation',
     'Education',
@@ -20,49 +23,36 @@ class _chooseTopic extends State<chooseTopic> {
   ];
 
   // Item yang dipilih
-  String? selectedItem = 'Adoption';
+  String selectedItem = 'Adoption';
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-       
-        
-        child: Container(
-          width: 320,
-          child: DropdownButtonFormField<String>(
-            decoration: InputDecoration(
-              labelText: 'Choose Topic',
-              filled: true,
-              fillColor: Colors.white,
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width:1, color: Color(0xff8B68CC).withOpacity(0.6)),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              
-            ),
-            
-            // hint: Text('Select a topic'),
-            // Menampilkan nilai yang dipilih
-            value: selectedItem,
-            
-            // Daftar pilihan yang ditampilkan dalam dropdown
-            items: items
-                .map((item) => DropdownMenuItem<String>(
-                      value: item,
-                      child: Text(item),
-                    ))
-                .toList(),
-            
-            // Fungsi yang dijalankan saat pilihan berubah
-            onChanged: (newValue) {
-              setState(() {
-                selectedItem = newValue;
-              });
-            },
+    return SizedBox(
+      width: 320,
+      child: DropdownButtonFormField<String>(
+        decoration: InputDecoration(
+          labelText: 'Choose Topic',
+          filled: true,
+          fillColor: Colors.white,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Color(0xff8B68CC).withOpacity(0.6)),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
+        value: selectedItem,
+        items: items.map((item) => DropdownMenuItem<String>(
+              value: item,
+              child: Text(item),
+            )).toList(),
+        onChanged: (newValue) {
+          if (newValue != null) {
+            setState(() {
+              selectedItem = newValue;
+            });
+            widget.onTopicSelected(newValue); // Mengirim data ke parent widget
+          }
+        },
+      ),
     );
   }
 }
-
-

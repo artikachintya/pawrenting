@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
+import 'package:pawrentingreborn/features/community/controller/ThreadController.dart';
+import 'package:pawrentingreborn/features/community/widget/ThreadCard.dart';
 import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
 import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';

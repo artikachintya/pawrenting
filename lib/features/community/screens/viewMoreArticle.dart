@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/community/controller/ArticleController.dart';
 import 'package:pawrentingreborn/features/community/widget/articleHome.dart';
 import 'package:pawrentingreborn/features/community/widget/searchbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
@@ -22,6 +23,8 @@ class _viewMoreArticle extends State<viewMoreArticle> {
   
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+    ArticleController articlecontroller = Get.find();
+    articlecontroller.fetchArticles('');
     
     return Scaffold(
       appBar: TAppBar2(title: 'Most Read Articles', subtitle: 'Trending Now: The Top Stories'),
@@ -46,60 +49,26 @@ class _viewMoreArticle extends State<viewMoreArticle> {
                       //   alignment: Alignment.topLeft,
                       // ),
 
-                      Container(
+                      ListView.builder(
+                         shrinkWrap: true,
+                         physics: NeverScrollableScrollPhysics(),
+                         itemCount: articlecontroller.articlesList.length,
+                        itemBuilder: (context, index) {
+                      return  
+                       Container(
                         color: Colors.white.withOpacity(0.6),
                         // height: 300,
                         width: 350,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            articleHome(
-                              imagePath: TImages.article1,
-                              title: 'First-Year Kitten Vaccination Schedule Chart to Follow',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
-                            articleHome(
-                              imagePath: TImages.article2,
-                              title: 'How Much Water Should a Dog Drink?',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
-                            articleHome(
-                              imagePath: TImages.article3,
-                              title: 'How Many Calories Should My Dog Eat?',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
-                            articleHome(
-                              imagePath: TImages.article4,
-                              title: 'How to Clean Pet Urine From the Carpet',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
-                            articleHome(
-                              imagePath: TImages.article3,
-                              title: 'How Many Calories Should My Dog Eat?',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
-                            articleHome(
-                              imagePath: TImages.article3,
-                              title: 'How Many Calories Should My Dog Eat?',
-                              subtitle: 'By Pawrenting Teams',
-                            ),articleHome(
-                              imagePath: TImages.article3,
-                              title: 'How Many Calories Should My Dog Eat?',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
-                             articleHome(
-                              imagePath: TImages.article1,
-                              title: 'First-Year Kitten Vaccination Schedule Chart to Follow',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
-                             articleHome(
-                              imagePath: TImages.article1,
-                              title: 'First-Year Kitten Vaccination Schedule Chart to Follow',
-                              subtitle: 'By Pawrenting Teams',
-                            ),
+                             articleHome(article: articlecontroller.articlesList[index])
+                            
                           ],
                         ),
-                      )
+                      );
+                      
+                      })
 
                     
                       ],         

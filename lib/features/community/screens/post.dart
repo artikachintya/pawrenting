@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/features/community/screens/Replies.dart';
 import 'package:pawrentingreborn/features/community/screens/addThreads.dart';
 import 'package:pawrentingreborn/features/community/widget/ThreadCard.dart';
@@ -20,14 +21,23 @@ class Post extends StatelessWidget {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     return Scaffold(
-      appBar: TAppBar(onMain: true, onPetDetails: false),
-     
-      floatingActionButton: Container(
-        width: 100,
-        height: 50,
-        child: FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Addthreads()));}, backgroundColor: Color(0xff4749AE),
-        child: 
-        Text('+ Add', style: TextStyle(fontFamily: 'Alata', fontSize: 15, color: Colors.white,),),),
+     appBar: TAppBar(onMain: true, onPetDetails: false),
+     floatingActionButton: Container(
+        width: 90,
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Addthreads()));
+          },
+          backgroundColor: Color(0xff4749AE),
+          child: Text(
+            '+ Add',
+            style: TextStyle(
+              fontFamily: 'Alata',
+              fontSize: 16,
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
       bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
       backgroundColor: TColors.primary,
@@ -48,21 +58,6 @@ class Post extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,   
                         children: [
-                          // Container(
-                          //   width: 50,
-                          //   height: 25,
-                            
-                          //   decoration: BoxDecoration(
-                          //     color: TColors.filter.withOpacity(0.3),
-                          //     borderRadius: BorderRadius.all(
-                          //       Radius.circular(10)
-                          //     )
-                              
-                          //   ),
-                          //   alignment: Alignment.center,
-                          //   child: Icon(Icons.tune_rounded, color: Color(0xff535050),),
-                          // ),
-
                         GestureDetector(
                           onTap: () => Get.to(()=>NavigationMenu()),
                           child: 
@@ -131,10 +126,13 @@ class Post extends StatelessWidget {
                         
                       ),
                         SizedBox(height: 10,),
-                        Thread(),
-                        SizedBox(height: 10,),
-                        Thread(),
-                       
+                      //   ListView.builder(
+                      // shrinkWrap: true,
+                      // itemCount: threadMessages.length,
+                      // itemBuilder: (context, index) {
+                      //   return Thread(message: threadMessages[index],);
+                      // },
+                      // )
                               
                             ],         
                             ),
