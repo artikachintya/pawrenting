@@ -15,9 +15,9 @@ class ProductRepo extends GetxController {
 
   Future<List<ProductModel>> getProducts() async {
     final snapshot = await _db.collection('Products').get();
-    print("Fetched ${snapshot.docs.length} products"); // Debugging
+    // print("Fetched ${snapshot.docs.length} products"); // Debugging
     return snapshot.docs.map((e) {
-      print("Product Data: ${e.data()}"); // Debugging
+      // print("Product Data: ${e.data()}"); // Debugging
       return ProductModel.fromSnapshot(e);
     }).toList();
   }

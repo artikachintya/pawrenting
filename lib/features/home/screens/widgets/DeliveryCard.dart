@@ -1,17 +1,21 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/home/controllers/DeliveryController.dart';
+import 'package:pawrentingreborn/features/home/models/deliveryModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Delivery.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class DeliveryCard extends StatelessWidget {
+  final DeliveryModel delivery;
   const DeliveryCard({
     super.key,
+    required this.delivery,
   });
 
   @override
   Widget build(BuildContext context) {
+    DeliveryController deliveryController = Get.find();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       height: 60,
@@ -34,11 +38,11 @@ class DeliveryCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Regular',
+                  delivery.name,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'Rp63.000',
+                  'Rp${delivery.price.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
                 ),
               ],
@@ -48,7 +52,8 @@ class DeliveryCard extends StatelessWidget {
             width: 10,
           ),
           GestureDetector(
-            onTap: () => Get.to(() => ChooseDelivery()),
+            onTap: () => Get.to(() =>
+                ChooseDelivery(deliveryList: deliveryController.deliveryList)),
             child: Text(
               'Change',
               style: TextStyle(

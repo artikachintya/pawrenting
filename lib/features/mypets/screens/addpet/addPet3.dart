@@ -11,7 +11,6 @@ class addPet3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PetGenderButtonController controller = Get.find();
     return Padding(
        padding: const EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
        child: Column(

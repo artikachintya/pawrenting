@@ -64,6 +64,7 @@ class LocationRepo extends GetxController {
     } catch (e) {
       print("Error fetching locations: $e");
     }
+    print('kosong cuy');
     return [];
   }
 
@@ -106,5 +107,15 @@ class LocationRepo extends GetxController {
     } catch (e) {
       print("Error updating location: $e");
     }
+
+  /// Get all locations from the 'Locations' collection
+  Future<List<LocationModel>> getAllLocations() async {
+    final snapshot = await _db.collection('locations').get();
+    print("Fetched ${snapshot.docs.length} locations"); // Debugging
+    return snapshot.docs.map((e) {
+      print("Location Data: ${e.data()}"); // Debugging
+      return LocationModel.fromJson(e.data() as Map<String, dynamic>);
+    }).toList();
+
   }
 }

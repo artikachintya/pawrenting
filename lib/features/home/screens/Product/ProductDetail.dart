@@ -6,7 +6,9 @@ import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
 import 'package:pawrentingreborn/features/home/models/productModel.dart';
+import 'package:pawrentingreborn/features/home/screens/Cart/Checkout.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/profile/screens/orderDetail.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -131,7 +133,6 @@ class ProductDetail extends StatelessWidget {
                             fontWeight: FontWeight.w900,
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1)),
-
                     Text(categoryController.getCategoryName(product.categoryId),
                         style: TextStyle(
                             fontSize: 14,
@@ -207,9 +208,9 @@ void _showBottomSheet(BuildContext context, String type, ProductModel product) {
   );
 }
 
-
 Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
   CategoryController categoryController = Get.find();
+  CartController cartController = Get.find();
   return Padding(
     padding: EdgeInsets.only(
       bottom: MediaQuery.of(context).viewInsets.bottom, // Adjusts for keyboard
@@ -225,7 +226,10 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
             children: [
               IconButton(
                 icon: Icon(Icons.close),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  Navigator.pop(context);
+                  cartController.resetQty();
+                },
               ),
             ],
           ),
@@ -238,7 +242,6 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                 width: 150,
                 height: 100,
                 child: Image(
-
                   image: AssetImage(product.image),
                   fit: BoxFit.contain,
                 ),
@@ -250,18 +253,14 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Text(product.name,
-
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
                             fontWeight: FontWeight.w900,
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1)),
-
                     Text(categoryController.getCategoryName(product.categoryId),
-
                         style: TextStyle(
                             fontSize: 10,
                             color: TColors.grayFont,
@@ -271,10 +270,8 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                     SizedBox(
                       height: 10,
                     ),
-
                     Text(
                         'Rp${product.price.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
-
                         style: TextStyle(
                             fontSize: 14,
                             color: TColors.accent.withOpacity(0.5),
@@ -282,10 +279,8 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1,
                             decoration: TextDecoration.lineThrough)),
-
                     Text(
                         'Rp${product.salePrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
-
                         style: TextStyle(
                           fontSize: 16,
                           color: TColors.accent,
@@ -326,34 +321,49 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                   width: 100,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 26,
-                        height: 23,
-                        decoration: BoxDecoration(
-                            color: TColors.primary,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Icon(
-                          Icons.remove,
-                          color: TColors.accent,
+                      GestureDetector(
+                        onTap: () => cartController.subQty(),
+                        child: Container(
+                          width: 26,
+                          height: 23,
+                          decoration: BoxDecoration(
+                              color: TColors.primary,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Icon(
+                            Icons.remove,
+                            color: TColors.accent,
+                          ),
                         ),
                       ),
-                      Text("1", style: TextStyle(fontSize: 16)),
-                      Container(
-                        width: 26,
-                        height: 23,
-                        decoration: BoxDecoration(
-                            color: TColors.primary,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Icon(
-                          Icons.add,
-                          color: TColors.accent,
+                      Obx(() => Container(
+                          width: 40,
+                          height: 30,
+                          child: Center(
+                            child: Text(
+                              cartController.quantity.value.toString(),
+                            ),
+                          ))),
+                      GestureDetector(
+                        onTap: () => cartController.addQty(),
+                        child: Container(
+                          width: 26,
+                          height: 23,
+                          decoration: BoxDecoration(
+                              color: TColors.primary,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Icon(
+                            Icons.add,
+                            color: TColors.accent,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
                 GestureDetector(
+                  onTap: () => Get.to(OrderDetails(items: cartController.convertToCartItem(product, cartController.quantity).toList(), buyNow: true,)),
                   child: Container(
                     height: 35,
                     width: 150,
@@ -384,7 +394,6 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
   );
 }
 
-
 Widget _buildCartSheet(BuildContext context, ProductModel product) {
   CartController cartController = Get.find();
   CategoryController categoryController = Get.find();
@@ -403,12 +412,10 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
             children: [
               IconButton(
                 icon: Icon(Icons.close),
-
                 onPressed: () {
                   Navigator.pop(context);
                   cartController.resetQty();
                 },
-
               ),
             ],
           ),
@@ -421,9 +428,7 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                 width: 150,
                 height: 100,
                 child: Image(
-
                   image: AssetImage(product.image),
-
                   fit: BoxFit.contain,
                 ),
               ),
@@ -434,18 +439,14 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Text(product.name,
-
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
                             fontWeight: FontWeight.w900,
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1)),
-
                     Text(categoryController.getCategoryName(product.categoryId),
-
                         style: TextStyle(
                             fontSize: 10,
                             color: TColors.grayFont,
@@ -455,10 +456,8 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                     SizedBox(
                       height: 10,
                     ),
-
                     Text(
                         'Rp${product.price.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
-
                         style: TextStyle(
                             fontSize: 14,
                             color: TColors.accent.withOpacity(0.5),
@@ -466,10 +465,8 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                             fontFamily: 'AlbertSans',
                             letterSpacing: 1,
                             decoration: TextDecoration.lineThrough)),
-
                     Text(
                         'Rp${product.salePrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
-
                         style: TextStyle(
                           fontSize: 16,
                           color: TColors.accent,
@@ -478,7 +475,6 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                           letterSpacing: 1,
                         )),
                     Text('Stock: ${product.stock}',
-
                         style: TextStyle(
                           fontSize: 12,
                           color: TColors.grayFont,

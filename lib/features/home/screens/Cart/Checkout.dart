@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
+import 'package:pawrentingreborn/features/home/controllers/DeliveryController.dart';
+import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
+import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
+import 'package:pawrentingreborn/features/home/models/cartItemModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Address.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Delivery.dart';
 
@@ -12,15 +18,21 @@ import 'package:pawrentingreborn/features/home/screens/widgets/ItemSection.dart'
 import 'package:pawrentingreborn/features/home/screens/widgets/PriceDetails.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/VoucherCard.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/Vouchers.dart';
+import 'package:pawrentingreborn/features/profile/screens/AddLocationDetail.dart';
 import 'package:pawrentingreborn/features/profile/screens/location.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class OrderDetails extends StatelessWidget {
-  const OrderDetails({super.key});
+  final List<CartItemModel> items;
+  final bool buyNow;
+  const OrderDetails({super.key, required this.items, required this.buyNow});
 
   @override
   Widget build(BuildContext context) {
+    LocationController locationController = Get.find();
+    DeliveryController deliveryController = Get.find();
+    OrderController orderController = Get.find();
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: TAppBar2(title: 'Order Details', subtitle: 'Check your order'),
@@ -46,20 +58,18 @@ class OrderDetails extends StatelessWidget {
                     SizedBox(
                       width: 10,
                     ),
-                    Text(
-                      'Rp384.000',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: TColors.accent),
-                    )
+                    Obx(() => Text(
+                          'Rp${orderController.totalPrice.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: TColors.accent),
+                        ))
                   ],
                 ),
               ),
               GestureDetector(
-
-                onTap: ()=> Get.to(()=>Payment()),
-
+                onTap: () => Get.to(() => Payment(buyNow: buyNow, items: items,)),
                 child: Container(
                   height: 40,
                   width: 150,
@@ -96,15 +106,43 @@ class OrderDetails extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  AddressSection(),
+                  locationController.locationsList.length != 0
+                      ? Obx(() => AddressSection(
+                          location: locationController.locationsList[
+                              locationController.selectedIndex.value]))
+                      : GestureDetector(
+                          onTap: () => Get.to(() => AddLocationDetail()),
+                          child: Container(
+                            height: 50,
+                            color: Colors.red,
+                          ),
+                        ),
                   SizedBox(
                     height: 10,
                   ),
-                  DeliveryCard(),
+                  Obx(
+                    () => DeliveryCard(
+                      delivery: deliveryController
+                          .deliveryList[deliveryController.selectedIndex.value],
+                    ),
+                  ),
                   SizedBox(
                     height: 10,
                   ),
-                  COItem(),
+                  SizedBox(
+                    height:
+                        items.length > 2 ? 275 : 125 * items.length.toDouble(),
+                    child: ListView.separated(
+                        separatorBuilder: (context, index) => SizedBox(
+                              height: 10,
+                            ),
+                        physics: AlwaysScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: items.length,
+                        itemBuilder: (context, index) {
+                          return COItem(item: items[index]);
+                        }),
+                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -115,7 +153,7 @@ class OrderDetails extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  PriceDetails()
+                  PriceDetails(buyNow: buyNow, items: items,),
                 ],
               ),
             ),

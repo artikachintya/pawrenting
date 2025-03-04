@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class LocationModel {
   final String label;
   final String receiverName;
@@ -44,5 +46,14 @@ class LocationModel {
   @override
   String toString() {
     return "Location(label: $label, receiver: $receiverName, address: $fullAddress, phone: $phoneNum)";
+
+  factory LocationModel.fromSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data() as Map<String, dynamic>;
+    return LocationModel(
+      label: data['label'],
+      receiverName: data['receiverName'],
+      phoneNum: data['phoneNum'],
+      fullAddress: data['fullAddress'],
+    );
   }
 }

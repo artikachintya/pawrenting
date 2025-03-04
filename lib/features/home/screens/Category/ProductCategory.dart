@@ -4,7 +4,6 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
 import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
-import 'package:pawrentingreborn/features/home/models/product.dart';
 import 'package:pawrentingreborn/features/home/models/productModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Product/ProductDetail.dart';
 import 'package:pawrentingreborn/features/home/models/categoryModel.dart';
