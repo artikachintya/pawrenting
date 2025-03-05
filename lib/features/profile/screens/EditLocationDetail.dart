@@ -55,7 +55,7 @@ class EditLocationDetail extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildTextField("Label", location.label, editLocationController.labelController),
-                buildTextField("Receiver’s Name", location.receiverName, editLocationController.receiverNameController),
+                buildTextField("Receiver's Name", location.receiverName, editLocationController.receiverNameController),
                 buildPhoneNumberField(location.phoneNum),
                 buildTextField("Full Address", location.fullAddress, editLocationController.fullAddressController, maxLines: 3),
                 const SizedBox(height: 20),
