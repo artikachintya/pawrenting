@@ -23,7 +23,8 @@ class Location extends StatelessWidget {
     NavigationController navcontroller = Get.find();
 
     // 🔹 Fetch locations when widget is built
-    Future.delayed(Duration.zero, () => editLocationController.fetchUserLocations());
+    Future.delayed(
+        Duration.zero, () => editLocationController.fetchUserLocations());
 
     return Scaffold(
       appBar: const TAppBar2(
@@ -33,38 +34,39 @@ class Location extends StatelessWidget {
       bottomNavigationBar:
           InsideNavBar(controller: controller, navcontroller: navcontroller),
       backgroundColor: TColors.primary,
+      floatingActionButton: SizedBox(
+        width: 90,
+        child: FloatingActionButton(
+          onPressed: ()  async {
+            final result = await Get.to(() => AddLocationDetail());
+            if (result == true) {
+              editLocationController.fetchUserLocations(); // 🔹 Refresh list on return
+            }
+          },
+          backgroundColor: TColors.accent,
+          foregroundColor: Colors.white,
+          child: const Text(
+            '+ Add',
+            style: TextStyle(
+              fontFamily: 'Alata',
+              fontSize: 12,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
       body: Obx(() {
         if (editLocationController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
         }
 
-        print("🔹 Number of locations: ${editLocationController.userLocations.length}");
+        print(
+            "🔹 Number of locations: ${editLocationController.userLocations.length}");
 
         if (editLocationController.userLocations.isEmpty) {
           return Column(
             children: [
-              Center(
-                child: Text("No locations found!")            
-              ),
-              FloatingActionButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddLocationDetail(),
-                        ),
-                      );
-                    },
-                    backgroundColor: const Color(0xff4749AE),
-                    child: const Text(
-                      '+ Add',
-                      style: TextStyle(
-                        fontFamily: 'Alata',
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+              Center(child: Text("No locations found!")),
             ],
           );
         }
@@ -73,7 +75,8 @@ class Location extends StatelessWidget {
           child: Column(
             children: [
               GridView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 itemCount: editLocationController.userLocations.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -103,31 +106,6 @@ class Location extends StatelessWidget {
                     ),
                   );
                 },
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddLocationDetail(),
-                        ),
-                      );
-                    },
-                    backgroundColor: const Color(0xff4749AE),
-                    child: const Text(
-                      '+ Add',
-                      style: TextStyle(
-                        fontFamily: 'Alata',
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editLocationController.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/features/profile/controllers/AddLocationController.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
@@ -48,7 +50,9 @@ class AddLocationDetail extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.back(); 
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.black,
@@ -65,6 +69,10 @@ class AddLocationDetail extends StatelessWidget {
                         onPressed: () {
                           if (addLocationController.formKey.currentState!.validate()) {
                             addLocationController.saveLocation();
+                            EditLocationController editLocationController = Get.find();
+    Future.delayed(Duration.zero, () => editLocationController.fetchUserLocations());
+                            Get.back(result: true);
+                            // Get.snackbar("Success", "Location details saved successfully");
                           }
                         },
                         style: ElevatedButton.styleFrom(

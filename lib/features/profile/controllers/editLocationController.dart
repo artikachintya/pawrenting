@@ -54,7 +54,7 @@ class EditLocationController extends GetxController {
     isLoading.value = true;
     try {
       if (email != null) {
-        await locationRepo.updateLocation(email, index, updatedLocation);
+        await locationRepo.updateLocation(index, updatedLocation);
         userLocations[index] = updatedLocation; // Update locally
         print("Location updated successfully!");
       }
