@@ -1,23 +1,93 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/community/controller/commentController.dart';
+import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/features/community/widget/commentThreadsDetail.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
+import 'package:get/get.dart';
 
 class threadDetail extends StatefulWidget {
-  const threadDetail({super.key});
+  final ThreadMessage message;
+
+  const threadDetail({super.key, required this.message});
 
   @override
   _threadDetailState createState() => _threadDetailState();
 }
 
 class _threadDetailState extends State<threadDetail> {
-  bool isLiked = false;
-  int likeCount = 10;
+  late bool isLiked;
+  late int likeCount;
+  bool isUpdating = false;
+
+  final CommentController commentController = Get.put(CommentController());
+  final TextEditingController commentTextController = TextEditingController();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  
+  
+  @override
+  void initState() {
+    super.initState();
+    isLiked = widget.message.isLiked;
+    likeCount = widget.message.likeCount;
+  }
+
+  Future<void> _toggleLike() async {
+    if (isUpdating) return; // Prevent multiple updates
+
+    setState(() {
+      isUpdating = true;
+    });
+
+    bool newIsLiked = !isLiked;
+    int newLikeCount = likeCount + (newIsLiked ? 1 : -1);
+
+    try {
+      DocumentReference docRef = FirebaseFirestore.instance.collection('threads').doc(widget.message.id);
+
+      // Check if the document exists
+      DocumentSnapshot docSnapshot = await docRef.get();
+
+      if (docSnapshot.exists) {
+        // Update Firestore
+        await docRef.update({
+          'isLiked': newIsLiked,
+          'likeCount': newLikeCount,
+        });
+
+        // Ensure the UI updates only after a successful Firestore update
+        setState(() {
+          isLiked = newIsLiked;
+          likeCount = newLikeCount;
+        });
+      } else {
+        // Handle document not found scenario
+        print('Document not found. Ensure the document ID is correct.');
+        setState(() {
+          isUpdating = false;
+        });
+      }
+    } catch (e) {
+      // Handle Firestore update failure
+      print('Error updating Firestore: $e');
+      setState(() {
+        isUpdating = false;
+      });
+    } finally {
+      setState(() {
+        isUpdating = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final message = widget.message;
+
     return Scaffold(
       appBar: TAppBar2(
         title: TTexts.appBarThreadsTitle,
@@ -36,11 +106,13 @@ class _threadDetailState extends State<threadDetail> {
                   Row(
                     children: [
                       Image(
-                        image: AssetImage(TImages.user),
+                        image: AssetImage(
+                          message.senderProfile.isNotEmpty ? message.senderProfile : TImages.user,
+                        ),
                         height: 45,
                       ),
                       Text(
-                        '@pecinta_kucing',
+                        message.senderName,
                         style: TextStyle(fontFamily: 'alata', fontSize: 20),
                       )
                     ],
@@ -54,7 +126,7 @@ class _threadDetailState extends State<threadDetail> {
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      'Lost Pet',
+                      message.topic,
                       style: TextStyle(
                         fontFamily: 'albertsans',
                         fontSize: 10,
@@ -73,10 +145,7 @@ class _threadDetailState extends State<threadDetail> {
                     child: Container(
                       height: 160,
                       width: 360,
-                      child: Image(
-                        image: AssetImage(TImages.comm),
-                        fit: BoxFit.fitWidth,
-                      ),
+                      child: _buildThreadImage(message),
                     ),
                   ),
                 ],
@@ -89,12 +158,7 @@ class _threadDetailState extends State<threadDetail> {
                     padding: EdgeInsets.only(left: 10),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isLiked = !isLiked;
-                        likeCount += isLiked ? 1 : -1;
-                      });
-                    },
+                    onTap: _toggleLike,
                     child: Image(
                       image: AssetImage(TImages.lopek),
                       height: 20,
@@ -116,10 +180,10 @@ class _threadDetailState extends State<threadDetail> {
               Container(
                 width: 350,
                 child: Text(
-                  'Tolongggg kucing saya kaburrrr, tolonggg sayaaa. Saya tidak tau lagi dia ada dimana, hiksss saya sedih banget :(',
+                  message.title,
                   style: TextStyle(
                     fontFamily: 'albertsans',
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -127,7 +191,7 @@ class _threadDetailState extends State<threadDetail> {
               Container(
                 width: 350,
                 child: Text(
-                  'Bagi teman-teman yang bisa menemukan kucing saya, tolong hubungi saya di no 082917353728. Saya sudah mencari kucing saya 2 hari. Dia sama sekali tidak pulang. Kucing saya menggunakan kalung hijau di lehernya. Bagi teman2 yang menemukan bisa hubungi saya ya. ',
+                  message.details,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontFamily: 'alata',
@@ -140,7 +204,7 @@ class _threadDetailState extends State<threadDetail> {
               Row(
                 children: [
                   Text(
-                    '2 days ago',
+                    _getTimeDifference(message.createdAt),
                     style: TextStyle(
                       fontFamily: 'alata',
                       fontSize: 12,
@@ -153,7 +217,7 @@ class _threadDetailState extends State<threadDetail> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    '2 Replies',
+                    '${message.commentCount} Replies',
                     style: TextStyle(
                       fontFamily: 'albertsans',
                       fontSize: 14,
@@ -185,6 +249,7 @@ class _threadDetailState extends State<threadDetail> {
                 ),
                 width: 370,
                 padding: EdgeInsets.only(left: 25),
+              
                 child: Row(
                   children: [
                     Image(
@@ -200,6 +265,8 @@ class _threadDetailState extends State<threadDetail> {
                         ),
                       ),
                     ),
+                    Image(image: AssetImage(TImages.sendLogos), width: 30,),
+
                   ],
                 ),
               ),
@@ -208,5 +275,30 @@ class _threadDetailState extends State<threadDetail> {
         ),
       ),
     );
+  }
+
+
+  Widget _buildThreadImage(ThreadMessage message) {
+    if (message.threadImage.startsWith('http')) {
+      return Image.network(message.threadImage, fit: BoxFit.cover);
+    } else {
+      return Image.asset(message.threadImage, fit: BoxFit.cover);
+    }
+  }
+
+  String _getTimeDifference(DateTime createdAt) {
+    final now = DateTime.now();
+    final difference = now.difference(createdAt);
+    if (difference.inMinutes < 1) {
+      return 'Just now';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes}m ago';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours}h ago';
+    } else if (difference.inDays < 7) {
+      return '${difference.inDays}d ago';
+    } else {
+      return '${difference.inDays ~/ 7}w ago';
+    }
   }
 }

@@ -5,7 +5,6 @@ import 'package:pawrentingreborn/features/mypets/controllers/addPet/addpetPageCo
 import 'package:pawrentingreborn/features/mypets/controllers/addPet/petGender.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/addPet/petTypeButtonCont.dart';
 import 'package:pawrentingreborn/utils/device/device_utility.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/addPet/petController.dart';
 
 class AddPetButton extends StatelessWidget {
   const AddPetButton({
@@ -25,7 +24,6 @@ class AddPetButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final typeController = Get.put(PetTypeButtonController());
     final genderController = Get.put(PetGenderButtonController());
-    PetController petController = Get.find();
     return Positioned(
       bottom: 100,
       left: TDeviceUtil.getViewWidth(context)/2 - 150,
@@ -105,21 +103,17 @@ class AddPetButton extends StatelessWidget {
                   }
                   case 1:{
                     if(typeController.dog){
-                      petController.updatePet(type: 'Dog');
                       pcontroller.nextPage();
                     }
                     else if(typeController.cat){
-                      petController.updatePet(type: 'Cat');
                       pcontroller.nextPage();
                     }
                   }
                   case 2:{
                     if(genderController.male){
-                      petController.updatePet(gender: 'Male');
                       pcontroller.nextPage();
                     }
                     else if(genderController.female){
-                      petController.updatePet(gender: 'Female');
                       pcontroller.nextPage();
                     }
                   }

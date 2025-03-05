@@ -46,6 +46,7 @@ class TImages {
   static const String welcomeNotif = 'assets/images/welcomeNotif.png';
   static const String taken = 'assets/images/taken.png';
   static const String nottaken = 'assets/images/nottaken.png';
+  static const String sendLogos = 'assets/icons/send.png';
 
   static const String comm = 'assets/images/kucingkabur.jpg';
   static const String paws = 'assets/login/wallpaper-login.png';
