@@ -229,7 +229,7 @@ class _LoginForm extends StatelessWidget {
                 style: _elevatedButtonStyle(),
                 child: const Text(
                   'Login',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ),

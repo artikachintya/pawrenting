@@ -59,7 +59,9 @@ class OrderDetails extends StatelessWidget {
                       width: 10,
                     ),
                     Obx(() => Text(
-                          'Rp${orderController.totalPrice.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                          !buyNow
+                              ? 'Rp${orderController.totalPrice.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}'
+                              : 'Rp${(items.first.quantity.value * items.first.productModel.salePrice + orderController.deliveryPrice.value + 1000).toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -69,7 +71,10 @@ class OrderDetails extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () => Get.to(() => Payment(buyNow: buyNow, items: items,)),
+                onTap: () => Get.to(() => Payment(
+                      buyNow: buyNow,
+                      items: items,
+                    )),
                 child: Container(
                   height: 40,
                   width: 150,
@@ -153,7 +158,10 @@ class OrderDetails extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  PriceDetails(buyNow: buyNow, items: items,),
+                  PriceDetails(
+                    buyNow: buyNow,
+                    items: items,
+                  ),
                 ],
               ),
             ),
