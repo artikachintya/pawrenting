@@ -2,6 +2,7 @@ C/C++ Structured LogK
 I
 GC:\flutter\packages\flutter_tools\gradle\src\main\groovy\CMakeLists.txtC
 A
+<<<<<<< HEAD
 ?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	„±¢ÐÖ2§ â£ŸÕÓ2U
 S
 QC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\additional_project_files.txt	„±¢ÐÖ2 Û¥ùÕÓ2R
@@ -26,3 +27,29 @@ I
 GC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\prefab_config.json	…±¢ÐÖ2( à¥ùÕÓ2P
 N
 LC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\symbol_folder_index.txt	…±¢ÐÖ2C á¥ùÕÓ2
+=======
+?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	Ù»é¨Ö2§ •¤†€Ô2U
+S
+QC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\additional_project_files.txt	Ù»é¨Ö2 È‚‡Ô2R
+P
+NC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\android_gradle_build.json	Ù»é¨Ö2ø †È‚‡Ô2W
+U
+SC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\android_gradle_build_mini.json	Ù»é¨Ö2Õ ŒÈ‚‡Ô2D
+B
+@C:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\build.ninja	Ù»é¨Ö2ŠÓ ÕÇ‚‡Ô2H
+F
+DC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\build.ninja.txt	Ù»é¨Ö2M
+K
+IC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\build_file_index.txt	Ù»é¨Ö2G ”È‚‡Ô2N
+L
+JC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\compile_commands.json	Ù»é¨Ö2	R
+P
+NC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\compile_commands.json.bin	Ù»é¨Ö2
+X
+V
+TC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\metadata_generation_command.txt	Ù»é¨Ö2ô ŽÈ‚‡Ô2K
+I
+GC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\prefab_config.json	Ù»é¨Ö2( È‚‡Ô2P
+N
+LC:\pawrenting\android\app\.cxx\Debug\2b6s5s71\x86_64\symbol_folder_index.txt	Ù»é¨Ö2C “È‚‡Ô2
+>>>>>>> 20795a9b689b0034300bec3e131ef840f8af018b

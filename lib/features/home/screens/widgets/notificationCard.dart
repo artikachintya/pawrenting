@@ -12,7 +12,7 @@ class NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=> Get.to(()=>NotificationDetail()),
+      // onTap: ()=> Get.to(()=>NotificationDetail(notif: notif,)),
       child: Container(
         padding:
             EdgeInsets.symmetric(horizontal: TSize.hPad, vertical: TSize.vPad),

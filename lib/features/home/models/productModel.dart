@@ -9,7 +9,7 @@ class ProductModel {
   final String image;
   final double salePrice;
   final double discount;
-  final int stock;
+  int stock;
 
   ProductModel({
     required this.id,

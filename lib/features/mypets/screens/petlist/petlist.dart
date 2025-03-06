@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPet/AddPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/petdetails.dart';
@@ -15,6 +16,7 @@ class PetList extends StatelessWidget {
   Widget build(BuildContext context) {
     // NavigationController controller = Get.find();
     NavBarController controller = Get.find();
+    PetController petController = Get.find();
     return Scaffold(
       appBar: const TAppBar(onMain: true, onPetDetails: false),
       // bottomNavigationBar: NavBar(controller: controller),
