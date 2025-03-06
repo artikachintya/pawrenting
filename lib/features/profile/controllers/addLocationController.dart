@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/data/repositories/LocationRepo.dart';
 import 'package:pawrentingreborn/features/profile/controllers/editLocationController.dart';
+import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 
@@ -65,6 +66,8 @@ class AddLocationController extends GetxController {
         colorText: Colors.white,
       );
     }
+    LocationController locationController = Get.find();
+    await locationController.fetchLocations();
   }
 
   void clearForm() {

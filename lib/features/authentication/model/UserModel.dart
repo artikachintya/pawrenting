@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pawrentingreborn/features/mypets/models/petModel.dart';
 import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
@@ -12,8 +13,10 @@ class UserModel {
   final String username;
   final List<LocationModel> locations;
   final String profilePic;
+  final List<PetModel> pets;
 
   UserModel({
+    required this.pets, 
     required this.dob,
     required this.email,
     required this.firstName,
@@ -53,6 +56,7 @@ class UserModel {
         username: '',
         locations: [],
         profilePic: TImages.profilePicDefault,
+        pets: [],
       );
     }
     return UserModel(
@@ -67,6 +71,7 @@ class UserModel {
           .map((e) => LocationModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       profilePic: data['profilePic'] ?? TImages.profilePicDefault,
+      pets: [],
     );
   }
 }

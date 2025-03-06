@@ -111,7 +111,7 @@ Future<void> updateProfilePicture() async {
 
 
 
-  void printUserData() {
+void printUserData() {
     print("First Name: ${firstNameController.text}");
     print("Last Name: ${lastNameController.text}");
     print("Username: ${usernameController.text}");
