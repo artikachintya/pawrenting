@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/data/repositories/UserRepo.dart';
+import 'package:pawrentingreborn/features/authentication/model/UserModel.dart';
 import 'package:pawrentingreborn/features/community/controller/ThreadController.dart';
 import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/data/repositories/ThreadRepo.dart';
@@ -9,6 +11,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AddThreadController extends GetxController {
   final threadRepo = ThreadRepo.instance;
   final titleController = TextEditingController();
+  final userRepo = UserRepo.instance; // Add this line
+  final _auth = FirebaseAuth.instance; // Add this line
   final detailsController = TextEditingController();
   ThreadController threadController= Get.find();
   String selectedTopic = 'Adoption'; // Topik default
@@ -35,6 +39,7 @@ class AddThreadController extends GetxController {
     String title = titleController.text;
     String details = detailsController.text;
     selectedTopic = topic;
+    UserModel? user = await userRepo.fetchUserByEmail(_auth.currentUser!.email!);
   
 
     // Memastikan input tidak kosong
@@ -52,7 +57,7 @@ class AddThreadController extends GetxController {
       id: FirebaseFirestore.instance.collection('threads').doc().id, // ID otomatis
       senderProfile: senderProfile, // Menggunakan gambar profil yang diambil dari Firestore
       threadImage: 'assets/images/articleBanner2.png', // Menyertakan gambar yang dipilih
-      senderName: '@kejedot_panci', // Gunakan username atau data lain
+      senderName: user!.username, // Gunakan username atau data lain
       title: title,
       details: details,
       createdAt: Timestamp.now().toDate(),

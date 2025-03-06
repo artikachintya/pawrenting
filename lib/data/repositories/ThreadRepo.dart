@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/community/models/thread_comment.dart';
 import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 
 class ThreadRepo extends GetxController {
@@ -42,12 +43,16 @@ class ThreadRepo extends GetxController {
   }
 
   /// Mengupdate thread di Firestore
-  Future<void> updateThread(String threadId, Map<String, dynamic> updatedData) async {
+  Future<void> updateThread(ThreadMessage message) async {
     try {
-      await _db.collection('threads').doc(threadId).update(updatedData);
-      print("Thread berhasil diupdate!");
+      await _db.collection('threads').where('id', isEqualTo: message.id).get().then((snapshot) {
+        for (DocumentSnapshot ds in snapshot.docs) {
+          ds.reference.update(message.toJson());
+        }
+      });
+      print('Product updated successfully');
     } catch (e) {
-      print("Error updating thread: $e");
+      print('Error updating product: $e');
     }
   }
 }

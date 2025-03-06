@@ -47,7 +47,6 @@ class CommentRepo extends GetxController {
     try {
       DocumentReference commentRef = _db.collection('commentThreads').doc(threadId).collection('comments').doc();
       await commentRef.set(comment.toJson());
-      
       print("Komentar berhasil ditambahkan!");
     } catch (e) {
       print("Error menambahkan komentar: $e");

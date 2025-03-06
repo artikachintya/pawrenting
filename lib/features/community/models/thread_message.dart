@@ -14,7 +14,7 @@ class ThreadMessage {
   bool isLiked;
   final String topic;
   int likeCount;
-  final int commentCount;
+  int commentCount;
 
   ThreadMessage({
     required this.id,

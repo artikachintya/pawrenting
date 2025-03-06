@@ -45,7 +45,6 @@ class _threadDetailState extends State<threadDetail> {
 
     bool newIsLiked = !isLiked;
     int newLikeCount = likeCount + (newIsLiked ? 1 : -1);
-    // ThreadComment comment = ThreadComment(id: id, threadId: widget.message.id, userId: userId, userName: userName, userProfile: userProfile, comment: comment, createdAt: createdAt)
     try {
       DocumentReference docRef = FirebaseFirestore.instance.collection('threads').doc(widget.message.id);
 
@@ -53,44 +52,44 @@ class _threadDetailState extends State<threadDetail> {
       DocumentSnapshot docSnapshot = await docRef.get();
 
       if (docSnapshot.exists) {
-        // Update Firestore
-        await docRef.update({
-          'isLiked': newIsLiked,
-          'likeCount': newLikeCount,
+      // Update Firestore
+      await docRef.update({
+        'isLiked': newIsLiked,
+        'likeCount': newLikeCount,
+      });
 
-        });
-
-        // Ensure the UI updates only after a successful Firestore update
-        setState(() {
-          isLiked = newIsLiked;
-          likeCount = newLikeCount;
-          ThreadController threadController = Get.find();
-          threadController.fetchThreads();
-        });
+      // Ensure the UI updates only after a successful Firestore update
+      setState(() {
+        isLiked = newIsLiked;
+        likeCount = newLikeCount;
+        ThreadController threadController = Get.find();
+        threadController.fetchThreads();
+      });
       } else {
-        // Handle document not found scenario
-        print('Document not found. Ensure the document ID is correct.');
-        setState(() {
-          isUpdating = false;
-        });
+      // Handle document not found scenario
+      print('Document not found. Ensure the document ID is correct.');
+      setState(() {
+        isUpdating = false;
+      });
       }
     } catch (e) {
       // Handle Firestore update failure
       print('Error updating Firestore: $e');
       setState(() {
-        isUpdating = false;
+      isUpdating = false;
       });
     } finally {
       setState(() {
-        isUpdating = false;
+      isUpdating = false;
       });
     }
-  }
+    }
 
   @override
   Widget build(BuildContext context) {
     final message = widget.message;
     final CommentController commentController = Get.put(CommentController());
+    final ThreadController threadController = Get.put(ThreadController());
     final TextEditingController commentTextController = TextEditingController();
     final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -284,7 +283,9 @@ class _threadDetailState extends State<threadDetail> {
                     onTap: () {
                       if (commentController.commentController.text.isNotEmpty) {
                         commentController.addComment(widget.message.id);
+                        threadController.updateThread(widget.message.id);
                       }
+
                     },
                     child: Image(image: AssetImage(TImages.sendLogos), width: 30),
                   )

@@ -23,6 +23,15 @@ class ThreadController extends GetxController{
     threadsList.assignAll(threads);
   }
 
+  void updateThread(String threadId) async {
+    final threadIndex =
+        threadsList.indexWhere((thread) => thread.id == threadId);
+    if (threadIndex != -1) {
+      threadsList[threadIndex].commentCount++;
+      await threadRepo.updateThread(threadsList[threadIndex]);
+      threadsList.refresh();
+    }
+  }
 
 
 }
