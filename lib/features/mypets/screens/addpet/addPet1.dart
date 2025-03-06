@@ -38,6 +38,7 @@ class addPet1 extends StatelessWidget {
                  Form(
                   key: formGlobalKey,
                    child: TextFormField(
+                     controller: addPetController.nameController,
                     validator: (value){
                       if(value == null || value.isEmpty){
                         return 'Please enter your pet name';

@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pawrentingreborn/data/repositories/AuthenticationRepo.dart';
 import 'package:pawrentingreborn/data/repositories/CategoryRepo.dart';
+import 'package:pawrentingreborn/data/repositories/PetRepo.dart';
 import 'package:pawrentingreborn/data/repositories/LocationRepo.dart';
 import 'package:pawrentingreborn/data/repositories/OrderRepo.dart';
 import 'package:pawrentingreborn/data/repositories/PetRepo.dart';
 import 'package:pawrentingreborn/data/repositories/ProductRepository.dart';
+import 'package:pawrentingreborn/data/repositories/VoucherRepo.dart';
+import 'package:pawrentingreborn/data/repositories/notifRepo.dart';
 import 'package:pawrentingreborn/data/repositories/ThreadRepo.dart';
 import 'package:pawrentingreborn/data/repositories/articleRepo.dart';
 import 'package:pawrentingreborn/data/services/AuthenticationService.dart';
@@ -59,7 +62,9 @@ void lazyPutRepositories() {
   Get.lazyPut(() => ArticleRepo());
   Get.lazyPut(() => LocationRepo());
   Get.lazyPut(() => OrderRepo());
+  Get.lazyPut(() => NotifRepo());
   Get.lazyPut(() => PetRepo());
+  Get.lazyPut(()=> VoucherRepo());
 }
 
 void lazyPutServices() {
