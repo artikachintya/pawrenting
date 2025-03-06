@@ -9,6 +9,7 @@ import 'package:pawrentingreborn/data/repositories/LocationRepo.dart';
 import 'package:pawrentingreborn/data/repositories/OrderRepo.dart';
 import 'package:pawrentingreborn/data/repositories/PetRepo.dart';
 import 'package:pawrentingreborn/data/repositories/ProductRepository.dart';
+import 'package:pawrentingreborn/data/repositories/VoucherRepo.dart';
 import 'package:pawrentingreborn/data/repositories/notifRepo.dart';
 import 'package:pawrentingreborn/data/services/AuthenticationService.dart';
 import 'package:pawrentingreborn/features/authentication/controllers/SignUpController.dart';
@@ -59,6 +60,7 @@ void lazyPutRepositories() {
   Get.lazyPut(() => OrderRepo());
   Get.lazyPut(() => NotifRepo());
   Get.lazyPut(() => PetRepo());
+  Get.lazyPut(()=> VoucherRepo());
 }
 
 void lazyPutServices() {

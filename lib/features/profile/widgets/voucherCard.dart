@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:pawrentingreborn/features/profile/models/VoucherModel.dart';
 import 'package:pawrentingreborn/features/profile/screens/voucherDetail.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
 
 class VoucherCard extends StatelessWidget {
-
+  final VoucherModel voucher;
   final String expDate; 
   final String imageVoucherPath;
 
   const VoucherCard({
     Key?key, 
     required this.expDate, 
-    required this.imageVoucherPath
+    required this.imageVoucherPath,
+    required this.voucher
   }): super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class VoucherCard extends StatelessWidget {
     return Center(
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => (VoucherDetail())));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => (VoucherDetail(voucher:voucher))));
         },
         child: Container(
           // margin: EdgeInsets.only(top: 25),

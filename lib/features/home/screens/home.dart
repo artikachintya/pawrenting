@@ -10,6 +10,7 @@ import 'package:pawrentingreborn/features/home/controllers/NotifController.dart'
 import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
 import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
+import 'package:pawrentingreborn/features/home/controllers/VoucherController.dart';
 import 'package:pawrentingreborn/features/home/models/productModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Category/ProductCategory.dart';
 import 'package:pawrentingreborn/features/home/screens/Product/ProductDetail.dart';
@@ -55,9 +56,10 @@ class _HomeState extends State<Home> {
     CategoryController categoryController = Get.put(CategoryController());
     PetController petController = Get.find();
     Notifcontroller notifcontroller = Get.put(Notifcontroller());
+    VoucherController vouchercontroller = Get.put(VoucherController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () =>notifcontroller.testAdd() ),
+          onPressed: () =>vouchercontroller.testAdd() ),
       appBar: TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: Color(0xffE7DFF6),
       body: SingleChildScrollView(

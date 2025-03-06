@@ -4,17 +4,21 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/profile/models/VoucherModel.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
+import 'package:pawrentingreborn/utils/constants/size.dart';
 
 class VoucherDetail extends StatelessWidget {
-  const VoucherDetail({super.key});
+  final VoucherModel voucher;
+  const VoucherDetail({super.key, required this.voucher});
   
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+
     return Scaffold(
       appBar: const TAppBar2(
         title: "My Voucher",
@@ -27,7 +31,7 @@ class VoucherDetail extends StatelessWidget {
           child: Container(
             margin: EdgeInsets.only(top: 25),
             width: 352,
-            height: 900,
+            padding: EdgeInsets.symmetric(horizontal: TSize.hPad, vertical: TSize.vPad),
             decoration: BoxDecoration(
               color: TColors.secondary, 
               borderRadius: BorderRadius.circular(20)
@@ -42,7 +46,7 @@ class VoucherDetail extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 15), 
                   child: Text(
-                    "Enjoy Up to 50% Off!", 
+                    voucher.title, 
                     style: TextStyle(
                       fontFamily: "Albert Sans", 
                       fontSize: 24, 
@@ -64,7 +68,7 @@ class VoucherDetail extends StatelessWidget {
                   )
                 ), 
                 Container(
-                  width: 225,
+                  width: 300,
                   height: 44,
                   margin: EdgeInsets.symmetric(vertical: 15),
                   decoration: BoxDecoration(
@@ -77,10 +81,11 @@ class VoucherDetail extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        "S M N G T C U Y", 
+                        voucher.code, 
                         style: TextStyle(
+                          letterSpacing: 4,
                           fontFamily: "Albert Sans", 
-                          fontSize: 24, 
+                          fontSize: 20, 
                           color: TColors.accent,  
                           fontWeight: FontWeight.bold, 
                         ),
@@ -106,9 +111,9 @@ class VoucherDetail extends StatelessWidget {
                   ),
                 ),
                 _buildTermItem("This voucher is valid for registered users of the Pawrenting App only."),
-                _buildTermItem("This voucher is valid with a minimum transaction of IDR 500.000."),
+                _buildTermItem("This voucher is valid with a minimum transaction of ${formatCurrency(voucher.minPurchase)}"),
                 _buildTermItem("This voucher cannot be combined with other promotions, discounts, or offers."),
-                _buildTermItem("This voucher is valid from 02 December 2024 to 02 January 2025."),
+                _buildTermItem("This voucher is valid until "+ voucher.validUntil),
                 _buildTermItem("This voucher is not applicable for delivery fees, taxes, or specific excluded products/services."),
                 _buildTermItem("Each user may use this voucher only once."),
                 _buildTermItem("Pawrenting reserves the right to modify or terminate this promotion at any time without prior notice."),
@@ -119,6 +124,14 @@ class VoucherDetail extends StatelessWidget {
       ),
     );
   }
+  
+  String formatCurrency(int amount) {
+  return 'Rp' + amount.toString().replaceAllMapped(
+    RegExp(r'(\d)(?=(\d{3})+(?!\d))'), 
+    (Match match) => '${match[1]}.'
+  );
+}
+
 
   Widget _buildTermItem(String term) {
     return Padding(
