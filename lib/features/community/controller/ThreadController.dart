@@ -17,10 +17,12 @@ class ThreadController extends GetxController{
   }
 
   Future<void> fetchThreads() async {
+    threadsList.clear();
     // final snapshot = await threadRepo.fetchThread();
     final threads = await threadRepo.fetchThread();
     threadsList.assignAll(threads);
   }
+
 
 
 }

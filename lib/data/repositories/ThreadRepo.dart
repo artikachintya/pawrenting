@@ -40,4 +40,14 @@ class ThreadRepo extends GetxController {
       print("Error creating thread: $e");
     }
   }
+
+  /// Mengupdate thread di Firestore
+  Future<void> updateThread(String threadId, Map<String, dynamic> updatedData) async {
+    try {
+      await _db.collection('threads').doc(threadId).update(updatedData);
+      print("Thread berhasil diupdate!");
+    } catch (e) {
+      print("Error updating thread: $e");
+    }
+  }
 }

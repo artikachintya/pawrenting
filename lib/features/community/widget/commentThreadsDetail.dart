@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:pawrentingreborn/features/community/controller/commentController.dart';
+import 'package:pawrentingreborn/features/community/models/thread_comment.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class CommentThreadDetails extends StatelessWidget {
+  final ThreadComment comment;
+  
   const CommentThreadDetails({
     super.key,
+    required this.comment,
   });
 
   @override
@@ -23,12 +27,12 @@ class CommentThreadDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(children: [
-                Text('@isaurazry_', style: TextStyle(fontFamily: 'alata', fontSize: 16),),
+                Text(comment.userName, style: TextStyle(fontFamily: 'alata', fontSize: 16),),
                 SizedBox(width: 15,),
-                Text('10 d', style: TextStyle(fontFamily: 'alata', fontSize: 12, color: Color(0xff4E4E4E)),)
+                Text(_getTimeDifference(comment.createdAt), style: TextStyle(fontFamily: 'alata', fontSize: 12, color: Color(0xff4E4E4E)),)
               ],),
               
-              Text('Semoga cepat ketemu ya kak :(', style: TextStyle(fontFamily: 'alata', fontSize: 14, color: Color(0xff4e4e4e)),),
+              Text(comment.comment, style: TextStyle(fontFamily: 'alata', fontSize: 14, color: Color(0xff4e4e4e)),),
               
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.start,
@@ -83,5 +87,20 @@ class CommentThreadDetails extends StatelessWidget {
         ),
       ],
     );
+
+        
   }
+
+    String _getTimeDifference(DateTime createdAt) {
+      final difference = DateTime.now().difference(createdAt);
+      if (difference.inDays > 0) {
+        return '${difference.inDays}d';
+      } else if (difference.inHours > 0) {
+        return '${difference.inHours}h';
+      } else if (difference.inMinutes > 0) {
+        return '${difference.inMinutes}m';
+      } else {
+        return 'Just now';
+      }
+      }
 }

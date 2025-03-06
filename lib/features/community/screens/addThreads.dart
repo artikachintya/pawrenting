@@ -100,7 +100,7 @@ class _AddthreadsState extends State<Addthreads> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Topic: $selectedTopic',
+                      'Topic',
                       style: TextStyle(
                         fontFamily: 'albertsans',
                         fontSize: 16,
@@ -112,6 +112,7 @@ class _AddthreadsState extends State<Addthreads> {
                       onTopicSelected: (newValue) {
                         setState(() {
                           selectedTopic = newValue;
+                          //  print("✅ Selected Topic: $selectedTopic"); // Debugging
                         });
                       },
                     ),
@@ -178,7 +179,10 @@ class _AddthreadsState extends State<Addthreads> {
                 ),
               ),
               GestureDetector(
-                      onTap: addThreadController.createThread,
+                      onTap: () {
+                      print('Selected Topic: $selectedTopic');
+                      addThreadController.createThread(selectedTopic);
+                      },
                       child: Container(
                         width: 140,
                         height: 35,

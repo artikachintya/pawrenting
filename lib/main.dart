@@ -4,14 +4,17 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pawrentingreborn/data/repositories/AuthenticationRepo.dart';
 import 'package:pawrentingreborn/data/repositories/CategoryRepo.dart';
+import 'package:pawrentingreborn/data/repositories/CommentRepo.dart';
 import 'package:pawrentingreborn/data/repositories/LocationRepo.dart';
 import 'package:pawrentingreborn/data/repositories/OrderRepo.dart';
 import 'package:pawrentingreborn/data/repositories/PetRepo.dart';
 import 'package:pawrentingreborn/data/repositories/ProductRepository.dart';
 import 'package:pawrentingreborn/data/repositories/ThreadRepo.dart';
+import 'package:pawrentingreborn/data/repositories/UserRepo.dart';
 import 'package:pawrentingreborn/data/repositories/articleRepo.dart';
 import 'package:pawrentingreborn/data/services/AuthenticationService.dart';
 import 'package:pawrentingreborn/features/authentication/controllers/SignUpController.dart';
+import 'package:pawrentingreborn/features/community/controller/commentController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
 import 'package:pawrentingreborn/features/home/controllers/DeliveryController.dart';
@@ -49,6 +52,7 @@ void lazyPutControllers() {
   Get.lazyPut(() => CartController());
   Get.lazyPut(() => OrderController());
   Get.lazyPut(() => AddPetController);
+  Get.lazyPut(() => CommentController());
 }
 
 void lazyPutRepositories() {
@@ -60,6 +64,8 @@ void lazyPutRepositories() {
   Get.lazyPut(() => LocationRepo());
   Get.lazyPut(() => OrderRepo());
   Get.lazyPut(() => PetRepo());
+  Get.lazyPut(() => CommentRepo());
+  Get.lazyPut(() => UserRepo());
 }
 
 void lazyPutServices() {

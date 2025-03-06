@@ -31,9 +31,10 @@ class AddThreadController extends GetxController {
     }
   }
 
-  void createThread() async {
+  void createThread(String topic) async {
     String title = titleController.text;
     String details = detailsController.text;
+    selectedTopic = topic;
   
 
     // Memastikan input tidak kosong
@@ -75,7 +76,7 @@ class AddThreadController extends GetxController {
        threadController.fetchThreads();
        titleController.clear();
        detailsController.clear();
-
+        print("✅ Data baru berhasil dikirim!");
     } catch (e) {
       Get.snackbar('Error', 'Failed to create thread');
     }

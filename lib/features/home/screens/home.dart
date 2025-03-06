@@ -55,7 +55,7 @@ class _HomeState extends State<Home> {
     CategoryController categoryController = Get.put(CategoryController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () => print(orderController.orderList.length)),
+          onPressed: () => print(FirebaseAuth.instance.currentUser!.uid)),
       appBar: TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: Color(0xffE7DFF6),
       body: SingleChildScrollView(

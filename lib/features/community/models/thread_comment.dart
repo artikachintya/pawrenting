@@ -27,7 +27,7 @@ class ThreadComment {
       'userName': userName,
       'userProfile': userProfile,
       'comment': comment,
-      'createdAt': createdAt,
+      'createdAt': Timestamp.fromDate(createdAt),
     };
   }
 
@@ -40,6 +40,20 @@ class ThreadComment {
       userProfile: json['userProfile'],
       comment: json['comment'],
       createdAt: (json['createdAt'] as Timestamp).toDate(),
+    );
+  }
+
+  factory ThreadComment.fromSnapshot(
+    DocumentSnapshot<Map<String, dynamic>> document) {
+    final data = document.data();
+    return ThreadComment(
+      id: data?['id'] ?? document.id,
+      threadId: data?['threadId'] ?? '',
+      userId: data?['userId'] ?? '',
+      userName: data?['userName'] ?? '',
+      userProfile: data?['userProfile'] ?? '',
+      comment: data?['comment'] ?? '',
+      createdAt: (data?['createdAt'] as Timestamp).toDate() ?? DateTime.now(),
     );
   }
 }
