@@ -180,7 +180,9 @@ class _PaymentState extends State<Payment> {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    'Rp${orderController.totalPrice.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                    !widget.buyNow
+                        ? 'Rp${orderController.totalPrice.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}'
+                        : 'Rp${(widget.items.first.quantity.value * widget.items.first.productModel.salePrice + orderController.deliveryPrice.value + 1000).toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -201,7 +203,10 @@ class _PaymentState extends State<Payment> {
                 } else {
                   print(
                       'monyet ${orderController.deliveryController.deliveryList[orderController.deliveryController.selectedIndex.value].name}');
-                  orderController.createOrder();
+
+                  !widget.buyNow
+                      ? orderController.createOrder()
+                      : orderController.createOrderBuyNow(widget.items.first);
                   Get.to(() => AfterPay());
                 }
               },

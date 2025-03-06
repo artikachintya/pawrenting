@@ -20,6 +20,7 @@ class ProductController extends GetxController {
   }
 
   Future<void> fetchProduct() async {
+    productsList.clear();
     final products = await productRepo.getProducts();
     productsList.assignAll(products);
   }
@@ -42,5 +43,15 @@ class ProductController extends GetxController {
         stock: 10);
     await productRepo.createProduct(product);
     productsList.add(product);
+  }
+
+  void updateProductStock(int productId, int newStock) async {
+    final productIndex =
+        productsList.indexWhere((product) => product.id == productId);
+    if (productIndex != -1) {
+      productsList[productIndex].stock = newStock;
+      await productRepo.updateProduct(productsList[productIndex]);
+      productsList.refresh();
+    }
   }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
 import 'package:pawrentingreborn/features/home/models/orderModel.dart';
+import 'package:pawrentingreborn/features/home/screens/Cart/Cart.dart';
 import 'package:pawrentingreborn/features/profile/screens/orderDetail.dart';
 import 'package:pawrentingreborn/features/profile/widgets/productDisplay.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
@@ -19,6 +20,7 @@ class ListOrderPage extends StatelessWidget {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     OrderController orderController = Get.find();
+    print(orderController.orderList.length);
     return Scaffold(
       appBar: TAppBar2(
         title: "My Order",
@@ -30,16 +32,83 @@ class ListOrderPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: ListView.separated(
-                physics: NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) => SizedBox(
-                      height: 10,
+            child: orderController.orderList.length != 0
+                ? ListView.separated(
+                    physics: NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: 10,
+                        ),
+                    shrinkWrap: true,
+                    itemCount: orderController.orderList.length,
+                    itemBuilder: (context, index) {
+                      // return Container(
+                      //   height: 10,
+                      //   width: 10,
+                      //   color: Colors.red,
+                      // );
+                      return OrderCard(order: orderController.orderList[index]);
+                    })
+                : ShopNow()),
+      ),
+    );
+  }
+}
+
+class ShopNow extends StatelessWidget {
+  const ShopNow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height - 150, // Ensures full height
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // Center vertically
+          children: [
+            Container(
+              height: 125,
+              width: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                color: TColors.gray,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  Text(
+                    'You don\'t have any order!',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      NavigationController navigationController = Get.find();
+                      navigationController.selectedIndex.value = 0;
+                      Get.to(NavigationMenu());
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          color: TColors.accent,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Text(
+                          'Shop Now',
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: 'Alata'),
+                        ),
+                      ),
                     ),
-                shrinkWrap: true,
-                itemCount: orderController.orderList.length,
-                itemBuilder: (context, index) {
-                  return OrderCard(order: orderController.orderList[index]);
-                })),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -131,8 +200,12 @@ class OrderCard extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => OrderDetail(order: order,)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OrderDetail(
+                              order: order,
+                            )));
               },
               child: Container(
                   width: 80,
