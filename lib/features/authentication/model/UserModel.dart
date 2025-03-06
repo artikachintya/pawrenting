@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
+import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class UserModel {
   final String firstName;
@@ -10,6 +11,7 @@ class UserModel {
   final String password;
   final String username;
   final List<LocationModel> locations;
+  final String profilePic;
 
   UserModel({
     required this.dob,
@@ -20,6 +22,7 @@ class UserModel {
     required this.phoneNum,
     required this.username,
     this.locations = const [],
+    this.profilePic = TImages.profilePicDefault,
   });
 
   Map<String, dynamic> toJson() {
@@ -32,6 +35,7 @@ class UserModel {
       'password': password,
       'username': username,
       'locations': locations.map((e) => e.toJson()).toList(),
+      'profilePic': profilePic,
     };
   }
 
@@ -47,6 +51,8 @@ class UserModel {
         dob: '',
         password: '',
         username: '',
+        locations: [],
+        profilePic: TImages.profilePicDefault,
       );
     }
     return UserModel(
@@ -60,6 +66,7 @@ class UserModel {
       locations: (data['locations'] as List<dynamic>? ?? [])
           .map((e) => LocationModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      profilePic: data['profilePic'] ?? TImages.profilePicDefault,
     );
   }
 }

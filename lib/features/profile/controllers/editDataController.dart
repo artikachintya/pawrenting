@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pawrentingreborn/data/repositories/UserRepo.dart';
 import 'package:pawrentingreborn/features/authentication/model/UserModel.dart';
 
@@ -14,11 +19,14 @@ class EditDataController extends GetxController {
 
   final _userRepo = Get.put(UserRepo());
 
+  String? profilePic;
+
   @override
   void onInit() {
     super.onInit();
     fetchUserData(); // Automatically fetch user data when controller is initialized
   }
+
 
   Future<void> fetchUserData() async {
     try {
@@ -30,6 +38,7 @@ class EditDataController extends GetxController {
         dobController.text = user.dob;
         phonenumController.text = user.phoneNum;
         emailController.text = user.email; 
+        profilePic = user.profilePic;
         update(); // Update UI after setting values
       } else {
         print("User not found");
@@ -79,7 +88,26 @@ class EditDataController extends GetxController {
   }
 }
 
+Future<void> updateProfilePicture() async {
+    try {
+      final ImagePicker _imagePicker = ImagePicker();
+      XFile? profilePic = await _imagePicker.pickImage(source: ImageSource.gallery);
+      if (profilePic != null) {
+        Uint8List imageBytes = await profilePic.readAsBytes();
+        String encodedProfilePic = base64Encode(imageBytes); // Convert image to Base64
 
+        String userId = FirebaseAuth.instance.currentUser!.uid;
+        await FirebaseFirestore.instance.collection('users').doc(userId).update({
+          'profilePic': encodedProfilePic,
+        });
+
+        update(); // Refresh UI
+        Get.snackbar("Success", "Profile picture updated!", snackPosition: SnackPosition.BOTTOM);
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Failed to update profile picture: $e", snackPosition: SnackPosition.BOTTOM);
+    }
+}
 
 
 
