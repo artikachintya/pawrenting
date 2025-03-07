@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:pawrentingreborn/features/mypets/models/ActivityModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petActivity/activityCard.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petFoods/foodCard.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/vaccineList.dart';
 
 class ActivitySection extends StatelessWidget {
+  final List<ActivityModel> activities;
   const ActivitySection({
     super.key,
+    required this.activities,
   });
 
   @override
   Widget build(BuildContext context) {
     return 
           GridView.builder(
-          itemCount: 4,
+          itemCount: activities.length,
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -20,7 +23,7 @@ class ActivitySection extends StatelessWidget {
           mainAxisSpacing: 10,
           mainAxisExtent: 90
           ),
-          itemBuilder: (_, index) => ActivityCard(name: 'Monthly Grooming', time: '07 February 2025', location: 'BCA Learning Institute',)
+          itemBuilder: (_, index) => ActivityCard(activity: activities[index],)
         );
   }
 }

@@ -25,10 +25,10 @@ import 'package:pawrentingreborn/features/home/controllers/LocationController.da
 import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
 import 'package:pawrentingreborn/features/home/controllers/PaymentController.dart';
 import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/AddPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petActivity/petActivityController.dart';
 import 'package:pawrentingreborn/firebase_options.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'app.dart';
@@ -46,7 +46,6 @@ void lazyPutControllers() {
   Get.lazyPut(() => PetController());
   Get.lazyPut(() => NavigationController());
   Get.lazyPut(() => SignUpController());
-  Get.lazyPut(() => PetActivityController());
   Get.lazyPut(() => ProductController());
   Get.lazyPut(() => CategoryController());
   Get.lazyPut(() => LocationController());
@@ -56,6 +55,7 @@ void lazyPutControllers() {
   Get.lazyPut(() => OrderController());
   Get.lazyPut(() => AddPetController);
   Get.lazyPut(() => CommentController());
+  Get.lazyPut(() => ActivityController());
 }
 
 void lazyPutRepositories() {

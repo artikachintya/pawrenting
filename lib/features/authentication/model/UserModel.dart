@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pawrentingreborn/features/mypets/models/petModel.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
 
 class UserModel {
