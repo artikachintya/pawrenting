@@ -41,9 +41,10 @@ class VoucherController extends GetxController {
       image: 'assets/images/voucher.png',
       validUntil: '11 March 2025',
       code: 'JAJANMAKAN',
-      discount: 100000,
+      maxDiscount: 100000,
       minPurchase: 200000,
       title: 'Enjoy Up to 40% Off!',
+      percentage: 40,
     );
     await voucherRepo.createVoucher(voucher);
     voucherList.add(voucher);

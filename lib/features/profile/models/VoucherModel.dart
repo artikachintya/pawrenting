@@ -4,17 +4,19 @@ class VoucherModel {
   final String image;
   final String code;
   final String title;
-  final int discount;
+  final int maxDiscount;
   final String validUntil; 
   final int minPurchase;
+  final int percentage;
 
   VoucherModel({
     required this.image,
     required this.code, 
     required this.title, 
-    required this.discount, 
+    required this.maxDiscount, 
     required this.validUntil, 
     required this.minPurchase,
+    required this.percentage,
   });
 
   toJson() {
@@ -22,9 +24,10 @@ class VoucherModel {
       'image':image,
       'code': code, 
       'title': title, 
-      'discount': discount, 
+      'maxDiscount': maxDiscount, 
       'validUntil': validUntil, 
       'minPurchase': minPurchase,
+      'percentage': percentage,
     };
   }
 
@@ -33,9 +36,10 @@ class VoucherModel {
       image : json['image'],
       code: json['code'], 
       title: json['title'], 
-      discount: json['discount'], 
+      maxDiscount: json['discount'], 
       validUntil: json['validUntil'], 
       minPurchase: json['minPurchase'],
+      percentage: json['percentage'],
     );
   }
   
@@ -45,9 +49,10 @@ class VoucherModel {
       image: data?['image'] ?? '',
       code: data?['code'] ?? '',
       title: data?['title'] ?? '',
-      discount: data?['discount'] ?? 0,
+      maxDiscount: data?['maxDiscount'] ?? 0,
       validUntil: data?['validUntil'] ?? '',
       minPurchase: data?['minPurchase'] ?? 0,
+      percentage: data?['percentage'] ?? 0,
     );
   }
 
