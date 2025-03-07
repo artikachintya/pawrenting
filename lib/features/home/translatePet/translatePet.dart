@@ -1,204 +1,307 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/navigationMenu.dart';
+import 'package:shimmer/shimmer.dart';
 
-class TranslatePetPage extends StatefulWidget {
+class TranslatePet extends StatefulWidget {
   @override
-  _TranslatePetPageState createState() => _TranslatePetPageState();
+  _TranslatePetState createState() => _TranslatePetState();
 }
 
-class _TranslatePetPageState extends State<TranslatePetPage> {
+class _TranslatePetState extends State<TranslatePet> {
   File? _image;
-  bool _isLoading = false;
   File? _resultImage;
+  bool _isLoading = false;
   String? _errorMessage;
+  List<Map<String, dynamic>> _detectedResults = [];
+
+  final String _apiUrl = 'https://sonwt34-pawrenting-ml.hf.space/predict/';
 
   Future<void> _pickImage(ImageSource source) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
-    if (pickedFile == null) return;
+    if (_isLoading) return;
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source);
 
-    setState(() {
-      _image = File(pickedFile.path);
-      _errorMessage = null;
-    });
-    await _uploadImage();
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+        _resultImage = null;
+        _errorMessage = null;
+        _detectedResults.clear();
+      });
+      _uploadImage();
+    }
   }
 
   Future<void> _uploadImage() async {
-  if (_image == null) return;
+    if (_image == null) return;
 
-  setState(() {
-    _isLoading = true;
-    _errorMessage = null;
-  });
-
-  try {
-    var response = await _sendRequest('https://sonwt34-pawrenting-ml.hf.space/predict');
-
-    if (response == null) {
-      setState(() {
-        _errorMessage = "Failed to process the image.";
-      });
-    }
-  } catch (e) {
     setState(() {
-      _errorMessage = "Upload error: $e";
+      _isLoading = true;
+      _errorMessage = null;
+      _detectedResults.clear();
     });
-  }
 
-  setState(() {
-    _isLoading = false;
-  });
-}
-
-Future<http.StreamedResponse?> _sendRequest(String url) async {
-  try {
-    var request = http.MultipartRequest('POST', Uri.parse(url));
-    request.files.add(
-      await http.MultipartFile.fromPath(
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(_apiUrl));
+      request.files.add(await http.MultipartFile.fromPath(
         'file',
         _image!.path,
-        contentType: MediaType('image', 'jpeg'),
-      ),
-    );
+        contentType:
+            MediaType.parse(lookupMimeType(_image!.path) ?? 'image/jpeg'),
+      ));
 
-    var response = await request.send();
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
 
-    print("Response status: ${response.statusCode}");
-    print("Response headers: ${response.headers}");
-
-    if (response.statusCode == 200) {
-      var responseBody = await response.stream.toBytes();
-      final directory = await getTemporaryDirectory();
-      final filePath = '${directory.path}/result.png';
-      final file = File(filePath);
-      await file.writeAsBytes(responseBody);
-
-      setState(() {
-        _resultImage = file;
-      });
-      return response;
-    } else if (response.statusCode == 307) {
-      final newUrl = response.headers['location'];
-      if (newUrl != null) {
-        print("Redirecting to: $newUrl");
-        return await _sendRequest(newUrl);
-      } else {
-        setState(() {
-          _errorMessage = "Redirect detected but no new location found.";
-        });
-      }
-    } else {
-      setState(() {
-        _errorMessage = "Failed to process the image: ${response.statusCode}";
-      });
-    }
-  } catch (e) {
-    setState(() {
-      _errorMessage = "Request error: $e";
-    });
-  }
-  return null;
-}
-
-  Future<void> _handleRedirect(String newUrl) async {
-    try {
-      var request = http.MultipartRequest('POST', Uri.parse(newUrl));
-      request.files.add(
-        await http.MultipartFile.fromPath(
-          'file',
-          _image!.path,
-          contentType: MediaType('image', 'jpeg'),
-        ),
-      );
-      var response = await request.send();
-      var responseBody = await response.stream.toBytes();
+      print("Response Headers: ${response.headers}");
 
       if (response.statusCode == 200) {
-        final directory = await getTemporaryDirectory();
-        final filePath = '\${directory.path}/result.png';
-        final file = File(filePath);
-        await file.writeAsBytes(responseBody);
+        String? contentType = response.headers['content-type'];
 
-        setState(() {
-          _resultImage = file;
-        });
+        if (contentType != null && contentType.contains('image')) {
+          Uint8List imageBytes = response.bodyBytes;
+          File tempFile =
+              File('${(await getTemporaryDirectory()).path}/result.png');
+          await tempFile.writeAsBytes(imageBytes);
+
+          // ✅ Ambil JSON dari "x-detected-results"
+          var detectedResultsHeader = response.headers['x-detected-results'];
+          if (detectedResultsHeader != null &&
+              detectedResultsHeader.isNotEmpty) {
+            print("Raw Detected Results Header: $detectedResultsHeader");
+            try {
+              // 🔄 Perbaiki format JSON sebelum decoding
+              String fixedJson = fixJsonString(detectedResultsHeader);
+              List<dynamic> detectedResults = jsonDecode(fixedJson);
+
+              setState(() {
+                _detectedResults = detectedResults.map((item) {
+                  return {
+                    "animal": item["animal"],
+                    "emotion": item["emotion"],
+                    "emotion_confidence":
+                        (item["emotion_confidence"] as num).toDouble()
+                  };
+                }).toList();
+              });
+
+              print("Parsed Detected Results: $_detectedResults");
+            } catch (e) {
+              print("❌ Error parsing x-detected-results: $e");
+              setState(() {
+                _errorMessage = "Gagal membaca hasil deteksi.";
+              });
+            }
+          } else {
+            setState(() {
+              _errorMessage = "⚠️ Tidak ada hasil deteksi yang diterima.";
+            });
+          }
+
+          setState(() {
+            _resultImage = tempFile;
+          });
+        } else {
+          throw Exception("Unknown response format!");
+        }
       } else {
-        setState(() {
-          _errorMessage = "Failed after redirect. Status: \${response.statusCode}";
-        });
+        throw Exception(
+            "Gagal memproses gambar. Status: ${response.statusCode}");
       }
     } catch (e) {
       setState(() {
-        _errorMessage = "Redirect error: \$e";
+        _errorMessage = "Error: $e";
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
       });
     }
   }
 
-  @override
+  /// ✅ Fungsi untuk memperbaiki format JSON yang mungkin memiliki kutip tunggal
+  String fixJsonString(String jsonString) {
+    return jsonString
+        .replaceAll("'", "\"") // Mengubah kutip tunggal ke kutip ganda
+        .replaceAll("None", "null"); // Jika ada None, ubah ke null
+  }
+
+  Widget _buildLoading() {
+    return Column(
+      children: [
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.white,
+          child: Container(
+            height: 200,
+            width: double.infinity,
+            color: Colors.grey[300],
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text("Memproses gambar...",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      ],
+    );
+  }
+
+  Widget _buildDetectionResults() {
+    if (_detectedResults.isEmpty) {
+      return Text("⚠️ Tidak ada hasil deteksi!",
+          style: TextStyle(color: Colors.red));
+    }
+
+    return Column(
+      children: _detectedResults.map((result) {
+        return Card(
+          margin: EdgeInsets.symmetric(vertical: 5),
+          child: ListTile(
+            title: Text("Hewan: ${result['animal'] ?? 'Unknown'}"),
+            subtitle: Text(
+              "Emosi: ${result['emotion'] ?? 'Unknown'} "
+              "(Confidence: ${(result['emotion_confidence'] ?? 0) * 100}%)",
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+   @override
   Widget build(BuildContext context) {
+    NavBarController controller = Get.find();
+    NavigationController navcontroller = Get.find();
+    
     return Scaffold(
-      appBar: AppBar(title: Text('Translate Pet')),
-      body: Center(
-        child: _isLoading
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 20),
-                  Text('Processing... Please wait.')
-                ],
-              )
-            : _resultImage != null
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.file(_resultImage!),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _image = null;
-                            _resultImage = null;
-                          });
-                        },
-                        child: Text('Try Again'),
-                      ),
-                      SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _image = null;
-                            _resultImage = null;
-                          });
-                          Navigator.pop(context);
-                        },
-                        child: Text('Back to Home'),
-                      ),
-                    ],
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (_errorMessage != null) ...[
-                        Text(_errorMessage!, style: TextStyle(color: Colors.red)),
-                        SizedBox(height: 10),
+      appBar: TAppBar2(
+          title: 'Translate Pet', subtitle: 'Detect your pet\'s emotion'),
+      bottomNavigationBar: InsideNavBar(
+        controller: controller,
+        navcontroller: navcontroller,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            
+            // Button Container
+            Card(
+              elevation: 6,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              color: Colors.blue.shade50,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Text("Pilih Gambar", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () => _pickImage(ImageSource.gallery),
+                          icon: Icon(Icons.image, color: Colors.white),
+                          label: Text("Dari Galeri"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueAccent,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          ),
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () => _pickImage(ImageSource.camera),
+                          icon: Icon(Icons.camera_alt, color: Colors.white),
+                          label: Text("Ambil Foto"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueAccent,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          ),
+                        ),
                       ],
-                      ElevatedButton(
-                        onPressed: () => _pickImage(ImageSource.gallery),
-                        child: Text('Pick from Gallery'),
-                      ),
-                      SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () => _pickImage(ImageSource.camera),
-                        child: Text('Take a Photo'),
-                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            
+            const SizedBox(height: 20),
+            
+            // Image Preview
+            if (_image != null)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
+                      )
                     ],
                   ),
+                  child: Image.file(_image!, height: 250, width: double.infinity, fit: BoxFit.cover),
+                ),
+              )
+            
+            if (_isLoading) ...[
+              const SizedBox(height: 20),
+              Column(
+                children: [
+                  CircularProgressIndicator(color: Colors.blueAccent),
+                  const SizedBox(height: 10),
+                  Text("Sedang memproses...", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.blueAccent)),
+                ],
+              ),
+            ],
+            
+            const SizedBox(height: 20),
+            
+            // Result Image
+            if (_resultImage != null)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
+                      )
+                    ],
+                  ),
+                  child: Image.file(_resultImage!, height: 250, width: double.infinity, fit: BoxFit.cover),
+                ),
+              ),
+            
+            _buildDetectionResults(), // ✅ Hasil deteksi
+            
+            if (_errorMessage != null)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(_errorMessage!,
+                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 16)),
+              ),
+          ],
+        ),
       ),
     );
   }
+
 }
