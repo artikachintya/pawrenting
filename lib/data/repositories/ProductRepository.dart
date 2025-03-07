@@ -21,4 +21,17 @@ class ProductRepo extends GetxController {
       return ProductModel.fromSnapshot(e);
     }).toList();
   }
+
+  Future<void> updateProduct(ProductModel product) async {
+    try {
+      await _db.collection('Products').where('id', isEqualTo: product.id).get().then((snapshot) {
+        for (DocumentSnapshot ds in snapshot.docs) {
+          ds.reference.update(product.toJson());
+        }
+      });
+      print('Product updated successfully');
+    } catch (e) {
+      print('Error updating product: $e');
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
 
 class UserModel {
@@ -10,8 +11,10 @@ class UserModel {
   final String password;
   final String username;
   final List<LocationModel> locations;
+  final List<PetModel> pets;
 
   UserModel({
+    required this.pets, 
     required this.dob,
     required this.email,
     required this.firstName,
@@ -47,6 +50,8 @@ class UserModel {
         dob: '',
         password: '',
         username: '',
+        locations: [],
+        pets: [],
       );
     }
     return UserModel(
@@ -60,6 +65,7 @@ class UserModel {
       locations: (data['locations'] as List<dynamic>? ?? [])
           .map((e) => LocationModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      pets: [],
     );
   }
 }

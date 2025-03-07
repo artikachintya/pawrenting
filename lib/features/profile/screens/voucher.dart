@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/home/controllers/VoucherController.dart';
+import 'package:pawrentingreborn/features/profile/models/VoucherModel.dart';
 import 'package:pawrentingreborn/features/profile/widgets/profilePictandUsername.dart';
 import 'package:pawrentingreborn/features/profile/widgets/voucherCard.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
@@ -12,14 +14,15 @@ import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.da
 
 class Voucher extends StatelessWidget {
   const Voucher({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     TextEditingController searchController = TextEditingController();
+    final voucherController = Get.put(VoucherController());
     final _formKey = GlobalKey<FormState>();
-
     return Scaffold(
       appBar: const TAppBar2(
         title: "My Voucher",
@@ -30,6 +33,7 @@ class Voucher extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            
             // Search bar with validation
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -53,42 +57,33 @@ class Voucher extends StatelessWidget {
                     }
                     // Add your validation logic here
                     // For example, check if the voucher code exists in your database
-                    if (!isValidVoucherCode(value)) {
-                      return 'Invalid voucher code';
-                    }
-                    return null;
+                    // voucherController.filterVouchers(value);
                   },
                 ),
               ),
             ),
             // Voucher card section
-            GridView.builder(
-              itemCount: 4,
+            ListView.builder(
+              itemCount: voucherController.voucherList.length,
               shrinkWrap: true,
-              // padding: const EdgeInsets.all(20),
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1, 
-                mainAxisSpacing: 0, // Space between row
-                mainAxisExtent: 180 
-              ),
-              itemBuilder: (BuildContext context, int index) {  
+              // physics: const NeverScrollableScrollPhysics(),
+              // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //   crossAxisCount: 1, 
+              //   mainAxisSpacing: 0, // Space between row
+              //   mainAxisExtent: 180 
+              // ),
+              itemBuilder: (context, index) {  
+                VoucherModel voucher = voucherController.voucherList[index];
                 return VoucherCard(
-                  expDate: "02 January 2025", 
-                  imageVoucherPath: TImages.voucher
+                  imageVoucherPath: voucher.image,
+                  expDate: voucher.validUntil,
+                  voucher: voucher, 
                 );
               },
             ),
-          ],
+          ], 
         ),
       ),
     );
-  }
-
-  bool isValidVoucherCode(String code) {
-    // Replace this with your actual validation logic
-    // For example, check if the code exists in your database
-    List<String> validCodes = ['VOUCHER123', 'DISCOUNT2025', 'SAVE10'];
-    return validCodes.contains(code);
   }
 }

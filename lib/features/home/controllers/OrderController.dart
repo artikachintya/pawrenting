@@ -8,6 +8,7 @@ import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/DeliveryController.dart';
 import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/home/controllers/PaymentController.dart';
+import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
 import 'package:pawrentingreborn/features/home/models/cartItemModel.dart';
 import 'package:pawrentingreborn/features/home/models/orderModel.dart';
 
@@ -16,6 +17,7 @@ class OrderController extends GetxController {
   CartController cartController = Get.find();
   DeliveryController deliveryController = Get.find();
   PaymentController paymentController = Get.find();
+  ProductController productController = Get.find();
   LocationController locationController = Get.find();
   final orderRepo = OrderRepo.instance;
   final _auth = FirebaseAuth.instance;
@@ -23,7 +25,6 @@ class OrderController extends GetxController {
   final String payment = '';
   RxDouble deliveryPrice = 0.0.obs;
   RxDouble totalPrice = 0.0.obs;
-  
 
   @override
   void onInit() {
@@ -79,6 +80,9 @@ class OrderController extends GetxController {
     print(order.delivery.name);
     await orderRepo.createOrder(order);
     cartController.removeCheckedItems();
+    productController.updateProductStock(
+        item.productModel.id, item.productModel.stock - item.quantity.value);
+    productController.fetchProduct();
     fetchOrderById();
   }
 
@@ -108,7 +112,11 @@ class OrderController extends GetxController {
     );
     print(order.delivery.name);
     await orderRepo.createOrder(order);
-    cartController.removeCheckedItems();
+    for (var item in items) {
+      productController.updateProductStock(
+          item.productModel.id, item.productModel.stock - item.quantity.value);
+    }
+    productController.fetchProduct();
     fetchOrderById();
   }
 

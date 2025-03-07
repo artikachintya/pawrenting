@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petlist/widgets/cardBody2.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petlist/widgets/cardBodyTop.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petlist/widgets/cardHeader.dart';
@@ -6,31 +11,33 @@ import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class PetCard extends StatelessWidget {
-  const PetCard({super.key,
-    required this.isCat,
-    required this.imgstr,
-  });
+  final PetModel pet;
+  const PetCard({super.key, required this.pet});
 
-  final isCat;
-  final String imgstr;
-  
   @override
   Widget build(BuildContext context) {
+    Uint8List? imageBytes;
+    try {
+      imageBytes = base64Decode(pet.image);
+    } catch (e) {
+      debugPrint("Error decoding image: $e");
+    }
+
     return SizedBox(
       height: 195,
       width: 360,
       child: Stack(
         children: [
           const Image(image: AssetImage(TImages.petCard)),
-          cardHeader(isCat: isCat),
+          cardHeader(isCat: pet.type.toLowerCase() == 'cat'),
           Positioned(
             top: 55,
             child: SizedBox(
-              // color: Colors.red.withAlpha(100),
               height: 126,
               width: 370,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,29 +47,42 @@ class PetCard extends StatelessWidget {
                       child: SizedBox(
                         height: 100,
                         width: 75,
-                        child: Image(image: AssetImage(imgstr), fit: BoxFit.fill,),
+                        child: imageBytes != null
+                            ? Image.memory(imageBytes, fit: BoxFit.fill)
+                            : const Icon(Icons.image_not_supported),
                       ),
                     ),
-
-                    const SizedBox(
+                    SizedBox(
                       height: 100,
                       width: 250,
-                      // color: Colors.red.withAlpha(100),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          cardBodyTop(name: 'Whiskey', breed: 'European Shorthair', age: '15 y.o'),
-                          CardBody2(field1: 'DoB', field2: 'Weight', val1: '04-01-2009', val2: '3 kg',),
-                          CardBody2(field1: 'Gender', field2: 'Height', val1: 'Female', val2: '15 cm',),
+                          cardBodyTop(
+                              name: pet.name,
+                              breed: pet.breed,
+                              age: '${pet.age} y.o'),
+                          CardBody2(
+                            field1: 'DoB',
+                            field2: 'Weight',
+                            val1: DateFormat('dd/MM/yyyy').format(pet.dob),
+                            val2: '${pet.weight} kg',
+                          ),
+                          CardBody2(
+                            field1: 'Gender',
+                            field2: 'Height',
+                            val1: pet.gender,
+                            val2: '${pet.weight} cm',
+                          ),
                         ],
                       ),
                     )
                   ],
                 ),
               ),
-           )
-          )
+            ),
+          ),
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/data/repositories/LocationRepo.dart';
+import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
 
 class AddLocationController extends GetxController {
@@ -42,7 +43,7 @@ class AddLocationController extends GetxController {
       // ✅ Save location to Firestore
       try {
         LocationRepo locationRepo = LocationRepo();
-        await locationRepo.addLocation(userEmail, newLocation);
+        await locationRepo.addLocation(newLocation);
         Get.snackbar("Success", "Location added successfully!",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.green,
@@ -64,6 +65,8 @@ class AddLocationController extends GetxController {
         colorText: Colors.white,
       );
     }
+    LocationController locationController = Get.find();
+    await locationController.fetchLocations();
   }
 
   void clearForm() {

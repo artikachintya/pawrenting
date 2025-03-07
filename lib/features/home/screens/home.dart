@@ -1,18 +1,24 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
+import 'package:pawrentingreborn/features/community/controller/ThreadController.dart';
+import 'package:pawrentingreborn/features/community/widget/ThreadCard.dart';
 import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
+import 'package:pawrentingreborn/features/home/controllers/NotifController.dart';
 import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
 import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
+import 'package:pawrentingreborn/features/home/controllers/VoucherController.dart';
 import 'package:pawrentingreborn/features/home/models/productModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Category/ProductCategory.dart';
 import 'package:pawrentingreborn/features/home/screens/Product/ProductDetail.dart';
 import 'package:pawrentingreborn/features/home/models/categoryModel.dart';
-import 'package:pawrentingreborn/features/mypets/screens/addpet/classes/catBreeds.dart';
+import 'package:pawrentingreborn/features/mypets/screens/addpet/classes/breeds.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
@@ -50,9 +56,12 @@ class _HomeState extends State<Home> {
     NavigationController navcontroller = Get.find();
     String? selectedBreed = catBreeds.first;
     CategoryController categoryController = Get.put(CategoryController());
+    PetController petController = Get.find();
+    Notifcontroller notifcontroller = Get.put(Notifcontroller());
+    VoucherController vouchercontroller = Get.put(VoucherController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () => print(orderController.orderList.length)),
+          onPressed: () =>vouchercontroller.testAdd() ),
       appBar: TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: Color(0xffE7DFF6),
       body: SingleChildScrollView(

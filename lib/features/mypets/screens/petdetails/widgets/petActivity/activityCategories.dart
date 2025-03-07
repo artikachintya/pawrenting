@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petActivity/petActivityController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petActivity/activityCategory.dart';
 
 class ActivityCategories extends StatelessWidget {
@@ -14,30 +14,30 @@ class ActivityCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PetActivityController controller = Get.find();
+    ActivityController activityController = Get.find();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
           child: ActivityCategory(
-            category: "Grooming",
+            category: "All",
             selected: category == 0? true : false,
           ),
-          onTap: () => controller.selectCategory(0),
+          onTap: () => activityController.selectCategory(0),
+        ),
+        GestureDetector(
+          child: ActivityCategory(
+            category: 'Grooming',
+            selected: category == 1? true : false,
+          ),
+          onTap: () => activityController.selectCategory(1),
         ),
         GestureDetector(
           child: ActivityCategory(
             category: 'Exercise',
-            selected: category == 1? true : false,
-          ),
-          onTap: () => controller.selectCategory(1),
-        ),
-        GestureDetector(
-          child: ActivityCategory(
-            category: 'Other',
             selected: category == 2? true : false,
           ),
-          onTap: () => controller.selectCategory(2),
+          onTap: () => activityController.selectCategory(2),
         ),
       ],
     );

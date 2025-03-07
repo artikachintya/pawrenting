@@ -40,22 +40,6 @@ class OrderModel {
     };
   }
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) {
-    return OrderModel(
-      id: json['id'] ?? '',
-      uid: json['uid'] ?? '',
-      items: (json['items'] as List<dynamic>)
-          .map((item) => CartItemModel.fromJson(item))
-          .toList(),
-      date: DateTime.parse(json['date'] ?? DateTime.now().toIso8601String()),
-      status: json['status'] ?? '',
-      totalPrice: (json['totalPrice'] ?? 0.0).toDouble(),
-      payment: json['payment'] ?? '',
-      delivery: DeliveryModel.fromJson(json['delivery'] ?? {}),
-      location: LocationModel.fromJson(json['location'] ?? {}),
-    );
-  }
-
 factory OrderModel.fromSnapshot(
     DocumentSnapshot<Map<String, dynamic>> document) {
   final data = document.data();
