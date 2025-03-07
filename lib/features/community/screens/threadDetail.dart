@@ -64,6 +64,7 @@ class _threadDetailState extends State<threadDetail> {
         likeCount = newLikeCount;
         ThreadController threadController = Get.find();
         threadController.fetchThreads();
+        
       });
       } else {
       // Handle document not found scenario
@@ -123,8 +124,9 @@ class _threadDetailState extends State<threadDetail> {
                     ],
                   ),
                   Container(
-                    width: 73,
-                    height: 18,
+                    // width: 73,
+                    height: 20,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: Color(0xff8B68CC).withOpacity(0.4),
