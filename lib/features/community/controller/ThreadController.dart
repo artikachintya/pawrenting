@@ -17,9 +17,20 @@ class ThreadController extends GetxController{
   }
 
   Future<void> fetchThreads() async {
+    threadsList.clear();
     // final snapshot = await threadRepo.fetchThread();
     final threads = await threadRepo.fetchThread();
     threadsList.assignAll(threads);
+  }
+
+  void updateThread(String threadId) async {
+    final threadIndex =
+        threadsList.indexWhere((thread) => thread.id == threadId);
+    if (threadIndex != -1) {
+      threadsList[threadIndex].commentCount++;
+      await threadRepo.updateThread(threadsList[threadIndex]);
+      threadsList.refresh();
+    }
   }
 
 

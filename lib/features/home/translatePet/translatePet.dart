@@ -12,6 +12,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
+import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TranslatePet extends StatefulWidget {
@@ -158,10 +159,14 @@ class _TranslatePetState extends State<TranslatePet> {
   }
 
   Widget _buildDetectionResults() {
-    if (_detectedResults.isEmpty) {
+    // Tampilkan pesan hanya jika gambar sudah diproses dan hasilnya kosong
+    if (_image != null && !_isLoading && _detectedResults.isEmpty) {
       return Text("⚠️ Tidak ada hasil deteksi!",
           style: TextStyle(color: Colors.red));
     }
+
+    if (_detectedResults.isEmpty)
+      return SizedBox(); // Jangan tampilkan apa pun sebelum deteksi
 
     return Column(
       children: _detectedResults.map((result) {
@@ -172,6 +177,7 @@ class _TranslatePetState extends State<TranslatePet> {
             subtitle: Text(
               "Emosi: ${result['emotion'] ?? 'Unknown'} "
               "(Confidence: ${(result['emotion_confidence'] ?? 0) * 100}%)",
+              style: TextStyle(fontFamily: 'AlbertSans', fontSize: 16),
             ),
           ),
         );
@@ -179,129 +185,169 @@ class _TranslatePetState extends State<TranslatePet> {
     );
   }
 
-   @override
+  void _resetPage() {
+    setState(() {
+      _image = null;
+      _resultImage = null;
+      _isLoading = false;
+      _errorMessage = null;
+      _detectedResults.clear();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
-    
+
     return Scaffold(
-      appBar: TAppBar2(
-          title: 'Translate Pet', subtitle: 'Detect your pet\'s emotion'),
-      bottomNavigationBar: InsideNavBar(
-        controller: controller,
-        navcontroller: navcontroller,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 20),
-            
-            // Button Container
-            Card(
-              elevation: 6,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              color: Colors.blue.shade50,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Text("Pilih Gambar", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
-                    const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton.icon(
-                          onPressed: () => _pickImage(ImageSource.gallery),
-                          icon: Icon(Icons.image, color: Colors.white),
-                          label: Text("Dari Galeri"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          ),
-                        ),
-                        ElevatedButton.icon(
-                          onPressed: () => _pickImage(ImageSource.camera),
-                          icon: Icon(Icons.camera_alt, color: Colors.white),
-                          label: Text("Ambil Foto"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          ),
-                        ),
-                      ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                "assets/login/wallpaper-login.png"), // Replace with your wallpaper path
+            fit: BoxFit.cover, // Ensures the image covers the entire screen
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor:
+              Colors.transparent, // Make scaffold transparent to show wallpaper
+          appBar: TAppBar2(
+              title: 'Translate Pet', subtitle: 'Detect your pet\'s emotion'),
+          bottomNavigationBar: InsideNavBar(
+              controller: controller, navcontroller: navcontroller),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (_image != null) ...[
+                    SizedBox(height: 5),
+                    Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.file(_image!,
+                            height: 250,
+                            width: double.infinity,
+                            fit: BoxFit.contain),
+                      ),
                     ),
                   ],
-                ),
-              ),
-            ),
-            
-            const SizedBox(height: 20),
-            
-            // Image Preview
-            if (_image != null)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ],
-                  ),
-                  child: Image.file(_image!, height: 250, width: double.infinity, fit: BoxFit.cover),
-                ),
-              )
-            
-            if (_isLoading) ...[
-              const SizedBox(height: 20),
-              Column(
-                children: [
-                  CircularProgressIndicator(color: Colors.blueAccent),
-                  const SizedBox(height: 10),
-                  Text("Sedang memproses...", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.blueAccent)),
+                  if (!_isLoading && _image == null) ...[
+                    Center(
+                      child: Card(
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        color: Colors.white, // Semi-transparent
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Pilih Gambar",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: TColors.lightPurple)),
+                              const SizedBox(height: 12),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton.icon(
+                                    onPressed: () =>
+                                        _pickImage(ImageSource.gallery),
+                                    icon:
+                                        Icon(Icons.image, color: Colors.white),
+                                    label: Text("Dari Galeri",
+                                        style: TextStyle(
+                                            fontSize: 16, color: Colors.white)),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: TColors.lightPurple,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12))),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  ElevatedButton.icon(
+                                    onPressed: () =>
+                                        _pickImage(ImageSource.camera),
+                                    icon: Icon(Icons.camera_alt,
+                                        color: Colors.white),
+                                    label: Text("Ambil Foto",
+                                        style: TextStyle(
+                                            fontSize: 16, color: Colors.white)),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: TColors.lightPurple,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12))),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                  if (_isLoading) ...[
+                    const SizedBox(height: 20),
+                    Center(
+                      child: Column(
+                        children: [
+                          CircularProgressIndicator(color: TColors.lightPurple),
+                          const SizedBox(height: 10),
+                          Text("Sedang memproses...",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.blueAccent)),
+                        ],
+                      ),
+                    ),
+                  ],
+                  if (_resultImage != null) ...[
+                    SizedBox(height: 20),
+                    Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.file(_resultImage!,
+                            height: 250,
+                            width: double.infinity,
+                            fit: BoxFit.contain),
+                      ),
+                    ),
+                  ],
+                  SizedBox(height: 20),
+                  Center(child: _buildDetectionResults()),
+                  if (_resultImage != null) ...[
+                    SizedBox(height: 20),
+                    Center(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: TColors.lightPurple,
+                        ),
+                        onPressed: _resetPage,
+                        child: Text(
+                          "Terjemahkan Lagi",
+                          style: TextStyle(
+                              fontFamily: 'AlbertSans',
+                              fontSize: 16,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                  SizedBox(height: 5),
                 ],
               ),
-            ],
-            
-            const SizedBox(height: 20),
-            
-            // Result Image
-            if (_resultImage != null)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ],
-                  ),
-                  child: Image.file(_resultImage!, height: 250, width: double.infinity, fit: BoxFit.cover),
-                ),
-              ),
-            
-            _buildDetectionResults(), // ✅ Hasil deteksi
-            
-            if (_errorMessage != null)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(_errorMessage!,
-                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 16)),
-              ),
-          ],
+            ),
+          ),
         ),
       ),
     );
   }
-
 }

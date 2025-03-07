@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/features/community/controller/ThreadController.dart';
 import 'package:pawrentingreborn/features/community/controller/commentController.dart';
+import 'package:pawrentingreborn/features/community/models/thread_comment.dart';
 import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/features/community/widget/commentThreadsDetail.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -22,18 +24,16 @@ class threadDetail extends StatefulWidget {
 class _threadDetailState extends State<threadDetail> {
   late bool isLiked;
   late int likeCount;
-  bool isUpdating = false;
-
-  final CommentController commentController = Get.put(CommentController());
-  final TextEditingController commentTextController = TextEditingController();
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  
+  bool isUpdating = false;  
   
   @override
   void initState() {
     super.initState();
     isLiked = widget.message.isLiked;
     likeCount = widget.message.likeCount;
+
+    final CommentController commentController = Get.put(CommentController());
+    commentController.fetchComments(widget.message.id);
   }
 
   Future<void> _toggleLike() async {
@@ -45,7 +45,6 @@ class _threadDetailState extends State<threadDetail> {
 
     bool newIsLiked = !isLiked;
     int newLikeCount = likeCount + (newIsLiked ? 1 : -1);
-
     try {
       DocumentReference docRef = FirebaseFirestore.instance.collection('threads').doc(widget.message.id);
 
@@ -53,40 +52,46 @@ class _threadDetailState extends State<threadDetail> {
       DocumentSnapshot docSnapshot = await docRef.get();
 
       if (docSnapshot.exists) {
-        // Update Firestore
-        await docRef.update({
-          'isLiked': newIsLiked,
-          'likeCount': newLikeCount,
-        });
+      // Update Firestore
+      await docRef.update({
+        'isLiked': newIsLiked,
+        'likeCount': newLikeCount,
+      });
 
-        // Ensure the UI updates only after a successful Firestore update
-        setState(() {
-          isLiked = newIsLiked;
-          likeCount = newLikeCount;
-        });
+      // Ensure the UI updates only after a successful Firestore update
+      setState(() {
+        isLiked = newIsLiked;
+        likeCount = newLikeCount;
+        ThreadController threadController = Get.find();
+        threadController.fetchThreads();
+      });
       } else {
-        // Handle document not found scenario
-        print('Document not found. Ensure the document ID is correct.');
-        setState(() {
-          isUpdating = false;
-        });
+      // Handle document not found scenario
+      print('Document not found. Ensure the document ID is correct.');
+      setState(() {
+        isUpdating = false;
+      });
       }
     } catch (e) {
       // Handle Firestore update failure
       print('Error updating Firestore: $e');
       setState(() {
-        isUpdating = false;
+      isUpdating = false;
       });
     } finally {
       setState(() {
-        isUpdating = false;
+      isUpdating = false;
       });
     }
-  }
+    }
 
   @override
   Widget build(BuildContext context) {
     final message = widget.message;
+    final CommentController commentController = Get.put(CommentController());
+    final ThreadController threadController = Get.put(ThreadController());
+    final TextEditingController commentTextController = TextEditingController();
+    final FirebaseAuth auth = FirebaseAuth.instance;
 
     return Scaffold(
       appBar: TAppBar2(
@@ -213,11 +218,11 @@ class _threadDetailState extends State<threadDetail> {
                   ),
                 ],
               ),
-              Row(
+              Obx(() =>  Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    '${message.commentCount} Replies',
+                    '${commentController.threadsCommentList.length} Replies',
                     style: TextStyle(
                       fontFamily: 'albertsans',
                       fontSize: 14,
@@ -227,6 +232,7 @@ class _threadDetailState extends State<threadDetail> {
                   ),
                 ],
               ),
+              ),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.7),
@@ -234,14 +240,21 @@ class _threadDetailState extends State<threadDetail> {
                 ),
                 width: 370,
                 padding: EdgeInsets.only(left: 25, top: 15, bottom: 15),
-                child: Column(
-                  children: [
-                    CommentThreadDetails(),
-                    SizedBox(height: 10),
-                    CommentThreadDetails(),
-                  ],
-                ),
+                child: 
+                Obx((){
+                  // print("Comment list length: ${commentController.threadsCommentList.length}");
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) => SizedBox(height: 15),
+                    itemCount:commentController.threadsCommentList.length,
+                    itemBuilder: (context, index){
+                    return CommentThreadDetails(comment: commentController.threadsCommentList[index]);
+                    },
+                  );
+                })
               ),
+
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.7),
@@ -260,12 +273,23 @@ class _threadDetailState extends State<threadDetail> {
                     Container(
                       width: 100,
                       child: TextFormField(
+                        controller:  commentController.commentController,
                         decoration: InputDecoration(
                           labelText: 'Add a new comment',
                         ),
                       ),
                     ),
-                    Image(image: AssetImage(TImages.sendLogos), width: 30,),
+                  GestureDetector(
+                    onTap: () {
+                      if (commentController.commentController.text.isNotEmpty) {
+                        commentController.addComment(widget.message.id);
+                        threadController.updateThread(widget.message.id);
+                      }
+
+                    },
+                    child: Image(image: AssetImage(TImages.sendLogos), width: 30),
+                  )
+
 
                   ],
                 ),

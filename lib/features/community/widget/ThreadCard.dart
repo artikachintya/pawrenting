@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/community/controller/commentController.dart';
 import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/features/community/screens/threadDetail.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -14,8 +15,13 @@ class Thread extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CommentController commentController = Get.find();
     return GestureDetector(
-      onTap: () => Get.to(() => threadDetail(message: message)),
+      onTap: () {
+      commentController.fetchComments(message.id);
+      Get.to(() => threadDetail(message: message));
+
+      }, 
       child: Column(
         children: [
           SizedBox(height: 10,),
@@ -92,7 +98,7 @@ class Thread extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             message.details, style: TextStyle(fontFamily: 'alata', fontSize: 11, color: Color(0xff4E4E4E)),),
                           SizedBox(height: 4,),
-                          Container(
+            Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -114,6 +120,7 @@ class Thread extends StatelessWidget {
                               ],
                             ),
                           ),
+                          
                         ],
                       ),
                     )
