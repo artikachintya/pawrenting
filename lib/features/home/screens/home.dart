@@ -61,7 +61,8 @@ class _HomeState extends State<Home> {
     VoucherController vouchercontroller = Get.put(VoucherController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () =>vouchercontroller.testAdd() ),
+          onPressed: () => print(FirebaseAuth.instance.currentUser!.uid)),
+
       appBar: TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: Color(0xffE7DFF6),
       body: SingleChildScrollView(

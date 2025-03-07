@@ -11,10 +11,10 @@ class ThreadMessage {
   final String title;
   final String details;
   final DateTime createdAt;
-  final bool isLiked;
+  bool isLiked;
   final String topic;
-  final int likeCount;
-  final int commentCount;
+  int likeCount;
+  int commentCount;
 
   ThreadMessage({
     required this.id,
