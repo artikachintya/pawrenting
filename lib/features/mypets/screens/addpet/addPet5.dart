@@ -13,7 +13,7 @@ class addPet5 extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: 32, vertical: 50), // Reduced vertical padding
+          horizontal: 32, vertical: 100), // Reduced vertical padding
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -25,8 +25,8 @@ class addPet5 extends StatelessWidget {
           const SizedBox(height: 20), // Added spacing
           Obx(
             () => SizedBox(
-              height: 140, // Increased height for better appearance
-              width: 140, // Adjusted width
+              height: 140,
+              width: 140,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -34,6 +34,7 @@ class addPet5 extends StatelessWidget {
                   ),
                   backgroundColor: Colors.white,
                   elevation: 3,
+                  padding: EdgeInsets.zero, // Ensure no extra padding
                 ),
                 onPressed: () => addPetController.pickImage(),
                 child: addPetController.imageFile.value == null
@@ -48,11 +49,12 @@ class addPet5 extends StatelessWidget {
                       )
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.file(
-                          addPetController.imageFile.value!,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
+                        child: SizedBox.expand(
+                          // Ensures image fills button
+                          child: Image.file(
+                            addPetController.imageFile.value!,
+                            fit: BoxFit.cover, // Ensures better aspect ratio
+                          ),
                         ),
                       ),
               ),

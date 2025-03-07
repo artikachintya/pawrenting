@@ -25,7 +25,7 @@ class VoucherCard extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (context) => (VoucherDetail(voucher:voucher))));
         },
         child: Container(
-          // margin: EdgeInsets.only(top: 25),
+          margin: EdgeInsets.only(top: 10),
         width: 355,
         height: 168,
         decoration: BoxDecoration(

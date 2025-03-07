@@ -5,6 +5,7 @@ import 'package:pawrentingreborn/features/mypets/models/FoodModel.dart';
 import 'package:pawrentingreborn/features/mypets/models/VaccineModel.dart';
 
 class PetModel {
+  final String id;
   final String breed;
   final String name;
   final DateTime dob;
@@ -13,12 +14,14 @@ class PetModel {
   final double height;
   final double weight;
   final String uid;
-  final List<ActivityModel> activities;
-  final List<FoodModel> foods;
-  final List<DiaryModel> diaries;
+  final String image;
+  List<ActivityModel> activities = [];
+  List<FoodModel> foods = [];
+  List<DiaryModel> diaries = [];
   List<VaccineModel> vaccines = [];
 
   PetModel({
+    required this.id,
     required this.breed,
     required this.name,
     required this.dob,
@@ -27,9 +30,10 @@ class PetModel {
     required this.height,
     required this.weight,
     required this.uid,
-    required this.activities,
-    required this.foods,
-    required this.diaries,
+    required this.image,
+    List<ActivityModel>? activities, // Allow manual setting of activities
+    List<FoodModel>? foods, // Allow manual setting of foods
+    List<DiaryModel>? diaries, // Allow manual setting of diaries
     List<VaccineModel>? vaccines, // Allow manual setting of vaccines
   }) {
     if (vaccines != null) {
@@ -41,10 +45,12 @@ class PetModel {
           : VaccineModel.getDogVaccineList();
     }
   }
-  factory PetModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
+  factory PetModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data();
     try {
       return PetModel(
+        id: data?['id'] ?? '',
         breed: data?['breed'] ?? '',
         name: data?['name'] ?? '',
         dob: DateTime.parse(data?['dob'] ?? DateTime.now().toIso8601String()),
@@ -53,6 +59,7 @@ class PetModel {
         height: (data?['height'] ?? 0.0).toDouble(),
         weight: (data?['weight'] ?? 0.0).toDouble(),
         uid: data?['uid'] ?? '',
+        image: data?['image'] ?? '',
         activities: (data?['activities'] as List<dynamic>?)
                 ?.map((item) => ActivityModel.fromJson(item))
                 .toList() ??
@@ -77,6 +84,7 @@ class PetModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'breed': breed,
       'name': name,
       'dob': dob.toIso8601String(),
@@ -85,10 +93,21 @@ class PetModel {
       'height': height,
       'weight': weight,
       'uid': uid,
+      'image': image,
       'activities': activities.map((item) => item.toJson()).toList(),
       'foods': foods.map((item) => item.toJson()).toList(),
       'diaries': diaries.map((item) => item.toJson()).toList(),
       'vaccines': vaccines.map((item) => item.toJson()).toList(),
     };
+  }
+
+  int get age {
+    final now = DateTime.now();
+    int age = now.year - dob.year;
+    if (now.month < dob.month ||
+        (now.month == dob.month && now.day < dob.day)) {
+      age--;
+    }
+    return age;
   }
 }

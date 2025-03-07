@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petActivity/petActivityController.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petActivity/activityCategories.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petActivity/activityCategory.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petActivity/activitySection.dart';
@@ -15,26 +16,20 @@ import 'package:pawrentingreborn/utils/constants/texts.dart';
 import 'package:popover/popover.dart';
 
 class PetActivity extends StatelessWidget {
-  const PetActivity({super.key});
-
-  void onChanged(String? value) {
-    // Handle change in selected activity type
-  }
+  final PetModel pet;
+  const PetActivity({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
     final List<DropdownMenuItem<String>> items = [
-      DropdownMenuItem(value: 'Walk', child: Text('Walk')),
-      DropdownMenuItem(value: 'Feed', child: Text('Feed')),
-      DropdownMenuItem(value: 'Play', child: Text('Play')),
-      DropdownMenuItem(value: 'Vet Visit', child: Text('Vet Visit')),
       DropdownMenuItem(value: 'Grooming', child: Text('Grooming')),
-      DropdownMenuItem(value: 'Others', child: Text('Others')),
+      DropdownMenuItem(value: 'Exercise', child: Text('Exercise')),
     ];
 
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
-    PetActivityController activityController = Get.put(PetActivityController());
+    ActivityController activityController = Get.find();
+
     return Scaffold(
       floatingActionButton: Container(
           width: 90,
@@ -53,11 +48,16 @@ class PetActivity extends StatelessWidget {
                         spacing: 5,
                         children: [
                           DropdownButtonFormField(
-                              hint: Text('Type'),
-                              items: items,
-                              onChanged: onChanged),
+                            hint: Text('Type'),
+                            items: items,
+                            onChanged: (value) =>
+                                activityController.typeController.text = value!,
+                          ),
                           TextFormField(
                             decoration: InputDecoration(hintText: 'Title'),
+                            controller: activityController.titleController,
+                            onChanged: (value) =>
+                                activityController.titleController.text = value,
                           ),
                           TextFormField(
                             controller: activityController.timeController,
@@ -82,6 +82,9 @@ class PetActivity extends StatelessWidget {
                             decoration: InputDecoration(hintText: 'Time'),
                           ),
                           TextFormField(
+                            controller: activityController.location,
+                            onChanged: (value) =>
+                                activityController.location.text = value,
                             decoration: InputDecoration(hintText: 'Location'),
                           ),
                         ],
@@ -114,7 +117,10 @@ class PetActivity extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () => Navigator.of(context).pop(),
+                            onTap: () {
+                              activityController.addActivity(pet.id);
+                              Navigator.of(context).pop();
+                            },
                             child: Container(
                               width: 75,
                               height: 30,
@@ -175,7 +181,7 @@ class PetActivity extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              ActivitySection()
+              ActivitySection(activities: pet.activities),
             ]),
           ),
         ),

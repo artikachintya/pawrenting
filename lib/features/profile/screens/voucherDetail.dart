@@ -78,7 +78,7 @@ class VoucherDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         voucher.code, 
@@ -112,6 +112,7 @@ class VoucherDetail extends StatelessWidget {
                 ),
                 _buildTermItem("This voucher is valid for registered users of the Pawrenting App only."),
                 _buildTermItem("This voucher is valid with a minimum transaction of ${formatCurrency(voucher.minPurchase)}"),
+                _buildTermItem("This voucher is valid for a maximum discount of ${formatCurrency(voucher.maxDiscount)}"),
                 _buildTermItem("This voucher cannot be combined with other promotions, discounts, or offers."),
                 _buildTermItem("This voucher is valid until "+ voucher.validUntil),
                 _buildTermItem("This voucher is not applicable for delivery fees, taxes, or specific excluded products/services."),

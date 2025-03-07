@@ -46,7 +46,7 @@ class AddPet extends StatelessWidget {
                 const addPet3(),
                 addPet4(formGlobalKey: formGlobalKey2),
                 const addPet5(),
-                const addPet6()
+                addPet6()
               ],
             ),
             GetBuilder<addpetPageController>(builder: (_) {

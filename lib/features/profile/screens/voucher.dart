@@ -57,7 +57,7 @@ class Voucher extends StatelessWidget {
                     }
                     // Add your validation logic here
                     // For example, check if the voucher code exists in your database
-                    voucherController.filterVouchers(value);
+                    // voucherController.filterVouchers(value);
                   },
                 ),
               ),
