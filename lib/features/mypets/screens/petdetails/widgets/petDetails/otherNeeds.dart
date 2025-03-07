@@ -1,15 +1,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/petActivity.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/petVaccine.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/petfoods.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petDetails/needs.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
+import '../../../../models/PetModel.dart';
+
 class OtherNeeds extends StatelessWidget {
+  final PetModel pet;
   const OtherNeeds({
-    super.key,
+    super.key, required this.pet
   });
 
   @override
@@ -37,7 +41,11 @@ class OtherNeeds extends StatelessWidget {
         SizedBox(height: 10),
         GestureDetector(
           child: Needs(icon: TImages.exercise, needs: 'Activity',),
-          onTap: () => Get.to(()=>PetActivity()),
+          onTap: () {
+    ActivityController activityController = Get.find();
+    activityController.initActivityList(pet.id);
+            Get.to(()=>PetActivity(pet: pet));
+          }, 
           ),
         SizedBox(height: 10),
         GestureDetector(

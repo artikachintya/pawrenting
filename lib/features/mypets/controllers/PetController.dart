@@ -20,4 +20,8 @@ class PetController extends GetxController {
     final pets = await petRepo.getPetsForUser(_auth.currentUser!.uid);
     petList.assignAll(pets);
   }
+
+  void updatePet(PetModel updatedPet) async {
+    await petRepo.updatePet(updatedPet.id,updatedPet);
+  }
 }

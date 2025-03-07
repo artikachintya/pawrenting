@@ -5,12 +5,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:pawrentingreborn/data/repositories/PetRepo.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 
 class AddPetController extends GetxController {
   // static AddPetController get instance => Get.find();
   final petRepo = PetRepo.instance;
   final _auth = FirebaseAuth.instance;
+  PetController petController = Get.find();
 
   final nameController = TextEditingController();
   String type = 'Cat';
@@ -36,6 +40,28 @@ class AddPetController extends GetxController {
       // Update reactive variables
       imageFile.value = file;
       base64Image.value = base64String;
+    }
+  }
+
+  void addPet() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      final id = '${user.uid}_${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+      final pet = PetModel(
+        id: id,
+        name: nameController.text,
+        type: type,
+        gender: gender,
+        dob: DateFormat("d MMMM yyyy").parse(dobController.text),
+        weight: double.tryParse(weightController.text) ?? 0.0,
+        height: double.tryParse(heightController.text) ?? 0.0,
+        breed: breedController.text,
+        image: base64Image.value,
+        uid: user.uid,
+      );
+      print('controller lancar');
+      await petRepo.createPet(pet);
+      petRepo.getPetsForUser(user.uid);
     }
   }
 }

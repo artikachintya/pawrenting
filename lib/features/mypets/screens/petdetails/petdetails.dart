@@ -1,10 +1,14 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer__constructors
+
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petDetails/otherNeeds.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petDetails/petDiary.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petDetails/petInfo.dart';
@@ -13,10 +17,17 @@ import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class PetDetails extends StatelessWidget {
-  const PetDetails({super.key});
+  final PetModel pet;
+  const PetDetails({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
+    Uint8List? imageBytes;
+    try {
+      imageBytes = base64Decode(pet.image);
+    } catch (e) {
+      debugPrint("Error decoding image: $e");
+    }
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     return Scaffold(
@@ -29,12 +40,12 @@ class PetDetails extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               SizedBox(
-                  height: 350,
-                  width: 420,
-                  child: Image.asset(
-                    TImages.whiskey,
-                    fit: BoxFit.cover,
-                  )),
+                height: 350,
+                width: 420,
+                child: imageBytes != null
+                    ? Image.memory(imageBytes, fit: BoxFit.cover)
+                    : const Icon(Icons.image_not_supported),
+              ),
               Positioned(
                 top: 290,
                 child: Container(
@@ -56,11 +67,11 @@ class PetDetails extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: const [
+                            children: [
                               Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Whiskey',
+                                    Text(pet.name,
                                         style: TextStyle(
                                             fontSize: 40,
                                             color: Colors.black,
@@ -68,7 +79,7 @@ class PetDetails extends StatelessWidget {
                                             fontFamily: 'Alata',
                                             letterSpacing: 1.75)),
                                     Text(
-                                      ' Persian',
+                                      pet.breed,
                                       style: TextStyle(
                                           fontSize: 20,
                                           color: Colors.black,
@@ -78,7 +89,7 @@ class PetDetails extends StatelessWidget {
                                     )
                                   ]),
                               Text(
-                                '5 Months',
+                                '${pet.age} y/o',
                                 style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.black,
@@ -91,20 +102,20 @@ class PetDetails extends StatelessWidget {
                         SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             PetInfo(
                               type: 'Gender',
-                              value: 'Female',
+                              value: pet.gender,
                               color: Color(0xffFEF1A3),
                             ),
                             PetInfo(
                               type: 'Height',
-                              value: '20 cm',
+                              value: '${pet.height} cm',
                               color: Color(0xffE5FC95),
                             ),
                             PetInfo(
                               type: 'Weight',
-                              value: '5 kg',
+                              value: '${pet.weight} kg',
                               color: Color(0xffFEF1A3),
                             ),
                           ],
@@ -112,7 +123,7 @@ class PetDetails extends StatelessWidget {
                         SizedBox(height: 15),
                         PetDiary(),
                         SizedBox(height: 15),
-                        OtherNeeds()
+                        OtherNeeds(pet: pet,)
                       ],
                     ),
                   ),
