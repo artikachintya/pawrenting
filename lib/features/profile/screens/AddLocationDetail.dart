@@ -11,6 +11,7 @@ import 'package:pawrentingreborn/navigationMenu.dart';
 
 class AddLocationDetail extends StatelessWidget {
   final AddLocationController addLocationController = Get.put(AddLocationController());
+  final EditLocationController editLocationController = Get.put(EditLocationController());
 
   AddLocationDetail({super.key});
 
@@ -66,14 +67,13 @@ class AddLocationDetail extends StatelessWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {
-                          if (addLocationController.formKey.currentState!.validate()) {
+                        onPressed: () async{
+                         
                             addLocationController.saveLocation();
-                            EditLocationController editLocationController = Get.find();
-    Future.delayed(Duration.zero, () => editLocationController.fetchUserLocations());
-                            Get.back(result: true);
+                            editLocationController.fetchUserLocations(); // 🔹 Refresh the location list
+  Get.back();
                             // Get.snackbar("Success", "Location details saved successfully");
-                          }
+                        
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: TColors.accent,

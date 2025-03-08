@@ -23,8 +23,11 @@ class Location extends StatelessWidget {
     NavigationController navcontroller = Get.find();
 
     // 🔹 Fetch locations when widget is built
-    Future.delayed(
-        Duration.zero, () => editLocationController.fetchUserLocations());
+    // Future.delayed(
+    //     Duration.zero, () => editLocationController.fetchUserLocations());
+ if (editLocationController.userLocations.isEmpty) {
+      editLocationController.fetchUserLocations();
+    }
 
     return Scaffold(
       appBar: const TAppBar2(
@@ -64,16 +67,11 @@ class Location extends StatelessWidget {
             "🔹 Number of locations: ${editLocationController.userLocations.length}");
 
         if (editLocationController.userLocations.isEmpty) {
-          return Column(
-            children: [
-              Center(child: Text("No locations found!")),
-            ],
-          );
+          return 
+              Center(child: Text("No locations found!")); 
         }
 
-        return SingleChildScrollView(
-          child: Column(
-            children: [
+        return 
               GridView.builder(
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
@@ -106,9 +104,6 @@ class Location extends StatelessWidget {
                     ),
                   );
                 },
-              ),
-            ],
-          ),
         );
       }),
     );
