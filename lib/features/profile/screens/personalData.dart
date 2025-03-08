@@ -58,13 +58,13 @@ class PersonalData extends StatelessWidget {
                       clipBehavior: Clip.none,
                       children: [
                         Profilepictandusername(
-                          profilePicture: TImages.userProfilePic,
+                          profilePicture: MemoryImage(base64Decode(editDataController.profilePic ?? "")),
                         ),
-                        GestureDetector(
-                          onTap: onProfileTapped,
-                          child: Positioned(
+                        Positioned(
                             top: 122,
                             left: 85,
+                          child: GestureDetector(
+                          onTap: editDataController.updateProfilePicture,
                             child: Container(
                               width: 30,
                               height: 30,
@@ -126,6 +126,7 @@ class PersonalData extends StatelessWidget {
                                 child: ElevatedButton(
                                     onPressed: () {
                                     controller.updateUserData();
+                                    controller.update(); 
                                     Get.back();
                                   },
                                   style: ElevatedButton.styleFrom(

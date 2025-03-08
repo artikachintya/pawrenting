@@ -25,7 +25,7 @@ class UserModel {
     required this.phoneNum,
     required this.username,
     this.locations = const [],
-    this.profilePic = TImages.profilePicDefault,
+    this.profilePic = '',
   });
 
   Map<String, dynamic> toJson() {
@@ -55,7 +55,7 @@ class UserModel {
         password: '',
         username: '',
         locations: [],
-        profilePic: TImages.profilePicDefault,
+        profilePic: '',
         pets: [],
       );
     }
@@ -70,7 +70,7 @@ class UserModel {
       locations: (data['locations'] as List<dynamic>? ?? [])
           .map((e) => LocationModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      profilePic: data['profilePic'] ?? TImages.profilePicDefault,
+      profilePic: data['profilePic'] ?? '',
       pets: [],
     );
   }
