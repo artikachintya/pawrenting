@@ -27,12 +27,15 @@ class EditLocationController extends GetxController {
   Future<void> fetchUserLocations() async {
     String? email = getUserEmail();
     isLoading.value = true;
+
+    userLocations.clear();
     try {
       if (email != null) {
         print("🔹 Fetching locations for email: $email"); 
         List<LocationModel> locations = await locationRepo.getUserLocations();
         print("📍 Fetched locations: $locations"); 
         userLocations.assignAll(locations);
+        update(); 
       } else {
         print("User email is null");
       }
@@ -54,7 +57,7 @@ class EditLocationController extends GetxController {
     isLoading.value = true;
     try {
       if (email != null) {
-        await locationRepo.updateLocation(email, index, updatedLocation);
+        await locationRepo.updateLocation(index, updatedLocation);
         userLocations[index] = updatedLocation; // Update locally
         print("Location updated successfully!");
       }
