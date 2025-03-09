@@ -21,7 +21,7 @@ class NavigationMenu extends StatelessWidget {
           borderRadius: BorderRadius.circular(100),
           child: GestureDetector(
             onTap: () {
-              Get.to(() => const TranslatePet());
+              Get.to(() => TranslatePet());
             },
             child: Container(
               padding: const EdgeInsets.all(12),

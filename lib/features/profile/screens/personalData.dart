@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
@@ -11,6 +14,7 @@ import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PersonalData extends StatelessWidget {
   final GlobalKey<FormState> formGlobalKey;
@@ -54,23 +58,26 @@ class PersonalData extends StatelessWidget {
                       clipBehavior: Clip.none,
                       children: [
                         Profilepictandusername(
-                          profilePicture: TImages.userProfilePic,
+                          profilePicture: MemoryImage(base64Decode(editDataController.profilePic ?? "")),
                         ),
                         Positioned(
-                          top: 122,
-                          left: 85,
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: TColors.accent,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              child: Image.asset(
-                                TImages.editIcon,
-                                height: 20,
-                                width: 20,
+                            top: 122,
+                            left: 85,
+                          child: GestureDetector(
+                          onTap: editDataController.updateProfilePicture,
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: TColors.accent,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Image.asset(
+                                  TImages.editIcon,
+                                  height: 20,
+                                  width: 20,
+                                ),
                               ),
                             ),
                           ),
@@ -119,6 +126,7 @@ class PersonalData extends StatelessWidget {
                                 child: ElevatedButton(
                                     onPressed: () {
                                     controller.updateUserData();
+                                    controller.update(); 
                                     Get.back();
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -180,4 +188,23 @@ class PersonalData extends StatelessWidget {
       ),
     );
   }
+
+  void onProfileTapped() {
+ 
+  }
+
+Future<Uint8List?> pickImage(ImageSource source) async {
+  try {
+    final ImagePicker _imagePicker = ImagePicker();
+    XFile? profilePic = await _imagePicker.pickImage(source: source);
+    if (profilePic != null) {
+      return await profilePic.readAsBytes();
+    }
+  } catch (e) {
+    print("Error picking image: $e");
+  }
+  return null; // Return null if no image was picked
+}
+
+
 }

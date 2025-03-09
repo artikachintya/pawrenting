@@ -28,6 +28,7 @@ import 'package:pawrentingreborn/features/home/controllers/ProductController.dar
 import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/AddPetController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/PetFoodController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/firebase_options.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
@@ -56,6 +57,7 @@ void lazyPutControllers() {
   Get.lazyPut(() => AddPetController);
   Get.lazyPut(() => CommentController());
   Get.lazyPut(() => ActivityController());
+  Get.lazyPut(() => PetFoodController());
 }
 
 void lazyPutRepositories() {

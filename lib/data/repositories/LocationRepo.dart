@@ -89,16 +89,29 @@ class LocationRepo extends GetxController {
   }
 
   // Update a specific location inside the array by index
-  Future<void> updateLocation(
-      String email, int index, LocationModel updatedLocation) async {
-    DocumentReference userRef = _db.collection('users').doc(email);
-
+  Future<void> updateLocation(int index, LocationModel updatedLocation) async {
+     User? currentUser = firebaseAuth.currentUser;
+    if (currentUser == null) {
+      print("No user is currently signed in.");
+      return;
+    }
+     String email = currentUser.email!;
+    CollectionReference usersRef = _db.collection('users');
     try {
-      DocumentSnapshot userSnapshot = await userRef.get();
-      List<dynamic> locations = userSnapshot.get('locations') ?? [];
+        QuerySnapshot querySnapshot =
+          await usersRef.where('email', isEqualTo: email).get();
+           if (querySnapshot.docs.isEmpty) {
+            print("User document not found!");
+        return;
+      }
+        DocumentSnapshot userSnapshot = querySnapshot.docs.first;
+        List<dynamic> locations = userSnapshot.get('locations') ?? [];
+
 
       if (index >= 0 && index < locations.length) {
         locations[index] = updatedLocation.toJson();
+        String docID = querySnapshot.docs.first.id;
+        DocumentReference userRef = usersRef.doc(docID);
         await userRef.update({'locations': locations});
         print("Location updated successfully!");
       } else {
@@ -106,6 +119,7 @@ class LocationRepo extends GetxController {
       }
     } catch (e) {
       print("Error updating location: $e");
+    }
     }
 
     /// Get all locations from the 'Locations' collection
@@ -117,5 +131,4 @@ class LocationRepo extends GetxController {
         return LocationModel.fromJson(e.data() as Map<String, dynamic>);
       }).toList();
     }
-  }
 }

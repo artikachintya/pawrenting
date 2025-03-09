@@ -27,6 +27,12 @@ class EditLocationDetail extends StatelessWidget {
     }
     var location = editLocationController.userLocations[index];
 
+      // 🔹 Update controllers sesuai lokasi yang diedit
+  editLocationController.labelController.text = location.label;
+  editLocationController.receiverNameController.text = location.receiverName;
+  editLocationController.phoneNumberController.text = location.phoneNum;
+  editLocationController.fullAddressController.text = location.fullAddress;
+
     return Scaffold(
       appBar: const TAppBar2(
         title: "Edit Location",
@@ -49,7 +55,7 @@ class EditLocationDetail extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildTextField("Label", location.label, editLocationController.labelController),
-                buildTextField("Receiver’s Name", location.receiverName, editLocationController.receiverNameController),
+                buildTextField("Receiver's Name", location.receiverName, editLocationController.receiverNameController),
                 buildPhoneNumberField(location.phoneNum),
                 buildTextField("Full Address", location.fullAddress, editLocationController.fullAddressController, maxLines: 3),
                 const SizedBox(height: 20),
@@ -80,6 +86,7 @@ class EditLocationDetail extends StatelessWidget {
                             fullAddress: editLocationController.fullAddressController.text,
                           );
                           editLocationController.updateLocation(index, updatedLocation);
+                          Get.back();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: TColors.accent,
@@ -156,7 +163,7 @@ class EditLocationDetail extends StatelessWidget {
                 border: Border.all(color: Colors.grey),
               ),
               child: const Center(
-                
+
                 child: Text(
                   "+62",
                   style: TextStyle(fontSize: 14, color: Colors.black),

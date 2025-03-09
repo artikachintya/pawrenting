@@ -5,7 +5,7 @@ import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.
 import 'package:pawrentingreborn/features/mypets/controllers/AddPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petFoodController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/PetFoodController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/petdetails.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petlist/widgets/petCard.dart';
@@ -63,8 +63,7 @@ class PetList extends StatelessWidget {
                           'amount of activities: ${petController.petList[index].activities.length}');
                       activityController
                           .initActivities(petController.petList[index].id);
-                      foodController
-                          .initFood(petController.petList[index].id);
+                      foodController.initFood(petController.petList[index].id);
                       Get.to(() => PetDetails(
                             pet: petController.petList[index],
                           ));
