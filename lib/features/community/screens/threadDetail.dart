@@ -56,6 +56,7 @@ class _threadDetailState extends State<threadDetail> {
       await docRef.update({
         'isLiked': newIsLiked,
         'likeCount': newLikeCount,
+        'commentCount': widget.message.commentCount,
       });
 
       // Ensure the UI updates only after a successful Firestore update
@@ -63,7 +64,14 @@ class _threadDetailState extends State<threadDetail> {
         isLiked = newIsLiked;
         likeCount = newLikeCount;
         ThreadController threadController = Get.find();
-        threadController.fetchThreads();
+        int threadIndex = threadController.threadsList.indexWhere((t) => t.id == widget.message.id);
+          if (threadIndex != -1) {
+            threadController.threadsList[threadIndex].isLiked = newIsLiked;
+            threadController.threadsList[threadIndex].likeCount = newLikeCount;
+            threadController.threadsList.refresh();
+          }
+
+        
       });
       } else {
       // Handle document not found scenario
@@ -123,8 +131,9 @@ class _threadDetailState extends State<threadDetail> {
                     ],
                   ),
                   Container(
-                    width: 73,
-                    height: 18,
+                    // width: 73,
+                    height: 20,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: Color(0xff8B68CC).withOpacity(0.4),

@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/community/controller/ArticleController.dart';
@@ -22,7 +23,8 @@ class dogArticle extends StatefulWidget {
   @override
   State<dogArticle> createState() => _dogArticle();
 }
-    
+
+  TextEditingController searchController = TextEditingController();   
 
 class _dogArticle extends State<dogArticle> {
 
@@ -33,6 +35,16 @@ class _dogArticle extends State<dogArticle> {
     TImages.articleBanner3,
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    searchController.clear(); // Reset teks search 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ArticleController articlecontroller = Get.find();
+      articlecontroller.searchResult.clear();
+      articlecontroller.isSearching.value = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +67,11 @@ class _dogArticle extends State<dogArticle> {
                 width: double.maxFinite,
                 child: Column(
                   children: [
-                    searchbar(title: 'search ‘how to play with cat',),
+                    searchbar(title: 'search ‘how to play with dog',controller: searchController,
+                    onChanged: (value){
+                      articlecontroller.searchArticleDog(value);
+                    },
+                    ),
                     SizedBox(height: 10,),
                     optionArticleThread(article: true,),
                       SizedBox(height:  15,),        
@@ -160,26 +176,51 @@ class _dogArticle extends State<dogArticle> {
                         ],
                       ),
                       SizedBox(height: 20,),
-                       ListView.builder(
-                         shrinkWrap: true,
-                         physics: NeverScrollableScrollPhysics(),
-                         itemCount: articlecontroller.articlesListDog.length,
-                        itemBuilder: (context, index) {
-                      return  
-                       Container(
-                        color: Colors.white.withOpacity(0.6),
-                        // height: 300,
-                        width: 350,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                             articleHome(article: articlecontroller.articlesListDog[index])
-                            
-                          ],
-                        ),
-                      );
+                      Obx((){
+                          final isSearching = articlecontroller.searchResult.isNotEmpty || articlecontroller.isSearching.value;
+
+                          if(isSearching && articlecontroller.searchResult.isEmpty){
+                            return Center(
+                              child: Text(
+                              "Article not found",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                          ),
+                          ),
+                        );
+                          }
+
+                          final displayedArticlesDog = isSearching? articlecontroller.searchResult : articlecontroller.articlesListDog;
+
+                          print("Total articles: ${articlecontroller.articlesListDog.length}");
+                          print("Total search result: ${articlecontroller.searchResult.length}");
+
+
+                          return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: displayedArticlesDog.length,
+                          itemBuilder: (context, index) {
+                            return  
+                            Container(
+                              color: Colors.white.withOpacity(0.6),
+                              // height: 300,
+                              width: 350,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  articleHome(article: displayedArticlesDog[index])
+                                  
+                                ],
+                              ),
+                            );
                       
-                    })  
+                    });
+
+                      })
+                       
                     
 
                       ],         

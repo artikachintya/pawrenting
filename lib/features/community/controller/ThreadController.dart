@@ -9,6 +9,7 @@ class ThreadController extends GetxController {
   // ThreadController threadController = Get.put(ThreadController());
 
   RxList<ThreadMessage> threadsList = <ThreadMessage>[].obs;
+  RxList<ThreadMessage> searchResults = <ThreadMessage>[].obs;
 
   void onInit() {
     // TODO: implement onInit
@@ -32,5 +33,27 @@ class ThreadController extends GetxController {
       await threadRepo.updateThread(threadsList[threadIndex]);
       threadsList.refresh();
     }
+    
   }
+RxBool isSearching = false.obs;
+Future<void> searchThread(String query) async {
+  print('Query yang dimasukkan: $query');
+  print('Total thread sebelum filter: ${threadsList.length}');
+
+  if (query.isEmpty) {
+    searchResults.clear(); // Kosongkan hasil pencarian
+    isSearching.value = false; // Kembali ke tampilan semua thread
+    return;
+  } else {
+    isSearching.value = true; //  sedang mencari
+    searchResults.assignAll(
+      threadsList.where((thread) => 
+        thread.title.toLowerCase().startsWith(query.toLowerCase())).toList(),
+    );
+
+    print('Total hasil pencarian lokal: ${searchResults.length}');
+  }
+}
+
+}
 }

@@ -17,6 +17,7 @@ class viewMoreArticle extends StatefulWidget {
   State<viewMoreArticle> createState() => _viewMoreArticle();
 }
    
+   
 class _viewMoreArticle extends State<viewMoreArticle> {
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class _viewMoreArticle extends State<viewMoreArticle> {
                 width: double.maxFinite,
                 child: Column(
                   children: [
-                    searchbar(title: 'search ‘how to play with cat’',),
+                    // searchbar(title: 'search ‘how to play with cat’', controller: searchController,),
                       SizedBox(height:  15,),      
 
                       // Container( 
