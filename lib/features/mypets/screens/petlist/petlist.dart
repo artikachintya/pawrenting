@@ -4,6 +4,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/AddPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/VaccineController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetFoodController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet.dart';
@@ -21,6 +22,7 @@ class PetList extends StatelessWidget {
     ActivityController activityController = Get.find();
     NavBarController controller = Get.find();
     PetController petController = Get.find();
+    VaccineController vaccineController = Get.find();
     PetFoodController foodController = Get.find();
     AddPetController addPetController = Get.put(AddPetController());
     return Scaffold(
@@ -59,8 +61,8 @@ class PetList extends StatelessWidget {
                       pet: petController.petList[index],
                     ),
                     onTap: () {
-                      print(
-                          'amount of activities: ${petController.petList[index].activities.length}');
+                      vaccineController
+                          .initVaccine(petController.petList[index].id);
                       activityController
                           .initActivities(petController.petList[index].id);
                       foodController.initFood(petController.petList[index].id);

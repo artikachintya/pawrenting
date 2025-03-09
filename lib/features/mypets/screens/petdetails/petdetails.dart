@@ -89,7 +89,7 @@ class PetDetails extends StatelessWidget {
                                     )
                                   ]),
                               Text(
-                                '${pet.age} y/o',
+                                pet.ageInYearsAndMonths,
                                 style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.black,
@@ -123,7 +123,9 @@ class PetDetails extends StatelessWidget {
                         SizedBox(height: 15),
                         PetDiary(),
                         SizedBox(height: 15),
-                        OtherNeeds(pet: pet,)
+                        OtherNeeds(
+                          pet: pet,
+                        )
                       ],
                     ),
                   ),

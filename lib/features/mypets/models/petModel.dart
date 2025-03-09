@@ -110,4 +110,28 @@ class PetModel {
     }
     return age;
   }
+
+  String get ageInYearsAndMonths {
+    final now = DateTime.now();
+    int years = now.year - dob.year;
+    int months = now.month - dob.month;
+    int days = now.day - dob.day;
+
+    if (days < 0) {
+      months--;
+      days += DateTime(now.year, now.month, 0).day;
+    }
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    if (years >= 1) {
+      return '$years y.o';
+    } else if (months >= 1) {
+      return '$months month${months != 1 ? 's' : ''}';
+    } else {
+      return '$days day${days != 1 ? 's' : ''}';
+    }
+  }
 }

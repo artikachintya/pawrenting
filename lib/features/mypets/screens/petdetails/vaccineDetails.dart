@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/VaccineController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/mypets/models/VaccineModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/coreVaccine.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/noncoreVaccine.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/vaccineList.dart';
@@ -14,17 +16,15 @@ import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
 
 class VaccineDetails extends StatelessWidget {
-  const VaccineDetails(
-      {super.key, required this.taken, required this.name, this.date});
+  const VaccineDetails({super.key, required this.vaccine});
 
-  final bool taken;
-  final String name;
-  final String? date;
+  final VaccineModel vaccine;
 
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+    VaccineController vaccineController = Get.find();
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: TAppBar2(
@@ -49,7 +49,7 @@ class VaccineDetails extends StatelessWidget {
                       border: Border.all(color: TColors.accent, width: 0.5)),
                   child: Center(
                     child: Text(
-                      name,
+                      vaccine.name,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -58,7 +58,7 @@ class VaccineDetails extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                VaccineStatus(taken: taken),
+                VaccineStatus(vaccine: vaccine,),
                 SizedBox(
                   height: 20,
                 ),

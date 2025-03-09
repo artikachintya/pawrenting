@@ -62,7 +62,7 @@ class PetCard extends StatelessWidget {
                           cardBodyTop(
                               name: pet.name,
                               breed: pet.breed,
-                              age: '${pet.age} y.o'),
+                              age: pet.ageInYearsAndMonths),
                           CardBody2(
                             field1: 'DoB',
                             field2: 'Weight',

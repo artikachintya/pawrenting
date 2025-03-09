@@ -2,24 +2,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:pawrentingreborn/features/mypets/models/VaccineModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/vaccineDetails.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class VaccineList extends StatelessWidget {
   const VaccineList(
-      {super.key, this.date, required this.name, required this.taken});
+      {super.key, required this.vaccine});
 
-  final String name;
-  final String? date;
-  final bool taken;
+  final VaccineModel vaccine;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Get.to(() => VaccineDetails(
-            taken: taken,
-            name: name,
-            date: date,
+            vaccine: vaccine
           )),
       child: Container(
         height: 100,
@@ -38,13 +36,13 @@ class VaccineList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      vaccine.name,
                       style: TextStyle(
                           height: 1, fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    taken
+                    vaccine.status == 'Taken'
                         ? Text(
-                            'Taken on: ' + date!,
+                            'Taken on: ' + DateFormat('dd MMMM yyyy').format(vaccine.date),
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
@@ -57,7 +55,7 @@ class VaccineList extends StatelessWidget {
                                 fontWeight: FontWeight.normal,
                                 color: Color(0xff797272)),
                           ),
-                    taken
+                    vaccine.status == 'Taken'
                         ? Image(
                             image: AssetImage(TImages.taken),
                             height: 20,
