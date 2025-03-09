@@ -56,6 +56,7 @@ class _threadDetailState extends State<threadDetail> {
       await docRef.update({
         'isLiked': newIsLiked,
         'likeCount': newLikeCount,
+        'commentCount': widget.message.commentCount,
       });
 
       // Ensure the UI updates only after a successful Firestore update
@@ -63,7 +64,13 @@ class _threadDetailState extends State<threadDetail> {
         isLiked = newIsLiked;
         likeCount = newLikeCount;
         ThreadController threadController = Get.find();
-        threadController.fetchThreads();
+        int threadIndex = threadController.threadsList.indexWhere((t) => t.id == widget.message.id);
+          if (threadIndex != -1) {
+            threadController.threadsList[threadIndex].isLiked = newIsLiked;
+            threadController.threadsList[threadIndex].likeCount = newLikeCount;
+            threadController.threadsList.refresh();
+          }
+
         
       });
       } else {

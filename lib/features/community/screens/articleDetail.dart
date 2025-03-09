@@ -34,10 +34,11 @@ class articleDetail extends StatelessWidget {
           child: Container(
             color: Color(0xffF8F6FD),
             // height: 1000,
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.only(bottom: 60, top: 10, left: 10, right: 10),
             child: 
               Column(
                crossAxisAlignment: CrossAxisAlignment.start,
+               
                 children:[ 
                     Text(article.title, 
                     style: TextStyle(

@@ -55,4 +55,27 @@ class ThreadRepo extends GetxController {
       print('Error updating product: $e');
     }
   }
+
+
+  //Mencari thread dengan searchbar
+  Future<List<ThreadMessage>> searchThreads(String keyword) async {
+  try {
+    final snapshot = await _db
+        .collection('threads')
+        .where('text', isGreaterThanOrEqualTo: keyword) // Mencari berdasarkan text
+        .where('text', isLessThanOrEqualTo: keyword + '\uf8ff') // Batasan pencarian
+        .get();
+
+    if (snapshot.docs.isEmpty) {
+      print("No matching threads found");
+      return [];
+    }
+
+    return snapshot.docs.map((e) => ThreadMessage.fromSnapshot(e)).toList();
+  } catch (e) {
+    print("Error searching threads: $e");
+    return [];
+  }
+}
+
 }

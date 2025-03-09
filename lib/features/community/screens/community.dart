@@ -21,6 +21,7 @@ class Community extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController searchController = TextEditingController();
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     ThreadController threadController = Get.put(ThreadController());
@@ -56,82 +57,105 @@ class Community extends StatelessWidget {
                 width: double.maxFinite,
                 child: Column(
                   children: [
-                    searchbar(title: 'search ‘how to play with cat’'),
+                    searchbar(title: 'search ‘how to play with cat’', controller: searchController,
+                    onChanged: (value){
+                    threadController.searchThread(value);
+                    },),
                     SizedBox(height: 10),
                     optionArticleThread(article: false),
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 110,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            color: Color(0xff21165A),
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            'All',
-                            style: TextStyle(
-                              fontFamily: 'albertsans',
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () => Get.to(() => Post()),
-                          child: Container(
-                            width: 110,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: TColors.filter.withOpacity(0.3),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              'Post',
-                              style: TextStyle(
-                                fontFamily: 'albertsans',
-                                fontSize: 16,
-                                color: Color(0xff535050),
-                              ),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () => Get.to(() => Replies()),
-                          child: Container(
-                            width: 110,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: TColors.filter.withOpacity(0.3),
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              'Replies',
-                              style: TextStyle(
-                                fontFamily: 'albertsans',
-                                fontSize: 16,
-                                color: Color(0xff535050),
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   width: 110,
+                        //   height: 30,
+                        //   decoration: BoxDecoration(
+                        //     color: Color(0xff21165A),
+                        //     borderRadius: BorderRadius.all(Radius.circular(15)),
+                        //   ),
+                        //   alignment: Alignment.center,
+                        //   child: Text(
+                        //     'All',
+                        //     style: TextStyle(
+                        //       fontFamily: 'albertsans',
+                        //       fontSize: 16,
+                        //       color: Colors.white,
+                        //     ),
+                        //   ),
+                        // ),
+                        // GestureDetector(
+                        //   onTap: () => Get.to(() => Post()),
+                        //   child: Container(
+                        //     width: 110,
+                        //     height: 30,
+                        //     decoration: BoxDecoration(
+                        //       color: TColors.filter.withOpacity(0.3),
+                        //       borderRadius: BorderRadius.all(Radius.circular(15)),
+                        //     ),
+                        //     alignment: Alignment.center,
+                        //     child: Text(
+                        //       'Post',
+                        //       style: TextStyle(
+                        //         fontFamily: 'albertsans',
+                        //         fontSize: 16,
+                        //         color: Color(0xff535050),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        // GestureDetector(
+                        //   onTap: () => Get.to(() => Replies()),
+                        //   child: Container(
+                        //     width: 110,
+                        //     height: 30,
+                        //     decoration: BoxDecoration(
+                        //       color: TColors.filter.withOpacity(0.3),
+                        //       borderRadius: BorderRadius.all(Radius.circular(15)),
+                        //     ),
+                        //     alignment: Alignment.center,
+                        //     child: Text(
+                        //       'Replies',
+                        //       style: TextStyle(
+                        //         fontFamily: 'albertsans',
+                        //         fontSize: 16,
+                        //         color: Color(0xff535050),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    // SizedBox(height: 10),
                     
-                  Obx(() {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: threadController.threadsList.length,
-                    itemBuilder: (context, index) {
-                      return Thread(message: threadController.threadsList[index]);
-                    });})
+               Obx(() {
+  final isSearching = threadController.searchResults.isNotEmpty || threadController.isSearching.value;
+
+  if (isSearching && threadController.searchResults.isEmpty) {
+    return Center(
+      child: Text(
+        "Thread not found",
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.grey,
+        ),
+      ),
+    );
+  }
+
+  final displayedThreads = isSearching ? threadController.searchResults : threadController.threadsList;
+
+  return ListView.builder(
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    itemCount: displayedThreads.length,
+    itemBuilder: (context, index) {
+      return Thread(message: displayedThreads[index]);
+    },
+  );
+}),
+
                     // StreamBuilder(
                     //   stream: threadCollection.snapshots(),
                     //   builder: (context, snapshot) {
