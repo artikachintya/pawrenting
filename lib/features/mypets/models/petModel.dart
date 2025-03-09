@@ -31,10 +31,10 @@ class PetModel {
     required this.weight,
     required this.uid,
     required this.image,
-    List<ActivityModel>? activities, // Allow manual setting of activities
-    List<FoodModel>? foods, // Allow manual setting of foods
-    List<DiaryModel>? diaries, // Allow manual setting of diaries
-    List<VaccineModel>? vaccines, // Allow manual setting of vaccines
+    this.activities = const [], // Allow manual setting of activities
+    this.foods = const [], // Allow manual setting of foods
+    this.diaries = const [], // Allow manual setting of diaries
+    this.vaccines = const [], // Allow manual setting of vaccines
   }) {
     if (vaccines != null) {
       this.vaccines = vaccines;

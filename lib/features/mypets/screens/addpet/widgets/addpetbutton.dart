@@ -68,6 +68,9 @@ class AddPetButton extends StatelessWidget {
                                             BorderRadius.circular(10)))),
                         onPressed: () {
                           addPetController.addPet();
+                          addpetPageController pcontroller = Get.find();
+                          pcontroller.reset();
+                          addPetController.resetController();
                           Get.to(() => NavigationMenu());
                         },
                         child: const Text(

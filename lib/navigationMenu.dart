@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/features/community/screens/community.dart';
 import 'package:pawrentingreborn/features/home/screens/home.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/addPetController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petlist/petlist.dart';
 import 'package:pawrentingreborn/features/profile/screens/profile.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petFood/petFoodController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/PetFoodController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petFoods/foodSection.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/AddPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/petFoodController.dart';
 import 'package:pawrentingreborn/features/mypets/screens/addpet/addPet.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/petdetails.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petlist/widgets/petCard.dart';
@@ -15,8 +18,11 @@ class PetList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // NavigationController controller = Get.find();
+    ActivityController activityController = Get.find();
     NavBarController controller = Get.find();
     PetController petController = Get.find();
+    PetFoodController foodController = Get.find();
+    AddPetController addPetController = Get.put(AddPetController());
     return Scaffold(
       appBar: const TAppBar(onMain: true, onPetDetails: false),
       // bottomNavigationBar: NavBar(controller: controller),
@@ -38,7 +44,7 @@ class PetList extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            GridView.builder(
+            Obx(() => GridView.builder(
                 itemCount: petController.petList.length,
                 shrinkWrap: true,
                 padding: EdgeInsets.all(20),
@@ -53,8 +59,16 @@ class PetList extends StatelessWidget {
                       pet: petController.petList[index],
                     ),
                     onTap: () {
-                      Get.to(() => PetDetails(pet: petController.petList[index],));
-                    }))
+                      print(
+                          'amount of activities: ${petController.petList[index].activities.length}');
+                      activityController
+                          .initActivities(petController.petList[index].id);
+                      foodController
+                          .initFood(petController.petList[index].id);
+                      Get.to(() => PetDetails(
+                            pet: petController.petList[index],
+                          ));
+                    }))),
           ],
         ),
       ),

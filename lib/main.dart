@@ -70,7 +70,7 @@ void lazyPutRepositories() {
   Get.lazyPut(() => PetRepo());
   Get.lazyPut(() => CommentRepo());
   Get.lazyPut(() => UserRepo());
-  Get.lazyPut(()=> VoucherRepo());
+  Get.lazyPut(() => VoucherRepo());
 }
 
 void lazyPutServices() {

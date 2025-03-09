@@ -7,7 +7,7 @@ class PetController extends GetxController {
   static PetController get instance => Get.find();
   final petRepo = PetRepo.instance;
   final _auth = FirebaseAuth.instance;
-  final List<PetModel> petList = [];
+  final RxList<PetModel> petList = <PetModel>[].obs;
 
   @override
   void onInit() {
@@ -17,11 +17,15 @@ class PetController extends GetxController {
   }
 
   void fetchUserPets() async {
+    petList.clear();
     final pets = await petRepo.getPetsForUser(_auth.currentUser!.uid);
     petList.assignAll(pets);
+    for (var pet in pets) {
+      print('Pet: ${pet.name}, Activities: ${pet.activities}');
+    }
   }
 
   void updatePet(PetModel updatedPet) async {
-    await petRepo.updatePet(updatedPet.id,updatedPet);
+    await petRepo.updatePet(updatedPet.id, updatedPet);
   }
 }
