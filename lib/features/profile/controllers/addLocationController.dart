@@ -2,12 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/data/repositories/LocationRepo.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editLocationController.dart';
 import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/profile/models/LocationModel.dart';
+import 'package:pawrentingreborn/utils/constants/colors.dart';
 
 class AddLocationController extends GetxController {
   // Form key for validation
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final EditLocationController editLocationController = Get.find<EditLocationController>();
+
 
   // Controllers for text fields
   final TextEditingController labelController = TextEditingController();
@@ -41,21 +45,18 @@ class AddLocationController extends GetxController {
         fullAddress: fullAddressController.text,
       );
       // ✅ Save location to Firestore
-      try {
         LocationRepo locationRepo = LocationRepo();
         await locationRepo.addLocation(newLocation);
+  await editLocationController.fetchUserLocations(); // 🔹 Refresh locations list after saving
+
         Get.snackbar("Success", "Location added successfully!",
             snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green,
+            backgroundColor: TColors.accent,
             colorText: Colors.white);
 
-        clearForm(); // ✅ Clear input fields after saving
-      } catch (e) {
-        Get.snackbar("Error", "Failed to add location: $e",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red,
-            colorText: Colors.white);
-      }
+        clearForm(); 
+        // ✅ Clear input fields after saving
+      
     } else {
       Get.snackbar(
         "Error",

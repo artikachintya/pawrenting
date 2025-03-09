@@ -4,14 +4,14 @@ import 'package:pawrentingreborn/data/repositories/ThreadRepo.dart';
 import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/features/home/models/categoryModel.dart';
 
-class ThreadController extends GetxController{
+class ThreadController extends GetxController {
   final threadRepo = ThreadRepo.instance;
   // ThreadController threadController = Get.put(ThreadController());
 
   RxList<ThreadMessage> threadsList = <ThreadMessage>[].obs;
   RxList<ThreadMessage> searchResults = <ThreadMessage>[].obs;
 
-    void onInit() {
+  void onInit() {
     // TODO: implement onInit
     fetchThreads();
     super.onInit();
@@ -29,12 +29,12 @@ class ThreadController extends GetxController{
         threadsList.indexWhere((thread) => thread.id == threadId);
     if (threadIndex != -1) {
       threadsList[threadIndex].commentCount++;
+      print(threadsList[threadIndex].commentCount);
       await threadRepo.updateThread(threadsList[threadIndex]);
       threadsList.refresh();
     }
     
   }
-
 RxBool isSearching = false.obs;
 Future<void> searchThread(String query) async {
   print('Query yang dimasukkan: $query');
@@ -55,4 +55,5 @@ Future<void> searchThread(String query) async {
   }
 }
 
+}
 }

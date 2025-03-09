@@ -5,6 +5,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/mypets/models/ActivityModel.dart';
 import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petActivity/activityCategories.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petActivity/activityCategory.dart';
@@ -118,7 +119,9 @@ class PetActivity extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
+                              print(pet.id);
                               activityController.addActivity(pet.id);
+                              
                               Navigator.of(context).pop();
                             },
                             child: Container(
@@ -181,7 +184,7 @@ class PetActivity extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              ActivitySection(activities: pet.activities),
+              ActivitySection(),
             ]),
           ),
         ),

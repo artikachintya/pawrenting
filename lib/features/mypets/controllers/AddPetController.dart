@@ -46,7 +46,8 @@ class AddPetController extends GetxController {
   void addPet() async {
     final user = _auth.currentUser;
     if (user != null) {
-      final id = '${user.uid}_${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+      final id =
+          '${user.uid}_${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
       final pet = PetModel(
         id: id,
         name: nameController.text,
@@ -61,7 +62,19 @@ class AddPetController extends GetxController {
       );
       print('controller lancar');
       await petRepo.createPet(pet);
-      petRepo.getPetsForUser(user.uid);
+      petController.fetchUserPets();
     }
+  }
+
+  void resetController() {
+    nameController.clear();
+    type = 'Cat';
+    gender = 'Male';
+    dobController.clear();
+    weightController.clear();
+    heightController.clear();
+    breedController.clear();
+    imageFile.value = null;
+    base64Image.value = '';
   }
 }

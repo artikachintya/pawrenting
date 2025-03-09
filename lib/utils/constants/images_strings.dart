@@ -21,6 +21,7 @@ class TImages {
   static const String petCard = 'assets/images/petcard.png';
   static const String whiskey = 'assets/images/whiskey2.jpg';
 
+  
   static const String userProfilePic = 'assets/images/fotoProfileUser.png';
   static const String personalDataIcon = 'assets/icons/personalDataICon.png';
   static const String locationIcon = 'assets/icons/locationIcon.png';
@@ -31,7 +32,6 @@ class TImages {
   static const String privacyIcon = 'assets/icons/privacyIcon.png';
   static const String termsIcon = 'assets/icons/T&CIcon.png';
   static const String voucherIcon = 'assets/icons/voucherIcon.png';
-  static const String profilePicDefault = 'assets/icons/profilePicDefault.png';
   static const String Plus = 'assets/icons/Plus.png';
   static const String addressIcon = 'assets/icons/addressIcon.png';
   static const String exercise = 'assets/icons/exercise.png';

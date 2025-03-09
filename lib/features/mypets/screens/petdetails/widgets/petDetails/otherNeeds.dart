@@ -42,8 +42,6 @@ class OtherNeeds extends StatelessWidget {
         GestureDetector(
           child: Needs(icon: TImages.exercise, needs: 'Activity',),
           onTap: () {
-    ActivityController activityController = Get.find();
-    activityController.initActivityList(pet.id);
             Get.to(()=>PetActivity(pet: pet));
           }, 
           ),
