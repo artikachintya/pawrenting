@@ -23,6 +23,7 @@ class CommentThreadDetails extends StatelessWidget {
         Container(
           // color: Colors.red,
           // width: 250,
+          padding: const EdgeInsets.symmetric(horizontal: 5, ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -32,8 +33,14 @@ class CommentThreadDetails extends StatelessWidget {
                 Text(_getTimeDifference(comment.createdAt), style: TextStyle(fontFamily: 'alata', fontSize: 12, color: Color(0xff4E4E4E)),)
               ],),
               
-              Text(comment.comment, style: TextStyle(fontFamily: 'alata', fontSize: 14, color: Color(0xff4e4e4e)),),
-              
+                  Text(
+                  comment.comment, 
+                  style: TextStyle(
+                    fontFamily: 'alata', 
+                    fontSize: 14, 
+                    color: Color(0xff4e4e4e)
+                  ),
+                  ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.start,
               //   children: [

@@ -38,7 +38,7 @@ class Replies extends StatelessWidget {
                 width: double.maxFinite,
                 child: Column(
                   children: [
-                    searchbar(title: 'search ‘how to play with cat’',),
+                    // searchbar(title: 'search ‘how to play with cat’',),
                     SizedBox(height: 10,),
                     optionArticleThread(article: false,),
                     SizedBox(height: 10,),         

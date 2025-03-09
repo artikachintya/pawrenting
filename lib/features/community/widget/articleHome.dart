@@ -25,7 +25,7 @@ class articleHome extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image(image: AssetImage(article.imageUrl), height: 75, fit: BoxFit.fill),
+          Image(image: AssetImage(article.imageUrl), height: 75, width: 120, fit: BoxFit.fill),
           SizedBox(width: 5,),
           Expanded(
             child: Column(

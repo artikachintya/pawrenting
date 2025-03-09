@@ -21,6 +21,7 @@ class Article extends StatefulWidget {
 
   @override
   State<Article> createState() => _ArticleState();
+  
 }
     int myCurrentIndex = 0;
      final myitems = [
@@ -28,12 +29,25 @@ class Article extends StatefulWidget {
     TImages.articleBanner2,
     TImages.articleBanner3,
   ];
+  TextEditingController searchController = TextEditingController();
+  
 
 class _ArticleState extends State<Article> {
 
   @override
+void initState() {
+  super.initState();
+  searchController.clear(); // Reset teks search 
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    ArticleController articlecontroller = Get.find();
+    articlecontroller.searchResult.clear();
+    articlecontroller.isSearching.value = false;
+  });
+}
+
+
+  @override
   Widget build(BuildContext context) {
-  
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
     ArticleController articlecontroller = Get.put(ArticleController());
@@ -54,7 +68,12 @@ class _ArticleState extends State<Article> {
                 width: double.maxFinite,
                 child: Column(
                   children: [
-                    searchbar(title: 'search ‘how to play with cat’',),
+                    searchbar(title: 'search ‘how to play with cat’', controller: searchController,
+                    onChanged: (value){
+                      print('mencari artikel: ${value}');
+                      articlecontroller.searchArticle(value);
+                    },),
+
                     SizedBox(height: 10,),
                     optionArticleThread(article: true,),
                       SizedBox(height:  15,),        
@@ -156,28 +175,42 @@ class _ArticleState extends State<Article> {
                         ],
                       ),
                       SizedBox(height: 20,),
-                      ListView.builder(
-                         shrinkWrap: true,
-                         physics: NeverScrollableScrollPhysics(),
-                         itemCount: articlecontroller.articlesList.length,
-                        itemBuilder: (context, index) {
-                      return  
-                       Container(
-                        color: Colors.white.withOpacity(0.6),
-                        // height: 300,
-                        width: 350,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                             articleHome(article: articlecontroller.articlesList[index])
-                            
-                          ],
-                        ),
-                      );
-                      
-})
-                     
-                    
+                      Obx(() {
+                        final isSearching = articlecontroller.searchResult.isNotEmpty || articlecontroller.isSearching.value;
+
+                        if (isSearching && articlecontroller.searchResult.isEmpty) {
+                        return Center(
+                          child: Text(
+                          "Article not found",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                          ),
+                          ),
+                        );
+                        }
+
+                        final displayedArticles = isSearching ? articlecontroller.searchResult : articlecontroller.articlesList;
+
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: displayedArticles.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              color: Colors.white.withOpacity(0.6),
+                              width: 350,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  articleHome(article: displayedArticles[index])
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      })
 
                       ],         
                             ),

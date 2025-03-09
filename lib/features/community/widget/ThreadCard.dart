@@ -98,7 +98,7 @@ class Thread extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             message.details, style: TextStyle(fontFamily: 'alata', fontSize: 11, color: Color(0xff4E4E4E)),),
                           SizedBox(height: 4,),
-            Container(
+                           Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
