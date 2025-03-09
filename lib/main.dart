@@ -17,6 +17,7 @@ import 'package:pawrentingreborn/data/repositories/UserRepo.dart';
 import 'package:pawrentingreborn/data/repositories/articleRepo.dart';
 import 'package:pawrentingreborn/data/services/AuthenticationService.dart';
 import 'package:pawrentingreborn/features/authentication/controllers/SignUpController.dart';
+import 'package:pawrentingreborn/features/community/controller/ThreadController.dart';
 import 'package:pawrentingreborn/features/community/controller/commentController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
@@ -60,6 +61,7 @@ void lazyPutControllers() {
   Get.lazyPut(() => ActivityController());
   Get.lazyPut(() => PetFoodController());
   Get.lazyPut(() => VaccineController());
+  Get.lazyPut(() => ThreadController());
 }
 
 void lazyPutRepositories() {
