@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:pawrentingreborn/data/repositories/PetRepo.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
 import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
+import 'package:pawrentingreborn/features/mypets/models/VaccineModel.dart';
 
 class AddPetController extends GetxController {
   // static AddPetController get instance => Get.find();
@@ -46,7 +47,8 @@ class AddPetController extends GetxController {
   void addPet() async {
     final user = _auth.currentUser;
     if (user != null) {
-      final id = '${user.uid}_${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+      final id =
+          '${user.uid}_${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
       final pet = PetModel(
         id: id,
         name: nameController.text,
@@ -58,10 +60,25 @@ class AddPetController extends GetxController {
         breed: breedController.text,
         image: base64Image.value,
         uid: user.uid,
+        vaccines: type.toLowerCase() == 'cat'
+            ? VaccineModel.getCatVaccineList()
+            : VaccineModel.getDogVaccineList(),
       );
       print('controller lancar');
       await petRepo.createPet(pet);
-      petRepo.getPetsForUser(user.uid);
+      petController.fetchUserPets();
     }
+  }
+
+  void resetController() {
+    nameController.clear();
+    type = 'Cat';
+    gender = 'Male';
+    dobController.clear();
+    weightController.clear();
+    heightController.clear();
+    breedController.clear();
+    imageFile.value = null;
+    base64Image.value = '';
   }
 }

@@ -4,6 +4,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/coreVaccine.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/noncoreVaccine.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/vaccineList.dart';
@@ -13,7 +14,8 @@ import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
 
 class PetVaccine extends StatelessWidget {
-  const PetVaccine({super.key});
+  final PetModel pet;
+  const PetVaccine({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +41,9 @@ class PetVaccine extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              CoreVaccine(),
+              CoreVaccine(pet: pet),
               SizedBox(height: 20),
-              NonCoreVaccine()
+              NonCoreVaccine(pet: pet)
             ]),
           ),
         ),

@@ -65,7 +65,7 @@ class InsideNavBar extends StatelessWidget {
           ]),
       Positioned(
           left: TDeviceUtil.getViewWidth(context) / 2 - 50,
-          bottom: TDeviceUtil.getAppBarHeight() - 50,
+          bottom: TDeviceUtil.getAppBarHeight() - 5,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: Container(

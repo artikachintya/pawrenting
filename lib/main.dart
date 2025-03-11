@@ -17,6 +17,7 @@ import 'package:pawrentingreborn/data/repositories/UserRepo.dart';
 import 'package:pawrentingreborn/data/repositories/articleRepo.dart';
 import 'package:pawrentingreborn/data/services/AuthenticationService.dart';
 import 'package:pawrentingreborn/features/authentication/controllers/SignUpController.dart';
+import 'package:pawrentingreborn/features/community/controller/ThreadController.dart';
 import 'package:pawrentingreborn/features/community/controller/commentController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
@@ -28,6 +29,8 @@ import 'package:pawrentingreborn/features/home/controllers/ProductController.dar
 import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/AddPetController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/PetFoodController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/VaccineController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/firebase_options.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
@@ -56,6 +59,9 @@ void lazyPutControllers() {
   Get.lazyPut(() => AddPetController);
   Get.lazyPut(() => CommentController());
   Get.lazyPut(() => ActivityController());
+  Get.lazyPut(() => PetFoodController());
+  Get.lazyPut(() => VaccineController());
+  Get.lazyPut(() => ThreadController());
 }
 
 void lazyPutRepositories() {
@@ -70,7 +76,7 @@ void lazyPutRepositories() {
   Get.lazyPut(() => PetRepo());
   Get.lazyPut(() => CommentRepo());
   Get.lazyPut(() => UserRepo());
-  Get.lazyPut(()=> VoucherRepo());
+  Get.lazyPut(() => VoucherRepo());
 }
 
 void lazyPutServices() {

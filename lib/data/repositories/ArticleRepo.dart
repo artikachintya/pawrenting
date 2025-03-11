@@ -19,7 +19,7 @@ class ArticleRepo extends GetxController {
     }
     
     return snapshot.docs.map((e) {
-      print("Article Data: ${e.data()}");  // Debugging
+      // print("Article Data: ${e.data()}");  // Debugging
       return ArticleModels.fromSnapshot(e as DocumentSnapshot<Map<String, dynamic>>);
     }).toList();
   }

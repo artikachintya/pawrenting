@@ -23,7 +23,7 @@ class catArticle extends StatefulWidget {
   State<catArticle> createState() => _catArticle();
 }
   
-
+ TextEditingController searchController = TextEditingController(); 
 class _catArticle extends State<catArticle> {
     int myCurrentIndex = 0;
      final myitems = [
@@ -31,6 +31,17 @@ class _catArticle extends State<catArticle> {
     TImages.articleBanner2,
     TImages.articleBanner3,
   ];
+
+   @override
+    void initState() {
+      super.initState();
+      searchController.clear(); // Reset teks search 
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ArticleController articlecontroller = Get.find();
+        articlecontroller.searchResult.clear();
+        articlecontroller.isSearching.value = false;
+      });
+    }
 
   ArticleController articlecontroller = Get.find();
   @override
@@ -55,7 +66,11 @@ class _catArticle extends State<catArticle> {
                 width: double.maxFinite,
                 child: Column(
                   children: [
-                    searchbar(title: 'search ‘how to play with cat’',),
+                      searchbar(title: 'search ‘how to play with dog',controller: searchController,
+                    onChanged: (value){
+                      articlecontroller.searchArticleCat(value);
+                    },
+                    ),
                     SizedBox(height: 10,),
                     optionArticleThread(article: true,),
                       SizedBox(height:  15,),        
@@ -160,26 +175,50 @@ class _catArticle extends State<catArticle> {
                         ],
                       ),
                       SizedBox(height: 20,),
-                       ListView.builder(
-                         shrinkWrap: true,
-                         physics: NeverScrollableScrollPhysics(),
-                         itemCount: articlecontroller.articlesListCat.length,
-                        itemBuilder: (context, index) {
-                      return  
-                       Container(
-                        color: Colors.white.withOpacity(0.6),
-                        // height: 300,
-                        width: 350,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                             articleHome(article: articlecontroller.articlesListCat[index])
-                            
-                          ],
-                        ),
-                      );
+                      Obx((){
+                          final isSearching = articlecontroller.searchResult.isNotEmpty || articlecontroller.isSearching.value;
+
+                          if(isSearching && articlecontroller.searchResult.isEmpty){
+                            return Center(
+                              child: Text(
+                              "Article not found",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                          ),
+                          ),
+                        );
+                          }
+
+                          final displayedArticlesCat = isSearching? articlecontroller.searchResult : articlecontroller.articlesListCat;
+
+                          print("Total articles: ${articlecontroller.articlesListCat.length}");
+                          print("Total search result: ${articlecontroller.searchResult.length}");
+
+
+                          return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: displayedArticlesCat.length,
+                          itemBuilder: (context, index) {
+                            return  
+                            Container(
+                              color: Colors.white.withOpacity(0.6),
+                              // height: 300,
+                              width: 350,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  articleHome(article: displayedArticlesCat[index])
+                                  
+                                ],
+                              ),
+                            );
                       
-})
+                    });
+
+                      })
 
                       ],         
                             ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/data/repositories/UserRepo.dart';
 import 'package:pawrentingreborn/features/authentication/screens/landingPage.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editDataController.dart';
 import 'package:pawrentingreborn/features/profile/screens/faqPage.dart';
 import 'package:pawrentingreborn/features/profile/screens/listOrderPage.dart';
 import 'package:pawrentingreborn/features/profile/screens/location.dart';
@@ -25,31 +28,35 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      final editDataController = Get.put(EditDataController());
+      Future.delayed(
+        Duration.zero, () => editDataController.fetchUserData());
+
     return Scaffold(
       // background and App Bar
       appBar: const TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: TColors.primary,
-      body: FutureBuilder(
-        future: userRepo.fetchUserByEmail(FirebaseAuth.instance.currentUser!.email!),
-        builder: (context, snapshot){
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
+      body: GetBuilder<EditDataController>(
+        // future: userRepo.fetchUserByEmail(FirebaseAuth.instance.currentUser!.email!),
+        builder: (editDataController){
+          // if (snapshot.connectionState == ConnectionState.waiting) {
+          //   return Center(child: CircularProgressIndicator());
+          // }
 
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-          final userData = snapshot.data!;
-          final String name = userData.firstName;
-          final String username = userData.username;
+          // if (snapshot.hasError) {
+          //   return Center(child: Text('Error: ${snapshot.error}'));
+          // }
+          // final userData = snapshot.data!;
+          // final String name = userData.firstName;
+          // final String username = userData.username;
         return SingleChildScrollView(
           child: Column(children: [
             //profile account section
             //box for the profile option
             Profilepictandusername(
-                profilePicture: TImages.userProfilePic,
-                name: name,
-                username: username),
+                profilePicture:  MemoryImage(base64Decode(editDataController.profilePic ?? "")),
+                name: editDataController.firstNameController.text,
+                username: editDataController.usernameController.text),
         
             //box for the profile option
             Container(

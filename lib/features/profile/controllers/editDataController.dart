@@ -1,8 +1,15 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pawrentingreborn/data/repositories/UserRepo.dart';
 import 'package:pawrentingreborn/features/authentication/model/UserModel.dart';
+import 'package:pawrentingreborn/utils/constants/colors.dart';
 
 class EditDataController extends GetxController {
   final firstNameController = TextEditingController();
@@ -14,6 +21,8 @@ class EditDataController extends GetxController {
 
   final _userRepo = Get.put(UserRepo());
 
+  String? profilePic;
+
   @override
   void onInit() {
     super.onInit();
@@ -22,14 +31,16 @@ class EditDataController extends GetxController {
 
   Future<void> fetchUserData() async {
     try {
-      UserModel? user = await _userRepo.fetchUserByEmail(FirebaseAuth.instance.currentUser!.email!);
+      UserModel? user = await _userRepo
+          .fetchUserByEmail(FirebaseAuth.instance.currentUser!.email!);
       if (user != null) {
         firstNameController.text = user.firstName;
         lastNameController.text = user.lastName;
         usernameController.text = user.username;
         dobController.text = user.dob;
         phonenumController.text = user.phoneNum;
-        emailController.text = user.email; 
+        emailController.text = user.email;
+        profilePic = user.profilePic;
         update(); // Update UI after setting values
       } else {
         print("User not found");
@@ -39,45 +50,89 @@ class EditDataController extends GetxController {
     }
   }
 
- Future<void> updateUserData() async {
-  try {
-    String email = FirebaseAuth.instance.currentUser!.email!;
-    UserModel? user = await _userRepo.fetchUserByEmail(email);
+  Future<void> updateUserData() async {
+    try {
+      String email = FirebaseAuth.instance.currentUser!.email!;
+      UserModel? user = await _userRepo.fetchUserByEmail(email);
 
-    if (user == null) {
-      Get.snackbar("Error", "User not found", snackPosition: SnackPosition.BOTTOM);
-      return;
-    }
+      if (user == null) {
+        Get.snackbar("Error", "User not found",
+            snackPosition: SnackPosition.BOTTOM);
+        return;
+      }
 
-    // Use fetched data and only update modified fields
-    Map<String, dynamic> updatedData = {};
+      // Use fetched data and only update modified fields
+      Map<String, dynamic> updatedData = {};
 
-    if (firstNameController.text != user.firstName) {
-      updatedData["firstName"] = firstNameController.text;
-    }
-    if (lastNameController.text != user.lastName) {
-      updatedData["lastName"] = lastNameController.text;
-    }
-    if (usernameController.text != user.username) {
-      updatedData["username"] = usernameController.text;
-    }
-    if (dobController.text != user.dob) {
-      updatedData["dob"] = dobController.text;
-    }
-    if (phonenumController.text != user.phoneNum) {
-      updatedData["phoneNum"] = phonenumController.text;
-    }
+      if (firstNameController.text != user.firstName) {
+        updatedData["firstName"] = firstNameController.text;
+      }
+      if (lastNameController.text != user.lastName) {
+        updatedData["lastName"] = lastNameController.text;
+      }
+      if (usernameController.text != user.username) {
+        updatedData["username"] = usernameController.text;
+      }
+      if (dobController.text != user.dob) {
+        updatedData["dob"] = dobController.text;
+      }
+      if (phonenumController.text != user.phoneNum) {
+        updatedData["phoneNum"] = phonenumController.text;
+      }
 
-    if (updatedData.isNotEmpty) {
-      await _userRepo.updateUserByEmail(email, updatedData);
-      Get.snackbar("Success", "Your data has been updated!", snackPosition: SnackPosition.BOTTOM);
-    } else {
-      Get.snackbar("No Changes", "No changes detected.", snackPosition: SnackPosition.BOTTOM);
+      if (updatedData.isNotEmpty) {
+        await _userRepo.updateUserByEmail(email, updatedData);
+
+        fetchUserData(); 
+        update(); 
+        Get.snackbar("Success", "Your data has been updated!",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: TColors.accent,
+            colorText: Colors.white);
+      } else {
+        Get.snackbar("No Changes", "No changes detected.",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: TColors.accent,
+            colorText: Colors.white);
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Failed to update data: $e",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     }
-  } catch (e) {
-    Get.snackbar("Error", "Failed to update data: $e", snackPosition: SnackPosition.BOTTOM);
   }
-}
+
+  Future<void> updateProfilePicture() async {
+    try {
+      final ImagePicker _imagePicker = ImagePicker();
+      XFile? profilePic =
+          await _imagePicker.pickImage(source: ImageSource.gallery);
+      if (profilePic != null) {
+        Uint8List imageBytes = await profilePic.readAsBytes();
+        String encodedProfilePic =
+            base64Encode(imageBytes); // Convert image to Base64
+        String email = FirebaseAuth.instance.currentUser!.email!;
+        UserModel? user = await _userRepo.fetchUserByEmail(email);
+        await _userRepo
+            .updateUserByEmail(email, {"profilePic": encodedProfilePic});
+
+        this.profilePic = encodedProfilePic;
+        update(); // Refresh UI
+        
+        Get.snackbar("Success", "Profile picture updated!",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: TColors.accent,
+            colorText: Colors.white);
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Failed to update profile picture: $e",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+    }
+  }
+
   void printUserData() {
     print("First Name: ${firstNameController.text}");
     print("Last Name: ${lastNameController.text}");

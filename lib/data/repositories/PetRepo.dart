@@ -20,12 +20,33 @@ class PetRepo extends GetxController {
     print('create pet');
     await _db.collection('pets').add(pet.toJson());
   }
+
   Future<void> updatePet(String petId, PetModel updatedPet) async {
+    print(updatedPet.activities.length);
     print('update pet $petId');
-    await _db.collection('pets').where('id', isEqualTo: petId).get().then((snapshot) {
+    await _db
+        .collection('pets')
+        .where('id', isEqualTo: petId)
+        .get()
+        .then((snapshot) {
       for (var doc in snapshot.docs) {
         doc.reference.update(updatedPet.toJson());
       }
     });
   }
+
+  Future<void> deletePet(String petId) async {
+    print('delete pet $petId');
+    await _db
+        .collection('pets')
+        .where('id', isEqualTo: petId)
+        .get()
+        .then((snapshot) {
+      for (var doc in snapshot.docs) {
+        doc.reference.delete();
+      }
+    });
   }
+
+  
+}

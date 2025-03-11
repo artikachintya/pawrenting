@@ -42,8 +42,6 @@ class OtherNeeds extends StatelessWidget {
         GestureDetector(
           child: Needs(icon: TImages.exercise, needs: 'Activity',),
           onTap: () {
-    ActivityController activityController = Get.find();
-    activityController.initActivityList(pet.id);
             Get.to(()=>PetActivity(pet: pet));
           }, 
           ),
@@ -51,14 +49,14 @@ class OtherNeeds extends StatelessWidget {
         GestureDetector(
           child: Needs(icon: TImages.food, needs: 'Foodies',),
           onTap: () {
-            Get.to(()=>PetFood());
+            Get.to(()=>PetFood(pet: pet,));
           }
         ),        
         SizedBox(height: 10),
         GestureDetector(
           child: Needs(icon: TImages.vaccine, needs: 'Vaccine',),
           onTap: () {
-            Get.to(()=>PetVaccine());
+            Get.to(()=>PetVaccine(pet: pet));
           }
           ),       
       ]

@@ -2,33 +2,43 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/VaccineController.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
+import 'package:pawrentingreborn/features/mypets/models/VaccineModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/vaccineDetails.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
 class VaccineList extends StatelessWidget {
-  const VaccineList(
-      {super.key, this.date, required this.name, required this.taken});
+  const VaccineList({super.key, required this.vaccine, required this.pet});
 
-  final String name;
-  final String? date;
-  final bool taken;
+  final VaccineModel vaccine;
+  final PetModel pet;
+
   @override
   Widget build(BuildContext context) {
+    VaccineController vaccineController = Get.find();
+
     return GestureDetector(
-      onTap: () => Get.to(() => VaccineDetails(
-            taken: taken,
-            name: name,
-            date: date,
-          )),
-      child: Container(
-        height: 100,
-        width: 350,
-        decoration: BoxDecoration(
+      onTap: () => Get.to(() => VaccineDetails(pet: pet, vaccine: vaccine)),
+      child: Obx(() {
+        // Find the correct vaccine in the observable list
+        final vaccineStatus = vaccineController.petVaccines
+            .firstWhere(
+              (vac) => vac.id == vaccine.id,
+            )
+            .status;
+
+        return Container(
+          height: 100,
+          width: 350,
+          decoration: BoxDecoration(
             color: TColors.gray,
             border: Border.all(width: 0.5, color: TColors.accent),
-            borderRadius: BorderRadius.circular(10)),
-        child: Padding(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,13 +48,14 @@ class VaccineList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      vaccine.name,
                       style: TextStyle(
                           height: 1, fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    taken
+                    vaccineStatus == 'Taken'
                         ? Text(
-                            'Taken on: ' + date!,
+                            'Taken on: ' +
+                                DateFormat('dd MMMM yyyy').format(vaccine.date),
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
@@ -57,15 +68,10 @@ class VaccineList extends StatelessWidget {
                                 fontWeight: FontWeight.normal,
                                 color: Color(0xff797272)),
                           ),
-                    taken
-                        ? Image(
-                            image: AssetImage(TImages.taken),
-                            height: 20,
-                          )
+                    vaccineStatus == 'Taken'
+                        ? Image(image: AssetImage(TImages.taken), height: 20)
                         : Image(
-                            image: AssetImage(TImages.nottaken),
-                            height: 20,
-                          )
+                            image: AssetImage(TImages.nottaken), height: 20),
                   ],
                 ),
                 ImageIcon(
@@ -73,8 +79,10 @@ class VaccineList extends StatelessWidget {
                   size: 14,
                 ),
               ],
-            )),
-      ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/features/mypets/controllers/petFood/petFoodController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/PetFoodController.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petFoods/foodSection.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -11,13 +13,31 @@ import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
 
 class PetFood extends StatelessWidget {
-  const PetFood({super.key});
+  final PetModel pet;
+  const PetFood({super.key, required this.pet});
 
   @override
+
+  
   Widget build(BuildContext context) {
-    PetFoodController foodController = Get.put(PetFoodController());
+    PetFoodController foodController = Get.find();
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+
+    Future<void> selectTime(BuildContext context) async {
+  TimeOfDay? pickedTime = await showTimePicker(
+    context: context,
+    initialTime: TimeOfDay.now(),
+  );
+
+  if (pickedTime != null) {
+    // Convert TimeOfDay to a formatted string
+    final now = DateTime.now();
+    final selectedDateTime = DateTime(now.year, now.month, now.day, pickedTime.hour, pickedTime.minute);
+    foodController.timeController.text = DateFormat.jm().format(selectedDateTime); // Formats as "3:27 PM"
+  }
+}
+
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: TAppBar2(
@@ -43,23 +63,14 @@ class PetFood extends StatelessWidget {
                           decoration: InputDecoration(hintText: 'Food'),
                         ),
                         TextFormField(
-                          controller: foodController.nameController,
+                          controller: foodController.amountController,
                           decoration: InputDecoration(
                               suffixText: 'gr', hintText: 'Amount'),
                         ),
                         TextFormField(
                           controller: foodController.timeController,
                           readOnly: true,
-                          onTap: () async {
-                            TimeOfDay? pickedTime = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now(),
-                            );
-                            if (pickedTime != null) {
-                              foodController.timeController.text =
-                                  pickedTime.format(context);
-                            }
-                          },
+                          onTap: ()=>selectTime(context),
                           decoration: InputDecoration(hintText: 'Time'),
                         ),
                       ],
@@ -71,6 +82,7 @@ class PetFood extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            foodController.resetControllers();
                             Navigator.of(context).pop();
                           },
                           child: Container(
@@ -91,7 +103,10 @@ class PetFood extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => Navigator.of(context).pop(),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            foodController.addFood(pet.id);
+                          },
                           child: Container(
                             width: 75,
                             height: 30,

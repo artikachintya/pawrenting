@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/VaccineController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
+import 'package:pawrentingreborn/features/mypets/models/VaccineModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/coreVaccine.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/noncoreVaccine.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/vaccineList.dart';
@@ -14,17 +18,16 @@ import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
 
 class VaccineDetails extends StatelessWidget {
-  const VaccineDetails(
-      {super.key, required this.taken, required this.name, this.date});
+  const VaccineDetails({super.key, required this.vaccine, required this.pet});
 
-  final bool taken;
-  final String name;
-  final String? date;
+  final VaccineModel vaccine;
+  final PetModel pet;
 
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
+    VaccineController vaccineController = Get.find();
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: TAppBar2(
@@ -49,7 +52,7 @@ class VaccineDetails extends StatelessWidget {
                       border: Border.all(color: TColors.accent, width: 0.5)),
                   child: Center(
                     child: Text(
-                      name,
+                      vaccine.name,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -58,72 +61,102 @@ class VaccineDetails extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                VaccineStatus(taken: taken),
+                VaccineStatus(
+                  pet: pet,
+                  vaccine: vaccine,
+                ),
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                    width: 350,
-                    height: 80,
-                    decoration: BoxDecoration(
-                        color: TColors.gray,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: TColors.accent, width: 0.5)),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Date',
-                                style: TextStyle(
+                Obx(
+                  () => Container(
+                      width: 350,
+                      height: 80,
+                      decoration: BoxDecoration(
+                          color: TColors.gray,
+                          borderRadius: BorderRadius.circular(10),
+                          border:
+                              Border.all(color: TColors.accent, width: 0.5)),
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Date',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      fontFamily: 'Alata',
+                                      color: Color(0XFF555050)),
+                                ),
+                                Text(
+                                  vaccineController.petVaccines
+                                              .firstWhere(
+                                                  (vac) => vac.id == vaccine.id)
+                                              .status ==
+                                          'Taken'
+                                      ? DateFormat('dd MMMM yyyy').format(
+                                          vaccineController.petVaccines
+                                              .firstWhere(
+                                                  (vac) => vac.id == vaccine.id)
+                                              .date,
+                                        )
+                                      : '-',
+                                  style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal,
                                     fontFamily: 'Alata',
-                                    color: Color(0XFF555050)),
-                              ),
-                              Text(
-                                '20 June 2024',
-                                style: TextStyle(
+                                    color: TColors.accent,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Time',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      fontFamily: 'Alata',
+                                      color: Color(0XFF555050)),
+                                ),
+                                Text(
+                                  vaccineController.petVaccines
+                                              .firstWhere(
+                                                  (vac) => vac.id == vaccine.id)
+                                              .status ==
+                                          'Taken'
+                                      ? DateFormat('HH.mm a').format(
+                                          vaccineController.petVaccines
+                                              .firstWhere(
+                                                  (vac) => vac.id == vaccine.id)
+                                              .date,
+                                        )
+                                      : '-',
+                                  style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal,
                                     fontFamily: 'Alata',
-                                    color: TColors.accent),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Time',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: 'Alata',
-                                    color: Color(0XFF555050)),
-                              ),
-                              Text(
-                                '18:15',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: 'Alata',
-                                    color: TColors.accent),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )),
+                                    color: TColors.accent,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )),
+                ),
                 SizedBox(
                   height: 20,
                 ),

@@ -48,21 +48,15 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    LocationController locationController = Get.find();
-    CartController cartController = Get.find();
-    OrderController orderController = Get.find();
     ProductController pController = Get.find();
     NavBarController controller = Get.find();
     NavigationController navcontroller = Get.find();
-    String? selectedBreed = catBreeds.first;
-    CategoryController categoryController = Get.put(CategoryController());
     PetController petController = Get.find();
     Notifcontroller notifcontroller = Get.put(Notifcontroller());
     VoucherController vouchercontroller = Get.put(VoucherController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () => print(FirebaseAuth.instance.currentUser!.uid)),
-
+          onPressed: () => print(petController.petList[0].activities.length)),
       appBar: TAppBar(onMain: true, onPetDetails: false),
       backgroundColor: Color(0xffE7DFF6),
       body: SingleChildScrollView(
@@ -374,7 +368,7 @@ class _product extends StatelessWidget {
       child: GridView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: 12,
+          itemCount: products.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 4,

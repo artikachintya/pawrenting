@@ -31,10 +31,10 @@ class PetModel {
     required this.weight,
     required this.uid,
     required this.image,
-    List<ActivityModel>? activities, // Allow manual setting of activities
-    List<FoodModel>? foods, // Allow manual setting of foods
-    List<DiaryModel>? diaries, // Allow manual setting of diaries
-    List<VaccineModel>? vaccines, // Allow manual setting of vaccines
+    this.activities = const [], // Allow manual setting of activities
+    this.foods = const [], // Allow manual setting of foods
+    this.diaries = const [], // Allow manual setting of diaries
+    this.vaccines = const [], // Allow manual setting of vaccines
   }) {
     if (vaccines != null) {
       this.vaccines = vaccines;
@@ -109,5 +109,29 @@ class PetModel {
       age--;
     }
     return age;
+  }
+
+  String get ageInYearsAndMonths {
+    final now = DateTime.now();
+    int years = now.year - dob.year;
+    int months = now.month - dob.month;
+    int days = now.day - dob.day;
+
+    if (days < 0) {
+      months--;
+      days += DateTime(now.year, now.month, 0).day;
+    }
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    if (years >= 1) {
+      return '$years y.o';
+    } else if (months >= 1) {
+      return '$months month${months != 1 ? 's' : ''}';
+    } else {
+      return '$days day${days != 1 ? 's' : ''}';
+    }
   }
 }
