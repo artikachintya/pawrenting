@@ -34,6 +34,7 @@ dependencies:
   mime: ^2.0.0
   path_provider: ^2.1.5
   shimmer: ^3.0.0
+  audioplayers: ^6.3.0
 
 dev_dependencies:
   flutter_test:
@@ -50,7 +51,7 @@ flutter:
     - assets/logos/
     - assets/login/
     - assets/text/
-    - assets/audio/
+    - assets/sounds/
 
     
 

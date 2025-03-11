@@ -14,6 +14,7 @@ import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.da
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class TranslatePet extends StatefulWidget {
   @override
@@ -26,6 +27,8 @@ class _TranslatePetState extends State<TranslatePet> {
   bool _isLoading = false;
   String? _errorMessage;
   List<Map<String, dynamic>> _detectedResults = [];
+
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   final String _apiUrl = 'https://sonwt34-pawrenting-ml.hf.space/predict/';
 
@@ -45,92 +48,146 @@ class _TranslatePetState extends State<TranslatePet> {
     }
   }
 
-  Future<void> _uploadImage() async {
-    if (_image == null) return;
+  Future<void> _playAnimalSounds() async {
+    for (var result in _detectedResults) {
+      String animal = result['animal'] ?? 'unknown';
+      String emotion = result['emotion'] ?? 'unknown';
 
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-      _detectedResults.clear();
-    });
+      String soundPath = _getSoundPath(animal, emotion);
+      if (soundPath.isNotEmpty) {
+        try {
+          await _audioPlayer.stop(); // Hentikan audio sebelum mulai
+          await _audioPlayer.setSourceAsset(soundPath); // Load file dari assets
+          await _audioPlayer.setVolume(1.0); // Pastikan volume penuh
+          await _audioPlayer.resume(); // Mulai putar suara
 
-    try {
-      var request = http.MultipartRequest('POST', Uri.parse(_apiUrl));
-      request.files.add(await http.MultipartFile.fromPath(
-        'file',
-        _image!.path,
-        contentType:
-            MediaType.parse(lookupMimeType(_image!.path) ?? 'image/jpeg'),
-      ));
-
-      var streamedResponse = await request.send();
-      var response = await http.Response.fromStream(streamedResponse);
-
-      print("Response Headers: ${response.headers}");
-
-      if (response.statusCode == 200) {
-        String? contentType = response.headers['content-type'];
-
-        if (contentType != null && contentType.contains('image')) {
-          Uint8List imageBytes = response.bodyBytes;
-          File tempFile =
-              File('${(await getTemporaryDirectory()).path}/result.png');
-          await tempFile.writeAsBytes(imageBytes);
-
-          // ✅ Ambil JSON dari "x-detected-results"
-          var detectedResultsHeader = response.headers['x-detected-results'];
-          if (detectedResultsHeader != null &&
-              detectedResultsHeader.isNotEmpty) {
-            print("Raw Detected Results Header: $detectedResultsHeader");
-            try {
-              // 🔄 Perbaiki format JSON sebelum decoding
-              String fixedJson = fixJsonString(detectedResultsHeader);
-              List<dynamic> detectedResults = jsonDecode(fixedJson);
-
-              setState(() {
-                _detectedResults = detectedResults.map((item) {
-                  return {
-                    "animal": item["animal"],
-                    "emotion": item["emotion"],
-                    "emotion_confidence":
-                        (item["emotion_confidence"] as num).toDouble()
-                  };
-                }).toList();
-              });
-
-              print("Parsed Detected Results: $_detectedResults");
-            } catch (e) {
-              print("❌ Error parsing x-detected-results: $e");
-              setState(() {
-                _errorMessage = "Gagal membaca hasil deteksi.";
-              });
-            }
-          } else {
-            setState(() {
-              _errorMessage = "⚠️ Tidak ada hasil deteksi yang diterima.";
-            });
-          }
-
-          setState(() {
-            _resultImage = tempFile;
-          });
-        } else {
-          throw Exception("Unknown response format!");
+          // Tunggu hingga audio selesai diputar sebelum lanjut
+          await Future.delayed(Duration(milliseconds: 1500));
+        } catch (e) {
+          print("❌ Error memutar suara: $e");
         }
       } else {
-        throw Exception(
-            "Gagal memproses gambar. Status: ${response.statusCode}");
+        print("⚠️ Tidak ada suara untuk $animal - $emotion");
       }
-    } catch (e) {
-      setState(() {
-        _errorMessage = "Error: $e";
-      });
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
     }
   }
+
+  String _getSoundPath(String animal, String emotion) {
+    Map<String, Map<String, String>> soundMap = {
+      "dog": {
+        "happy": "sounds/happy_dog.mp3",
+        "sad": "sounds/sad_dog.mp3",
+        "angry": "sounds/angry_dog.wav",
+        "relaxed": "sounds/happy_dog.mp3",
+      },
+      "cat": {
+        "happy": "sounds/happy_cat.wav",
+        "sad": "sounds/sad_cat.wav",
+        "angry": "sounds/angry_cat.wav",
+        "relaxed": "sounds/relaxed_cat.wav",
+      }
+    };
+
+    // Konversi ke lowercase agar cocok dengan soundMap
+    animal = animal.toLowerCase();
+    emotion = emotion.toLowerCase();
+
+    String? path = soundMap[animal]?[emotion];
+    if (path == null || path.isEmpty) {
+      print("⚠️ Tidak ada suara untuk $animal - $emotion");
+    }
+    return path ?? "";
+  }
+
+  Future<void> _uploadImage() async {
+  if (_image == null) return;
+
+  setState(() {
+    _isLoading = true;
+    _errorMessage = null;
+    _detectedResults.clear();
+    _resultImage = null; // ✅ Pastikan gambar sebelumnya di-reset
+  });
+
+  try {
+    var request = http.MultipartRequest('POST', Uri.parse(_apiUrl));
+    request.files.add(await http.MultipartFile.fromPath(
+      'file',
+      _image!.path,
+      contentType:
+          MediaType.parse(lookupMimeType(_image!.path) ?? 'image/jpeg'),
+    ));
+
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+
+    print("Response Headers: ${response.headers}");
+
+    if (response.statusCode == 200) {
+      String? contentType = response.headers['content-type'];
+
+      if (contentType != null && contentType.contains('image')) {
+        Uint8List imageBytes = response.bodyBytes;
+        File tempFile =
+            File('${(await getTemporaryDirectory()).path}/result.png');
+        await tempFile.writeAsBytes(imageBytes);
+
+        // ✅ Update gambar hasil di dalam setState agar UI langsung ter-update
+        setState(() {
+          _resultImage = tempFile;
+        });
+
+        var detectedResultsHeader = response.headers['x-detected-results'];
+        if (detectedResultsHeader != null && detectedResultsHeader.isNotEmpty) {
+          print("Raw Detected Results Header: $detectedResultsHeader");
+          try {
+            String fixedJson = fixJsonString(detectedResultsHeader);
+            List<dynamic> detectedResults = jsonDecode(fixedJson);
+
+            setState(() {
+              _detectedResults = detectedResults.map((item) {
+                return {
+                  "animal": item["animal"],
+                  "emotion": item["emotion"],
+                  "emotion_confidence":
+                      (item["emotion_confidence"] as num).toDouble()
+                };
+              }).toList();
+            });
+
+            print("Parsed Detected Results: $_detectedResults");
+
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _playAnimalSounds();
+            });
+          } catch (e) {
+            print("❌ Error parsing x-detected-results: $e");
+            setState(() {
+              _errorMessage = "Gagal membaca hasil deteksi.";
+            });
+          }
+        } else {
+          setState(() {
+            _errorMessage = "⚠️ Tidak ada hasil deteksi yang diterima.";
+          });
+        }
+      } else {
+        throw Exception("Unknown response format!");
+      }
+    } else {
+      throw Exception("Gagal memproses gambar. Status: ${response.statusCode}");
+    }
+  } catch (e) {
+    setState(() {
+      _errorMessage = "Error: $e";
+    });
+  } finally {
+    setState(() {
+      _isLoading = false;
+    });
+  }
+}
+
 
   /// ✅ Fungsi untuk memperbaiki format JSON yang mungkin memiliki kutip tunggal
   String fixJsonString(String jsonString) {
@@ -165,6 +222,7 @@ class _TranslatePetState extends State<TranslatePet> {
           style: TextStyle(color: Colors.red));
     }
 
+    
     if (_detectedResults.isEmpty)
       return SizedBox(); // Jangan tampilkan apa pun sebelum deteksi
 
@@ -173,9 +231,9 @@ class _TranslatePetState extends State<TranslatePet> {
         return Card(
           margin: EdgeInsets.symmetric(vertical: 5),
           child: ListTile(
-            title: Text("Hewan: ${result['animal'] ?? 'Unknown'}"),
+            title: Text("Pet: ${result['animal'] ?? 'Unknown'}"),
             subtitle: Text(
-              "Emosi: ${result['emotion'] ?? 'Unknown'} "
+              "Emotion: ${result['emotion'] ?? 'Unknown'} "
               "(Confidence: ${(result['emotion_confidence'] ?? 0) * 100}%)",
               style: TextStyle(fontFamily: 'AlbertSans', fontSize: 16),
             ),
@@ -186,14 +244,15 @@ class _TranslatePetState extends State<TranslatePet> {
   }
 
   void _resetPage() {
-    setState(() {
-      _image = null;
-      _resultImage = null;
-      _isLoading = false;
-      _errorMessage = null;
-      _detectedResults.clear();
-    });
-  }
+  setState(() {
+    _image = null;
+    _resultImage = null;
+    _isLoading = false;
+    _errorMessage = null;
+    _detectedResults.clear();
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +277,7 @@ class _TranslatePetState extends State<TranslatePet> {
               controller: controller, navcontroller: navcontroller),
           body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
               child: Container(
                 height: 700,
                 width: double.maxFinite,
@@ -226,18 +285,6 @@ class _TranslatePetState extends State<TranslatePet> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if (_image != null) ...[
-                      SizedBox(height: 5),
-                      Center(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.file(_image!,
-                              height: 250,
-                              width: double.infinity,
-                              fit: BoxFit.contain),
-                        ),
-                      ),
-                    ],
                     if (!_isLoading && _image == null) ...[
                       Card(
                         elevation: 6,
@@ -249,7 +296,7 @@ class _TranslatePetState extends State<TranslatePet> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Pilih Gambar",
+                              Text("Choose a Picture",
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -263,7 +310,7 @@ class _TranslatePetState extends State<TranslatePet> {
                                         _pickImage(ImageSource.gallery),
                                     icon:
                                         Icon(Icons.image, color: Colors.white),
-                                    label: Text("Dari Galeri",
+                                    label: Text("Gallery",
                                         style: TextStyle(
                                             fontSize: 16, color: Colors.white)),
                                     style: ElevatedButton.styleFrom(
@@ -278,7 +325,7 @@ class _TranslatePetState extends State<TranslatePet> {
                                         _pickImage(ImageSource.camera),
                                     icon: Icon(Icons.camera_alt,
                                         color: Colors.white),
-                                    label: Text("Ambil Foto",
+                                    label: Text("Camera",
                                         style: TextStyle(
                                             fontSize: 16, color: Colors.white)),
                                     style: ElevatedButton.styleFrom(
@@ -295,7 +342,7 @@ class _TranslatePetState extends State<TranslatePet> {
                       ),
                     ],
                     if (_isLoading) ...[
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 5),
                       Center(
                         child: Column(
                           children: [
@@ -322,10 +369,28 @@ class _TranslatePetState extends State<TranslatePet> {
                               fit: BoxFit.contain),
                         ),
                       ),
-                    ],
-                    SizedBox(height: 20),
-                    Center(child: _buildDetectionResults()),
-                    if (_resultImage != null) ...[
+                      SizedBox(height: 20),
+                      Center(child: _buildDetectionResults()),
+                      // if (_detectedResults.isNotEmpty) ...[
+                      //   SizedBox(height: 20),
+                      //   Center(
+                      //     child: ElevatedButton.icon(
+                      //       onPressed:
+                      //           _playAnimalSounds, // Memainkan ulang suara
+                      //       icon: Icon(Icons.volume_up, color: Colors.white),
+                      //       label: Text(
+                      //         "Putar Suara Lagi",
+                      //         style:
+                      //             TextStyle(fontSize: 16, color: Colors.white),
+                      //       ),
+                      //       style: ElevatedButton.styleFrom(
+                      //         backgroundColor: TColors.lightPurple,
+                      //         shape: RoundedRectangleBorder(
+                      //             borderRadius: BorderRadius.circular(12)),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ],
                       SizedBox(height: 20),
                       Center(
                         child: ElevatedButton(
@@ -334,7 +399,7 @@ class _TranslatePetState extends State<TranslatePet> {
                           ),
                           onPressed: _resetPage,
                           child: Text(
-                            "Terjemahkan Lagi",
+                            "Translate again",
                             style: TextStyle(
                                 fontFamily: 'AlbertSans',
                                 fontSize: 16,
