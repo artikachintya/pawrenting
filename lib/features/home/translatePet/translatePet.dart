@@ -218,26 +218,28 @@ class _TranslatePetState extends State<TranslatePet> {
               controller: controller, navcontroller: navcontroller),
           body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (_image != null) ...[
-                    SizedBox(height: 5),
-                    Center(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.file(_image!,
-                            height: 250,
-                            width: double.infinity,
-                            fit: BoxFit.contain),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              child: Container(
+                height: 700,
+                width: double.maxFinite,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (_image != null) ...[
+                      SizedBox(height: 5),
+                      Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.file(_image!,
+                              height: 250,
+                              width: double.infinity,
+                              fit: BoxFit.contain),
+                        ),
                       ),
-                    ),
-                  ],
-                  if (!_isLoading && _image == null) ...[
-                    Center(
-                      child: Card(
+                    ],
+                    if (!_isLoading && _image == null) ...[
+                      Card(
                         elevation: 6,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16)),
@@ -291,58 +293,59 @@ class _TranslatePetState extends State<TranslatePet> {
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                  if (_isLoading) ...[
-                    const SizedBox(height: 20),
-                    Center(
-                      child: Column(
-                        children: [
-                          CircularProgressIndicator(color: TColors.lightPurple),
-                          const SizedBox(height: 10),
-                          Text("Sedang memproses...",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.blueAccent)),
-                        ],
-                      ),
-                    ),
-                  ],
-                  if (_resultImage != null) ...[
-                    SizedBox(height: 20),
-                    Center(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.file(_resultImage!,
-                            height: 250,
-                            width: double.infinity,
-                            fit: BoxFit.contain),
-                      ),
-                    ),
-                  ],
-                  SizedBox(height: 20),
-                  Center(child: _buildDetectionResults()),
-                  if (_resultImage != null) ...[
-                    SizedBox(height: 20),
-                    Center(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: TColors.lightPurple,
-                        ),
-                        onPressed: _resetPage,
-                        child: Text(
-                          "Terjemahkan Lagi",
-                          style: TextStyle(
-                              fontFamily: 'AlbertSans',
-                              fontSize: 16,
-                              color: Colors.white),
+                    ],
+                    if (_isLoading) ...[
+                      const SizedBox(height: 20),
+                      Center(
+                        child: Column(
+                          children: [
+                            CircularProgressIndicator(
+                                color: TColors.lightPurple),
+                            const SizedBox(height: 10),
+                            Text("Sedang memproses...",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.blueAccent)),
+                          ],
                         ),
                       ),
-                    ),
+                    ],
+                    if (_resultImage != null) ...[
+                      SizedBox(height: 20),
+                      Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.file(_resultImage!,
+                              height: 250,
+                              width: double.infinity,
+                              fit: BoxFit.contain),
+                        ),
+                      ),
+                    ],
+                    SizedBox(height: 20),
+                    Center(child: _buildDetectionResults()),
+                    if (_resultImage != null) ...[
+                      SizedBox(height: 20),
+                      Center(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: TColors.lightPurple,
+                          ),
+                          onPressed: _resetPage,
+                          child: Text(
+                            "Terjemahkan Lagi",
+                            style: TextStyle(
+                                fontFamily: 'AlbertSans',
+                                fontSize: 16,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                    SizedBox(height: 5),
                   ],
-                  SizedBox(height: 5),
-                ],
+                ),
               ),
             ),
           ),
