@@ -41,9 +41,9 @@ class PetVaccine extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              CoreVaccine(),
+              CoreVaccine(pet: pet),
               SizedBox(height: 20),
-              NonCoreVaccine()
+              NonCoreVaccine(pet: pet)
             ]),
           ),
         ),

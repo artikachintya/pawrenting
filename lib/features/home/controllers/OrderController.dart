@@ -116,6 +116,7 @@ class OrderController extends GetxController {
       productController.updateProductStock(
           item.productModel.id, item.productModel.stock - item.quantity.value);
     }
+    cartController.removeCheckedItems();
     productController.fetchProduct();
     fetchOrderById();
   }

@@ -34,4 +34,19 @@ class PetRepo extends GetxController {
       }
     });
   }
+
+  Future<void> deletePet(String petId) async {
+    print('delete pet $petId');
+    await _db
+        .collection('pets')
+        .where('id', isEqualTo: petId)
+        .get()
+        .then((snapshot) {
+      for (var doc in snapshot.docs) {
+        doc.reference.delete();
+      }
+    });
+  }
+
+  
 }

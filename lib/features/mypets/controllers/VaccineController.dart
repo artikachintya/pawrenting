@@ -26,16 +26,27 @@ class VaccineController extends GetxController {
     });
   }
 
+  void updateVaccine(String petId, String vaccineId) {
+    int index = petVaccines.indexWhere((vac) => vac.id == vaccineId);
+    if (index != -1) {
+      petVaccines[index].updateStatus();
+      petRepo.updatePet(
+          petId, petController.petList.where((pet) => pet.id == petId).first);
 
-  void updateVaccine(String petId, String vacId) {
-    petController.petList
-        .where((pet) => pet.id == petId)
-        .first
-        .vaccines
-        .where((vac) => vac.id == vacId)
-        .first
-        .updateStatus();
-    petRepo.updatePet(
-        petId, petController.petList.where((pet) => pet.id == petId).first);
+      petVaccines.refresh(); // Ensure update is detected
+    }
+
+    // void updateVaccine(String petId, String vacId) {
+    //   print('update vaccine');
+    //   petController.petList
+    //       .where((pet) => pet.id == petId)
+    //       .first
+    //       .vaccines
+    //       .where((vac) => vac.id == vacId)
+    //       .first
+    //       .updateStatus();
+    //   petRepo.updatePet(
+    //       petId, petController.petList.where((pet) => pet.id == petId).first);
+    // }
   }
 }

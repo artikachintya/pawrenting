@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:pawrentingreborn/data/repositories/PetRepo.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
 import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
+import 'package:pawrentingreborn/features/mypets/models/VaccineModel.dart';
 
 class AddPetController extends GetxController {
   // static AddPetController get instance => Get.find();
@@ -59,6 +60,9 @@ class AddPetController extends GetxController {
         breed: breedController.text,
         image: base64Image.value,
         uid: user.uid,
+        vaccines: type.toLowerCase() == 'cat'
+            ? VaccineModel.getCatVaccineList()
+            : VaccineModel.getDogVaccineList(),
       );
       print('controller lancar');
       await petRepo.createPet(pet);

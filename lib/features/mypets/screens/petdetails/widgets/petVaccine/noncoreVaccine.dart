@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/VaccineController.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/vaccineList.dart';
 
 class NonCoreVaccine extends StatelessWidget {
   const NonCoreVaccine({
     super.key,
+     required this.pet
   });
 
+  final PetModel pet;
   @override
   Widget build(BuildContext context) {
     VaccineController vaccineController = Get.find();
@@ -30,18 +33,16 @@ class NonCoreVaccine extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10),
-        Obx(() => 
-        GridView.builder(
-          itemCount: 3,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1, mainAxisSpacing: 10, mainAxisExtent: 90),
-          itemBuilder: (_, index) => VaccineList(
-            vaccine: vaccineController.nonCoreVaccines[index],
-          ),
-        )
-        )
+        Obx(() => GridView.builder(
+              itemCount: vaccineController.nonCoreVaccines.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1, mainAxisSpacing: 10, mainAxisExtent: 90),
+              itemBuilder: (_, index) => VaccineList(pet: pet,
+                vaccine: vaccineController.nonCoreVaccines[index],
+              ),
+            ))
       ],
     );
   }

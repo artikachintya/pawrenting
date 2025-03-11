@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/features/community/screens/community.dart';
 import 'package:pawrentingreborn/features/home/screens/home.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/addPetController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petlist/petlist.dart';
 import 'package:pawrentingreborn/features/profile/screens/profile.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -15,6 +16,7 @@ class NavigationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NavBarController navController = Get.put(NavBarController());
     NavigationController controller = Get.find();
     return Scaffold(
         floatingActionButton: ClipRRect(
@@ -40,8 +42,10 @@ class NavigationMenu extends StatelessWidget {
         bottomNavigationBar: Obx(
           () => NavigationBar(
               selectedIndex: controller.selectedIndex.value,
-              onDestinationSelected: (index) =>
-                  controller.selectedIndex.value = index,
+              onDestinationSelected: (index) {
+                controller.selectedIndex.value = index;
+                navController.setCurIndex(index);
+              },
               backgroundColor: Colors.white,
               height: 80,
               destinations: const [

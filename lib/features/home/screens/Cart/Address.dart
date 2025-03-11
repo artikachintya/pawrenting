@@ -45,8 +45,6 @@ class ChooseAddress extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          height: 500,
-          width: 500,
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(TImages.paws), fit: BoxFit.cover)),

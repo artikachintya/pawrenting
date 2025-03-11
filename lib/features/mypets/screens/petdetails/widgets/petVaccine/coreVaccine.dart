@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/VaccineController.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/mypets/models/VaccineModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/widgets/petVaccine/vaccineList.dart';
 
 class CoreVaccine extends StatelessWidget {
-  const CoreVaccine({
-    super.key,
-  });
+  final PetModel pet;
+  const CoreVaccine({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class CoreVaccine extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1, mainAxisSpacing: 10, mainAxisExtent: 90),
-              itemBuilder: (_, index) => VaccineList(
+              itemBuilder: (_, index) => VaccineList(pet: pet,
                 vaccine: vaccineController.coreVaccines[index],
               ),
             ))
