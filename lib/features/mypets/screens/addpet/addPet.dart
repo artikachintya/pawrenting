@@ -21,43 +21,52 @@ class AddPet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
-    final pcontroller = Get.put(addpetPageController());
+    addpetPageController pcontroller = Get.find();
     final formGlobalKey1 = GlobalKey<FormState>();
     final formGlobalKey2 = GlobalKey<FormState>();
 
     return Scaffold(
-        backgroundColor: TColors.primary,
-        appBar: const TAppBar(onMain: true, onPetDetails: false),
-        bottomNavigationBar:
-            InsideNavBar(controller: controller, navcontroller: navcontroller),
-        body: Stack(
-          children: [
-            GetBuilder<addpetPageController>(builder: (controller) {
-              return DotIndicator(pcontroller: controller);
-            }),
-            PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: pcontroller.pagecontroller,
+      backgroundColor: TColors.primary,
+      resizeToAvoidBottomInset:
+          false, // Prevents screen resizing when keyboard appears
+      appBar: const TAppBar(onMain: true, onPetDetails: false),
+      bottomNavigationBar: InsideNavBar(),
+      body: Column(
+        children: [
+          Container(
+            height: 500,
+            child: Stack(
               children: [
-                addPet1(formGlobalKey: formGlobalKey1),
-                const addPet2(),
-                const addPet3(),
-                addPet4(formGlobalKey: formGlobalKey2),
-                const addPet5(),
-                addPet6()
+                GetBuilder<addpetPageController>(builder: (controller) {
+                  return DotIndicator(pcontroller: pcontroller);
+                }),
+                PageView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: pcontroller.pagecontroller,
+                  children: [
+                    addPet1(formGlobalKey: formGlobalKey1),
+                    const addPet2(),
+                    const addPet3(),
+                    addPet4(formGlobalKey: formGlobalKey2),
+                    const addPet5(),
+                    addPet6()
+                  ],
+                ),
               ],
             ),
-            GetBuilder<addpetPageController>(builder: (_) {
-              return AddPetButton(
-                pcontroller: pcontroller,
-                confirmation: pcontroller.confirmation,
+          ),
+          GetBuilder<addpetPageController>(builder: (_) {
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+              child: AddPetButton(
                 formGlobalKey1: formGlobalKey1,
                 formGlobalKey2: formGlobalKey2,
-              );
-            })
-          ],
-        ));
+              ),
+            );
+          }),
+        ],
+      ),
+    );
   }
 }

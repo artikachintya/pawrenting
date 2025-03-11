@@ -13,31 +13,31 @@ import 'package:pawrentingreborn/utils/helpers/file_helper.dart';
 
 class TermsAndConditions extends StatelessWidget {
   TermsAndConditions({super.key});
-  
+
   Future<String> _loadTnC() async {
     return await FileHelper.loadTextFile('assets/text/TnC.txt');
   }
-  
+
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     return Scaffold(
-      appBar: const TAppBar2(
-        title: "Terms and Conditions",
-        subtitle: "Please read carefully",
-      ),
-      bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
-      backgroundColor: TColors.primary,
-      body: SingleChildScrollView(
-        child: Center(
+        appBar: const TAppBar2(
+          title: "Terms and Conditions",
+          subtitle: "Please read carefully",
+        ),
+        bottomNavigationBar: InsideNavBar(),
+        backgroundColor: TColors.primary,
+        body: SingleChildScrollView(
+            child: Center(
           child: Container(
             margin: EdgeInsets.only(top: 25),
             width: 370,
             height: 3100,
             decoration: BoxDecoration(
               color: TColors.secondary,
-              borderRadius: BorderRadius.circular(20), 
+              borderRadius: BorderRadius.circular(20),
             ),
             child: FutureBuilder<String>(
               future: _loadTnC(),
@@ -45,32 +45,34 @@ class TermsAndConditions extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Error loading terms and conditions'));
+                  return Center(
+                      child: Text('Error loading terms and conditions'));
                 } else {
                   return Column(
                     children: [
-                      Padding(padding: EdgeInsets.only(top: 20), 
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
                         child: Text(
-                          "Terms and Conditions", 
+                          "Terms and Conditions",
                           style: TextStyle(
-                            fontFamily: "Albert Sans", 
-                            fontSize: 24, 
-                            color: const Color.fromARGB(255, 0, 0, 0), 
-                            fontWeight: FontWeight.bold, 
+                            fontFamily: "Albert Sans",
+                            fontSize: 24,
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ), 
+                      ),
                       Container(
                         margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                         width: 350,
                         height: 3000,
                         child: Text(
-                          snapshot.data ?? '', 
+                          snapshot.data ?? '',
                           textAlign: TextAlign.justify,
                           style: TextStyle(
-                            fontFamily: "Albert Sans", 
-                            fontSize: 16, 
-                            color: Colors.black, 
+                            fontFamily: "Albert Sans",
+                            fontSize: 16,
+                            color: Colors.black,
                           ),
                         ),
                       )
@@ -79,9 +81,7 @@ class TermsAndConditions extends StatelessWidget {
                 }
               },
             ),
-          ), 
-        )
-      )
-    ); 
-  } 
+          ),
+        )));
+  }
 }

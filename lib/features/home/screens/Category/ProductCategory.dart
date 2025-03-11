@@ -21,15 +21,14 @@ class ProductCategory extends StatelessWidget {
     ProductController pController = Get.find();
     CategoryController categoryController = Get.find();
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     return Scaffold(
         backgroundColor: TColors.primary,
         appBar: TAppBar(onMain: true, onPetDetails: false),
-        bottomNavigationBar:
-            InsideNavBar(controller: controller, navcontroller: navcontroller),
+        bottomNavigationBar: InsideNavBar(),
         body: SingleChildScrollView(
             child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -110,7 +109,7 @@ class _product extends StatelessWidget {
                         ),
                         Positioned(
                           top: 8,
-                          right: 170,
+                          right: 162,
                           child: Container(
                             width: 10,
                             height: 25,
@@ -180,6 +179,5 @@ class _product extends StatelessWidget {
             );
           }),
     );
-
   }
 }

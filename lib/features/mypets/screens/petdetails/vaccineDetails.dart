@@ -26,7 +26,7 @@ class VaccineDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     VaccineController vaccineController = Get.find();
     return Scaffold(
       backgroundColor: TColors.primary,
@@ -198,8 +198,7 @@ class VaccineDetails extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
     );
   }
 }

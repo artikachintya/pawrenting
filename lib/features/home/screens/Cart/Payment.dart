@@ -160,6 +160,7 @@ class _PaymentState extends State<Payment> {
   Widget _bottomBar() {
     OrderController orderController = Get.find();
     return Container(
+      margin: EdgeInsets.only(bottom: 15),
       height: 80,
       decoration: const BoxDecoration(
         color: Colors.white,

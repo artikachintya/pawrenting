@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/features/authentication/screens/ForgotPassword/forgotPassword.dart';
 import 'package:pawrentingreborn/features/authentication/screens/signup.dart';
+import 'package:pawrentingreborn/features/home/screens/home.dart';
 
 import '../../../navigationMenu.dart';
 
@@ -135,7 +136,7 @@ class _LoginForm extends StatelessWidget {
           password: _passwordController.text,
         );
         print('Successfully Login');
-        Get.to(() => NavigationMenu());
+        Get.to(() => Home());
       } catch (e) {
         print(e);
       }
@@ -220,14 +221,14 @@ class _LoginForm extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 5),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
                   await _login();
                 },
                 style: _elevatedButtonStyle(),
-                child: const Text(
+                child: Text(
                   'Login',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
@@ -265,7 +266,7 @@ class _LoginForm extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 120, vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
     );
   }
 }

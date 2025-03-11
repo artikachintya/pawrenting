@@ -4,25 +4,23 @@ import 'package:pawrentingreborn/features/mypets/controllers/addPet/addpetPageCo
 import 'package:pawrentingreborn/features/mypets/controllers/addPet/petGender.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/addPet/petTypeButtonCont.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/AddPetController.dart';
+import 'package:pawrentingreborn/features/mypets/screens/petlist/petlist.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/device/device_utility.dart';
 
 class AddPetButton extends StatelessWidget {
   const AddPetButton({
     super.key,
-    required this.pcontroller,
-    required this.confirmation,
     required this.formGlobalKey1,
     required this.formGlobalKey2,
   });
 
-  final addpetPageController pcontroller;
-  final confirmation;
   final formGlobalKey1;
   final formGlobalKey2;
 
   @override
   Widget build(BuildContext context) {
+    addpetPageController pcontroller = Get.find();
     AddPetController addPetController = Get.find();
     final typeController = Get.put(PetTypeButtonController());
     final genderController = Get.put(PetGenderButtonController());
@@ -33,7 +31,7 @@ class AddPetButton extends StatelessWidget {
             // color: Colors.red.withAlpha(100),
             height: 40,
             width: 300,
-            child: confirmation
+            child: pcontroller.confirmation
                 ? Row(
                     children: [
                       Expanded(
@@ -71,7 +69,7 @@ class AddPetButton extends StatelessWidget {
                           addpetPageController pcontroller = Get.find();
                           pcontroller.reset();
                           addPetController.resetController();
-                          Get.to(() => NavigationMenu());
+                          Get.to(() => PetList());
                         },
                         child: const Text(
                           'Add Pet',

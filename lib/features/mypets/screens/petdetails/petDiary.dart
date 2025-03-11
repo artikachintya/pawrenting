@@ -17,26 +17,25 @@ class PetDiaryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     return Scaffold(
-      floatingActionButton:  Container(
-        width: 90,
-        child: FloatingActionButton(
-          onPressed: () {
-            Get.to(() => Petadddiary());
-          },
-          backgroundColor: TColors.accent,
-          foregroundColor: Colors.white,
-          child: Text('+ Add',
-              style: TextStyle(
-                  fontSize: 12, fontFamily: 'Alata', color: Colors.white)),
+        floatingActionButton: Container(
+          width: 90,
+          child: FloatingActionButton(
+            onPressed: () {
+              Get.to(() => Petadddiary());
+            },
+            backgroundColor: TColors.accent,
+            foregroundColor: Colors.white,
+            child: Text('+ Add',
+                style: TextStyle(
+                    fontSize: 12, fontFamily: 'Alata', color: Colors.white)),
+          ),
         ),
-      ),
         backgroundColor: TColors.primary,
         appBar: TAppBar2(
             title: 'Pet Diary', subtitle: 'Add your pet\'s daily activities'),
-        bottomNavigationBar:
-            InsideNavBar(controller: controller, navcontroller: navcontroller),
+        bottomNavigationBar: InsideNavBar(),
         body: SingleChildScrollView(
             child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
@@ -79,7 +78,7 @@ class PetDiaryPage extends StatelessWidget {
                 ),
                 SizedBox(height: TSize.verticalSpacing),
                 GridView.builder(
-                    itemCount: 2,
+                    itemCount: 1,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

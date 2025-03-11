@@ -21,7 +21,7 @@ class EditPet extends StatelessWidget {
   Widget build(BuildContext context) {
     EditPetController editPetController = Get.put(EditPetController());
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     String? selectedBreed = catBreeds.first;
     return Scaffold(
       backgroundColor: TColors.primary,
@@ -162,8 +162,9 @@ class EditPet extends StatelessWidget {
                 if (pickedDate != null) {
                   editPetController.birthdateController.text =
                       DateFormat('dd MMMM yyyy').format(pickedDate);
-                  editPetController.birthdateController.value = TextEditingValue(
-                      text: DateFormat('dd MMMM yyyy').format(pickedDate));
+                  editPetController.birthdateController.value =
+                      TextEditingValue(
+                          text: DateFormat('dd MMMM yyyy').format(pickedDate));
                 }
               },
               validator: (value) {
@@ -177,8 +178,7 @@ class EditPet extends StatelessWidget {
           ]),
         ),
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
     );
   }
 }

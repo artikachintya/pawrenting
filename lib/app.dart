@@ -24,21 +24,19 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
         theme: TAppTheme.lightTheme,
-
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
-              return const NavigationMenu();
+              return Home();
             } else if (snapshot.hasError) {
               return const Center(child: Text('Something went wrong!'));
             } else {
               return Landingpage();
             }
           },
-          )
-          );
+        ));
   }
 }

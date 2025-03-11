@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pawrentingreborn/features/authentication/controllers/SignUpController.dart';
+import 'package:pawrentingreborn/features/home/screens/home.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/data/services/AuthenticationService.dart';
 
@@ -55,7 +56,7 @@ class _SignupState extends State<Signup> {
           _dobController.text,
           _usernameController.text,
         );
-        Get.to(() => NavigationMenu());
+        Get.to(() => Home());
         print('Form submitted successfully');
       } catch (e) {
         print(e);

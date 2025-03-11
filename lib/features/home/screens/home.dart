@@ -50,36 +50,43 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     ProductController pController = Get.find();
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     PetController petController = Get.find();
     Notifcontroller notifcontroller = Get.put(Notifcontroller());
     VoucherController vouchercontroller = Get.put(VoucherController());
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-          onPressed: () => print(petController.petList[0].activities.length)),
-      appBar: TAppBar(onMain: true, onPetDetails: false),
-      backgroundColor: Color(0xffE7DFF6),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 15),
-            _carouselSlider(),
-            SizedBox(height: 30),
-            _chooseFeature(),
-            SizedBox(height: 30),
-            _textPopular(),
-            SizedBox(
-              height: 20,
-            ),
-            _popularCategory(),
-            SizedBox(height: 20),
-            _textProduct(),
-            SizedBox(height: 20),
-            _product(products: pController.productsList),
-          ],
+    return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                "assets/login/wallpaper-login.png"), // Replace with your wallpaper path
+            fit: BoxFit.cover, // Ensures the image covers the entire screen
+          ),
         ),
-      ),
-    );
+        child: Scaffold(
+          bottomNavigationBar: InsideNavBar(),
+          backgroundColor: Colors.transparent,
+          appBar: TAppBar(onMain: true, onPetDetails: false),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 15),
+                _carouselSlider(),
+                SizedBox(height: 30),
+                _chooseFeature(),
+                SizedBox(height: 30),
+                _textPopular(),
+                SizedBox(
+                  height: 20,
+                ),
+                _popularCategory(),
+                SizedBox(height: 20),
+                _textProduct(),
+                SizedBox(height: 20),
+                _product(products: pController.productsList),
+              ],
+            ),
+          ),
+        ));
   }
 
   Padding _textProduct() {
@@ -405,7 +412,7 @@ class _product extends StatelessWidget {
                         ),
                         Positioned(
                           top: 8,
-                          right: 170,
+                          right: 162,
                           child: Container(
                             width: 10,
                             height: 25,

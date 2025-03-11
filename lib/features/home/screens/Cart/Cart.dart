@@ -8,6 +8,7 @@ import 'package:pawrentingreborn/features/home/controllers/OrderController.dart'
 import 'package:pawrentingreborn/features/home/models/cartItemModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Checkout.dart';
 import 'package:pawrentingreborn/features/home/screens/Product/ProductDetail.dart';
+import 'package:pawrentingreborn/features/home/screens/home.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/cartItem.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 
@@ -20,9 +21,17 @@ class MyCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CartController cartController = Get.find();
-    OrderController orderController = Get.find();
-    return Obx(() => Scaffold(
-          backgroundColor: TColors.primary,
+    // OrderController orderController = Get.find();
+    return Obx(() => Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                "assets/login/wallpaper-login.png"), // Replace with your wallpaper path
+            fit: BoxFit.cover, // Ensures the image covers the entire screen
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
           appBar: TAppBar2(title: 'My Cart', subtitle: 'Check your cart here!'),
           bottomNavigationBar: cartController.noOfCartItems.value != 0
               ? Container(
@@ -163,7 +172,7 @@ class MyCart extends StatelessWidget {
                       : ShopNow()),
             ),
           ),
-        ));
+        )));
   }
 }
 
@@ -197,7 +206,7 @@ class ShopNow extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   GestureDetector(
-                    onTap: () => Get.to(NavigationMenu()),
+                    onTap: () => Get.to(Home()),
                     child: Container(
                       height: 40,
                       width: 100,

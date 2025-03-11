@@ -29,7 +29,7 @@ class PetDetails extends StatelessWidget {
       debugPrint("Error decoding image: $e");
     }
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: TAppBar(onMain: false, onPetDetails: true),
@@ -50,7 +50,7 @@ class PetDetails extends StatelessWidget {
                 top: 290,
                 child: Container(
                   height: 1000,
-                  width: 412,
+                  width: 380,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       color: TColors.primary,
@@ -135,8 +135,7 @@ class PetDetails extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
     );
   }
 }

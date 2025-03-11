@@ -53,7 +53,7 @@ class _AfterPayState extends State<AfterPay> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(() => NavigationMenu());
+                    Get.to(() => Home());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: TColors.purplebutton,

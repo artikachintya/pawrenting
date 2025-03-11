@@ -16,7 +16,7 @@ class Petadddiary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     return Scaffold(
       appBar: TAppBar2(
         title: TTexts.appBarAddDiaryTitle,
@@ -30,8 +30,7 @@ class Petadddiary extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
     );
   }
 }

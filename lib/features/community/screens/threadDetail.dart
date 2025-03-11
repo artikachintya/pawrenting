@@ -2,11 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
+import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/community/controller/ThreadController.dart';
 import 'package:pawrentingreborn/features/community/controller/commentController.dart';
 import 'package:pawrentingreborn/features/community/models/thread_comment.dart';
 import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/features/community/widget/commentThreadsDetail.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/navigationMenu.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 import 'package:pawrentingreborn/utils/constants/texts.dart';
@@ -24,8 +27,8 @@ class threadDetail extends StatefulWidget {
 class _threadDetailState extends State<threadDetail> {
   late bool isLiked;
   late int likeCount;
-  bool isUpdating = false;  
-  
+  bool isUpdating = false;
+
   @override
   void initState() {
     super.initState();
@@ -46,52 +49,53 @@ class _threadDetailState extends State<threadDetail> {
     bool newIsLiked = !isLiked;
     int newLikeCount = likeCount + (newIsLiked ? 1 : -1);
     try {
-      DocumentReference docRef = FirebaseFirestore.instance.collection('threads').doc(widget.message.id);
+      DocumentReference docRef = FirebaseFirestore.instance
+          .collection('threads')
+          .doc(widget.message.id);
 
       // Check if the document exists
       DocumentSnapshot docSnapshot = await docRef.get();
 
       if (docSnapshot.exists) {
-      // Update Firestore
-      await docRef.update({
-        'isLiked': newIsLiked,
-        'likeCount': newLikeCount,
-        'commentCount': widget.message.commentCount,
-      });
+        // Update Firestore
+        await docRef.update({
+          'isLiked': newIsLiked,
+          'likeCount': newLikeCount,
+          'commentCount': widget.message.commentCount,
+        });
 
-      // Ensure the UI updates only after a successful Firestore update
-      setState(() {
-        isLiked = newIsLiked;
-        likeCount = newLikeCount;
-        ThreadController threadController = Get.find();
-        int threadIndex = threadController.threadsList.indexWhere((t) => t.id == widget.message.id);
+        // Ensure the UI updates only after a successful Firestore update
+        setState(() {
+          isLiked = newIsLiked;
+          likeCount = newLikeCount;
+          ThreadController threadController = Get.find();
+          int threadIndex = threadController.threadsList
+              .indexWhere((t) => t.id == widget.message.id);
           if (threadIndex != -1) {
             threadController.threadsList[threadIndex].isLiked = newIsLiked;
             threadController.threadsList[threadIndex].likeCount = newLikeCount;
             threadController.threadsList.refresh();
           }
-
-        
-      });
+        });
       } else {
-      // Handle document not found scenario
-      print('Document not found. Ensure the document ID is correct.');
-      setState(() {
-        isUpdating = false;
-      });
+        // Handle document not found scenario
+        print('Document not found. Ensure the document ID is correct.');
+        setState(() {
+          isUpdating = false;
+        });
       }
     } catch (e) {
       // Handle Firestore update failure
       print('Error updating Firestore: $e');
       setState(() {
-      isUpdating = false;
+        isUpdating = false;
       });
     } finally {
       setState(() {
-      isUpdating = false;
+        isUpdating = false;
       });
     }
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +104,7 @@ class _threadDetailState extends State<threadDetail> {
     final ThreadController threadController = Get.put(ThreadController());
     final TextEditingController commentTextController = TextEditingController();
     final FirebaseAuth auth = FirebaseAuth.instance;
+    NavBarController controller = Get.find();
 
     return Scaffold(
       appBar: TAppBar2(
@@ -107,11 +112,13 @@ class _threadDetailState extends State<threadDetail> {
         subtitle: TTexts.appBarThreadsSub,
       ),
       backgroundColor: TColors.primary,
+      bottomNavigationBar: InsideNavBar(),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,7 +127,9 @@ class _threadDetailState extends State<threadDetail> {
                     children: [
                       Image(
                         image: AssetImage(
-                          message.senderProfile.isNotEmpty ? message.senderProfile : TImages.user,
+                          message.senderProfile.isNotEmpty
+                              ? message.senderProfile
+                              : TImages.user,
                         ),
                         height: 45,
                       ),
@@ -158,7 +167,7 @@ class _threadDetailState extends State<threadDetail> {
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
                       height: 160,
-                      width: 360,
+                      width: 335,
                       child: _buildThreadImage(message),
                     ),
                   ),
@@ -227,43 +236,45 @@ class _threadDetailState extends State<threadDetail> {
                   ),
                 ],
               ),
-              Obx(() =>  Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    '${commentController.threadsCommentList.length} Replies',
-                    style: TextStyle(
-                      fontFamily: 'albertsans',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff4E4E4E),
+              Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      '${commentController.threadsCommentList.length} Replies',
+                      style: TextStyle(
+                        fontFamily: 'albertsans',
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff4E4E4E),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
               ),
               Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.7),
-                  border: Border.all(color: Color(0xff8B68CC).withOpacity(0.6)),
-                ),
-                width: 370,
-                padding: EdgeInsets.only(left: 25, top: 15, bottom: 15),
-                child: 
-                Obx((){
-                  // print("Comment list length: ${commentController.threadsCommentList.length}");
-                  return ListView.separated(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) => SizedBox(height: 15),
-                    itemCount:commentController.threadsCommentList.length,
-                    itemBuilder: (context, index){
-                    return CommentThreadDetails(comment: commentController.threadsCommentList[index]);
-                    },
-                  );
-                })
-              ),
-
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.7),
+                    border:
+                        Border.all(color: Color(0xff8B68CC).withOpacity(0.6)),
+                  ),
+                  width: 370,
+                  padding: EdgeInsets.only(left: 25, top: 15, bottom: 15),
+                  child: Obx(() {
+                    // print("Comment list length: ${commentController.threadsCommentList.length}");
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      separatorBuilder: (context, index) =>
+                          SizedBox(height: 15),
+                      itemCount: commentController.threadsCommentList.length,
+                      itemBuilder: (context, index) {
+                        return CommentThreadDetails(
+                            comment:
+                                commentController.threadsCommentList[index]);
+                      },
+                    );
+                  })),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.7),
@@ -271,7 +282,6 @@ class _threadDetailState extends State<threadDetail> {
                 ),
                 width: 370,
                 padding: EdgeInsets.only(left: 25),
-              
                 child: Row(
                   children: [
                     Image(
@@ -282,24 +292,23 @@ class _threadDetailState extends State<threadDetail> {
                     Container(
                       width: 100,
                       child: TextFormField(
-                        controller:  commentController.commentController,
+                        controller: commentController.commentController,
                         decoration: InputDecoration(
                           labelText: 'Add a new comment',
                         ),
                       ),
                     ),
-                  GestureDetector(
-                    onTap: () {
-                      if (commentController.commentController.text.isNotEmpty) {
-                        commentController.addComment(widget.message.id);
-                        threadController.updateThread(widget.message.id);
-                      }
-
-                    },
-                    child: Image(image: AssetImage(TImages.sendLogos), width: 30),
-                  )
-
-
+                    GestureDetector(
+                      onTap: () {
+                        if (commentController
+                            .commentController.text.isNotEmpty) {
+                          commentController.addComment(widget.message.id);
+                          threadController.updateThread(widget.message.id);
+                        }
+                      },
+                      child: Image(
+                          image: AssetImage(TImages.sendLogos), width: 30),
+                    )
                   ],
                 ),
               ),
@@ -309,7 +318,6 @@ class _threadDetailState extends State<threadDetail> {
       ),
     );
   }
-
 
   Widget _buildThreadImage(ThreadMessage message) {
     if (message.threadImage.startsWith('http')) {

@@ -31,7 +31,7 @@ class PetCard extends StatelessWidget {
           const Image(image: AssetImage(TImages.petCard)),
           cardHeader(isCat: pet.type.toLowerCase() == 'cat'),
           Positioned(
-            top: 55,
+            top: 48,
             child: SizedBox(
               height: 126,
               width: 370,
@@ -73,7 +73,7 @@ class PetCard extends StatelessWidget {
                             field1: 'Gender',
                             field2: 'Height',
                             val1: pet.gender,
-                            val2: '${pet.weight} cm',
+                            val2: '${pet.height} cm',
                           ),
                         ],
                       ),

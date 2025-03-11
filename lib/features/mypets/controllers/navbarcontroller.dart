@@ -1,10 +1,6 @@
 import 'package:get/get.dart';
 
 class NavBarController extends GetxController{
-  int _curIndex = 0;
-  int get curIndex => _curIndex;
+  RxInt curIndex = 0.obs;
 
-  void setCurIndex(int index){
-    _curIndex = index;
-  }
 }

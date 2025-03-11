@@ -4,6 +4,7 @@ import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
 import 'package:pawrentingreborn/features/home/models/orderModel.dart';
 import 'package:pawrentingreborn/features/home/screens/Cart/Cart.dart';
+import 'package:pawrentingreborn/features/home/screens/home.dart';
 import 'package:pawrentingreborn/features/profile/screens/orderDetail.dart';
 import 'package:pawrentingreborn/features/profile/widgets/productDisplay.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
@@ -18,7 +19,7 @@ class ListOrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     OrderController orderController = Get.find();
     print(orderController.orderList.length);
     return Scaffold(
@@ -26,8 +27,7 @@ class ListOrderPage extends StatelessWidget {
         title: "My Order",
         subtitle: "Woof! Meow! Your Order is on Its Way!",
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
         child: Padding(
@@ -85,9 +85,7 @@ class ShopNow extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      NavigationController navigationController = Get.find();
-                      navigationController.selectedIndex.value = 0;
-                      Get.to(NavigationMenu());
+                      Get.to(Home());
                     },
                     child: Container(
                       height: 40,

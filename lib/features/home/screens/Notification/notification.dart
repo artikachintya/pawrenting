@@ -18,12 +18,11 @@ class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     final notifController = Get.put(Notifcontroller());
 
     return Scaffold(
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
       appBar: TAppBar2(title: 'Notification', subtitle: 'What\'s new?'),
       backgroundColor: TColors.primary,
       body: Obx(
@@ -46,13 +45,17 @@ class NotificationPage extends StatelessWidget {
                         // leading: notif.image != null && notif.image!.isNotEmpty
                         //     ?Image.asset(notif.image!, width: 50, height: 50, fit: BoxFit.cover)
                         //     : Icon(Icons.notifications, size: 50),
-                        title: Text(notif.title, style: TextStyle(fontFamily: 'Albert Sans',fontSize: 18 ,fontWeight:FontWeight
-                        .bold)),
+                        title: Text(notif.title,
+                            style: TextStyle(
+                                fontFamily: 'Albert Sans',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
                         subtitle: Text(
-                          maxLines: 2,
-                          notif.content, style: TextStyle(fontFamily: 'Alata',fontSize: 14)),
-                        onTap:()=>Get.to(NotificationDetail(notif: notif)),
-                        
+                            maxLines: 2,
+                            notif.content,
+                            style:
+                                TextStyle(fontFamily: 'Alata', fontSize: 14)),
+                        onTap: () => Get.to(NotificationDetail(notif: notif)),
                       ),
                     );
                   },

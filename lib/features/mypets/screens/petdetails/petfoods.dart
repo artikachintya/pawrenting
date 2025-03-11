@@ -17,26 +17,25 @@ class PetFood extends StatelessWidget {
   const PetFood({super.key, required this.pet});
 
   @override
-
-  
   Widget build(BuildContext context) {
     PetFoodController foodController = Get.find();
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
 
     Future<void> selectTime(BuildContext context) async {
-  TimeOfDay? pickedTime = await showTimePicker(
-    context: context,
-    initialTime: TimeOfDay.now(),
-  );
+      TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
 
-  if (pickedTime != null) {
-    // Convert TimeOfDay to a formatted string
-    final now = DateTime.now();
-    final selectedDateTime = DateTime(now.year, now.month, now.day, pickedTime.hour, pickedTime.minute);
-    foodController.timeController.text = DateFormat.jm().format(selectedDateTime); // Formats as "3:27 PM"
-  }
-}
+      if (pickedTime != null) {
+        // Convert TimeOfDay to a formatted string
+        final now = DateTime.now();
+        final selectedDateTime = DateTime(
+            now.year, now.month, now.day, pickedTime.hour, pickedTime.minute);
+        foodController.timeController.text =
+            DateFormat.jm().format(selectedDateTime); // Formats as "3:27 PM"
+      }
+    }
 
     return Scaffold(
       backgroundColor: TColors.primary,
@@ -70,7 +69,7 @@ class PetFood extends StatelessWidget {
                         TextFormField(
                           controller: foodController.timeController,
                           readOnly: true,
-                          onTap: ()=>selectTime(context),
+                          onTap: () => selectTime(context),
                           decoration: InputDecoration(hintText: 'Time'),
                         ),
                       ],
@@ -196,8 +195,7 @@ class PetFood extends StatelessWidget {
           ),
         ),
       )),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
     );
   }
 }

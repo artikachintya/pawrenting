@@ -20,12 +20,11 @@ class Location extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
 
     // 🔹 Fetch locations when widget is built
     // Future.delayed(
     //     Duration.zero, () => editLocationController.fetchUserLocations());
- if (editLocationController.userLocations.isEmpty) {
+    if (editLocationController.userLocations.isEmpty) {
       editLocationController.fetchUserLocations();
     }
 
@@ -34,16 +33,16 @@ class Location extends StatelessWidget {
         title: "Locations",
         subtitle: "Where your packages find you!",
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
       backgroundColor: TColors.primary,
       floatingActionButton: SizedBox(
         width: 90,
         child: FloatingActionButton(
-          onPressed: ()  async {
+          onPressed: () async {
             final result = await Get.to(() => AddLocationDetail());
             if (result == true) {
-              editLocationController.fetchUserLocations(); // 🔹 Refresh list on return
+              editLocationController
+                  .fetchUserLocations(); // 🔹 Refresh list on return
             }
           },
           backgroundColor: TColors.accent,
@@ -52,7 +51,7 @@ class Location extends StatelessWidget {
             '+ Add',
             style: TextStyle(
               fontFamily: 'Alata',
-              fontSize: 12,
+              fontSize: 14,
               color: Colors.white,
             ),
           ),
@@ -67,43 +66,39 @@ class Location extends StatelessWidget {
             "🔹 Number of locations: ${editLocationController.userLocations.length}");
 
         if (editLocationController.userLocations.isEmpty) {
-          return 
-              Center(child: Text("No locations found!")); 
+          return Center(child: Text("No locations found!"));
         }
 
-        return 
-              GridView.builder(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                itemCount: editLocationController.userLocations.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  mainAxisSpacing: 12,
-                  mainAxisExtent: 120,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  LocationModel location =
-                      editLocationController.userLocations[index];
+        return GridView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+          itemCount: editLocationController.userLocations.length,
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 1,
+            mainAxisSpacing: 12,
+            mainAxisExtent: 120,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            LocationModel location =
+                editLocationController.userLocations[index];
 
-                  print("📍 Location: ${location.label}");
+            print("📍 Location: ${location.label}");
 
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(() => EditLocationDetail(
-                            index: index,
-                            formGlobalKey: _formKey,
-                          ));
-                    },
-                    child: AddressCard(
-                      labelAddress: location.label,
-                      receiverName: location.receiverName,
-                      addressDetail: location.fullAddress,
-                      phoneNumber: location.phoneNum,
-                    ),
-                  );
-                },
+            return GestureDetector(
+              onTap: () {
+                Get.to(() => EditLocationDetail(
+                      index: index,
+                      formGlobalKey: _formKey,
+                    ));
+              },
+              child: AddressCard(
+                labelAddress: location.label,
+                receiverName: location.receiverName,
+                addressDetail: location.fullAddress,
+                phoneNumber: location.phoneNum,
+              ),
+            );
+          },
         );
       }),
     );

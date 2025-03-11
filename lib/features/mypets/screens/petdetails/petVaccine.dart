@@ -20,7 +20,7 @@ class PetVaccine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     return Scaffold(
       backgroundColor: TColors.primary,
       appBar: TAppBar2(
@@ -48,8 +48,7 @@ class PetVaccine extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
     );
   }
 }

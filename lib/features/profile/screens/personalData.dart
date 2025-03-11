@@ -28,7 +28,6 @@ class PersonalData extends StatelessWidget {
   Widget build(BuildContext context) {
     final editDataController = Get.put(EditDataController());
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
 
     // Ensure data is fetched after the widget is built
     Future.delayed(Duration.zero, () => editDataController.fetchUserData());
@@ -37,8 +36,7 @@ class PersonalData extends StatelessWidget {
         title: "Personal Data",
         subtitle: "Your Personal Information",
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
         child: Center(
@@ -58,13 +56,14 @@ class PersonalData extends StatelessWidget {
                       clipBehavior: Clip.none,
                       children: [
                         Profilepictandusername(
-                          profilePicture: MemoryImage(base64Decode(editDataController.profilePic ?? "")),
+                          profilePicture: MemoryImage(base64Decode(
+                              editDataController.profilePic ?? "")),
                         ),
                         Positioned(
-                            top: 122,
-                            left: 85,
+                          top: 122,
+                          left: 85,
                           child: GestureDetector(
-                          onTap: editDataController.updateProfilePicture,
+                            onTap: editDataController.updateProfilePicture,
                             child: Container(
                               width: 30,
                               height: 30,
@@ -124,9 +123,9 @@ class PersonalData extends StatelessWidget {
                               const SizedBox(width: 10),
                               Expanded(
                                 child: ElevatedButton(
-                                    onPressed: () {
+                                  onPressed: () {
                                     controller.updateUserData();
-                                    controller.update(); 
+                                    controller.update();
                                     Get.back();
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -174,7 +173,7 @@ class PersonalData extends StatelessWidget {
           TextFormField(
             controller: controller,
             enabled: enabled,
-               decoration: InputDecoration(
+            decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -189,22 +188,18 @@ class PersonalData extends StatelessWidget {
     );
   }
 
-  void onProfileTapped() {
- 
-  }
+  void onProfileTapped() {}
 
-Future<Uint8List?> pickImage(ImageSource source) async {
-  try {
-    final ImagePicker _imagePicker = ImagePicker();
-    XFile? profilePic = await _imagePicker.pickImage(source: source);
-    if (profilePic != null) {
-      return await profilePic.readAsBytes();
+  Future<Uint8List?> pickImage(ImageSource source) async {
+    try {
+      final ImagePicker _imagePicker = ImagePicker();
+      XFile? profilePic = await _imagePicker.pickImage(source: source);
+      if (profilePic != null) {
+        return await profilePic.readAsBytes();
+      }
+    } catch (e) {
+      print("Error picking image: $e");
     }
-  } catch (e) {
-    print("Error picking image: $e");
+    return null; // Return null if no image was picked
   }
-  return null; // Return null if no image was picked
-}
-
-
 }

@@ -14,12 +14,11 @@ import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.da
 
 class Voucher extends StatelessWidget {
   const Voucher({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     TextEditingController searchController = TextEditingController();
     final voucherController = Get.put(VoucherController());
     final _formKey = GlobalKey<FormState>();
@@ -28,12 +27,11 @@ class Voucher extends StatelessWidget {
         title: "My Voucher",
         subtitle: "Enjoy special discounts just for you!",
       ),
-      bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            
             // Search bar with validation
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -46,7 +44,6 @@ class Voucher extends StatelessWidget {
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      
                     ),
                     filled: true,
                     fillColor: Colors.white,
@@ -68,20 +65,20 @@ class Voucher extends StatelessWidget {
               shrinkWrap: true,
               // physics: const NeverScrollableScrollPhysics(),
               // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //   crossAxisCount: 1, 
+              //   crossAxisCount: 1,
               //   mainAxisSpacing: 0, // Space between row
-              //   mainAxisExtent: 180 
+              //   mainAxisExtent: 180
               // ),
-              itemBuilder: (context, index) {  
+              itemBuilder: (context, index) {
                 VoucherModel voucher = voucherController.voucherList[index];
                 return VoucherCard(
                   imageVoucherPath: voucher.image,
                   expDate: voucher.validUntil,
-                  voucher: voucher, 
+                  voucher: voucher,
                 );
               },
             ),
-          ], 
+          ],
         ),
       ),
     );

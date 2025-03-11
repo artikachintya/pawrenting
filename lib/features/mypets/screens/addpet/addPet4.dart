@@ -20,7 +20,7 @@ class addPet4 extends StatelessWidget {
         addPetController.type == 'Cat' ? catBreeds.first : dogBreeds.first;
     return Padding(
       padding: const EdgeInsetsDirectional.only(
-          start: 32, end: 32, top: 80, bottom: 200),
+          start: 32, end: 32, top: 80, bottom: 20),
       child: Container(
         decoration: BoxDecoration(
             color: TColors.gray, borderRadius: BorderRadius.circular(15)),

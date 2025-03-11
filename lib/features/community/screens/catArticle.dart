@@ -22,219 +22,243 @@ class catArticle extends StatefulWidget {
   @override
   State<catArticle> createState() => _catArticle();
 }
-  
- TextEditingController searchController = TextEditingController(); 
+
+TextEditingController searchController = TextEditingController();
+
 class _catArticle extends State<catArticle> {
-    int myCurrentIndex = 0;
-     final myitems = [
+  int myCurrentIndex = 0;
+  final myitems = [
     TImages.articleBanner1,
     TImages.articleBanner2,
     TImages.articleBanner3,
   ];
 
-   @override
-    void initState() {
-      super.initState();
-      searchController.clear(); // Reset teks search 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        ArticleController articlecontroller = Get.find();
-        articlecontroller.searchResult.clear();
-        articlecontroller.isSearching.value = false;
-      });
-    }
+  @override
+  void initState() {
+    super.initState();
+    searchController.clear(); // Reset teks search
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ArticleController articlecontroller = Get.find();
+      articlecontroller.searchResult.clear();
+      articlecontroller.isSearching.value = false;
+    });
+  }
 
   ArticleController articlecontroller = Get.find();
   @override
   Widget build(BuildContext context) {
-  
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     ArticleController articlecontroller = Get.find();
 
-    
-    return Scaffold(
-      appBar: TAppBar(onMain: true, onPetDetails: false),
-       bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
-      backgroundColor: TColors.primary,
-      body: SingleChildScrollView(
-          child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                width: double.maxFinite,
-                child: Column(
-                  children: [
-                      searchbar(title: 'search ‘how to play with dog',controller: searchController,
-                    onChanged: (value){
-                      articlecontroller.searchArticleCat(value);
-                    },
-                    ),
-                    SizedBox(height: 10,),
-                    optionArticleThread(article: true,),
-                      SizedBox(height:  15,),        
+    return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                "assets/login/wallpaper-login.png"), // Replace with your wallpaper path
+            fit: BoxFit.cover, // Ensures the image covers the entire screen
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: TAppBar(onMain: true, onPetDetails: false),
+          bottomNavigationBar: InsideNavBar(),
+          body: SingleChildScrollView(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.maxFinite,
+                  child: Column(
+                    children: [
+                      searchbar(
+                        title: 'search ‘how to play with dog',
+                        controller: searchController,
+                        onChanged: (value) {
+                          articlecontroller.searchArticleCat(value);
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      optionArticleThread(
+                        article: true,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,  
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                           Text('Most Read', style: TextStyle(fontFamily: 'albertsans', fontSize: 16, fontWeight: FontWeight.bold),),
+                          Text(
+                            'Most Read',
+                            style: TextStyle(
+                                fontFamily: 'albertsans',
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
                           //  GestureDetector(
                           //   onTap: () => Get.to(()=>viewMoreArticle()),
                           //   child: Text('View More >', style: TextStyle(
-                          //     fontFamily: 'albertsans', 
-                          //     fontSize: 16, 
-                          //     color: Color(0xff4749AE), 
+                          //     fontFamily: 'albertsans',
+                          //     fontSize: 16,
+                          //     color: Color(0xff4749AE),
                           //     decoration: TextDecoration.underline
                           //     ),)
                           //  )
                         ],
                       ),
-                      SizedBox(height: 5,),
-
-                       _carouselSlider(),
-
-                      SizedBox(height: 10,),
-                      Row(
-                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('Explore', style: TextStyle(fontFamily: 'albertsans', fontSize: 16, fontWeight: FontWeight.bold),)
-                          ],
-                        )
-                       ],
+                      SizedBox(
+                        height: 5,
                       ),
-
-                    SizedBox(height: 10,),
+                      _carouselSlider(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Explore',
+                                style: TextStyle(
+                                    fontFamily: 'albertsans',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                         GestureDetector(
+                          GestureDetector(
                             onTap: () => Get.to(() => Article()),
-                            child:  Container(
-                            width: 110,
-                            height: 30,
-                           
-                            decoration: BoxDecoration(
-                              color: TColors.filter.withOpacity(0.3),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15)
-                              )
-                            ),
-                            alignment: Alignment.center,
-                            child: Text('All', style: TextStyle(
-                              fontFamily: 'albertsans',
-                              fontSize: 16,
-                              color: Color(0xff535050)
-                            ),),
-                          ),
-                         ),
-
-                          GestureDetector(
-                             onTap: () => Get.to(()=>dogArticle()),
-                             child: Container(
-                            width: 110,
-                            height: 30,
-                            
-                            decoration: BoxDecoration(
-                              color: TColors.filter.withOpacity(0.3),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15)
-                              )
-                            ),
-                            alignment: Alignment.center,
-                            child: Text('Dog', style: TextStyle(
-                              fontFamily: 'albertsans',
-                              fontSize: 16,
-                              color: Color(0xff535050)
-                            ),),
-                          ),
-                          ),
-                           
-
-                          GestureDetector(
-                            onTap: () => Get.to(()=>catArticle()),
                             child: Container(
-                            width: 110,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Color(0xff21165A),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                                
-                              )
+                              width: 105,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: TColors.filter.withOpacity(0.3),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15))),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'All',
+                                style: TextStyle(
+                                    fontFamily: 'albertsans',
+                                    fontSize: 16,
+                                    color: Color(0xff535050)),
+                              ),
                             ),
-                            alignment: Alignment.center,
-                            child: Text('Cat', style: TextStyle(
-                                fontFamily: 'albertsans',
-                                fontSize: 16,
-                               color: Colors.white
-                             ),),
+                          ),
+                          GestureDetector(
+                            onTap: () => Get.to(() => dogArticle()),
+                            child: Container(
+                              width: 105,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: TColors.filter.withOpacity(0.3),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15))),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Dog',
+                                style: TextStyle(
+                                    fontFamily: 'albertsans',
+                                    fontSize: 16,
+                                    color: Color(0xff535050)),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () => Get.to(() => catArticle()),
+                            child: Container(
+                              width: 105,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: Color(0xff21165A),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
+                                  )),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Cat',
+                                style: TextStyle(
+                                    fontFamily: 'albertsans',
+                                    fontSize: 16,
+                                    color: Colors.white),
+                              ),
                             ),
                           )
                         ],
                       ),
-                      SizedBox(height: 20,),
-                      Obx((){
-                          final isSearching = articlecontroller.searchResult.isNotEmpty || articlecontroller.isSearching.value;
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Obx(() {
+                        final isSearching =
+                            articlecontroller.searchResult.isNotEmpty ||
+                                articlecontroller.isSearching.value;
 
-                          if(isSearching && articlecontroller.searchResult.isEmpty){
-                            return Center(
-                              child: Text(
+                        if (isSearching &&
+                            articlecontroller.searchResult.isEmpty) {
+                          return Center(
+                            child: Text(
                               "Article not found",
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey,
-                          ),
-                          ),
-                        );
-                          }
-
-                          final displayedArticlesCat = isSearching? articlecontroller.searchResult : articlecontroller.articlesListCat;
-
-                          print("Total articles: ${articlecontroller.articlesListCat.length}");
-                          print("Total search result: ${articlecontroller.searchResult.length}");
-
-
-                          return ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: displayedArticlesCat.length,
-                          itemBuilder: (context, index) {
-                            return  
-                            Container(
-                              color: Colors.white.withOpacity(0.6),
-                              // height: 300,
-                              width: 350,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  articleHome(article: displayedArticlesCat[index])
-                                  
-                                ],
                               ),
-                            );
-                      
-                    });
-
-                      })
-
-                      ],         
                             ),
-                            
- 
-                        ),
-                      
-                  ],
+                          );
+                        }
+
+                        final displayedArticlesCat = isSearching
+                            ? articlecontroller.searchResult
+                            : articlecontroller.articlesListCat;
+
+                        print(
+                            "Total articles: ${articlecontroller.articlesListCat.length}");
+                        print(
+                            "Total search result: ${articlecontroller.searchResult.length}");
+
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: displayedArticlesCat.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                color: Colors.white.withOpacity(0.6),
+                                // height: 300,
+                                width: 350,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    articleHome(
+                                        article: displayedArticlesCat[index])
+                                  ],
+                                ),
+                              );
+                            });
+                      })
+                    ],
+                  ),
                 ),
-              )
-          ),
-        );
-
-
+              ],
+            ),
+          )),
+        ));
   }
-Column _carouselSlider() {
+
+  Column _carouselSlider() {
     return Column(
       children: [
         CarouselSlider(
@@ -269,5 +293,3 @@ Column _carouselSlider() {
     );
   }
 }
-
-        

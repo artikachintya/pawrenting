@@ -13,6 +13,7 @@ class CartController extends GetxController {
   RxInt noOfCheckedItems = 0.obs;
   RxDouble totalCartPrice = 0.0.obs;
   RxInt productQuantityInCart = 0.obs;
+  var scaleFactor = 1.0.obs;
   RxList<CartItemModel> cartItems = <CartItemModel>[].obs;
   RxBool get isAllChecked => RxBool(
       cartItems.isNotEmpty && cartItems.every((item) => item.isChecked.value));
@@ -35,6 +36,10 @@ class CartController extends GetxController {
     cartItems.forEach((item) {
       print(
           'Product: ${item.productModel.name}, Quantity: ${item.quantity.value}');
+    });
+    scaleFactor.value = 1.2;
+    Future.delayed(Duration(milliseconds: 200), () {
+      scaleFactor.value = 1.0;
     });
     updateCartTotal();
     resetQty();

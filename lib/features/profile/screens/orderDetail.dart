@@ -23,14 +23,13 @@ class OrderDetail extends StatelessWidget {
     LocationModel location = order.location;
     List<CartItemModel> items = order.items;
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     return Scaffold(
         appBar: TAppBar2(
           title: "My Order",
           subtitle: "Woof! Meow! Your Order is on Its Way!",
         ),
-        bottomNavigationBar:
-            InsideNavBar(controller: controller, navcontroller: navcontroller),
+        bottomNavigationBar: InsideNavBar(),
         backgroundColor: TColors.primary,
         body: SingleChildScrollView(
           child: Column(children: [

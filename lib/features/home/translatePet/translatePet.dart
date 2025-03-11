@@ -198,7 +198,6 @@ class _TranslatePetState extends State<TranslatePet> {
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
 
     return Scaffold(
       body: Container(
@@ -214,8 +213,7 @@ class _TranslatePetState extends State<TranslatePet> {
               Colors.transparent, // Make scaffold transparent to show wallpaper
           appBar: TAppBar2(
               title: 'Translate Pet', subtitle: 'Detect your pet\'s emotion'),
-          bottomNavigationBar: InsideNavBar(
-              controller: controller, navcontroller: navcontroller),
+          bottomNavigationBar: InsideNavBar(),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

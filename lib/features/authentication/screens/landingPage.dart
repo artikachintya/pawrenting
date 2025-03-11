@@ -13,7 +13,6 @@ class Landingpage extends StatelessWidget {
         children: [
           Container(
             width: double.maxFinite,
-            height: 890,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/login/wallpaper-login.png'),
@@ -91,7 +90,7 @@ class Landingpage extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Get.to(()=>Login2());
+                          Get.to(() => Login2());
                         },
                         child: const Text(
                           'Login',
@@ -115,7 +114,7 @@ class Landingpage extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Get.to(()=>Signup());
+                          Get.to(() => Signup());
                         },
                         child: const Text(
                           'Register',

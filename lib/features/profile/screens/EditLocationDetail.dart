@@ -16,30 +16,30 @@ class EditLocationDetail extends StatelessWidget {
   final int index;
   final GlobalKey<FormState> formGlobalKey;
 
-  EditLocationDetail({super.key, required this.index, required this.formGlobalKey});
+  EditLocationDetail(
+      {super.key, required this.index, required this.formGlobalKey});
 
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     if (index >= editLocationController.userLocations.length) {
       return Center(child: Text("Invalid location index"));
     }
     var location = editLocationController.userLocations[index];
 
-      // 🔹 Update controllers sesuai lokasi yang diedit
-  editLocationController.labelController.text = location.label;
-  editLocationController.receiverNameController.text = location.receiverName;
-  editLocationController.phoneNumberController.text = location.phoneNum;
-  editLocationController.fullAddressController.text = location.fullAddress;
+    // 🔹 Update controllers sesuai lokasi yang diedit
+    editLocationController.labelController.text = location.label;
+    editLocationController.receiverNameController.text = location.receiverName;
+    editLocationController.phoneNumberController.text = location.phoneNum;
+    editLocationController.fullAddressController.text = location.fullAddress;
 
     return Scaffold(
       appBar: const TAppBar2(
         title: "Edit Location",
         subtitle: "Enter your address details",
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
       backgroundColor: TColors.primary,
       body: Center(
         child: Container(
@@ -54,10 +54,14 @@ class EditLocationDetail extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildTextField("Label", location.label, editLocationController.labelController),
-                buildTextField("Receiver's Name", location.receiverName, editLocationController.receiverNameController),
+                buildTextField("Label", location.label,
+                    editLocationController.labelController),
+                buildTextField("Receiver's Name", location.receiverName,
+                    editLocationController.receiverNameController),
                 buildPhoneNumberField(location.phoneNum),
-                buildTextField("Full Address", location.fullAddress, editLocationController.fullAddressController, maxLines: 3),
+                buildTextField("Full Address", location.fullAddress,
+                    editLocationController.fullAddressController,
+                    maxLines: 3),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,11 +85,15 @@ class EditLocationDetail extends StatelessWidget {
                         onPressed: () {
                           LocationModel updatedLocation = LocationModel(
                             label: editLocationController.labelController.text,
-                            receiverName: editLocationController.receiverNameController.text,
-                            phoneNum: editLocationController.phoneNumberController.text,
-                            fullAddress: editLocationController.fullAddressController.text,
+                            receiverName: editLocationController
+                                .receiverNameController.text,
+                            phoneNum: editLocationController
+                                .phoneNumberController.text,
+                            fullAddress: editLocationController
+                                .fullAddressController.text,
                           );
-                          editLocationController.updateLocation(index, updatedLocation);
+                          editLocationController.updateLocation(
+                              index, updatedLocation);
                           Get.back();
                         },
                         style: ElevatedButton.styleFrom(
@@ -108,7 +116,9 @@ class EditLocationDetail extends StatelessWidget {
     );
   }
 
-  Widget buildTextField(String label, String hintText, TextEditingController controller, {int maxLines = 1}) {
+  Widget buildTextField(
+      String label, String hintText, TextEditingController controller,
+      {int maxLines = 1}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -125,7 +135,7 @@ class EditLocationDetail extends StatelessWidget {
           controller: controller,
           maxLines: maxLines,
           decoration: InputDecoration(
-            hintText: hintText, 
+            hintText: hintText,
             hintStyle: TextStyle(fontSize: 14, color: TColors.grayFont),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -163,7 +173,6 @@ class EditLocationDetail extends StatelessWidget {
                 border: Border.all(color: Colors.grey),
               ),
               child: const Center(
-
                 child: Text(
                   "+62",
                   style: TextStyle(fontSize: 14, color: Colors.black),
@@ -176,7 +185,7 @@ class EditLocationDetail extends StatelessWidget {
                 controller: editLocationController.phoneNumberController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  hintText: hintText, 
+                  hintText: hintText,
                   hintStyle: TextStyle(fontSize: 14, color: TColors.grayFont),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),

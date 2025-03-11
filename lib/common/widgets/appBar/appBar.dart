@@ -75,41 +75,46 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                     )
                   ]),
-                  Container(
-                    margin: const EdgeInsets.only(right: 16),
-                    child: Stack(children: [
-                      IconButton(
-                          onPressed: () {
-                            Get.to(() => MyCart());
-                          },
-                          icon: const ImageIcon(
-                            AssetImage(TImages.cartIcon),
-                            size: 28,
-                            color: TColors.accent,
-                          )),
-                      Positioned(
-                        top: 5,
-                        right: 5,
+                  Obx(() => AnimatedScale(
+                        duration: const Duration(milliseconds: 200),
+                        scale: cartController.scaleFactor.value,
                         child: Container(
-                            alignment: const Alignment(0, 0),
-                            width: 18,
-                            height: 18,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: TColors.accent,
-                            ),
-                            child: Obx(
-                              () => Text(
-                                cartController.noOfCartItems.value.toString(),
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Alata',
-                                    fontSize: 10),
-                              ),
-                            )),
-                      )
-                    ]),
-                  ),
+                          margin: const EdgeInsets.only(right: 16),
+                          child: Stack(children: [
+                            IconButton(
+                                onPressed: () {
+                                  Get.to(() => MyCart());
+                                },
+                                icon: const ImageIcon(
+                                  AssetImage(TImages.cartIcon),
+                                  size: 28,
+                                  color: TColors.accent,
+                                )),
+                            Positioned(
+                              top: 5,
+                              right: 5,
+                              child: Container(
+                                  alignment: const Alignment(0, 0),
+                                  width: 18,
+                                  height: 18,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color: TColors.accent,
+                                  ),
+                                  child: Obx(
+                                    () => Text(
+                                      cartController.noOfCartItems.value
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'Alata',
+                                          fontSize: 10),
+                                    ),
+                                  )),
+                            )
+                          ]),
+                        ),
+                      )),
                 ]
               : [
                   GestureDetector(

@@ -37,6 +37,7 @@ class OrderDetails extends StatelessWidget {
       backgroundColor: TColors.primary,
       appBar: TAppBar2(title: 'Order Details', subtitle: 'Check your order'),
       bottomNavigationBar: Container(
+        margin: EdgeInsets.only(bottom: 15),
         height: 80,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -263,6 +264,9 @@ void _showBottomSheet(BuildContext context) {
                       contentPadding: EdgeInsets.all(8)),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              )
             ],
           ),
         ),

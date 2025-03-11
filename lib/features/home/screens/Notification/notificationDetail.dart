@@ -18,11 +18,9 @@ class NotificationDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
 
     return Scaffold(
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
       appBar: TAppBar2(title: 'Notification', subtitle: 'What\'s new?'),
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
@@ -43,20 +41,24 @@ class NotificationDetail extends StatelessWidget {
                 children: [
                   Container(
                     child: notif.image != null && notif.image!.isNotEmpty
-                        ?Image.asset(notif.image!, width: 311, height: 126, fit: BoxFit.cover)
+                        ? Image.asset(notif.image!,
+                            width: 311, height: 126, fit: BoxFit.cover)
                         : Icon(Icons.notifications, size: 50),
                   ),
                   Text(
                     notif.title,
                     style: TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold, fontFamily:'Albert Sans' ),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Albert Sans'),
                   ),
-                 Text(
-                  notif.content,
-                  style: TextStyle(
-                    fontSize: 14, fontFamily: 'Alata', color: TColors.grayPrice
-                  ),
-                 )
+                  Text(
+                    notif.content,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'Alata',
+                        color: TColors.grayPrice),
+                  )
                 ],
               ),
             )),

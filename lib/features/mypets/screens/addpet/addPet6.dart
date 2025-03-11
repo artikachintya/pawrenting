@@ -12,7 +12,7 @@ class addPet6 extends StatelessWidget {
   Widget build(BuildContext context) {
     AddPetController addPetController = Get.find();
     return Padding(
-      padding: EdgeInsetsDirectional.symmetric(horizontal: 32, vertical: 125),
+      padding: EdgeInsetsDirectional.only(start: 32, end: 32, top: 100),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -262,7 +262,7 @@ class addPet6 extends StatelessWidget {
                       ),
                       Positioned(
                         bottom: 235,
-                        left: 170 - 52.5,
+                        left: 170 - 66,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Container(

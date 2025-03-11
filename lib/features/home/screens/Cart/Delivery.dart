@@ -23,6 +23,7 @@ class ChooseDelivery extends StatelessWidget {
           child: GestureDetector(
             onTap: () => Get.back(),
             child: Container(
+              margin: EdgeInsets.only(bottom: 15),
               width: 240,
               height: 50,
               decoration: BoxDecoration(

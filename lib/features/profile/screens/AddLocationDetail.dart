@@ -10,23 +10,23 @@ import 'package:pawrentingreborn/features/profile/controllers/AddLocationControl
 import 'package:pawrentingreborn/navigationMenu.dart';
 
 class AddLocationDetail extends StatelessWidget {
-  final AddLocationController addLocationController = Get.put(AddLocationController());
-  final EditLocationController editLocationController = Get.put(EditLocationController());
+  final AddLocationController addLocationController =
+      Get.put(AddLocationController());
+  final EditLocationController editLocationController =
+      Get.put(EditLocationController());
 
   AddLocationDetail({super.key});
 
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
 
     return Scaffold(
       appBar: const TAppBar2(
         title: "Add Location",
         subtitle: "Enter your address details",
       ),
-      bottomNavigationBar:
-          InsideNavBar(controller: controller, navcontroller: navcontroller),
+      bottomNavigationBar: InsideNavBar(),
       backgroundColor: TColors.primary,
       body: Center(
         child: Container(
@@ -41,10 +41,14 @@ class AddLocationDetail extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildTextField("Label", "Mansion 1", controller: addLocationController.labelController),
-                buildTextField("Receiver's Name", "Kardashian", controller: addLocationController.receiverNameController),
+                buildTextField("Label", "Mansion 1",
+                    controller: addLocationController.labelController),
+                buildTextField("Receiver's Name", "Kardashian",
+                    controller: addLocationController.receiverNameController),
                 buildPhoneNumberField(),
-                buildTextField("Full Address", "123 Street, 11x", maxLines: 3, controller: addLocationController.fullAddressController),
+                buildTextField("Full Address", "123 Street, 11x",
+                    maxLines: 3,
+                    controller: addLocationController.fullAddressController),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,7 +56,7 @@ class AddLocationDetail extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.back(); 
+                          Get.back();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
@@ -67,13 +71,12 @@ class AddLocationDetail extends StatelessWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () async{
-                         
-                            addLocationController.saveLocation();
-                            editLocationController.fetchUserLocations(); // 🔹 Refresh the location list
-  Get.back();
-                            // Get.snackbar("Success", "Location details saved successfully");
-                        
+                        onPressed: () async {
+                          addLocationController.saveLocation();
+                          editLocationController
+                              .fetchUserLocations(); // 🔹 Refresh the location list
+                          Get.back();
+                          // Get.snackbar("Success", "Location details saved successfully");
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: TColors.accent,
@@ -95,7 +98,8 @@ class AddLocationDetail extends StatelessWidget {
     );
   }
 
-  Widget buildTextField(String label, String hint, {int maxLines = 1, TextEditingController? controller}) {
+  Widget buildTextField(String label, String hint,
+      {int maxLines = 1, TextEditingController? controller}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

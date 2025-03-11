@@ -16,72 +16,67 @@ class viewMoreArticle extends StatefulWidget {
   @override
   State<viewMoreArticle> createState() => _viewMoreArticle();
 }
-   
-   
+
 class _viewMoreArticle extends State<viewMoreArticle> {
   @override
   Widget build(BuildContext context) {
-  
     NavBarController controller = Get.find();
-    NavigationController navcontroller = Get.find();
+
     ArticleController articlecontroller = Get.find();
     articlecontroller.fetchArticles('');
-    
+
     return Scaffold(
-      appBar: TAppBar2(title: 'Most Read Articles', subtitle: 'Trending Now: The Top Stories'),
-       bottomNavigationBar: InsideNavBar(controller: controller, navcontroller: navcontroller),
+      appBar: TAppBar2(
+          title: 'Most Read Articles',
+          subtitle: 'Trending Now: The Top Stories'),
+      bottomNavigationBar: InsideNavBar(),
       backgroundColor: TColors.primary,
       body: SingleChildScrollView(
           child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                width: double.maxFinite,
-                child: Column(
-                  children: [
-                    // searchbar(title: 'search ‘how to play with cat’', controller: searchController,),
-                      SizedBox(height:  15,),      
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              width: double.maxFinite,
+              child: Column(
+                children: [
+                  // searchbar(title: 'search ‘how to play with cat’', controller: searchController,),
+                  SizedBox(
+                    height: 15,
+                  ),
 
-                      // Container( 
-                      //   child: 
-                      //   Text('Most Read Article ', style: TextStyle(fontFamily: 'albertsans', fontSize: 20, fontWeight: FontWeight.bold),),
-                      //   alignment: Alignment.topLeft,
-                      // ),
+                  // Container(
+                  //   child:
+                  //   Text('Most Read Article ', style: TextStyle(fontFamily: 'albertsans', fontSize: 20, fontWeight: FontWeight.bold),),
+                  //   alignment: Alignment.topLeft,
+                  // ),
 
-                      ListView.builder(
-                         shrinkWrap: true,
-                         physics: NeverScrollableScrollPhysics(),
-                         itemCount: articlecontroller.articlesList.length,
-                        itemBuilder: (context, index) {
-                      return  
-                       Container(
-                        color: Colors.white.withOpacity(0.6),
-                        // height: 300,
-                        width: 350,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                             articleHome(article: articlecontroller.articlesList[index])
-                            
-                          ],
-                        ),
-                      );
-                      
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: articlecontroller.articlesList.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          color: Colors.white.withOpacity(0.6),
+                          // height: 300,
+                          width: 350,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              articleHome(
+                                  article:
+                                      articlecontroller.articlesList[index])
+                            ],
+                          ),
+                        );
                       })
-
-                    
-                      ],         
-                            ),
-                            
- 
-                        ),
-                      
-                  ],//disini
-                ),
-              )
-          ),
-        );
+                ],
+              ),
+            ),
+          ], //disini
+        ),
+      )),
+    );
   }
 }
