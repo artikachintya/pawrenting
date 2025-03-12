@@ -77,21 +77,42 @@ class _AddthreadsState extends State<Addthreads> {
                   ],
                 ),
               ),
-              Container(
-                width: 180,
-                height: 170,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0xffF8F6FD),
-                  border: Border.all(color: Color(0xff8B68CC).withOpacity(0.6)),
-                ),
-                child: Center(
-                  child: Image(
-                    image: AssetImage(_imagePath),
-                    height: 60,
+             Obx(
+            () => SizedBox(
+              height: 140,
+              width: 140,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
                   ),
+                  backgroundColor: Colors.white,
+                  elevation: 3,
+                  padding: EdgeInsets.zero, // Ensure no extra padding
                 ),
+                onPressed: () => addThreadController.pickImage(),
+                child: addThreadController.imageFile.value == null
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          TImages.picIcon,
+                          color: TColors.accent,
+                          fit: BoxFit.contain,
+                          height: 60,
+                        ),
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: SizedBox.expand(
+                          // Ensures image fills button
+                          child: Image.file(
+                            addThreadController.imageFile.value!,
+                            fit: BoxFit.cover, // Ensures better aspect ratio
+                          ),
+                        ),
+                      ),
               ),
+            ),),
               SizedBox(height: 20),
               Container(
                 width: 500,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/data/repositories/UserRepo.dart';
@@ -6,6 +8,9 @@ import 'package:pawrentingreborn/features/community/controller/ThreadController.
 import 'package:pawrentingreborn/features/community/models/thread_message.dart';
 import 'package:pawrentingreborn/data/repositories/ThreadRepo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddThreadController extends GetxController {
@@ -17,7 +22,8 @@ class AddThreadController extends GetxController {
   ThreadController threadController= Get.find();
   String selectedTopic = 'Adoption'; // Topik default
   String senderProfile = ''; // Menyimpan gambar profil pengguna
-  
+  Rx<File?> imageFile = Rx<File?>(null);
+  RxString base64Image = ''.obs;
 
 
   final currentUser = FirebaseAuth.instance.currentUser;
@@ -32,6 +38,23 @@ class AddThreadController extends GetxController {
       senderProfile = userDoc['profilePicture'] ?? 'assets/icons/user.png';
     } catch (e) {
       senderProfile = 'assets/icons/user.png'; 
+    }
+  }
+
+  Future<void> pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      File file = File(pickedFile.path);
+
+      // Convert image to Base64
+      List<int> imageBytes = await file.readAsBytes();
+      String base64String = base64Encode(imageBytes);
+
+      // Update reactive variables
+      imageFile.value = file;
+      base64Image.value = base64String;
     }
   }
 
@@ -56,7 +79,7 @@ class AddThreadController extends GetxController {
     ThreadMessage thread = ThreadMessage(
       id: FirebaseFirestore.instance.collection('threads').doc().id, // ID otomatis
       senderProfile: senderProfile, // Menggunakan gambar profil yang diambil dari Firestore
-      threadImage: 'assets/images/articleBanner2.png', // Menyertakan gambar yang dipilih
+      threadImage: base64Image.value, // Menyertakan gambar yang dipilih
       senderName: user!.username, // Gunakan username atau data lain
       title: title,
       details: details,

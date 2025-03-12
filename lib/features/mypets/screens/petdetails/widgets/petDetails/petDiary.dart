@@ -48,7 +48,7 @@ class PetDiary extends StatelessWidget {
         child: const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Today I took Whiskey to the vet for her feline vaccination. She refused to take it. I had to hold her down while the vet administered the shot. She was very angry with me afterwards. I gave her a treat to make up for it. She is now sleeping on the couch. I hope she forgives me soon.',
+            'There is no entry today...',
             style: TextStyle(fontSize: 14, fontFamily: 'Albert Sans'),
           ),
         ),

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -99,6 +102,13 @@ class _threadDetailState extends State<threadDetail> {
 
   @override
   Widget build(BuildContext context) {
+    Uint8List? imageBytes;
+    try {
+      imageBytes = base64Decode(widget.message.threadImage);
+    } catch (e) {
+      debugPrint("Error decoding image: $e");
+    }
+
     final message = widget.message;
     final CommentController commentController = Get.put(CommentController());
     final ThreadController threadController = Get.put(ThreadController());
@@ -168,7 +178,9 @@ class _threadDetailState extends State<threadDetail> {
                     child: Container(
                       height: 160,
                       width: 335,
-                      child: _buildThreadImage(message),
+                      child: imageBytes != null
+                            ? Image.memory(imageBytes, fit: BoxFit.cover)
+                            : const Icon(Icons.image_not_supported),
                     ),
                   ),
                 ],

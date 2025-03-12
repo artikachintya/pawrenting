@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pawrentingreborn/features/community/controller/commentController.dart';
@@ -14,7 +17,15 @@ class Thread extends StatelessWidget {
   final ThreadMessage message;
 
   @override
+
+
   Widget build(BuildContext context) {
+    Uint8List? imageBytes;
+    try {
+      imageBytes = base64Decode(message.threadImage);
+    } catch (e) {
+      debugPrint("Error decoding image: $e");
+    }
     CommentController commentController = Get.find();
     return GestureDetector(
       onTap: () {
@@ -78,7 +89,9 @@ class Thread extends StatelessWidget {
                         width: 91,
                         child: FittedBox(
                           fit: BoxFit.cover,
-                          child: _buildThreadImage(),
+                          child: imageBytes != null
+                            ? Image.memory(imageBytes, fit: BoxFit.cover)
+                            : const Icon(Icons.image_not_supported),
                         ),
                       ),
                     ),
