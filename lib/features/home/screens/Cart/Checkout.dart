@@ -30,8 +30,6 @@ class OrderDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LocationController locationController = Get.find();
-    DeliveryController deliveryController = Get.find();
     OrderController orderController = Get.find();
     return Scaffold(
       backgroundColor: TColors.primary,
@@ -112,10 +110,10 @@ class OrderDetails extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  locationController.locationsList.length != 0
+                  orderController.locationController.locationsList.length != 0
                       ? Obx(() => AddressSection(
-                          location: locationController.locationsList[
-                              locationController.selectedIndex.value]))
+                          location: orderController.locationController.locationsList[
+                              orderController.locationController.selectedIndex.value]))
                       : GestureDetector(
                           onTap: () => Get.to(() => AddLocationDetail()),
                           child: Container(
@@ -128,8 +126,8 @@ class OrderDetails extends StatelessWidget {
                   ),
                   Obx(
                     () => DeliveryCard(
-                      delivery: deliveryController
-                          .deliveryList[deliveryController.selectedIndex.value],
+                      delivery: orderController.deliveryController
+                          .deliveryList[orderController.deliveryController.selectedIndex.value],
                     ),
                   ),
                   SizedBox(

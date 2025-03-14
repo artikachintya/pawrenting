@@ -43,6 +43,7 @@ class EditLocationDetail extends StatelessWidget {
       backgroundColor: TColors.primary,
       body: Center(
         child: Container(
+          margin: EdgeInsets.symmetric(vertical: 20),
           width: 370,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(

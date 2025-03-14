@@ -99,7 +99,6 @@ class CartController extends GetxController {
   }
 
   void updateCartTotal() {
-    OrderController orderController = Get.find();
     double calculatedTotalPrice = 0.0;
     int calculateNoOfItems = 0;
 
@@ -115,7 +114,7 @@ class CartController extends GetxController {
     totalCartPrice.value = calculatedTotalPrice;
     print(totalCartPrice.toString());
     print(noOfCartItems.value.toInt());
-    orderController.updateTotalPrice();
+    // orderController.updateTotalPrice();
   }
 
   void saveCartItems() {
