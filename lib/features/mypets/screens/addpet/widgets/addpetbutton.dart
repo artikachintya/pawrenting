@@ -66,7 +66,6 @@ class AddPetButton extends StatelessWidget {
                                             BorderRadius.circular(10)))),
                         onPressed: () {
                           addPetController.addPet();
-                          addpetPageController pcontroller = Get.find();
                           pcontroller.reset();
                           addPetController.resetController();
                           Get.to(() => PetList());
@@ -139,13 +138,21 @@ class AddPetButton extends StatelessWidget {
                               }
                             case 3:
                               {
+                                print('anjay');
                                 if (formGlobalKey2.currentState!.validate()) {
                                   pcontroller.nextPage();
                                 }
                               }
                             case 4:
                               {
-                                pcontroller.nextPage();
+                                if (addPetController.base64Image == '') {
+                                  Get.snackbar(
+                                      "Error", "You need to upload a photo!",
+                                      backgroundColor: Colors.red,
+                                      colorText: Colors.white);
+                                } else {
+                                  pcontroller.nextPage();
+                                }
                               }
                           }
                         },
