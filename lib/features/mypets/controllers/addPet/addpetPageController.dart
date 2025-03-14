@@ -42,6 +42,7 @@ class addpetPageController extends GetxController {
     _curIndex = 0;
     confirmation = false;
     print('reset');
+    update();
   }
 
   @override

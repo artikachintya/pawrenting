@@ -21,7 +21,7 @@ class AddPet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    addpetPageController pcontroller = Get.find();
+    addpetPageController pcontroller = Get.put(addpetPageController());
     final formGlobalKey1 = GlobalKey<FormState>();
     final formGlobalKey2 = GlobalKey<FormState>();
 
