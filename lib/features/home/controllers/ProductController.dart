@@ -6,6 +6,7 @@ import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 class ProductController extends GetxController {
   final productRepo = ProductRepo.instance;
   RxList<ProductModel> productsList = <ProductModel>[].obs;
+  RxList<ProductModel> searchResult = <ProductModel>[].obs;
 
   @override
   void onInit() {
@@ -17,8 +18,29 @@ class ProductController extends GetxController {
       }
     });
     super.onInit();
+    
   }
 
+  RxBool isSearching = false.obs;
+   Future<void> searchProduct(String query) async {
+    print('Query yang dimasukkan: $query');
+    print('Total produk sebelum filter: ${productsList.length}');
+
+    if (query.isEmpty) {
+      searchResult.clear(); // Kosongkan hasil pencarian
+      isSearching.value = false; // Kembali ke tampilan semua produk
+      return;
+    } else {
+      isSearching.value = true; // Sedang mencari
+      searchResult.assignAll(
+        productsList.where((product) => 
+          product.name.toLowerCase().startsWith(query.toLowerCase())).toList(),
+      );
+
+      print('Total hasil pencarian lokal: ${searchResult.length}');
+    }
+  }
+  
   Future<void> fetchProduct() async {
     productsList.clear();
     final products = await productRepo.getProducts();
@@ -53,5 +75,6 @@ class ProductController extends GetxController {
       await productRepo.updateProduct(productsList[productIndex]);
       productsList.refresh();
     }
-  }
+
+}
 }

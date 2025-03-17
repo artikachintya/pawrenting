@@ -1,11 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/features/community/controller/ThreadController.dart';
+import 'package:pawrentingreborn/features/community/screens/article.dart';
 import 'package:pawrentingreborn/features/community/widget/ThreadCard.dart';
+import 'package:pawrentingreborn/features/community/widget/searchbar.dart';
 import 'package:pawrentingreborn/features/home/controllers/CartController.dart';
 import 'package:pawrentingreborn/features/home/controllers/CategoryController.dart';
 import 'package:pawrentingreborn/features/home/controllers/NotifController.dart';
@@ -44,7 +47,19 @@ class _HomeState extends State<Home> {
     TImages.banner3,
   ];
 
+  TextEditingController searchController = TextEditingController();
   int myCurrentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.clear(); // Reset teks search
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ProductController productController = Get.find();
+      productController.searchResult.clear();
+      productController.isSearching.value = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +93,52 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   height: 20,
                 ),
+                
                 _popularCategory(),
                 SizedBox(height: 20),
                 _textProduct(),
-                SizedBox(height: 20),
-                _product(products: pController.productsList),
+                SizedBox(height: 10),
+                  Container(
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      searchbar(
+                    title: 'search products here', 
+                    controller: searchController, 
+                    onChanged: (value) {
+                      pController.searchProduct(value);
+                  }
+                ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10,),
+                  Obx(() {
+                        final isSearching =
+                            pController.searchResult.isNotEmpty ||
+                                pController.isSearching.value;
+
+                        if (isSearching &&
+                            pController.searchResult.isEmpty) {
+                          return Center(
+                            child: Text(
+                              "Product not found",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          );
+                        }
+
+                        final displayedProducts = isSearching
+                            ? pController.searchResult
+                            : pController.productsList;
+
+                        return _product(products: displayedProducts,);
+                      })
               ],
             ),
           ),
