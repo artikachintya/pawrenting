@@ -119,11 +119,6 @@ class EditDataController extends GetxController {
       await _userRepo.updateUserByEmail(email, {"pawpay": newPawpay});
       pawpay.value = newPawpay;
       update(); // Update UI after setting new pawpay value
-
-      Get.snackbar("Success", "Pawpay updated successfully!",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: TColors.accent,
-          colorText: Colors.white);
     } catch (e) {
       Get.snackbar("Error", "Failed to update pawpay: $e",
           snackPosition: SnackPosition.BOTTOM,

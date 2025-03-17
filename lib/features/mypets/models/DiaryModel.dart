@@ -1,12 +1,12 @@
 class DiaryModel {
   final String content;
-  final DateTime date;
+  final DateTime time;
   final String image;
   final String title;
 
   DiaryModel({
     required this.content,
-    required this.date,
+    required this.time,
     required this.image,
     required this.title,
   });
@@ -14,7 +14,7 @@ class DiaryModel {
   factory DiaryModel.fromJson(Map<String, dynamic> json) {
     return DiaryModel(
       content: json['content'],
-      date: DateTime.parse(json['date']),
+      time: DateTime.parse(json['time']),
       image: json['image'],
       title: json['title'],
     );
@@ -23,7 +23,7 @@ class DiaryModel {
   Map<String, dynamic> toJson() {
     return {
       'content': content,
-      'date': date.toIso8601String(),
+      'time': time.toIso8601String(),
       'image': image,
       'title': title,
     };

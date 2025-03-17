@@ -27,6 +27,7 @@ import 'package:pawrentingreborn/features/home/controllers/OrderController.dart'
 import 'package:pawrentingreborn/features/home/controllers/PaymentController.dart';
 import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/ActivityController.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/DiaryController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/AddPetController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/PetFoodController.dart';
@@ -69,6 +70,7 @@ void lazyPutControllers() {
   Get.lazyPut(() => AddLocationController(), fenix: true);
   Get.lazyPut(() => EditLocationController(), fenix: true);
   Get.lazyPut(() => EditDataController(), fenix: true);
+  Get.lazyPut(() => DiaryController(), fenix: true);
 }
 
 void lazyPutRepositories() {

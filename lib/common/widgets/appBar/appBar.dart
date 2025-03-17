@@ -66,7 +66,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                           color: TColors.accent,
                         ),
                         child: Text(
-                          '12',
+                          '1',
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Alata',
@@ -121,6 +121,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                     child: ImageIcon(
                       AssetImage(TImages.more),
                       size: 32,
+                      color: Colors.transparent,
                     ),
                     onTap: () => showMenu(
                       color: Colors.white,

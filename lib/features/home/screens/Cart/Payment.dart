@@ -28,6 +28,7 @@ class _PaymentState extends State<Payment> {
   String? expandedPayment;
   @override
   Widget build(BuildContext context) {
+    print(widget.items.first.productModel.salePrice);
     List<Paymentmodel> payments = Paymentmodel.getpayment();
     return Scaffold(
       backgroundColor: TColors.primary,
@@ -292,9 +293,6 @@ class _PaymentState extends State<Payment> {
                 ElevatedButton(
                   onPressed: () {
                     if (passwordController.text == user!.password) {
-                      EditDataController editDataController = Get.find();
-                      editDataController
-                          .subtractPawpay(orderController.totalPrice.value);
                       widget.buyNow
                           ? orderController
                               .createOrderBuyNow(widget.items.first)

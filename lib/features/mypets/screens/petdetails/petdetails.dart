@@ -121,7 +121,9 @@ class PetDetails extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 15),
-                        PetDiary(),
+                        PetDiary(
+                          pet: pet,
+                        ),
                         SizedBox(height: 15),
                         OtherNeeds(
                           pet: pet,

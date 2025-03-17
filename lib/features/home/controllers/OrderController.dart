@@ -11,6 +11,7 @@ import 'package:pawrentingreborn/features/home/controllers/PaymentController.dar
 import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
 import 'package:pawrentingreborn/features/home/models/cartItemModel.dart';
 import 'package:pawrentingreborn/features/home/models/orderModel.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editDataController.dart';
 
 class OrderController extends GetxController {
   static OrderController get instance => Get.find();
@@ -62,7 +63,8 @@ class OrderController extends GetxController {
     final id = '$uid-$random';
     final date = DateTime.now();
     final status = 'In Delivery';
-    final totalprice = totalPrice.value;
+    final totalprice =
+        totalPrice.value + item.productModel.price * item.quantity.value;
     OrderModel order = OrderModel(
       id: id,
       uid: uid,
@@ -84,6 +86,8 @@ class OrderController extends GetxController {
         item.productModel.id, item.productModel.stock - item.quantity.value);
     productController.fetchProduct();
     fetchOrderById();
+    EditDataController editDataController = Get.find();
+    editDataController.subtractPawpay(order.totalPrice);
   }
 
   void createOrder() async {
@@ -135,6 +139,8 @@ class OrderController extends GetxController {
     cartController.removeCheckedItems();
     productController.fetchProduct();
     fetchOrderById();
+    EditDataController editDataController = Get.find();
+    editDataController.subtractPawpay(order.totalPrice);
   }
 
   void fetchOrderById() async {

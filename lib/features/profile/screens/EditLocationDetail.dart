@@ -41,75 +41,78 @@ class EditLocationDetail extends StatelessWidget {
       ),
       bottomNavigationBar: InsideNavBar(),
       backgroundColor: TColors.primary,
-      body: Center(
-        child: Container(
-          margin: EdgeInsets.symmetric(vertical: 20),
-          width: 370,
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: TColors.secondary,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Form(
-            key: formGlobalKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildTextField("Label", location.label,
-                    editLocationController.labelController),
-                buildTextField("Receiver's Name", location.receiverName,
-                    editLocationController.receiverNameController),
-                buildPhoneNumberField(location.phoneNum),
-                buildTextField("Full Address", location.fullAddress,
-                    editLocationController.fullAddressController,
-                    maxLines: 3),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => Get.back(),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 20),
+            width: 370,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: TColors.secondary,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Form(
+              key: formGlobalKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildTextField("Label", location.label,
+                      editLocationController.labelController),
+                  buildTextField("Receiver's Name", location.receiverName,
+                      editLocationController.receiverNameController),
+                  buildPhoneNumberField(location.phoneNum),
+                  buildTextField("Full Address", location.fullAddress,
+                      editLocationController.fullAddressController,
+                      maxLines: 3),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => Get.back(),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
+                          child: const Text("Cancel"),
                         ),
-                        child: const Text("Cancel"),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          LocationModel updatedLocation = LocationModel(
-                            label: editLocationController.labelController.text,
-                            receiverName: editLocationController
-                                .receiverNameController.text,
-                            phoneNum: editLocationController
-                                .phoneNumberController.text,
-                            fullAddress: editLocationController
-                                .fullAddressController.text,
-                          );
-                          editLocationController.updateLocation(
-                              index, updatedLocation);
-                          Get.back();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: TColors.accent,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            LocationModel updatedLocation = LocationModel(
+                              label:
+                                  editLocationController.labelController.text,
+                              receiverName: editLocationController
+                                  .receiverNameController.text,
+                              phoneNum: editLocationController
+                                  .phoneNumberController.text,
+                              fullAddress: editLocationController
+                                  .fullAddressController.text,
+                            );
+                            editLocationController.updateLocation(
+                                index, updatedLocation);
+                            Get.back();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: TColors.accent,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
+                          child: const Text("Save"),
                         ),
-                        child: const Text("Save"),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
