@@ -29,15 +29,6 @@ class Login2 extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 30),
-                    //   child: Image.asset(
-                    //     'assets/login/tulang-anjing.png',
-                    //     height: 50,
-                    //     width: 50,
-                    //     fit: BoxFit.contain,
-                    //   ),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.only(top: 30),
                       child: Image.asset(
@@ -48,7 +39,6 @@ class Login2 extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    // Dog food image on top-right
                     Padding(
                       padding: const EdgeInsets.only(top: 30),
                       child: Image.asset(
@@ -123,11 +113,19 @@ class Login2 extends StatelessWidget {
   }
 }
 
-class _LoginForm extends StatelessWidget {
+class _LoginForm extends StatefulWidget {
   _LoginForm();
+
+  @override
+  State<_LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<_LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isObscure = true; // Untuk mengontrol visibility password
+
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -184,11 +182,20 @@ class _LoginForm extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextFormField(
-              obscureText: true,
+              obscureText: _isObscure, // Kontrol visibility password
               controller: _passwordController,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.lock),
-                suffixIcon: const Icon(Icons.visibility),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isObscure ? Icons.visibility : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isObscure = !_isObscure; // Toggle visibility
+                    });
+                  },
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
