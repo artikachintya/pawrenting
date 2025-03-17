@@ -346,7 +346,11 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                             ),
                           ))),
                       GestureDetector(
-                        onTap: () => cartController.addQty(),
+                        onTap: () {
+                          if (cartController.quantity.value < product.stock) {
+                            cartController.addQty();
+                          }
+                        },
                         child: Container(
                           width: 26,
                           height: 23,
@@ -363,7 +367,12 @@ Widget _buildBuyNowSheet(BuildContext context, ProductModel product) {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Get.to(OrderDetails(items: cartController.convertToCartItem(product, cartController.quantity).toList(), buyNow: true,)),
+                  onTap: () => Get.to(() => OrderDetails(
+                        items: cartController
+                            .convertToCartItem(product, cartController.quantity)
+                            .toList(),
+                        buyNow: true,
+                      )),
                   child: Container(
                     height: 35,
                     width: 150,
@@ -532,7 +541,11 @@ Widget _buildCartSheet(BuildContext context, ProductModel product) {
                             ),
                           ))),
                       GestureDetector(
-                        onTap: () => cartController.addQty(),
+                        onTap: () {
+                          if (cartController.quantity.value < product.stock) {
+                            cartController.addQty();
+                          }
+                        },
                         child: Container(
                           width: 26,
                           height: 23,

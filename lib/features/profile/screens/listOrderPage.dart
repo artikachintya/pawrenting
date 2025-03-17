@@ -19,7 +19,7 @@ class ListOrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavBarController controller = Get.find();
-
+  
     OrderController orderController = Get.find();
     print(orderController.orderList.length);
     return Scaffold(

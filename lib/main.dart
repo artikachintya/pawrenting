@@ -33,6 +33,9 @@ import 'package:pawrentingreborn/features/mypets/controllers/PetFoodController.d
 import 'package:pawrentingreborn/features/mypets/controllers/VaccineController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/addPet/addpetPageController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
+import 'package:pawrentingreborn/features/profile/controllers/AddLocationController.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editDataController.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editLocationController.dart';
 import 'package:pawrentingreborn/firebase_options.dart';
 import 'package:pawrentingreborn/navigationMenu.dart';
 import 'app.dart';
@@ -46,42 +49,45 @@ Future<void> main() async {
 }
 
 void lazyPutControllers() {
-  Get.lazyPut(() => addpetPageController());
-  Get.lazyPut(() => NavBarController());
-  Get.lazyPut(() => PetController());
-  Get.lazyPut(() => SignUpController());
-  Get.lazyPut(() => ProductController());
-  Get.lazyPut(() => CategoryController());
-  Get.lazyPut(() => LocationController());
-  Get.lazyPut(() => DeliveryController());
-  Get.lazyPut(() => PaymentController());
-  Get.lazyPut(() => CartController());
-  Get.lazyPut(() => OrderController());
-  Get.lazyPut(() => AddPetController);
-  Get.lazyPut(() => CommentController());
-  Get.lazyPut(() => ActivityController());
-  Get.lazyPut(() => PetFoodController());
-  Get.lazyPut(() => VaccineController());
-  Get.lazyPut(() => ThreadController());
+  Get.lazyPut(() => addpetPageController(), fenix: true);
+  Get.lazyPut(() => NavBarController(), fenix: true);
+  Get.lazyPut(() => PetController(), fenix: true);
+  Get.lazyPut(() => SignUpController(), fenix: true);
+  Get.lazyPut(() => ProductController(), fenix: true);
+  Get.lazyPut(() => CategoryController(), fenix: true);
+  Get.lazyPut(() => LocationController(), fenix: true);
+  Get.lazyPut(() => DeliveryController(), fenix: true);
+  Get.lazyPut(() => PaymentController(), fenix: true);
+  Get.lazyPut(() => CartController(), fenix: true);
+  Get.lazyPut(() => OrderController(), fenix: true);
+  Get.lazyPut(() => AddPetController(), fenix: true);
+  Get.lazyPut(() => CommentController(), fenix: true);
+  Get.lazyPut(() => ActivityController(), fenix: true);
+  Get.lazyPut(() => PetFoodController(), fenix: true);
+  Get.lazyPut(() => VaccineController(), fenix: true);
+  Get.lazyPut(() => ThreadController(), fenix: true);
+  Get.lazyPut(() => AddLocationController(), fenix: true);
+  Get.lazyPut(() => EditLocationController(), fenix: true);
+  Get.lazyPut(() => EditDataController(), fenix: true);
 }
 
 void lazyPutRepositories() {
-  Get.lazyPut(() => AuthenticationRepo());
-  Get.lazyPut(() => ProductRepo());
-  Get.lazyPut(() => CategoryRepo());
-  Get.lazyPut(() => ThreadRepo());
-  Get.lazyPut(() => ArticleRepo());
-  Get.lazyPut(() => LocationRepo());
-  Get.lazyPut(() => OrderRepo());
-  Get.lazyPut(() => NotifRepo());
-  Get.lazyPut(() => PetRepo());
-  Get.lazyPut(() => CommentRepo());
-  Get.lazyPut(() => UserRepo());
-  Get.lazyPut(() => VoucherRepo());
+  Get.lazyPut(() => AuthenticationRepo(), fenix: true);
+  Get.lazyPut(() => ProductRepo(), fenix: true);
+  Get.lazyPut(() => CategoryRepo(), fenix: true);
+  Get.lazyPut(() => ThreadRepo(), fenix: true);
+  Get.lazyPut(() => ArticleRepo(), fenix: true);
+  Get.lazyPut(() => LocationRepo(), fenix: true);
+  Get.lazyPut(() => OrderRepo(), fenix: true);
+  Get.lazyPut(() => NotifRepo(), fenix: true);
+  Get.lazyPut(() => PetRepo(), fenix: true);
+  Get.lazyPut(() => CommentRepo(), fenix: true);
+  Get.lazyPut(() => UserRepo(), fenix: true);
+  Get.lazyPut(() => VoucherRepo(), fenix: true);
 }
 
 void lazyPutServices() {
-  Get.lazyPut(() => AuthenticationService());
+  Get.lazyPut(() => AuthenticationService(), fenix: true);
 }
 
 void initializeDependencies() {

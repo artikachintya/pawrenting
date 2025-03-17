@@ -81,6 +81,36 @@ class PetModel {
       throw Exception('Error parsing pet data: $e');
     }
   }
+  factory PetModel.fromJson(Map<String, dynamic> json) {
+    return PetModel(
+      id: json['id'] ?? '',
+      breed: json['breed'] ?? '',
+      name: json['name'] ?? '',
+      dob: DateTime.parse(json['dob'] ?? DateTime.now().toIso8601String()),
+      gender: json['gender'] ?? '',
+      type: json['type'] ?? '',
+      height: (json['height'] ?? 0.0).toDouble(),
+      weight: (json['weight'] ?? 0.0).toDouble(),
+      uid: json['uid'] ?? '',
+      image: json['image'] ?? '',
+      activities: (json['activities'] as List<dynamic>?)
+              ?.map((item) => ActivityModel.fromJson(item))
+              .toList() ??
+          [],
+      foods: (json['foods'] as List<dynamic>?)
+              ?.map((item) => FoodModel.fromJson(item))
+              .toList() ??
+          [],
+      diaries: (json['diaries'] as List<dynamic>?)
+              ?.map((item) => DiaryModel.fromJson(item))
+              .toList() ??
+          [],
+      vaccines: (json['vaccines'] as List<dynamic>?)
+              ?.map((item) => VaccineModel.fromJson(item))
+              .toList() ??
+          [],
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {

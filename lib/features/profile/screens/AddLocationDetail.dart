@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/common/widgets/navbar.dart';
+import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
 import 'package:pawrentingreborn/features/profile/controllers/editLocationController.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
@@ -10,10 +11,7 @@ import 'package:pawrentingreborn/features/profile/controllers/AddLocationControl
 import 'package:pawrentingreborn/navigationMenu.dart';
 
 class AddLocationDetail extends StatelessWidget {
-  final AddLocationController addLocationController =
-      Get.put(AddLocationController());
-  final EditLocationController editLocationController =
-      Get.put(EditLocationController());
+  AddLocationController addLocationController = Get.find();
 
   AddLocationDetail({super.key});
 
@@ -28,69 +26,79 @@ class AddLocationDetail extends StatelessWidget {
       ),
       bottomNavigationBar: InsideNavBar(),
       backgroundColor: TColors.primary,
-      body: Center(
-        child: Container(
-          width: 370,
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: TColors.secondary,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Form(
-            key: addLocationController.formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildTextField("Label", "Mansion 1",
-                    controller: addLocationController.labelController),
-                buildTextField("Receiver's Name", "Kardashian",
-                    controller: addLocationController.receiverNameController),
-                buildPhoneNumberField(),
-                buildTextField("Full Address", "123 Street, 11x",
-                    maxLines: 3,
-                    controller: addLocationController.fullAddressController),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          child: Center(
+            child: Container(
+              width: 370,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: TColors.secondary,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Form(
+                key: addLocationController.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                    buildTextField("Label", "Mansion 1",
+                        controller: addLocationController.labelController),
+                    buildTextField("Receiver's Name", "Kardashian",
+                        controller:
+                            addLocationController.receiverNameController),
+                    buildPhoneNumberField(),
+                    buildTextField("Full Address", "123 Street, 11x",
+                        maxLines: 3,
+                        controller:
+                            addLocationController.fullAddressController),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: const Text("Cancel"),
                           ),
                         ),
-                        child: const Text("Cancel"),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          addLocationController.saveLocation();
-                          editLocationController
-                              .fetchUserLocations(); // 🔹 Refresh the location list
-                          Get.back();
-                          // Get.snackbar("Success", "Location details saved successfully");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: TColors.accent,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              LocationController locationController =
+                                  Get.find();
+                              locationController.fetchLocations();
+                              addLocationController.saveLocation();
+                              addLocationController.editLocationController
+                                  .fetchUserLocations(); // 🔹 Refresh the location list
+                              Get.back();
+                              // Get.snackbar("Success", "Location details saved successfully");
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: TColors.accent,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: const Text("Save"),
                           ),
                         ),
-                        child: const Text("Save"),
-                      ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

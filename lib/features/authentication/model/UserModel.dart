@@ -11,12 +11,11 @@ class UserModel {
   final String dob;
   final String password;
   final String username;
+  final double pawpay;
   final List<LocationModel> locations;
   final String profilePic;
-  final List<PetModel> pets;
 
   UserModel({
-    required this.pets, 
     required this.dob,
     required this.email,
     required this.firstName,
@@ -24,6 +23,7 @@ class UserModel {
     required this.password,
     required this.phoneNum,
     required this.username,
+    required this.pawpay,
     this.locations = const [],
     this.profilePic = '',
   });
@@ -39,6 +39,7 @@ class UserModel {
       'username': username,
       'locations': locations.map((e) => e.toJson()).toList(),
       'profilePic': profilePic,
+      'pawpay': pawpay,
     };
   }
 
@@ -54,9 +55,9 @@ class UserModel {
         dob: '',
         password: '',
         username: '',
+        pawpay: 0,
         locations: [],
         profilePic: '',
-        pets: [],
       );
     }
     return UserModel(
@@ -64,6 +65,7 @@ class UserModel {
       lastName: data['lastName'] ?? '',
       phoneNum: data['phoneNum'] ?? '',
       email: data['email'] ?? '',
+      pawpay: data['pawpay'] ?? 0,
       dob: data['dob'] ?? '',
       password: data['password'] ?? '',
       username: data['username'] ?? '',
@@ -71,7 +73,6 @@ class UserModel {
           .map((e) => LocationModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       profilePic: data['profilePic'] ?? '',
-      pets: [],
     );
   }
 }

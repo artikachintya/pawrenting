@@ -12,6 +12,7 @@ import 'package:pawrentingreborn/features/authentication/model/UserModel.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 
 class EditDataController extends GetxController {
+  RxDouble pawpay = 0.0.obs;
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final usernameController = TextEditingController();
@@ -34,6 +35,7 @@ class EditDataController extends GetxController {
       UserModel? user = await _userRepo
           .fetchUserByEmail(FirebaseAuth.instance.currentUser!.email!);
       if (user != null) {
+        pawpay.value = user.pawpay;
         firstNameController.text = user.firstName;
         lastNameController.text = user.lastName;
         usernameController.text = user.username;
@@ -83,8 +85,8 @@ class EditDataController extends GetxController {
       if (updatedData.isNotEmpty) {
         await _userRepo.updateUserByEmail(email, updatedData);
 
-        fetchUserData(); 
-        update(); 
+        fetchUserData();
+        update();
         Get.snackbar("Success", "Your data has been updated!",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: TColors.accent,
@@ -97,6 +99,33 @@ class EditDataController extends GetxController {
       }
     } catch (e) {
       Get.snackbar("Error", "Failed to update data: $e",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+    }
+  }
+
+  Future<void> updatePawpay(double newPawpay) async {
+    try {
+      String email = FirebaseAuth.instance.currentUser!.email!;
+      UserModel? user = await _userRepo.fetchUserByEmail(email);
+
+      if (user == null) {
+        Get.snackbar("Error", "User not found",
+            snackPosition: SnackPosition.BOTTOM);
+        return;
+      }
+
+      await _userRepo.updateUserByEmail(email, {"pawpay": newPawpay});
+      pawpay.value = newPawpay;
+      update(); // Update UI after setting new pawpay value
+
+      Get.snackbar("Success", "Pawpay updated successfully!",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: TColors.accent,
+          colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar("Error", "Failed to update pawpay: $e",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white);
@@ -119,7 +148,7 @@ class EditDataController extends GetxController {
 
         this.profilePic = encodedProfilePic;
         update(); // Refresh UI
-        
+
         Get.snackbar("Success", "Profile picture updated!",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: TColors.accent,
@@ -140,5 +169,29 @@ class EditDataController extends GetxController {
     print("Date of Birth: ${dobController.text}");
     print("Phone Number: ${phonenumController.text}");
     print("Email: ${emailController.text}");
+  }
+
+  void subtractPawpay(double amount) async {
+    if (amount <= 0) {
+      Get.snackbar("Error", "Amount must be greater than zero",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return;
+    }
+
+    if (pawpay.value < amount) {
+      Get.snackbar("Error", "Insufficient pawpay balance",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return;
+    }
+    print(pawpay.value);
+    print(amount);
+
+    pawpay.value -= amount;
+    update(); // Update UI after subtracting pawpay
+    await updatePawpay(pawpay.value);
   }
 }

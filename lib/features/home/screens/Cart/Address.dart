@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
 import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/AddressCard2.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editLocationController.dart';
+import 'package:pawrentingreborn/features/profile/screens/AddLocationDetail.dart';
 import 'package:pawrentingreborn/features/profile/widgets/addressCard.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -14,6 +16,26 @@ class ChooseAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     LocationController locationController = Get.find();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Get.to(() => AddLocationDetail());
+          if (result == false) {
+            print('anjay');
+            locationController
+                .fetchLocations(); // 🔄 Refresh the list after returning
+          }
+        },
+        backgroundColor: TColors.accent,
+        foregroundColor: Colors.white,
+        child: const Text(
+          '+ Add',
+          style: TextStyle(
+            fontFamily: 'Alata',
+            fontSize: 14,
+            color: Colors.white,
+          ),
+        ),
+      ),
       bottomNavigationBar: Container(
         height: 80,
         decoration: BoxDecoration(color: Colors.white),
@@ -62,20 +84,22 @@ class ChooseAddress extends StatelessWidget {
               SizedBox(
                 height: 5,
               ),
-              ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return AddressCard2(
-                      location: locationController.locationsList[index],
-                      index: index,
-                    );
-                  },
-                  separatorBuilder: (contex, index) {
-                    return SizedBox(
-                      height: 10,
-                    );
-                  },
-                  itemCount: locationController.locationsList.length),
+              Obx(() => locationController.locationsList.isEmpty
+                  ? Center(child: Text("No addresses added."))
+                  : ListView.separated(
+                      shrinkWrap: true,
+                      physics:
+                          NeverScrollableScrollPhysics(), // Prevents nested scrolling
+                      itemBuilder: (context, index) {
+                        return AddressCard2(
+                          location: locationController.locationsList[index],
+                          index: index,
+                        );
+                      },
+                      separatorBuilder: (context, index) =>
+                          SizedBox(height: 10),
+                      itemCount: locationController.locationsList.length,
+                    )),
             ],
           ),
         ),

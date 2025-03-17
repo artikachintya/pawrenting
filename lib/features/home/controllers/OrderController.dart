@@ -87,6 +87,7 @@ class OrderController extends GetxController {
   }
 
   void createOrder() async {
+    print('object');
     CartController cartController = Get.find();
     final uid = _auth.currentUser!.uid;
     final random =
@@ -96,6 +97,19 @@ class OrderController extends GetxController {
     final date = DateTime.now();
     final status = 'In Delivery';
     final totalprice = totalPrice.value;
+
+    // Check if lists are empty before accessing indices
+    if (deliveryController.deliveryList.isEmpty ||
+        paymentController.paymentList.isEmpty ||
+        locationController.locationsList.isEmpty) {
+      print('Delivery List: ${deliveryController.deliveryList}');
+      print('Payment List: ${paymentController.paymentList}');
+      print('Location List: ${locationController.locationsList}');
+
+      print("Error: One or more lists are empty!");
+      return;
+    }
+
     OrderModel order = OrderModel(
       id: id,
       uid: uid,
@@ -110,8 +124,10 @@ class OrderController extends GetxController {
       location: locationController
           .locationsList[locationController.selectedIndex.value],
     );
-    print(order.delivery.name);
+
+    print('Delivery: ' + order.delivery.name);
     await orderRepo.createOrder(order);
+
     for (var item in items) {
       productController.updateProductStock(
           item.productModel.id, item.productModel.stock - item.quantity.value);

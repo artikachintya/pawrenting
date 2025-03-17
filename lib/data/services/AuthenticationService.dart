@@ -32,9 +32,9 @@ class AuthenticationService extends GetxController {
         phoneNum: phone,
         username: username,
         dob: dob,
-        password: password, 
+        pawpay: 10000000.0,
+        password: password,
         locations: [],
-        pets: [],
       );
       await _authRepo.createUser(newUser);
     }

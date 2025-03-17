@@ -64,6 +64,22 @@ class Profile extends StatelessWidget {
                   username: editDataController.usernameController.text),
 
               //box for the profile option
+              Column(
+                children: [
+                  Text('PawPay',
+                      style: TextStyle(
+                          color: TColors.accent,
+                          fontSize: 14,
+                          fontFamily: 'Alata',
+                          fontWeight: FontWeight.bold)),
+                  Text(
+                      'Rp${editDataController.pawpay.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Albert Sans',
+                          fontWeight: FontWeight.bold)),
+                ],
+              ),
               Container(
                 margin: const EdgeInsets.only(top: 20, bottom: 30),
                 width: 365,
@@ -225,8 +241,7 @@ class Profile extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            FirebaseAuth.instance.signOut();
-                            Get.to(() => Landingpage());
+                            _showSignOutConfirmation();
                           },
                           child: Container(
                             padding: EdgeInsets.only(left: 8),
@@ -260,4 +275,63 @@ class Profile extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showSignOutConfirmation() {
+  Get.dialog(
+    Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      backgroundColor: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              "Confirm Sign Out",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              "Are you sure you want to sign out?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.back(); // Close dialog
+                  },
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(
+                        color: Colors.redAccent, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                    Get.offAll(() => Landingpage());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: TColors.accent,
+                  ),
+                  child: const Text(
+                    "Sign Out",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }

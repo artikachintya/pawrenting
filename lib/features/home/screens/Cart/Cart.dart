@@ -69,8 +69,68 @@ class MyCart extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             if (cartController.noOfCheckedItems.value == 0) {
-                              Get.snackbar('No items selected',
-                                  'Please select at least one item to checkout');
+                              Get.dialog(
+                                Dialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Container(
+                                    padding: EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "No items selected!",
+                                          style: TextStyle(
+                                            fontFamily: 'Alata',
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                        SizedBox(height: 8),
+                                        Text(
+                                          "Please select at least one item to checkout.",
+                                          style: TextStyle(
+                                            fontFamily: 'Alata',
+                                            fontSize: 16,
+                                            color: Colors.black54,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        SizedBox(height: 16),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Get.back(); // Close the dialog
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Color(
+                                                0xFF6253D0), // Purple color
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 24, vertical: 12),
+                                          ),
+                                          child: Text(
+                                            "OK",
+                                            style: TextStyle(
+                                              fontFamily: 'Alata',
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
                               return;
                             }
                             Get.to(() => OrderDetails(
