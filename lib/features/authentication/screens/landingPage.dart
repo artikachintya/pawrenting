@@ -24,7 +24,7 @@ class Landingpage extends StatelessWidget {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 65, right: 50),
+                      padding: const EdgeInsets.only(top: 65, right: 80),
                       child: Container(
                         child: Text(
                           'Simplify\nPet Parenting\nWith Us',
@@ -38,7 +38,7 @@ class Landingpage extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     Padding(
-                      padding: const EdgeInsets.only(left: 40),
+                      padding: const EdgeInsets.only(left: 0),
                       child: Container(
                         child: Text(
                           'from daily care to special moments',

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/DiaryController.dart';
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 import 'package:pawrentingreborn/features/mypets/screens/petdetails/petDiary.dart';
 
 class PetDiary extends StatelessWidget {
-  const PetDiary({
-    super.key,
-  });
+  final PetModel pet;
+  const PetDiary({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
+    DiaryController diaryController = Get.find();
     return Column(children: [
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.symmetric(horizontal: 5),
         // color: Colors.red,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const Text(
+            Text(
               'Diary',
               style: TextStyle(
                   fontSize: 24,
@@ -27,7 +29,9 @@ class PetDiary extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Get.to(() => PetDiaryPage());
+                Get.to(() => PetDiaryPage(
+                      pet: pet,
+                    ));
               },
               child: Text(
                 'More',
@@ -37,7 +41,7 @@ class PetDiary extends StatelessWidget {
           ],
         ),
       ),
-      const SizedBox(
+      SizedBox(
         height: 10,
       ),
       Container(
@@ -45,10 +49,12 @@ class PetDiary extends StatelessWidget {
             color: Colors.white, borderRadius: BorderRadius.circular(15)),
         height: 250,
         width: 375,
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'There is no entry today...',
+            diaryController.diaryList.length == 0
+                ? 'There is no entry today...'
+                : diaryController.diaryList.first.content,
             style: TextStyle(fontSize: 14, fontFamily: 'Albert Sans'),
           ),
         ),

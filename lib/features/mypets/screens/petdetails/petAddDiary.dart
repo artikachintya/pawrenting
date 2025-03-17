@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pawrentingreborn/common/widgets/appBar/appBar.dart';
 import 'package:pawrentingreborn/common/widgets/appBar/appBar2.dart';
-import 'package:pawrentingreborn/common/widgets/navbar.dart';
 import 'package:pawrentingreborn/features/mypets/controllers/navbarcontroller.dart';
-import 'package:pawrentingreborn/utils/constants/images_strings.dart';
-import 'package:pawrentingreborn/utils/constants/texts.dart';
+import 'package:pawrentingreborn/features/mypets/controllers/DiaryController.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:pawrentingreborn/navigationMenu.dart';
+
+import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
 
 class Petadddiary extends StatelessWidget {
-  const Petadddiary({super.key});
+  final PetModel pet;
+  const Petadddiary({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
@@ -19,84 +18,46 @@ class Petadddiary extends StatelessWidget {
 
     return Scaffold(
       appBar: TAppBar2(
-        title: TTexts.appBarAddDiaryTitle,
-        subtitle: TTexts.appBarAddDiarySub,
+        title: 'Add Diary',
+        subtitle: 'What did your pet do today?',
       ),
       backgroundColor: Color(0xFFE7DFF6),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            DiaryEntryBox(),
+            DiaryEntryBox(pet: pet),
           ],
         ),
       ),
-      bottomNavigationBar: InsideNavBar(),
     );
   }
 }
 
 class DiaryEntryBox extends StatefulWidget {
+  final PetModel pet;
+  const DiaryEntryBox({super.key, required this.pet});
   @override
   _DiaryEntryBoxState createState() => _DiaryEntryBoxState();
 }
 
 class _DiaryEntryBoxState extends State<DiaryEntryBox> {
-  File? _image;
   final TextEditingController _titleController =
-      TextEditingController(text: "TITLE");
+      TextEditingController(text: 'TITLE');
+  final TextEditingController _textController = TextEditingController();
+  final DiaryController diaryController = Get.find();
 
-  Future<void> _pickImage(ImageSource source) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile = await picker.pickImage(source: source);
-
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    }
+  void _saveDiary() {
+    String title = _titleController.text;
+    String text = _textController.text;
+    print(
+        'Diary saved! Title: \$title, Text: \$text, Image: \${diaryController.imageFile.value?.path}');
   }
 
   @override
   void dispose() {
     _titleController.dispose();
+    _textController.dispose();
     super.dispose();
-  }
-
-  /// Menampilkan bottom sheet untuk memilih antara Kamera atau Galeri
-  void _showPicker(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return SafeArea(
-          child: Wrap(
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text('Pilih dari Galeri'),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  _pickImage(ImageSource.gallery);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.photo_camera),
-                title: Text('Ambil dari Kamera'),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  _pickImage(ImageSource.camera);
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _removeImage() {
-    setState(() {
-      _image = null;
-    });
   }
 
   @override
@@ -115,7 +76,6 @@ class _DiaryEntryBoxState extends State<DiaryEntryBox> {
           builder: (context, constraints) {
             return Column(
               children: [
-                // Header (TITLE dan Ikon Kamera)
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: BoxDecoration(
@@ -128,7 +88,7 @@ class _DiaryEntryBoxState extends State<DiaryEntryBox> {
                     children: [
                       Expanded(
                         child: TextField(
-                          controller: _titleController,
+                          controller: diaryController.titleController,
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
@@ -136,58 +96,69 @@ class _DiaryEntryBoxState extends State<DiaryEntryBox> {
                           ),
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "TITLE",
+                            hintText: 'TITLE',
                           ),
                         ),
                       ),
                       IconButton(
-                        iconSize: 35, // Set the size of the icon
+                        iconSize: 35,
                         icon: Icon(Icons.camera_alt_outlined,
                             color: Colors.grey[700]),
-                        onPressed: () => _showPicker(context),
+                        onPressed: () => diaryController.pickImage(),
                       ),
                     ],
                   ),
                 ),
-
-                // Gambar yang diunggah
-                if (_image != null)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Stack(alignment: Alignment.topRight, children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.file(
-                          _image!,
-                          width: 250,
-                          height: 200,
-                          fit: BoxFit.cover,
+                Obx(() => diaryController.imageFile.value != null
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.file(
+                                diaryController.imageFile.value!,
+                                width: 250,
+                                height: 200,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.close, color: Colors.black),
+                              onPressed: diaryController.removeImage,
+                            ),
+                          ],
                         ),
-                      ),
-                      // Tombol hapus untuk menghapus gambar
-                      IconButton(
-                        icon: Icon(Icons.close, color: Colors.black),
-                        onPressed: _removeImage,
-                      ),
-                    ]),
-                  ),
-
-                // Input Text
+                      )
+                    : SizedBox()),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: TextField(
+                      controller: diaryController.textController,
                       maxLines: null,
                       decoration: InputDecoration(
-                        hintText: "Type here...",
+                        hintText: 'Type here...',
                         border: InputBorder.none,
                       ),
                       style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Alata-Regular'),
+                        fontSize: 15.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Alata-Regular',
+                      ),
                     ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      diaryController.addDiary(widget.pet.id);
+                      Get.back();
+                    },
+                    child: Text('Save'),
                   ),
                 ),
               ],
