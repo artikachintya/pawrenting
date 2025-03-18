@@ -20,10 +20,9 @@ class Login2 extends StatelessWidget {
               image: AssetImage('assets/login/wallpaper-login.png'),
               fit: BoxFit.cover,
             ),
-          ), // Light purple background
+          ),
           child: Column(
             children: [
-              // Header Section
               SizedBox(
                 height: 300,
                 child: Row(
@@ -51,7 +50,6 @@ class Login2 extends StatelessWidget {
                   ],
                 ),
               ),
-              // Welcome Text Section
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Align(
@@ -59,9 +57,6 @@ class Login2 extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 0),
-                      ),
                       Text(
                         'Welcome',
                         style: TextStyle(
@@ -70,9 +65,6 @@ class Login2 extends StatelessWidget {
                           fontFamily: 'AlbertSans',
                           color: Color(0xFF4749AE),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 0),
                       ),
                       Text(
                         'Back',
@@ -100,7 +92,6 @@ class Login2 extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              // Login Form Section
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: _LoginForm(),
@@ -124,19 +115,35 @@ class _LoginFormState extends State<_LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isObscure = true; // Untuk mengontrol visibility password
+  bool _isObscure = true;
+  String? _errorMessage;
 
   Future<void> _login() async {
+    setState(() {
+      _errorMessage = null;
+    });
+
     if (_formKey.currentState!.validate()) {
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text,
-          password: _passwordController.text,
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
         );
         print('Successfully Login');
         Get.to(() => Home());
-      } catch (e) {
-        print(e);
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          if (e.code == 'user-not-found') {
+            _errorMessage = 'Email not found!';
+          } else if (e.code == 'wrong-password') {
+            _errorMessage = 'Wrong Password';
+          } else if (e.code == 'too-many-requests') {
+            _errorMessage =
+                'Too many failed attempts. Please try again later!';
+          } else {
+            _errorMessage = 'Wrong username or Password';
+          }
+        });
       }
     }
   }
@@ -168,21 +175,12 @@ class _LoginFormState extends State<_LoginForm> {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 labelText: 'Email',
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 7),
-                errorStyle: const TextStyle(height: 0.8, fontSize: 12),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red.shade700),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red.shade700),
-                ),
               ),
               validator: (value) => value!.isEmpty ? 'Email is required' : null,
             ),
             const SizedBox(height: 20),
             TextFormField(
-              obscureText: _isObscure, // Kontrol visibility password
+              obscureText: _isObscure,
               controller: _passwordController,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.lock),
@@ -192,7 +190,7 @@ class _LoginFormState extends State<_LoginForm> {
                   ),
                   onPressed: () {
                     setState(() {
-                      _isObscure = !_isObscure; // Toggle visibility
+                      _isObscure = !_isObscure;
                     });
                   },
                 ),
@@ -200,19 +198,18 @@ class _LoginFormState extends State<_LoginForm> {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 labelText: 'Password',
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 7),
-                errorStyle: const TextStyle(height: 0.8, fontSize: 12),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red.shade700),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red.shade700),
-                ),
               ),
               validator: (value) =>
                   value!.isEmpty ? 'Password is required' : null,
             ),
+            if (_errorMessage != null) // Tampilkan error jika ada
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  _errorMessage!,
+                  style: const TextStyle(color: Colors.red, fontSize: 14),
+                ),
+              ),
             const SizedBox(height: 10),
             Align(
               alignment: Alignment.centerRight,
