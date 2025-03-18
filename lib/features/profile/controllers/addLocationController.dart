@@ -49,10 +49,10 @@ class AddLocationController extends GetxController {
         await locationRepo.addLocation(newLocation);
   await editLocationController.fetchUserLocations(); // 🔹 Refresh locations list after saving
 
-        Get.snackbar("Success", "Location added successfully!",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: TColors.accent,
-            colorText: Colors.white);
+        // Get.snackbar("Success", "Location added successfully!",
+        //     snackPosition: SnackPosition.BOTTOM,
+        //     backgroundColor: TColors.accent,
+        //     colorText: Colors.white);
 
         clearForm(); 
         // ✅ Clear input fields after saving

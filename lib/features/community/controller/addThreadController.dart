@@ -95,8 +95,8 @@ class AddThreadController extends GetxController {
         Future.delayed(Duration(milliseconds: 300), () {
         if (!Get.isSnackbarOpen) {
           print("Menampilkan Snackbar..");
-          Get.snackbar('Success', 'Thread created successfully',
-              snackPosition: SnackPosition.TOP);
+          // Get.snackbar('Success', 'Thread created successfully',
+          //     snackPosition: SnackPosition.TOP);
         } else {
           print("Snackbar gagal ditampilkan karena sudah terbuka.");
         }

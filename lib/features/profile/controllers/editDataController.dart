@@ -87,10 +87,10 @@ class EditDataController extends GetxController {
 
         fetchUserData();
         update();
-        Get.snackbar("Success", "Your data has been updated!",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: TColors.accent,
-            colorText: Colors.white);
+        // Get.snackbar("Success", "Your data has been updated!",
+        //     snackPosition: SnackPosition.BOTTOM,
+        //     backgroundColor: TColors.accent,
+        //     colorText: Colors.white);
       } else {
         Get.snackbar("No Changes", "No changes detected.",
             snackPosition: SnackPosition.BOTTOM,
@@ -144,10 +144,10 @@ class EditDataController extends GetxController {
         this.profilePic = encodedProfilePic;
         update(); // Refresh UI
 
-        Get.snackbar("Success", "Profile picture updated!",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: TColors.accent,
-            colorText: Colors.white);
+        // Get.snackbar("Success", "Profile picture updated!",
+        //     snackPosition: SnackPosition.BOTTOM,
+        //     backgroundColor: TColors.accent,
+        //     colorText: Colors.white);
       }
     } catch (e) {
       Get.snackbar("Error", "Failed to update profile picture: $e",

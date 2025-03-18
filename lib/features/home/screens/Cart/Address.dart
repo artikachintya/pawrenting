@@ -15,6 +15,7 @@ class ChooseAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LocationController locationController = Get.find();
+    EditLocationController editLocationController = Get.find();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -84,7 +85,7 @@ class ChooseAddress extends StatelessWidget {
               SizedBox(
                 height: 5,
               ),
-              Obx(() => locationController.locationsList.isEmpty
+              Obx(() => editLocationController.userLocations.isEmpty
                   ? Center(child: Text("No addresses added."))
                   : ListView.separated(
                       shrinkWrap: true,
@@ -92,13 +93,13 @@ class ChooseAddress extends StatelessWidget {
                           NeverScrollableScrollPhysics(), // Prevents nested scrolling
                       itemBuilder: (context, index) {
                         return AddressCard2(
-                          location: locationController.locationsList[index],
+                          location: editLocationController.userLocations[index],
                           index: index,
                         );
                       },
                       separatorBuilder: (context, index) =>
                           SizedBox(height: 10),
-                      itemCount: locationController.locationsList.length,
+                      itemCount: editLocationController.userLocations.length,
                     )),
             ],
           ),

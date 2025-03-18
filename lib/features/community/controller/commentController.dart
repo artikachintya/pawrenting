@@ -61,11 +61,11 @@ void addComment(String threadId) async {
 
     Future.delayed(Duration(milliseconds: 300), () {
       if (!Get.isSnackbarOpen) {
-        Get.snackbar(
-          'Success', 
-          'Comment added successfully',
-          snackPosition: SnackPosition.TOP,
-        );
+        // Get.snackbar(
+        //   'Success', 
+        //   'Comment added successfully',
+        //   snackPosition: SnackPosition.TOP,
+        // );
       }
     });
       

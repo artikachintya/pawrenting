@@ -77,10 +77,10 @@ class AddLocationDetail extends StatelessWidget {
                             onPressed: () async {
                               LocationController locationController =
                                   Get.find();
-                              locationController.fetchLocations();
                               addLocationController.saveLocation();
                               addLocationController.editLocationController
                                   .fetchUserLocations(); // 🔹 Refresh the location list
+                              locationController.fetchLocations();
                               Get.back();
                               // Get.snackbar("Success", "Location details saved successfully");
                             },

@@ -11,6 +11,7 @@ import 'package:pawrentingreborn/features/home/screens/widgets/NoVoucher.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/PriceDetails.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/VoucherCard.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/Vouchers.dart';
+import 'package:pawrentingreborn/features/profile/controllers/editLocationController.dart';
 import 'package:pawrentingreborn/features/profile/screens/AddLocationDetail.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -22,16 +23,17 @@ class OrderDetails extends StatelessWidget {
   const OrderDetails({super.key, required this.items, required this.buyNow});
 
   /// Fetches locations before rendering UI
-  Future<void> _loadLocations(OrderController orderController) async {
-    await orderController.locationController.fetchLocations();
+  Future<void> _loadLocations(EditLocationController locationController) async {
+    await locationController.fetchUserLocations();
+    print('length' + locationController.userLocations.length.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     OrderController orderController = Get.find();
-
+    EditLocationController locationController = Get.find();
     return FutureBuilder(
-      future: _loadLocations(orderController),
+      future: _loadLocations(locationController),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
@@ -96,7 +98,8 @@ class OrderDetails extends StatelessWidget {
   /// Address section that waits until locations are loaded
   Widget _buildAddressSection(OrderController orderController) {
     return Obx(() {
-      var locations = orderController.locationController.locationsList;
+      EditLocationController editLocationController = Get.find();
+      var locations = editLocationController.userLocations;
       if (locations.isEmpty) {
         return GestureDetector(
           onTap: () => Get.to(() => AddLocationDetail()),
