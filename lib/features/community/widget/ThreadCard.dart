@@ -17,8 +17,6 @@ class Thread extends StatelessWidget {
   final ThreadMessage message;
 
   @override
-
-
   Widget build(BuildContext context) {
     Uint8List? imageBytes;
     try {
@@ -90,8 +88,8 @@ class Thread extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.cover,
                           child: imageBytes != null
-                            ? Image.memory(imageBytes, fit: BoxFit.cover)
-                            : const Icon(Icons.image_not_supported),
+                              ? Image.memory(imageBytes, fit: BoxFit.cover)
+                              : const Icon(Icons.image_not_supported),
                         ),
                       ),
                     ),

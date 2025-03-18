@@ -42,49 +42,50 @@ class PetDiaryPage extends StatelessWidget {
             title: 'Pet Diary', subtitle: 'Add your pet\'s daily activities'),
         bottomNavigationBar: InsideNavBar(),
         body: Obx(() => SingleChildScrollView(
-                child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-              child: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          color: Colors.white),
-                      width: 120,
-                      height: 40,
-                      child: GestureDetector(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            ImageIcon(AssetImage(TImages.calendar)),
-                            SizedBox(width: 5),
-                            Text(
-                              'Today',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'Alata',
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                        onTap: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {}
-                        },
-                      ),
-                    ),
-                    SizedBox(height: TSize.verticalSpacing),
-                    diaryController.diaryList.length == 0
-                        ? NoDiary(pet: pet)
-                        : GridView.builder(
+            child: diaryController.diaryList.length == 0
+                ? NoDiary(pet: pet)
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 25),
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40),
+                                color: Colors.white),
+                            width: 120,
+                            height: 40,
+                            child: GestureDetector(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ImageIcon(AssetImage(TImages.calendar)),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'Today',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Alata',
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2101),
+                                );
+                                if (pickedDate != null) {}
+                              },
+                            ),
+                          ),
+                          SizedBox(height: TSize.verticalSpacing),
+                          GridView.builder(
                             itemCount: diaryController.diaryList.length,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
@@ -97,10 +98,10 @@ class PetDiaryPage extends StatelessWidget {
                                 diary: diaryController.diaryList[
                                     index]), // DiaryCard(diary: diaryController.diaryList[index],),
                           )
-                  ],
-                ),
-              ),
-            ))));
+                        ],
+                      ),
+                    ),
+                  ))));
   }
 }
 

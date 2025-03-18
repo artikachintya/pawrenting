@@ -29,6 +29,7 @@ class PetList extends StatelessWidget {
     PetFoodController foodController = Get.find();
     DiaryController diaryController = Get.find();
     AddPetController addPetController = Get.put(AddPetController());
+    print('petlist' + petController.petList.length.toString());
 
     return Container(
         decoration: BoxDecoration(

@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 import 'package:pawrentingreborn/features/mypets/models/PetModel.dart';
+import 'package:pawrentingreborn/utils/constants/colors.dart';
 
 class Petadddiary extends StatelessWidget {
   final PetModel pet;
@@ -153,12 +154,26 @@ class _DiaryEntryBoxState extends State<DiaryEntryBox> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: () {
+                  child: GestureDetector(
+                    onTap: () {
                       diaryController.addDiary(widget.pet.id);
                       Get.back();
                     },
-                    child: Text('Save'),
+                    child: Container(
+                      height: 40,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          color: TColors.accent,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                          child: Text(
+                        'Save',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      )),
+                    ),
                   ),
                 ),
               ],

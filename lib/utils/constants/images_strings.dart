@@ -18,6 +18,8 @@ class TImages {
   static const String comment = 'assets/icons/comment.png';
   static const String femaleIcon = 'assets/icons/female.png';
   static const String picIcon = 'assets/icons/pic.png';
+  static const String discount = 'assets/icons/discount.png';
+  static const String pawpay = 'assets/icons/pawPay.png';
   static const String petCard = 'assets/images/petcard.png';
   static const String whiskey = 'assets/images/whiskey2.jpg';
 

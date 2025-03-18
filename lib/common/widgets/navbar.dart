@@ -68,7 +68,10 @@ class InsideNavBar extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: GestureDetector(
-                  onTap: () => Get.to(TranslatePet()),
+                  onTap: () {
+                    Get.to(TranslatePet());
+                    controller.curIndex.value = 2;
+                  },
                   child: Container(
                       padding: EdgeInsets.all(12),
                       width: 100,

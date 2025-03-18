@@ -9,6 +9,7 @@ import 'package:pawrentingreborn/features/home/controllers/DeliveryController.da
 import 'package:pawrentingreborn/features/home/controllers/LocationController.dart';
 import 'package:pawrentingreborn/features/home/controllers/PaymentController.dart';
 import 'package:pawrentingreborn/features/home/controllers/ProductController.dart';
+import 'package:pawrentingreborn/features/home/controllers/VoucherController.dart';
 import 'package:pawrentingreborn/features/home/models/cartItemModel.dart';
 import 'package:pawrentingreborn/features/home/models/orderModel.dart';
 import 'package:pawrentingreborn/features/profile/controllers/editDataController.dart';
@@ -20,6 +21,7 @@ class OrderController extends GetxController {
   PaymentController paymentController = Get.find();
   ProductController productController = Get.find();
   LocationController locationController = Get.find();
+  VoucherController voucherController = Get.find();
   final orderRepo = OrderRepo.instance;
   final _auth = FirebaseAuth.instance;
   final List<OrderModel> orderList = <OrderModel>[];
@@ -36,8 +38,8 @@ class OrderController extends GetxController {
   }
 
   void updateTotalPrice() {
-    deliveryPrice.value = deliveryController
-        .deliveryList[deliveryController.selectedIndex.value].price;
+    deliveryPrice.value = !voucherController.isSelected.value ? deliveryController
+        .deliveryList[deliveryController.selectedIndex.value].price : 0.0;
     totalPrice.value = cartController.totalCartPrice.value +
         deliveryController
             .deliveryList[deliveryController.selectedIndex.value].price +

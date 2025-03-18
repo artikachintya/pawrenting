@@ -61,6 +61,7 @@ class Voucher extends StatelessWidget {
             ),
             // Voucher card section
             ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
               itemCount: voucherController.voucherList.length,
               shrinkWrap: true,
               // physics: const NeverScrollableScrollPhysics(),

@@ -85,64 +85,67 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.transparent,
           appBar: TAppBar(onMain: true, onPetDetails: false),
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 15),
-                _carouselSlider(),
-                SizedBox(height: 30),
-                _chooseFeature(),
-                SizedBox(height: 30),
-                _textPopular(),
-                SizedBox(
-                  height: 20,
-                ),
-                
-                _popularCategory(),
-                SizedBox(height: 20),
-                _textProduct(),
-                SizedBox(height: 10),
-                  Container(
-                  width: double.maxFinite,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      searchbar(
-                    title: 'search products here', 
-                    controller: searchController, 
-                    onChanged: (value) {
-                      pController.searchProduct(value);
-                  }
-                ),
-                    ],
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 32),
+              child: Column(
+                children: [
+                  SizedBox(height: 15),
+                  _carouselSlider(),
+                  SizedBox(height: 30),
+                  _chooseFeature(),
+                  SizedBox(height: 30),
+                  _textPopular(),
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
-                SizedBox(height: 10,),
+                  _popularCategory(),
+                  SizedBox(height: 20),
+                  _textProduct(),
+                  SizedBox(height: 10),
+                  Container(
+                    width: double.maxFinite,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      children: [
+                        searchbar(
+                            title: 'search products here',
+                            controller: searchController,
+                            onChanged: (value) {
+                              pController.searchProduct(value);
+                            }),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Obx(() {
-                        final isSearching =
-                            pController.searchResult.isNotEmpty ||
-                                pController.isSearching.value;
+                    final isSearching = pController.searchResult.isNotEmpty ||
+                        pController.isSearching.value;
 
-                        if (isSearching &&
-                            pController.searchResult.isEmpty) {
-                          return Center(
-                            child: Text(
-                              "Product not found",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          );
-                        }
+                    if (isSearching && pController.searchResult.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "Product not found",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      );
+                    }
 
-                        final displayedProducts = isSearching
-                            ? pController.searchResult
-                            : pController.productsList;
+                    final displayedProducts = isSearching
+                        ? pController.searchResult
+                        : pController.productsList;
 
-                        return _product(products: displayedProducts,);
-                      })
-              ],
+                    return _product(
+                      products: displayedProducts,
+                    );
+                  })
+                ],
+              ),
             ),
           ),
         ));

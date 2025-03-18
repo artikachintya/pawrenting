@@ -58,8 +58,10 @@ class Profile extends StatelessWidget {
               //profile account section
               //box for the profile option
               Profilepictandusername(
-                  profilePicture: MemoryImage(
-                      base64Decode(editDataController.profilePic ?? "")),
+                  profilePicture: editDataController.profilePic != null
+                      ? MemoryImage(
+                          base64Decode(editDataController.profilePic!))
+                      : null,
                   name: editDataController.firstNameController.text,
                   username: editDataController.usernameController.text),
 
@@ -72,12 +74,25 @@ class Profile extends StatelessWidget {
                           fontSize: 14,
                           fontFamily: 'Alata',
                           fontWeight: FontWeight.bold)),
-                  Text(
-                      'Rp${editDataController.pawpay.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Albert Sans',
-                          fontWeight: FontWeight.bold)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image(
+                        image: AssetImage(TImages.pawpay),
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                          'Rp${editDataController.pawpay.value.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Albert Sans',
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ),
                 ],
               ),
               Container(
@@ -278,6 +293,7 @@ class Profile extends StatelessWidget {
 }
 
 void _showSignOutConfirmation() {
+  NavBarController navBarController = Get.find();
   Get.dialog(
     Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -315,6 +331,7 @@ void _showSignOutConfirmation() {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    navBarController.curIndex.value = 0;
                     FirebaseAuth.instance.signOut();
                     Get.offAll(() => Landingpage());
                   },

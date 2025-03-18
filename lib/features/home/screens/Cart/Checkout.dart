@@ -7,6 +7,7 @@ import 'package:pawrentingreborn/features/home/screens/Cart/Payment.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/AddressSection.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/DeliveryCard.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/ItemSection.dart';
+import 'package:pawrentingreborn/features/home/screens/widgets/NoVoucher.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/PriceDetails.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/VoucherCard.dart';
 import 'package:pawrentingreborn/features/home/screens/widgets/Vouchers.dart';
@@ -285,29 +286,46 @@ void _showBottomSheet(BuildContext context) {
                     expansionCallback: (panelIndex, isExpanded) {
                       controller.togglePanel(panelIndex);
                     },
-                    children:
-                        List.generate(controller.isExpanded.length, (index) {
-                      return ExpansionPanel(
-                          backgroundColor: Colors.transparent,
-                          headerBuilder: (context, isExpanded) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  index == 0
-                                      ? 'Usable Vouchers'
-                                      : 'Unusable Vouchers',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                              ],
-                            );
-                          },
-                          body: Vouchers(),
-                          isExpanded: controller.isExpanded[index]);
-                    }),
+                    children: [
+                      // Usable Vouchers Panel
+                      ExpansionPanel(
+                        backgroundColor: Colors.transparent,
+                        headerBuilder: (context, isExpanded) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Usable Vouchers (1)',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
+                              ),
+                            ],
+                          );
+                        },
+                        body: Vouchers(),
+                        isExpanded: controller.isExpanded[0],
+                      ),
+                      // Unusable Vouchers Panel
+                      ExpansionPanel(
+                        backgroundColor: Colors.transparent,
+                        headerBuilder: (context, isExpanded) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Unusable Vouchers (1)',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
+                              ),
+                            ],
+                          );
+                        },
+                        body: NoVoucher(),
+                        isExpanded: controller.isExpanded[1],
+                      ),
+                    ],
                   )),
               SizedBox(
                 height: 20,

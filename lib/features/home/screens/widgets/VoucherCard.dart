@@ -1,5 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:pawrentingreborn/features/home/controllers/VoucherController.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
 
@@ -10,6 +13,7 @@ class VoucherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    VoucherController voucherController = Get.find();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       height: 60,
@@ -31,10 +35,14 @@ class VoucherCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '3 available vouchers',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                Obx(
+                  () => Text(
+                    voucherController.isSelected.value
+                        ? 'Free Delivery!'
+                        : '1 available vouchers',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                )
               ],
             ),
           ),

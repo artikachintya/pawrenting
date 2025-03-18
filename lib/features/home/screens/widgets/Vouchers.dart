@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pawrentingreborn/features/home/controllers/OrderController.dart';
 import 'package:pawrentingreborn/features/home/controllers/VoucherController.dart';
 import 'package:pawrentingreborn/utils/constants/colors.dart';
 import 'package:pawrentingreborn/utils/constants/images_strings.dart';
@@ -12,8 +13,12 @@ class Vouchers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(VoucherController());
+    OrderController orderController = Get.find();
     return Obx(() => GestureDetector(
-          onTap: () => controller.toggleVoucher(),
+          onTap: () {
+            controller.toggleVoucher();
+            orderController.updateTotalPrice();
+          },
           child: Container(
               width: double.maxFinite,
               height: 80,

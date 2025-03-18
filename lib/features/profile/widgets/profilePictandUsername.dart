@@ -51,7 +51,7 @@ class Profilepictandusername extends StatelessWidget {
                       height: 110,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: TColors.gray,
+                        color: TColors.accent,
                         image: DecorationImage(
                           image: AssetImage(TImages.userProfilePic),
                           fit: BoxFit.cover,
