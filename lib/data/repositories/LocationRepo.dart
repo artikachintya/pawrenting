@@ -128,7 +128,7 @@ class LocationRepo extends GetxController {
       print("Fetched ${snapshot.docs.length} locations"); // Debugging
       return snapshot.docs.map((e) {
         print("Location Data: ${e.data()}"); // Debugging
-        return LocationModel.fromJson(e.data() as Map<String, dynamic>);
+        return LocationModel.fromJson(e.data() as Map<String, dynamic>); //test
       }).toList();
     }
 }
